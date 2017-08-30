@@ -1,0 +1,112 @@
+.sidebar-school-details {
+  border-radius: 0;
+  position: fixed;
+  z-index: 1000;
+  top: 55px;
+  left: 408px;
+  width: 408px;
+  margin-left: -408px;
+  border: none;
+  border-radius: 0;
+  overflow-y: auto;
+  background-color: #ffffff;
+  bottom: 0;
+  overflow-x: hidden;
+  padding-bottom: 40px;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.sidebar-school-details .list-group a.list-group-item {
+  background: #ffffff;
+  border: 0;
+  border-radius: 0;
+  color: rgba(0, 0, 0, 0.87);
+  text-decoration: none;
+}
+.sidebar-school-details .list-group a.list-group-item .fa {
+  margin-right: 10px;
+}
+.sidebar-school-details .list-group a:hover {
+  background: #151515; /*nc*/
+  color: rgba(0, 0, 0, 0.87);
+}
+.sidebar-school-details .list-group a.router-link-active {
+  background: #151515; /*nc*/
+  color: rgba(0, 0, 0, 0.87);
+}
+.sidebar-school-details .sidebar-dropdown *:focus {
+  border-radius: none;
+  border: none;
+}
+.sidebar-school-details .sidebar-dropdown .panel-title {
+  font-size: 1rem;
+  height: 50px;
+  margin-bottom: 0;
+}
+.sidebar-school-details .sidebar-dropdown .panel-title a {
+  color: #999; /*nc*/
+  text-decoration: none;
+  font-weight: 400;
+  background: #222; /*nc*/
+}
+.sidebar-school-details .sidebar-dropdown .panel-title a span {
+  position: relative;
+  display: block;
+  padding: 0.75rem 1.5rem;
+  padding-top: 1rem;
+}
+.sidebar-school-details .sidebar-dropdown .panel-title a:hover, .sidebar .sidebar-dropdown .panel-title a:focus {
+  color: rgba(0, 0, 0, 0.87);
+  outline: none;
+  outline-offset: -2px;
+}
+.sidebar-school-details .sidebar-dropdown .panel-title:hover {
+  background: #151515; /*nc*/
+}
+.sidebar-school-details .sidebar-dropdown .panel-collapse {
+  border-radious: 0;
+  border: none;
+}
+.sidebar-school-details .sidebar-dropdown .panel-collapse .panel-body .list-group-item {
+  border-radius: 0;
+  background-color: #222; /*nc*/
+  border: 0 solid transparent;
+}
+.sidebar-school-details .sidebar-dropdown .panel-collapse .panel-body .list-group-item a {
+  color: #999; /*nc*/
+}
+.sidebar-school-details .sidebar-dropdown .panel-collapse .panel-body .list-group-item a:hover {
+  color: rgba(0, 0, 0, 0.87);
+}
+.sidebar-school-details .sidebar-dropdown .panel-collapse .panel-body .list-group-item:hover {
+  background: #151515; /*nc*/
+}
+.nested-menu .list-group-item {
+  cursor: pointer;
+}
+.nested-menu .nested {
+  list-style-type: none;
+}
+.nested-menu ul.submenu {
+  display: none;
+  height: 0;
+}
+.nested-menu .expand ul.submenu {
+  display: block;
+  list-style-type: none;
+  height: auto;
+}
+.nested-menu .expand ul.submenu li a {
+  color: rgba(0, 0, 0, 0.87);
+  padding: 10px;
+  display: block;
+}
+@media screen and (max-width: 992px) {
+  .sidebar-school-details {
+    top: 54px;
+    left: 0px;
+  }
+}

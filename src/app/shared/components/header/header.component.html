@@ -1,0 +1,31 @@
+<div class="pos-f-t fixed-top header">
+  <nav class="navbar navbar-inverse bg-inverse navbar-toggleable-md">
+    <button class="navbar-toggler navbar-toggler-left" (click)="toggleSidebar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand ml-6" href="#">Escolas da RMSP</a>
+
+    <ng2-completer [(ngModel)]="searchField"
+                   [datasource]="schoolListFiltered"
+                   [minSearchLength]="3"
+                   [selectOnClick]="true"
+                   [placeholder]="placeholderSearch"
+                   (selected)="onSchoolSelected($event)"
+                   [inputClass]="" >
+    </ng2-completer>
+    <p class="text-info">{{selectedSchoolID}}</p>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ml-auto mt-2 mt-md-0">
+        <li class="nav-item dropdown" ngbDropdown>
+          <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
+            <i class="fa fa-language"></i> {{ 'language' | translate }} <b class="caret"></b>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="javascript:void(0)" (click)="changeLang('en')">English</a>
+            <a class="dropdown-item" href="javascript:void(0)" (click)="changeLang('pt')">Portugues</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>

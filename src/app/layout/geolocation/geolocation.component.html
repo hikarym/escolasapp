@@ -1,0 +1,19 @@
+<div [@routerTransition] class="map-container">
+  <div class="row" style="height: 100%">
+    <div class="col-lg-12" style="height: 100%">
+      <agm-map id="schools-geolocation"
+               [latitude]="-23.552133"
+               [longitude] = "-46.6331418"
+               [zoom] = "15">
+        <agm-marker *ngFor = "let escola of schoolsLocation"
+                    [latitude] = "convertToDouble(convertStringToNumber(escola.Latitude))"
+                    [longitude] = "convertToDouble(convertStringToNumber(escola.Longitude))"
+                    [iconUrl] = "'assets/images/marcador_small.png'"
+        >
+        </agm-marker>
+      </agm-map>
+    </div>
+  </div>
+</div>
+
+

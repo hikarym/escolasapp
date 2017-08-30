@@ -1,0 +1,23 @@
+.main-container {
+  margin-top: 56px;
+  margin-left: 320px;
+  padding: 10px;
+  -ms-overflow-x: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  overflow: hidden;
+  position: fixed;
+  background: white;
+  /*overflow-y: auto;*/
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  bottom: -13px;
+}
+@media screen and (max-width: 992px) {
+  .main-container {
+    margin-left: 0px !important;
+  }
+}
+
+

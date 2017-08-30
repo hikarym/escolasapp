@@ -1,0 +1,39 @@
+:host {
+  display: block;
+}
+.welcome-page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  background: #222;
+  text-align: center;
+  color: #fff;
+  padding: 10em;
+}
+.welcome-page .col-lg-8 {
+  padding: 0;
+}
+.welcome-page .rounded-btn {
+  -webkit-border-radius: 50px;
+  border-radius: 50px;
+  color: rgba(255, 255, 255, 0.8);
+  background: #222;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  font-size: 18px;
+  line-height: 40px;
+  padding: 0 25px;
+}
+.welcome-page .rounded-btn:hover, .welcome-page .rounded-btn:focus, .welcome-page .rounded-btn:active, .welcome-page .rounded-btn:visited {
+  color: rgba(255, 255, 255, 1);
+  border: 2px solid rgba(255, 255, 255, 1);
+  outline: none;
+}
+.welcome-page h1 {
+  font-weight: 300;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 36px;
+}
