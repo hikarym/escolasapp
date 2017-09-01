@@ -7,32 +7,32 @@ var SchemaTypes = mongoose.Schema.Types;
 
 
 var NewSchoolSchema = new mongoose.Schema({
-  ID : Number,
-  CODESC : Number,
-  CODESC_TX : Number,
-  NO_ENTIDAD : String,
-  NOMEMUN : String,
-  FK_COD_DIS : Number,
-  ID_DEPENDE : Number,
-  BAIRRO : String,
-  CEP : Number,
-  ENDERECO : String,
-  NUMERO : Number,
-  DDD : Number,
-  TELEFONE : Number,
-  PK_COD_MUNICIPIO : Number,
-  NO_REGIAO : String,
-  SIGLA : String,
-  PK_COD_ESTADO : Number,
-  Dependad : String,
-  NO_ENTIDADE : String,
-  DESC_SITUACAO_FUNCIONAMENTO : String,
-  ID_LOCALIZACAO : String,
-  ID_LABORATORIO_INFORMATICA : String,
-  ID_QUADRA_ESPORTES_COBERTA : String,
-  ID_QUADRA_ESPORTES_DESCOBERTA : String,
-  ID_BIBLIOTECA : String,
-  censo_TxAprov_2007_5EF_escola : Number,
+  ID : Number, // 1
+  CODESC : Number, // 35080548
+  CODESC_TX : Number, // 35080548
+  NO_ENTIDAD : String, //; "BAIRRO DOS BARNABES RECANTO DAS ORQUIDEAS",
+  NOMEMUN : String, // "JUQUITIBA",
+  FK_COD_DIS : Number, // 352620910
+  ID_DEPENDE : Number, // 2
+  BAIRRO : String, // "BAIRRO DOS BARNABES"
+  CEP : Number, // 6950000
+  ENDERECO : String, // "RUA ANTONIO FRANCISCO PEREIRA",
+  NUMERO : Number, // 285
+  DDD : Number, // 11
+  TELEFONE : Number, // 46841502
+  PK_COD_MUNICIPIO : Number, // 3526209
+  NO_REGIAO : String, // "Sudeste",
+  SIGLA : String, // "SP",
+  PK_COD_ESTADO : Number, // 35,
+  Dependad : String, // "Estadual",
+  NO_ENTIDADE : String, // "RECANTO DAS ORQUIDEAS",
+  DESC_SITUACAO_FUNCIONAMENTO : String, // "Em Atividade",
+  ID_LOCALIZACAO : String, // "Urbana",
+  ID_LABORATORIO_INFORMATICA : String, // "Não",
+  ID_QUADRA_ESPORTES_COBERTA : String, // "Não",
+  ID_QUADRA_ESPORTES_DESCOBERTA : String, // "Sim",
+  ID_BIBLIOTECA : String, // "Não",
+  censo_TxAprov_2007_5EF_escola : Number, // 93.6,
   censo_TxAprov_2007_9EF_escola : Number, // "NA",
   censo_TxAprov_2007_3EM_escola : Number, // "NA",
   censo_TxAband_2007_1EM_escola : Number, // "NA",
@@ -294,11 +294,11 @@ var NewSchoolSchema = new mongoose.Schema({
   ENEM_CH_2013_3M_SES : Number, // "NA",
   ENEM_CN_2013_3M_SES : Number, // "NA",
   ENEM_Geral_2013_3M_SES : Number, // "NA",
-  nivel_medio : String,
-  nivel_fund : String,
-  niveis_fund_medio : String,
-  nivel_infan : String,
-  modalidade_eja : String,
+  nivel_medio : String, // "Nao oferta MEDIO"
+  nivel_fund : String, // "Oferta FUND"
+  niveis_fund_medio : String, // "Oferta FUND.Nao oferta MEDIO"
+  nivel_infan : String, // "Nao oferta INFANTIL",
+  modalidade_eja : String, // "Nao oferta EJA",
   lon : Number, // -47.14398600000312,
   lat : Number // -23.986885999998258
   //updated_at: { type: Date, default: Date.now },

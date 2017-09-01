@@ -9,7 +9,12 @@
       "outDir": "dist",
       "assets": [
         "assets",
-        "favicon.ico"
+        "favicon.ico",
+        {
+          "glob": "**/*",
+          "input": "../node_modules/leaflet/dist/images",
+          "output": "./assets/"
+        }
       ],
       "index": "index.html",
       "main": "main.ts",
@@ -21,7 +26,8 @@
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "../node_modules/font-awesome/css/font-awesome.css",
-        "styles.css"
+        "styles.css",
+        "../node_modules/leaflet/dist/leaflet.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
