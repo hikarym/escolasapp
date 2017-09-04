@@ -7,13 +7,13 @@ import {Http, Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class EscolaService {
+export class SchoolService {
 
   constructor(private http: Http) { }
 
-  getAllEscolas() {
+  getAllSchools() {
     return new Promise((resolve, reject) => {
-      this.http.get('/escola')
+      this.http.get('/school')
         .map(res => res.json())
         .subscribe(res => {
           resolve(res);
@@ -37,7 +37,7 @@ export class EscolaService {
 
   showEscola(id) {
     return new Promise((resolve, reject) => {
-      this.http.get('/escola/' + id)
+      this.http.get('/school/' + id)
         .map(res => res.json())
         .subscribe(res => {
           resolve(res);

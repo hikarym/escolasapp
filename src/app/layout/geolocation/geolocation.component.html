@@ -5,14 +5,15 @@
                [latitude]="-23.552133"
                [longitude] = "-46.6331418"
                [zoom] = "15">
-        <agm-marker *ngFor = "let escola of schoolsLocation"
+        <agm-marker *ngFor = "let escola of schoolsCoordinates"
                     [latitude] = "convertToDouble(convertStringToNumber(escola.Latitude))"
                     [longitude] = "convertToDouble(convertStringToNumber(escola.Longitude))"
                     [iconUrl] = "'assets/images/marcador_small.png'"
         >
         </agm-marker>
       </agm-map>-->
-      <div style="height: 100%;" leaflet [leafletOptions]="options" [leafletLayers]="layers"></div>
+      <!--<div style="height: 100%;" leaflet [leafletOptions]="options2" [leafletLayers]="neighboringSchoolsLayer"></div>-->
+      <div id="mymap" style="height: 100%;" leaflet [leafletOptions]="options2" [leafletLayers]="neighboringSchoolsLayer" ></div>
     </div>
   </div>
 </div>

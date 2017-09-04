@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
-import {EscolaService} from '../../../escola.service';
+import {SchoolService} from '../../../school.service';
 import {CompleterData, CompleterItem, CompleterService} from 'ng2-completer';
 
 @Component({
@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
   constructor(private translate: TranslateService,
               public router: Router,
               private completerService: CompleterService,
-              private schoolService: EscolaService) {
+              private schoolService: SchoolService) {
     // this.toggleSidebar();
     this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd && window.innerWidth <= 992) {
@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit {
       }
     });
     this.URL_ROOT = 'http://172.16.1.32:3005/';
-    this.schoolListFiltered = completerService.remote( this.URL_ROOT + 'escola/search?text=','NO_ENTIDAD','NO_ENTIDAD_BAIRRO');
+    this.schoolListFiltered = completerService.remote( this.URL_ROOT + 'school/search?text=','NO_ENTIDAD','NO_ENTIDAD_BAIRRO');
     this.placeholderSearch = 'Digite o nome da escola de seu interesse';
     this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd && window.innerWidth <= 992) {
@@ -51,8 +51,8 @@ export class HeaderComponent implements OnInit {
   }
 
   getSchoolInformation(schoolID: string) {
-    console.log(this.URL_ROOT + 'escola/school-details/' + schoolID);
-    // this.router.navigate([this.URL_ROOT + 'escola/school-details/' + schoolID]);
+    console.log(this.URL_ROOT + 'school/school-details/' + schoolID);
+    // this.router.navigate([this.URL_ROOT + 'school/school-details/' + schoolID]);
     // this.schoolObject = schoolID;
   }
 
@@ -75,8 +75,8 @@ export class HeaderComponent implements OnInit {
     this.translate.use(language);
   }
 
-  /*getEscolaList() {
-    this.schoolService.getAllEscolas().then((res) => {
+  /*getSchoolsList() {
+    this.schoolService.getAllSchools().then((res) => {
       this.schools = res;
     }, (err) => {
       console.log(err);

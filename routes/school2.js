@@ -1,12 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var School = require('../models/School.js');
+var School = require('../models/Schoooool.js');
 
 /* GET ALL SCHOOLS */
 router.get('/', function(req, res, next) {
-  // var query = School.find({}).select('CODESC COD_ESC_TX NO_ENTIDAD ENDERECO NUMERO BAIRRO location');
-  var query = School.find({}).select('location');
+  var query = School.find({}).select('Latitude Longitude');
   query.exec(function (err, products) {
     if (err) return next(err);
     res.json(products);
@@ -42,9 +41,9 @@ router.get('/search', function(req, res, next) {
         NO_ENTIDAD_BAIRRO: { $concat: [ "$NO_ENTIDAD", " - ", "$BAIRRO" ] }
       }
     }, function (err, post) {
-      if (err) return next(err);
-      res.json(post);
-    });
+    if (err) return next(err);
+    res.json(post);
+  });
 });
 
 /* GET SINGLE SCHOOL BY ID ("_id"). For example: '58dd2c8be6f8cc9ae0fcfec4' */

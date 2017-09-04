@@ -7,7 +7,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppComponent } from './app.component';
 import { AppRoutingModule} from './app-routing.module';
 import { AgmCoreModule} from '@agm/core';
-import { EscolaService } from './escola.service';
+import { SchoolService } from './school.service';
 import { HttpClient} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { PageHeaderComponent } from './shared/modules/page-header/page-header.component';
@@ -46,7 +46,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     SchoolDetailsModule,
     Ng2CompleterModule
   ],
-  providers: [EscolaService],
+  providers: [SchoolService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

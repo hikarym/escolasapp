@@ -7,7 +7,7 @@ import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
 import { SidebarComponent} from '../shared';
 
-import { EscolaService} from '../escola.service';
+import { SchoolService} from '../school.service';
 import { HttpModule} from '@angular/http';
 import {HeaderModule} from '../shared/components/header/header.module';
 import {SchoolDetailsModule} from "../shared/components/school-details/school-details.module";
@@ -28,7 +28,7 @@ import {SchoolDetailsModule} from "../shared/components/school-details/school-de
     SidebarComponent
   ],
 
-  providers: [EscolaService]
+  providers: [SchoolService]
 
 })
 export class LayoutModule { }

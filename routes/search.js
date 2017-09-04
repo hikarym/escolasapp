@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var School = require('../models/School.js');
+var School = require('../models/Schoooool.js');
 
 /* GET SCHOOLS LIST WHOSE NO_ENTIDAD LIKE 'TEXT'*/
 router.get('/', function(req, res, next) {

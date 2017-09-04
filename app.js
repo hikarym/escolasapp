@@ -26,8 +26,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({'extended':'false'}));
 app.use(express.static(path.join(staticRoot, 'dist')));
 
-var school = require('./routes/school.js');
-app.use('/escola', school);
+/*var school = require('./routes/school2.js');
+app.use('/escola', school);*/
+var school = require('./routes/school');
+app.use('/school', school);
 var search = require('./routes/search.js');
 app.use('/search', search);
 
