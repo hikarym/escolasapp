@@ -6,13 +6,15 @@ import { GeolocationComponent } from './geolocation.component';
 import { AgmCoreModule } from '@agm/core';
 import {HeaderModule} from '../../shared/components/header/header.module';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
+import {LeafletMarkerClusterModule} from '@asymmetrik/ngx-leaflet-markercluster';
 
 @NgModule({
   imports: [
     CommonModule,
     GeolocationRoutingModule,
     AgmCoreModule,
-    LeafletModule
+    LeafletModule,
+    LeafletMarkerClusterModule
   ],
   declarations: [
     GeolocationComponent

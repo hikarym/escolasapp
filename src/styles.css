@@ -139,3 +139,7 @@ body{
   height: 40px;
   background-position: -188px -42px;
 }
+
+.school-div-icon {
+  background: url(assets/images/marcador_small.png) no-repeat;
+}

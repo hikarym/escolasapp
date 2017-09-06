@@ -15,6 +15,7 @@ import {HeaderModule} from './shared/components/header/header.module';
 import {Ng2CompleterModule} from 'ng2-completer';
 import {SchoolDetailsModule} from './shared/components/school-details/school-details.module';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
+import {LeafletMarkerClusterModule} from '@asymmetrik/ngx-leaflet-markercluster';
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
@@ -31,6 +32,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     AgmCoreModule.forRoot({ 	apiKey: 'AIzaSyAQutpUtLQSoM-AjbwB0sCnPcw1M3xx1s4' // key of Google Maps Javascript API
     }),
     LeafletModule.forRoot(),
+    LeafletMarkerClusterModule.forRoot(),
     HttpModule,
     AppRoutingModule,
     TranslateModule.forRoot({

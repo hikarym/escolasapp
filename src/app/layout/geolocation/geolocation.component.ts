@@ -21,8 +21,11 @@ export class GeolocationComponent implements OnInit {
   schoolMarkerIcon = L.icon({iconUrl: 'assets/images/marcador_small.png'});
   selectedSchoolMarkerIcon = L.icon({iconUrl: 'assets/images/marcador.png'});
   neighboringSchoolsLayer: any;
-  allSchoolsLayer: any;
   options2: any;
+  featureCollection1: GeoJSON.FeatureCollection<any> = {
+    type: 'FeatureCollection',
+    features: []
+  };
   featureCollection: GeoJSON.FeatureCollection<any> = {
     type: 'FeatureCollection',
     features: [
@@ -60,20 +63,6 @@ export class GeolocationComponent implements OnInit {
       }
     ]
   };
-  schoolsCollection: GeoJSON.FeatureCollection<any> = {type: 'FeatureCollection', features: []};
-  locationGeoJSON = {
-    id: 'geoJSON',
-    name: 'GEO JSON Point',
-    enabled: true,
-    layer: L.geoJSON(this.featureCollection)
-    /*layer: L.geoJSON(
-      ([
-        {type: 'Point', coordinates: [-47.14398600000312, -23.986885999998258]},
-        {type: 'Point', coordinates: [-47.14554500000313, -23.98571699999825]},
-        {type: 'Point', coordinates : [ -47.14556000000313, -23.98568499999824 ] }
-      ]) as any,
-      { style: () => ({ color: '#ff7800' })})*/
-  };
   LAYER_OSM = {
     id: 'openstreetmap',
     name: 'Open Street Map',
@@ -84,20 +73,10 @@ export class GeolocationComponent implements OnInit {
     })
   };
   // Values to bind to leaflet Directive
-  // layers: L.Layer[];
   layers: L.Layer[];
-  layersControl = {
-    baseLayers: {
-      'Open Street Map': this.LAYER_OSM.layer
-    },
-    overlays: {
-      'Schools': this.allSchoolsLayer
-    }
-  };
-  options = {
-    zoom: 14,
-    center: L.latLng([this.lat, this.lng])
-  };
+  // --------------------------------
+  markers = L.markerClusterGroup();
+  markerClusterData: any[] = [];
 
   constructor(
     private schoolService: SchoolService,
@@ -117,29 +96,6 @@ export class GeolocationComponent implements OnInit {
       zoom: 14,
       center: L.latLng([this.lat, this.lng])
     };
-    this.schoolsCollection.features = this.schoolsCoordinates;
-    // const dom: any = document.querySelector('body');
-    /*this.allSchoolsLayer = {
-      id: 'geoJSON',
-      name: 'GEO JSON Point',
-      enabled: true,
-      layer: L.geoJSON(this.schoolsCoordinates, {
-        pointToLayer: function (geoJsonPoint, latlng) {
-          return L.marker(latlng);
-        }
-      }).addTo(dom.mymap)
-    };*/
-    /*this.layers = [
-        L.marker([ this.lat, this.lng ], {icon: this.selectedSchoolMarkerIcon }),
-        L.marker([-23.986885999998258, -47.14398600000312], {icon: this.schoolMarkerIcon})
-    ];*/
-    this.layers = [L.geoJSON(this.featureCollection, {
-      pointToLayer: function(feature, latlng) {
-        console.log(latlng, feature);
-        return L.marker(latlng, {icon:L.icon({iconUrl: 'assets/images/marcador_small.png'})});
-      }
-     })
-    ];
   }
 
 
@@ -161,7 +117,21 @@ export class GeolocationComponent implements OnInit {
   getSchoolsList() {
     this.schoolService.getAllSchools().then((res) => {
       this.schoolsCoordinates = res;
-      console.log(this.schoolsCoordinates);
+      this.featureCollection1.features = this.schoolsCoordinates;
+
+      /*this.layers = [L.geoJSON(this.featureCollection1, {
+        pointToLayer: function(feature, latlng) {
+          // return L.marker(latlng, {icon: L.icon({iconUrl: 'assets/images/marcador_small.png'})});
+          return L.marker(latlng, {icon: L.divIcon({className: 'school-div-icon'})});
+        }
+      })];*/
+      const data: any[] = [];
+      console.log(this.schoolsCoordinates.length);
+      for (let i = 0; i < this.schoolsCoordinates.length; i++) {
+        const icon = L.icon({iconUrl: 'assets/images/marcador_small.png'});
+        data.push(L.marker([this.schoolsCoordinates[i].lon, this.schoolsCoordinates[i].lat], icon));
+      }
+      this.markerClusterData = data;
     }, (err) => {
       console.log(err);
     });
