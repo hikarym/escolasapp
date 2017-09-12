@@ -13,9 +13,14 @@
         </agm-marker>
       </agm-map>-->
       <!--<div style="height: 100%;" leaflet [leafletOptions]="options2" [leafletLayers]="neighboringSchoolsLayer"></div>-->
-      <div id="mymap" style="height: 100%;" leaflet [leafletOptions]="options2"
-           [leafletLayers]="layers"
-           [leafletMarkerCluster]="markerClusterData"></div>
+      <div id="mymap" leaflet style="height: 100%;"
+           [leafletOptions]="options"
+           [leafletBaseLayers]="baseLayers"
+           [leafletLayersControlOptions]="layersControlOptions"
+
+           [leafletMarkerCluster]="markerClusterData"
+           [leafletMarkerClusterOptions]="markerClusterOptions"
+           (leafletMarkerClusterReady)="markerClusterReady($event)"></div>
     </div>
   </div>
 </div>

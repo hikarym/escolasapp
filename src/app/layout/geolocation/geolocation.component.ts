@@ -1,9 +1,11 @@
+///<reference path="../../../../node_modules/@types/leaflet/index.d.ts"/>
 import {Component, OnInit, Input, ViewChild} from '@angular/core';
 import { SchoolService } from '../../school.service';
 import { routerTransition } from '../../router.animations';
 import {AgmMap} from '@agm/core';
 import * as L from 'leaflet';
-import {icon, Layer} from 'leaflet';
+import 'leaflet.markercluster';
+import {icon, Layer, popup} from 'leaflet';
 
 @Component({
   selector: 'app-geolocation',
@@ -21,7 +23,6 @@ export class GeolocationComponent implements OnInit {
   schoolMarkerIcon = L.icon({iconUrl: 'assets/images/marcador_small.png'});
   selectedSchoolMarkerIcon = L.icon({iconUrl: 'assets/images/marcador.png'});
   neighboringSchoolsLayer: any;
-  options2: any;
   featureCollection1: GeoJSON.FeatureCollection<any> = {
     type: 'FeatureCollection',
     features: []
@@ -69,15 +70,44 @@ export class GeolocationComponent implements OnInit {
     enabled: false,
     layer: L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
-      attribution: 'Open Street Map'
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     })
   };
-  // Values to bind to leaflet Directive
+  LAYER_GSM = {
+    id: 'googlemaps',
+    name: 'Google Street Maps',
+    enabled: false,
+    layer: L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: 'Google Street Maps'
+    })
+  };
+  LAYER_MAPC = {
+    id: 'mapc',
+    name: 'Google Street Maps',
+    enabled: false,
+    layer: L.tileLayer('http://tiles.mapc.org/basemap/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: 'Tiles by <a href="http://mapc.org">MAPC</a>, Data by <a href="http://mass.gov/mgis">MassGIS</a>'
+    })
+  };
+  // Values to bind to Leaflet Directive
+  layersControlOptions = { position: 'bottomright' };
+  baseLayers = {
+    'Open Street Map': this.LAYER_OSM.layer
+  };
+  options = {
+    zoom: 14,
+    center: L.latLng([this.lat, this.lng])
+  };
+
   layers: L.Layer[];
   // --------------------------------
+  // Marker cluster stuff
+  markerClusterGroup: L.MarkerClusterGroup;
   markers = L.markerClusterGroup();
   markerClusterData: any[] = [];
-
+  markerClusterOptions: L.MarkerClusterGroupOptions;
   constructor(
     private schoolService: SchoolService,
   ) { }
@@ -89,13 +119,13 @@ export class GeolocationComponent implements OnInit {
       shadowUrl: 'assets/marker-shadow.png'
     });
 
-    this.options2 = {
+    /*this.options2 = {
       layers: [
         L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: 'Open Street Map' })
       ],
       zoom: 14,
       center: L.latLng([this.lat, this.lng])
-    };
+    };*/
   }
 
 
@@ -127,14 +157,28 @@ export class GeolocationComponent implements OnInit {
       })];*/
       const data: any[] = [];
       console.log(this.schoolsCoordinates.length);
+      let popup = '';
+      let marker;
+      let school_i;
       for (let i = 0; i < this.schoolsCoordinates.length; i++) {
-        const icon = L.icon({iconUrl: 'assets/images/marcador_small.png'});
-        data.push(L.marker([this.schoolsCoordinates[i].lon, this.schoolsCoordinates[i].lat], icon));
+        school_i = this.schoolsCoordinates[i];
+        popup = '<b>ESCOLA: </b>' + school_i.NO_ENTIDAD +
+          '<br/><b>BAIRRO: </b>' + school_i.BAIRRO +
+          '<br/><b>ENDEREÇO: </b>' + school_i.ENDERECO + ' - ' + school_i.NUMERO  +
+          '<br/><b>LOCATION: </b>' + school_i.lat + ', ' + school_i.lon;
+        marker = L.marker(L.latLng(school_i.lat, school_i.lon), {icon: this.schoolMarkerIcon});
+        data.push(marker.bindPopup(popup));
       }
       this.markerClusterData = data;
     }, (err) => {
       console.log(err);
     });
+  }
+
+  markerClusterReady(group: L.MarkerClusterGroup) {
+
+    this.markerClusterGroup = group;
+
   }
 
   public convertStringToNumber(value: string): number {
