@@ -32,6 +32,7 @@
         "../node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css"
       ],
       "scripts": [
+        "../node_modules/jquery/dist/jquery.js",
         "../node_modules/leaflet/dist/leaflet.js",
         "../node_modules/leaflet/dist/leaflet-src.js",
         "../node_modules/leaflet.markercluster/dist/leaflet.markercluster.js",

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
+import {HeaderComponent} from '../shared/components/header/header.component';
 
 @Component({
   selector: 'app-layout',
@@ -7,6 +8,9 @@ import {Router} from '@angular/router';
   styleUrls: ['./layout.component.css']
 })
 export class LayoutComponent implements OnInit {
+  selectedSchoolID_cp: string;
+  @ViewChild(HeaderComponent)
+  private header: HeaderComponent;
 
   constructor(public router: Router) { }
 
@@ -14,6 +18,10 @@ export class LayoutComponent implements OnInit {
     if (this.router.url === '/' ) {
       this.router.navigate(['/geolocation']);
     }
+  }
+
+  onSchoolSel(selectedSchoolID: string) {
+    this.selectedSchoolID_cp = selectedSchoolID;
   }
 
 }

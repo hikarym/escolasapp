@@ -10,7 +10,8 @@ import { SidebarComponent} from '../shared';
 import { SchoolService} from '../school.service';
 import { HttpModule} from '@angular/http';
 import {HeaderModule} from '../shared/components/header/header.module';
-import {SchoolDetailsModule} from "../shared/components/school-details/school-details.module";
+import {SchoolDetailsModule} from '../shared/components/school-details/school-details.module';
+import {ShareddataService} from '../services/shareddata.service';
 
 @NgModule({
   imports: [
@@ -28,7 +29,7 @@ import {SchoolDetailsModule} from "../shared/components/school-details/school-de
     SidebarComponent
   ],
 
-  providers: [SchoolService]
+  providers: [SchoolService, ShareddataService]
 
 })
 export class LayoutModule { }
