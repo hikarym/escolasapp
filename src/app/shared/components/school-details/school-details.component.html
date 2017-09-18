@@ -1,6 +1,22 @@
-<nav class="sidebar-school-details" [ngClass]="{sidebarPushRight: isActive }">
+<nav class="sidebar-school-details" [ngClass]="{sidebarPushRight: isActive }" style="padding: 10px;">
   <p> school-details works! </p><br>
-  <h1> PANEL DE INFORMAÇOES!!!!!!!! </h1><br>
+  <br/>
+  <h3> PANEL DE INFORMAÇOES!!!!!!!! </h3><br>
+  <h4 id="no-entidad">{{NO_ENTIDAD}}</h4>
+  <b>Nome do Municipio:</b>{{NOMEMUN}} - {{SIGLA}}
+  <br/><b>Endereço: </b>{{ENDERECO}}, {{NUMERO}}
+  <br/><b>Bairro: </b>{{BAIRRO}}
+  <br/><b>CEP: </b>{{CEP}}
+  <br/><b>Dependencia administrativa: </b>{{Dependad}}
+  <br/><b>Situação da escola (em relação ao Censo Escolar 2014): </b>{{DESC_SITUACAO_FUNCIONAMENTO}}
+  <br/><b>Telefone: </b>{{DDD}} {{TELEFONE}}
+  <br/>
+  <h5>INSTALAÇOES</h5>
+  <b>Biblioteca: </b> {{ID_BIBLIOTECA}}
+  <br/><b>Laboratorio de Informatica: </b>{{ID_LABORATORIO_INFORMATICA}}
+  <br/><b>Quadra Coberta: </b>{{ID_QUADRA_ESPORTES_COBERTA}}
+  <br/><b>Quadra Descoberta: </b> {{ID_QUADRA_ESPORTES_DESCOBERTA}}
+
   <div> Mostrar grafico estatistico </div><br>
   <div> Mostrar o resto das informaçoes</div>
 </nav>

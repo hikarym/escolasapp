@@ -35,7 +35,9 @@ router.get('/', function(req, res, next) {
 router.get('/search', function(req, res, next) {
   School.aggregate(
     {
-      $match: {NO_ENTIDAD: {$regex: '.*' + req.query.text + '.*'}}
+      // $match: {NO_ENTIDAD: {$regex: '.*' + req.query.text + '.*'}}
+      // $match: {NO_ENTIDAD: {$regex: new RegExp('^' + req.query.text , 'i')}}
+      $match: {NO_ENTIDAD: {$regex: new RegExp('.*' + req.query.text , 'i')}}
     },
     {
       $project: {

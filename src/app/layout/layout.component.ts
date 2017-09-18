@@ -25,8 +25,9 @@ export class LayoutComponent implements OnInit {
     this.selectedSchoolID_cp = selectedSchoolID;
     this.schoolDetailsComponent.schoolSelectedID = this.selectedSchoolID_cp;
     this.schoolDetailsComponent.eventCalled();
-    alert(this.selectedSchoolID_cp);
+    // alert(this.selectedSchoolID_cp);
     this.schoolDetailsComponent.getSchoolDetailedInformation(this.selectedSchoolID_cp);
+    // this.geolocationComponent.drawSchoolNeighborhoodArea(2000, -23.720859999999323, -46.84102700000115);
   }
 
 }

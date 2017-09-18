@@ -111,13 +111,14 @@ export class GeolocationComponent implements OnInit {
     return 0;
   }
 
-  private drawSchoolNeighborhoodArea(neighborhoodRadius: number, schoolLat: number, schoolLng) {
+  drawSchoolNeighborhoodArea(neighborhoodRadius: number, schoolLat: number, schoolLng) {
     /* this.neighboringSchoolsLayer = [L.circle([ this.centerLat, this.centerLng ], { radius: neighborhoodRadius }),
       L.marker([ this.centerLat, this.centerLng ], {icon: this.selectedSchoolMarkerIcon })
     ]; */
-    this.neighboringSchoolsLayer = [L.circle(L.latLng(schoolLat, schoolLng), { radius: neighborhoodRadius }),
+    alert('Draw the new icon for school selected');
+    /*this.neighboringSchoolsLayer = [L.circle(L.latLng(schoolLat, schoolLng), { radius: neighborhoodRadius }),
       L.marker(L.latLng(schoolLat, schoolLng), {icon: this.selectedSchoolMarkerIcon})
-    ];
+    ];*/
   }
 
   private redrawMap() {
