@@ -9,7 +9,7 @@ import {Subscription} from 'rxjs/Subscription';
   templateUrl: './school-details.component.html',
   styleUrls: ['./school-details.component.css']
 })
-export class SchoolDetailsComponent implements OnDestroy {
+export class SchoolDetailsComponent implements OnInit {
   isActive = false;
   message: any;
   schoolSelectedID: string;
@@ -21,13 +21,13 @@ export class SchoolDetailsComponent implements OnDestroy {
   constructor(private router: Router,
               private schoolService: SchoolService,
               private sharedDataService: ShareddataService) {
-    this.subscription = this.sharedDataService.getSchoolID().subscribe(message => {this.message = message; } );
-    alert(this.message.text);
+    // this.subscription = this.sharedDataService.getSchoolID().subscribe(message => {this.message = message; } );
   }
 
-  /*ngOnInit() {
-  }*/
+  ngOnInit() {
+  }
 
+  // Invoked from layout.component.ts or from geolocation.component.ts
   getSchoolDetailedInformation(schoolID: string) {
     console.log('school/school-details/' + schoolID);
     // this.router.navigate([this.URL_ROOT + 'school/school-details/' + schoolID]);
@@ -42,9 +42,9 @@ export class SchoolDetailsComponent implements OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  /* gOnDestroy() {
     // unsubscribe to ensure no memory leaks
     this.subscription.unsubscribe();
-  }
+  } */
 
 }

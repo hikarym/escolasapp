@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
-import {HeaderComponent} from '../shared/components/header/header.component';
+import {SchoolDetailsComponent} from '../shared/components/school-details/school-details.component';
+import {GeolocationComponent} from './geolocation/geolocation.component';
 
 @Component({
   selector: 'app-layout',
@@ -9,8 +10,8 @@ import {HeaderComponent} from '../shared/components/header/header.component';
 })
 export class LayoutComponent implements OnInit {
   selectedSchoolID_cp: string;
-  @ViewChild(HeaderComponent)
-  private header: HeaderComponent;
+  @ViewChild(SchoolDetailsComponent) schoolDetailsComponent: SchoolDetailsComponent;
+  @ViewChild(GeolocationComponent) geolocationComponent: GeolocationComponent;
 
   constructor(public router: Router) { }
 
@@ -22,6 +23,10 @@ export class LayoutComponent implements OnInit {
 
   onSchoolSel(selectedSchoolID: string) {
     this.selectedSchoolID_cp = selectedSchoolID;
+    this.schoolDetailsComponent.schoolSelectedID = this.selectedSchoolID_cp;
+    this.schoolDetailsComponent.eventCalled();
+    alert(this.selectedSchoolID_cp);
+    this.schoolDetailsComponent.getSchoolDetailedInformation(this.selectedSchoolID_cp);
   }
 
 }

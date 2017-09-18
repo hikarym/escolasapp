@@ -12,13 +12,11 @@ import {ShareddataService} from '../../../services/shareddata.service';
 })
 export class HeaderComponent implements OnInit {
   URL_ROOT: string;
-  schools: any;
   searchField: string;
   placeholderSearch: string;
   schoolListFiltered: CompleterData;
   selectedSchoolID: string = '';
   @Output() onSchoolSel = new EventEmitter<string>();
-  schoolObject: any;
 
   constructor(private translate: TranslateService,
               public router: Router,
@@ -32,7 +30,8 @@ export class HeaderComponent implements OnInit {
       }
     });
     this.URL_ROOT = 'http://172.16.1.32:3005/';
-    this.schoolListFiltered = completerService.remote( this.URL_ROOT + 'school/search?text=','NO_ENTIDAD','NO_ENTIDAD_BAIRRO');
+    this.schoolListFiltered = completerService.remote( this.URL_ROOT + 'school/search?text=',
+      'NO_ENTIDAD','NO_ENTIDAD_BAIRRO');
     this.placeholderSearch = 'Digite o nome da escola de seu interesse';
     this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd && window.innerWidth <= 992) {
@@ -49,6 +48,7 @@ export class HeaderComponent implements OnInit {
     this.selectedSchoolID = item ? item.originalObject._id : '';
     // send school ID to school-details component via observable subject
     this.sharedDataService.sendSchoolID(this.selectedSchoolID);
+    this.onSchoolSel.emit(this.selectedSchoolID);
     // Get the complete information about the selected school
     // this.getSchoolDetailedInformation(this.selectedSchoolID);
     // center the map in the selected school location
