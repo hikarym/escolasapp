@@ -3,17 +3,22 @@
     <button class="navbar-toggler navbar-toggler-left" (click)="toggleSidebar()">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand ml-6" href="#">Escolas da RMSP</a>
+    <a class="navbar-brand ml-6" href="#" id="logo">{{logo}}</a>
 
-    <ng2-completer [(ngModel)]="searchField"
+    <ng2-completer [inputClass]="['completer-input']"
+                   name="searchField"
+                   [(ngModel)]="searchField"
+                   #searchField1="ngModel"
                    [datasource]="schoolListFiltered"
                    [minSearchLength]="3"
                    [selectOnClick]="true"
-                   [placeholder]="placeholderSearch"
-                   (selected)="onSchoolSelected($event)"
-                   [inputClass]="" >
+                   [textSearching]="'Por favor aguarde, procurando...'"
+                   [textNoResults]="'Nenhum resultado encontrado'"
+                   [placeholder]="'Digite o nome da escola que esta procurando'"
+                   (selected)="onSchoolSelected($event)">
     </ng2-completer>
     <p class="text-info">{{selectedSchoolID}}</p>
+    <!--<p class="text-info">{{removeDiacritics(searchField)}}</p>-->
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav ml-auto mt-2 mt-md-0">
         <li class="nav-item dropdown" ngbDropdown>

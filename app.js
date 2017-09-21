@@ -18,7 +18,7 @@ var staticRoot = __dirname;
 
 // view engine setup configuration
 //app.set('src', path.join(__dirname, 'src'));
-//app.engine('html', require('ejs').renderFile);
+// app.engine('.html', require('ejs').renderFile);
 //app.set('view engine', 'html');
 
 app.use(logger('dev'));
@@ -33,7 +33,11 @@ app.use('/school', school);
 var search = require('./routes/search.js');
 app.use('/search', search);
 
-app.get('/*', function (req, res) {
+app.get('/', function (req, res) {
+  res.sendFile(path.join(staticRoot, 'index.html'))
+});
+
+app.get('/geolocation', function (req, res) {
   res.sendFile(path.join(staticRoot, 'index.html'))
 });
 

@@ -33,11 +33,27 @@ router.get('/', function(req, res, next) {
 
 /* GET SCHOOLS LIST WHOSE NO_ENTIDAD LIKE 'TEXT'*/
 router.get('/search', function(req, res, next) {
+  // text_tmp = removeDiacritics(req.query.text);
+  text_tmp = req.query.text;
+
   School.aggregate(
     {
-      // $match: {NO_ENTIDAD: {$regex: '.*' + req.query.text + '.*'}}
-      // $match: {NO_ENTIDAD: {$regex: new RegExp('^' + req.query.text , 'i')}}
-      $match: {NO_ENTIDAD: {$regex: new RegExp('.*' + req.query.text , 'i')}}
+      // $match: {NO_ENTIDAD: {$regex: '.*' + text_tmp + '.*'}}
+      $match: {
+        NO_ENTIDAD: {
+          $regex: new RegExp(text_tmp,'ig')
+        }
+      }
+      // $match: {NO_ENTIDAD: {$regex: new RegExp('^' + text_tmp , 'i')}}
+      // $match: {NO_ENTIDAD: {$regex: new RegExp('.*' + text_tmp , 'i')}}
+      /*$match: {
+        $text: {
+          $search: req.query.text,
+          $language: "none",
+          $caseSensitive: false,
+          $diacriticSensitive: false
+        }
+      }*/
     },
     {
       $project: {

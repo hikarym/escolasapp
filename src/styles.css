@@ -123,6 +123,12 @@ body{
   margin-left: 4rem !important;
 }
 
+/*@media screen and (max-width: 992px){
+  .navbar-brand {
+    display: none;
+  }
+}*/
+
 .ml-7 {
   margin-left: 14rem !important;
 }

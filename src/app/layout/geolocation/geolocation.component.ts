@@ -121,9 +121,14 @@ export class GeolocationComponent implements OnInit {
     ];*/
   }
 
+  /* center the map*/
   private redrawMap() {
+    // center the map in the new coordinates
     this.map.triggerResize()
       .then(() => this.map._mapsWrapper.setCenter({centerLat: this.centerLat, centerLng: this.centerLng}));
+    // Replace the marker icon of school focused by another one
+
+    // Dra the school's neighborhood
   }
 
   getSchoolsList() {
