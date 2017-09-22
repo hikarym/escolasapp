@@ -52,7 +52,11 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    if (window.innerWidth <= 992) {
+      this.logo = 'ESCOLASAPP';
+    } else {
+      this.logo = 'Escolas da RMSP';
+    }
   }
 
   onSchoolSelected(item: CompleterItem) {

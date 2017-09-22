@@ -5,8 +5,7 @@
     </button>
     <a class="navbar-brand ml-6" href="#" id="logo">{{logo}}</a>
 
-    <ng2-completer [inputClass]="['completer-input']"
-                   name="searchField"
+    <ng2-completer name="searchField"
                    [(ngModel)]="searchField"
                    #searchField1="ngModel"
                    [datasource]="schoolListFiltered"
@@ -17,7 +16,6 @@
                    [placeholder]="'Digite o nome da escola que esta procurando'"
                    (selected)="onSchoolSelected($event)">
     </ng2-completer>
-    <p class="text-info">{{selectedSchoolID}}</p>
     <!--<p class="text-info">{{removeDiacritics(searchField)}}</p>-->
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav ml-auto mt-2 mt-md-0">

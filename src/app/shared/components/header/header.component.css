@@ -70,12 +70,17 @@ ng2-completer {
   font-size: 12px;
 }
 
+:host>>> .completer-holder {
+  width:100% !important;
+  max-height: 34px;
+}
+
 :host>>> .completer-input {
   display: block;
   width: 100%;
   height: 34px;
   padding: 6px 12px;
-  font-size: 12px; /*14px*/
+  font-size: inherit;
   line-height: 1.42857143;
   color: #555;
   background-color: #fff;
@@ -89,12 +94,34 @@ ng2-completer {
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
+:host>>> .completer-dropdown-holder {
+  display: block;
+  width: 100%;
+  font-size: 10px;
+}
 :host>>> .completer-dropdown {
   overflow-y: auto;
   max-height: 300px;
   overflow-x: hidden;
   background-color: rgba(255,255,255,0.9)!important;
-  width: 70% !important;
+  width: 100%!important;
+  position: relative!important;
+  margin-top: 0px!important;/*-16px*/
+  font-size: inherit;
+}
+
+:host>>> .completer-row {
+  margin-bottom: 2px!important;
+}
+
+:host>>> .completer-description {
+  font-size: inherit!important;
+}
+
+:host>>> .completer-image-default {
+  width: 14px!important;
+  height: 14px!important;
+  /*background-image: url('../../../../assets/images/marcador_small.png');*/
 }
 
 /*css to keep the controls in a row*/
