@@ -1,9 +1,9 @@
 .sidebar-school-details {
   border-radius: 0;
   position: fixed;
-  z-index: 1000;
+  z-index: 500;
   top: 55px;
-  left: 408px;
+  left: 0px; /*408px to display*/
   width: 408px;
   margin-left: -408px;
   border: none;

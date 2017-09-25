@@ -14,6 +14,10 @@ body{
 }
 
 /* CSS for schoolsDetails screen */
+.push-right-school-details .sidebar-school-details {
+  left: 408px !important;
+}
+
 @media screen and (max-width: 992px) {
   .push-right-school-details .sidebar-school-details {
     left: 408px !important;
@@ -22,7 +26,7 @@ body{
 
 /* responsive CSS for sidebar panel*/
 .push-right .sidebar {
-  left: 0px!important;
+  left: 320px!important;
 }
 
 @media screen and (max-width: 992px) {
@@ -153,4 +157,8 @@ body{
 
 .school-div-icon {
   background: url(assets/images/marcador_small.png) no-repeat;
+}
+
+.cursor-hand {
+  cursor: pointer!important;
 }

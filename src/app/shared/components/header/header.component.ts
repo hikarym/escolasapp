@@ -25,20 +25,19 @@ export class HeaderComponent implements OnInit {
               private schoolService: SchoolService,
               private sharedDataService: ShareddataService,
               private http: Http) {
-    // this.toggleSidebar();
-    this.router.events.subscribe((val) => {
+    /*this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd && window.innerWidth <= 992) {
         this.toggleSidebar();
       }
-    });
+    });*/
 
     this.schoolListFiltered = new CustomData(http);
     // this.schoolListFiltered = completerService.remote( this.URL_ROOT + 'school/search?text=', 'NO_ENTIDAD','NO_ENTIDAD_BAIRRO');
-    this.router.events.subscribe((val) => {
+    /*this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd && window.innerWidth <= 992) {
         this.toogleSchoolDetails();
       }
-    });
+    });*/
   }
 
   @HostListener('window:resize', ['$event'])
@@ -76,7 +75,6 @@ export class HeaderComponent implements OnInit {
     const dom: any = document.querySelector('body');
     dom.classList.toggle('push-right-school-details');
     console.log('procurando a informacao detalhada da escola escolhida');
-
   }
 
   toggleSidebar() {
