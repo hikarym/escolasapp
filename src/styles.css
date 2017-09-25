@@ -12,6 +12,7 @@ body{
   padding:0;
   margin:0;
 }
+
 /* CSS for schoolsDetails screen */
 @media screen and (max-width: 992px) {
   .push-right-school-details .sidebar-school-details {
@@ -19,7 +20,11 @@ body{
   }
 }
 
-/* responsive CSS*/
+/* responsive CSS for sidebar panel*/
+.push-right .sidebar {
+  left: 0px!important;
+}
+
 @media screen and (max-width: 992px) {
   .push-right .sidebar {
     left: 320px !important;
