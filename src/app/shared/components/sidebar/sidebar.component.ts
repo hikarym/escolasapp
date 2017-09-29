@@ -6,11 +6,6 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  isActive = false;
-
-  public eventCalled() {
-    this.isActive = !this.isActive;
-  }
 
   constructor() { }
 

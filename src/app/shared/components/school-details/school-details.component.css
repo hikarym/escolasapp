@@ -3,7 +3,7 @@
   position: fixed;
   z-index: 500;
   top: 55px;
-  left: 0px; /*408px to display*/
+  left: 0px; /*408px to display it*/
   width: 408px;
   margin-left: -408px;
   border: none;

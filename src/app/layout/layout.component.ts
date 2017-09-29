@@ -10,6 +10,14 @@ import {GeolocationComponent} from './geolocation/geolocation.component';
 })
 export class LayoutComponent implements OnInit {
   selectedSchoolID_cp: string;
+  // lat: number;
+  // lon: number;
+  // codAp: string;
+  // LOCATION = {
+  //   LAT: -23.552133,
+  //   LON: -46.6331418,
+  //   CODAP: ''
+  // };
   @ViewChild(SchoolDetailsComponent) schoolDetailsComponent: SchoolDetailsComponent;
   @ViewChild(GeolocationComponent) geolocationComponent: GeolocationComponent;
 
@@ -24,10 +32,17 @@ export class LayoutComponent implements OnInit {
   onSchoolSel(selectedSchoolID: string) {
     this.selectedSchoolID_cp = selectedSchoolID;
     this.schoolDetailsComponent.schoolSelectedID = this.selectedSchoolID_cp;
-    this.schoolDetailsComponent.eventCalled();
-    // alert(this.selectedSchoolID_cp);
     this.schoolDetailsComponent.getSchoolDetailedInformation(this.selectedSchoolID_cp);
-    // this.geolocationComponent.drawSchoolNeighborhoodArea(2000, -23.720859999999323, -46.84102700000115);
   }
+
+  /*onSchoolLocation(locationInfo: any) {
+    this.LOCATION.LAT = locationInfo.LAT;
+    this.LOCATION.LON = locationInfo.LON;
+    this.LOCATION.CODAP = locationInfo.CODAP;
+    // this.geolocationComponent.recenter();
+    // this.router.navigate(['school-details', this.selectedSchoolID_cp] , {skipLocationChange: false });
+    // this.router.navigateByUrl('/geolocation');
+    // this.router.navigate(['/geolocation']);
+  }*/
 
 }

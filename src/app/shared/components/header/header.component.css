@@ -121,7 +121,7 @@ ng2-completer {
 :host>>> .completer-image-default {
   width: 14px!important;
   height: 14px!important;
-  /*background-image: url('../../../../assets/images/marcador_small.png');*/
+  /*background-image: url('../../../../assets/images/marcador_school_default.png');*/
 }
 
 /*css to keep the controls in a row*/

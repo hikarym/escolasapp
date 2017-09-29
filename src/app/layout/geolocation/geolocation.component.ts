@@ -1,10 +1,14 @@
 ///<reference path="../../../../node_modules/@types/leaflet/index.d.ts"/>
-import {Component, OnInit, Input, ViewChild} from '@angular/core';
+import {Component, OnInit, Input, ViewChild, OnDestroy, AfterViewInit} from '@angular/core';
 import { SchoolService } from '../../school.service';
 import { routerTransition } from '../../router.animations';
 import {AgmMap} from '@agm/core';
 import * as L from 'leaflet';
 import 'leaflet.markercluster';
+import {ShareddataService} from '../../services/shareddata.service';
+import {ISubscription, Subscription} from 'rxjs/Subscription';
+import {Event, NavigationEnd, Router} from '@angular/router';
+import 'rxjs/add/operator/filter';
 
 @Component({
   selector: 'app-geolocation',
@@ -12,63 +16,27 @@ import 'leaflet.markercluster';
   styleUrls: ['./geolocation.component.css'],
   animations: [routerTransition()]
 })
-export class GeolocationComponent implements OnInit {
+export class GeolocationComponent implements OnInit,  OnDestroy {
   centerLat = -23.552133;
   centerLng = -46.6331418;
   schoolsCoordinates: any;
+  // @ViewChild(AgmMap) private map: any;
+  schoolSelectedID: string;
+  schoolMarkerIcon = L.icon({iconUrl: 'assets/images/marcador_school_default.png'});
+  selectedSchoolMarkerIcon = L.icon({iconUrl: 'assets/images/marcador_school_selected.png'});
   neighborhoodRadius = 2000;
-  @ViewChild(AgmMap) private map: any;
-  schoolMarkerIcon = L.icon({iconUrl: 'assets/images/marcador_small.png'});
-  selectedSchoolMarkerIcon = L.icon({iconUrl: 'assets/images/marcador.png'});
-  iconDefault = L.icon({iconUrl: 'assets/marker-icon.png', shadowUrl: 'assets/marker-shadow.png'});
   neighboringSchoolsLayer: any;
-  featureCollection1: GeoJSON.FeatureCollection<any> = {
-    type: 'FeatureCollection',
-    features: []
-  };
   featureCollection: GeoJSON.FeatureCollection<any> = {
     type: 'FeatureCollection',
-    features: [
-      {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [this.centerLng, this.centerLat]
-        },
-        properties: {}
-      },
-      {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [-47.14554500000313, -23.98571699999825]
-        },
-        properties: {}
-      },
-      {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [-47.14556000000313, -23.98568499999824]
-        },
-        properties: {}
-      },
-      {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [-47.146239000003135, -23.983872999998237]
-        },
-        properties: {}
-      }
-    ]
+    features: []
   };
   LAYER_OSM = {
     id: 'openstreetmap',
     name: 'Open Street Map',
-    enabled: false,
+    enabled: true,
     layer: L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 18,
+      minZoom: 1,
+      maxZoom: 19,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     })
   };
@@ -76,8 +44,10 @@ export class GeolocationComponent implements OnInit {
     id: 'googlemaps',
     name: 'Google Street Maps',
     enabled: false,
-    layer: L.tileLayer('https://maps.googleapis.com/maps/vt?pb=!1m5!1m4!1i{z}!2i{x}!3i{y}!4i256!2m3!1e0!2sm!3i349018013!3m9!2sen-US!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0', {
-      maxZoom: 18,
+    layer: L.tileLayer('https://maps.googleapis.com/maps/vt?pb=!1m5!1m4!1i{z}!2i{x}!3i' +
+      '{y}!4i256!2m3!1e0!2sm!3i349018013!3m9!2sen-US!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0', {
+      minZoom: 1,
+      maxZoom: 22,
       attribution: '&copy; <a href=\'http://maps.google.com\'>Google Maps</a>'
     })
   };
@@ -88,57 +58,91 @@ export class GeolocationComponent implements OnInit {
     'Open Street Map': this.LAYER_OSM.layer,
     'Google Street Maps': this.LAYER_GSM.layer
   };
-  options = {
-    zoom: 14,
-    center: L.latLng([this.centerLat, this.centerLng])
-  };
+  options = { zoom: 14, center: L.latLng([this.centerLat, this.centerLng])  };
+  zoom = 14;
+  center = L.latLng([this.centerLat, this.centerLng]);
+  zoom_school_selected = 14;
 
   // --------------------------------
   // Marker cluster stuff
   markerClusterGroup: L.MarkerClusterGroup;
   markerClusterData: any[] = [];
   markerClusterOptions: L.MarkerClusterGroupOptions;
+  private subscription: Subscription;
+  private subs: ISubscription;
+  selectionSchooolID: any = {};
+  LOCATION = {
+    LAT: -23.552133,
+    LON: -46.6331418,
+    CODAP: ''
+  };
 
-  constructor(
-    private schoolService: SchoolService,
-  ) { }
+  constructor( private schoolService: SchoolService, private sharedDataService: ShareddataService,
+               private router: Router) {
+    /*this.subs = sharedDataService.getSchoolID().subscribe(
+      schoolID => {
+        this.selectionSchooolID = schoolID;
+      });*/
+  }
+
+  // unsubscribe to ensure no memory leaks
+  ngOnDestroy() {
+    this.subs.unsubscribe();
+    this.subscription.unsubscribe();
+  }
 
   ngOnInit( ) {
-    this.getSchoolsList();
+
+    this.subscription = this.sharedDataService.getSchoolLoc().subscribe(
+      res => {
+        this.LOCATION = res;
+        this.zoom = this.zoom_school_selected;
+        this.center = L.latLng([this.LOCATION.LAT, this.LOCATION.LON]);
+        console.log('update center in ngOnInit:', this.center);
+        this.drawSchoolNeighborhoodArea(this.neighborhoodRadius, this.LOCATION.LAT, this.LOCATION.LON);
+
+      });
+    // get the school list and Map the schools only once time
+    if (this.center.lat === -23.552133) {
+      this.getSchoolsList();
+    }
   }
 
-  private geolocateAllSchools () {
-    return 0;
+  recenter() {
+    this.subscription = this.sharedDataService.getSchoolLoc().subscribe(
+      res => {
+        this.LOCATION = res;
+        this.zoom = this.zoom_school_selected;
+        this.center = L.latLng([this.LOCATION.LAT, this.LOCATION.LON]);
+      });
   }
 
-  drawSchoolNeighborhoodArea(neighborhoodRadius: number, schoolLat: number, schoolLng) {
-    /* this.neighboringSchoolsLayer = [L.circle([ this.centerLat, this.centerLng ], { radius: neighborhoodRadius }),
-      L.marker([ this.centerLat, this.centerLng ], {icon: this.selectedSchoolMarkerIcon })
-    ]; */
-    alert('Draw the new icon for school selected');
-    /*this.neighboringSchoolsLayer = [L.circle(L.latLng(schoolLat, schoolLng), { radius: neighborhoodRadius }),
-      L.marker(L.latLng(schoolLat, schoolLng), {icon: this.selectedSchoolMarkerIcon})
-    ];*/
+  drawSchoolNeighborhoodArea(neighborhoodRadius: number, schoolLat: number, schoolLng: number ) {
+    this.neighboringSchoolsLayer = [L.circle(L.latLng(schoolLat, schoolLng), { radius: neighborhoodRadius, weight: 1 }),
+      L.marker(L.latLng(schoolLat, schoolLng), {icon: this.selectedSchoolMarkerIcon})];
   }
 
   /* center the map*/
-  private redrawMap() {
-    // center the map in the new coordinates
-    this.map.triggerResize()
-      .then(() => this.map._mapsWrapper.setCenter({centerLat: this.centerLat, centerLng: this.centerLng}));
-    // Replace the marker icon of school focused by another one
-
+  /*redrawMap(schoolLat: number, schoolLng: number) {
+    this.router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd) {
+        // center the map in the new coordinates
+        this.map.triggerResize()
+          .then(() => this.map._mapsWrapper.setCenter({centerLat: schoolLat, centerLng: schoolLng}));
+        // Replace the marker icon of school focused by another one
+       }
+    });
     // Dra the school's neighborhood
-  }
+  }*/
 
   getSchoolsList() {
     this.schoolService.getAllSchools().then((res) => {
       this.schoolsCoordinates = res;
-      this.featureCollection1.features = this.schoolsCoordinates;
+      this.featureCollection.features = this.schoolsCoordinates;
 
       /*this.layers = [L.geoJSON(this.featureCollection1, {
         pointToLayer: function(feature, latlng) {
-          // return L.marker(latlng, {icon: L.icon({iconUrl: 'assets/images/marcador_small.png'})});
+          // return L.marker(latlng, {icon: L.icon({iconUrl: 'assets/images/marcador_school_default.png'})});
           return L.marker(latlng, {icon: L.divIcon({className: 'school-div-icon'})});
         }
       })];*/
@@ -152,6 +156,7 @@ export class GeolocationComponent implements OnInit {
         alert('test');
       });
       for (let i = 0; i < this.schoolsCoordinates.length; i++) {
+        container = $('<div />');
         school_i = this.schoolsCoordinates[i];
         popup = '<b>ESCOLA: </b>' + school_i.NO_ENTIDAD +
           '<br/><b>BAIRRO: </b>' + school_i.BAIRRO +
@@ -161,31 +166,20 @@ export class GeolocationComponent implements OnInit {
           // '<br/><input type="button" value="Ver informaçao da escola" id="bu-show-school-info" ' +
           // '(click)="showSchoolInfo($event)"/>';
         container.html(popup);
-        container.append($('<span class="bold">').text('...'))
+        container.append($('<span class="bold">').text('...'));
         marker = L.marker(L.latLng(school_i.lat, school_i.lon), {icon: this.schoolMarkerIcon});
         // data.push(marker.bindPopup($('<a href="#" class="speciallink">TestLink</a>').click(function() {alert('test'); })[0]));
         data.push(marker.bindPopup(container[0]));
       }
       this.markerClusterData = data;
+      console.log('getschoollist: ' , this.center);
     }, (err) => {
       console.log(err);
     });
   }
 
-  showSchoolInfo(event) {
-    alert('hello!');
-  }
-
   markerClusterReady(group: L.MarkerClusterGroup) {
     this.markerClusterGroup = group;
-  }
-
-  public convertStringToNumber(value: string): number {
-    return +value;
-  }
-
-  public convertToDouble(value: number) {
-    return value / 1000000;
   }
 
   toggleSidebar() {

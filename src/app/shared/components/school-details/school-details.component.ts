@@ -1,9 +1,8 @@
-import {Component, Input, OnInit, OnDestroy, Output} from '@angular/core';
+import {Component, Input, OnInit, OnDestroy, Output, EventEmitter} from '@angular/core';
 import {SchoolService} from '../../../school.service';
 import {Router} from '@angular/router';
 import {ShareddataService} from '../../../services/shareddata.service';
 import {Subscription} from 'rxjs/Subscription';
-import {School} from "../../../school";
 
 @Component({
   selector: 'app-school-details',
@@ -11,10 +10,8 @@ import {School} from "../../../school";
   styleUrls: ['./school-details.component.css']
 })
 export class SchoolDetailsComponent implements OnInit {
-  isActive = false;
-  message: any;
+  @Output() onSchoolLocation = new EventEmitter<any>();
   schoolSelectedID: string;
-  subscription: Subscription;
   schoolSelected: any;
   // Geral Information about a school
   CODESC = '';
@@ -36,8 +33,11 @@ export class SchoolDetailsComponent implements OnInit {
   ID_QUADRA_ESPORTES_DESCOBERTA = '';
   ID_BIBLIOTECA = '';
 
-  public eventCalled() {
-    this.isActive = !this.isActive;  }
+  LOCATION = {
+    LAT: 0,
+    LON: 0,
+    CODAP: ''
+  };
 
   constructor(private router: Router,
               private schoolService: SchoolService,
@@ -50,7 +50,6 @@ export class SchoolDetailsComponent implements OnInit {
 
   // Invoked from layout.component.ts or from geolocation.component.ts
   getSchoolDetailedInformation(schoolID: string) {
-    console.log('school/school-details/' + schoolID);
     // this.router.navigate([this.URL_ROOT + 'school/school-details/' + schoolID]);
     // this.schoolObject = schoolID;
     this.schoolService.showEscola(schoolID).then((res) => {
@@ -65,7 +64,7 @@ export class SchoolDetailsComponent implements OnInit {
       this.DDD = this.schoolSelected.DDD;
       this.TELEFONE = this.schoolSelected.TELEFONE;
       this.NO_REGIAO = this.schoolSelected.NO_REGIAO;
-      this.SIGLA = this.SIGLA;
+      this.SIGLA = this.schoolSelected.SIGLA;
       this.Dependad = this.schoolSelected.Dependad;
       this.DESC_SITUACAO_FUNCIONAMENTO = this.schoolSelected.DESC_SITUACAO_FUNCIONAMENTO;
       this.ID_LOCALIZACAO = this.schoolSelected.ID_LOCALIZACAO;
@@ -73,17 +72,20 @@ export class SchoolDetailsComponent implements OnInit {
       this.ID_QUADRA_ESPORTES_COBERTA = this.schoolSelected.ID_QUADRA_ESPORTES_COBERTA;
       this.ID_QUADRA_ESPORTES_DESCOBERTA = this.schoolSelected.ID_QUADRA_ESPORTES_DESCOBERTA;
       this.ID_BIBLIOTECA = this.schoolSelected.ID_BIBLIOTECA;
-      console.log(res);
+      this.LOCATION.LAT = this.schoolSelected.lat;
+      this.LOCATION.LON = this.schoolSelected.lon;
+      this.LOCATION.CODAP = this.schoolSelected.codap;
 
-      // send Data to school-details component
-      // Send schoolID to school-details component
-      // this.router.navigate(['/schoolDetails']);
+      // send lat, lon and codAp of a school selected to geolocation component via observable subject
+      this.sharedDataService.sendSchoolLocation(this.LOCATION);
+      this.onSchoolLocation.emit(this.LOCATION);
+
     }, (err) => {
       console.log(err);
     });
   }
 
-  /* gOnDestroy() {
+  /* ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     this.subscription.unsubscribe();
   } */

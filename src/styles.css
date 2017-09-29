@@ -13,6 +13,10 @@ body{
   margin:0;
 }
 
+.push-right-school-details .main-container {
+  margin-left: 408px !important;
+}
+
 /* CSS for schoolsDetails screen */
 .push-right-school-details .sidebar-school-details {
   left: 408px !important;
@@ -156,7 +160,7 @@ body{
 }
 
 .school-div-icon {
-  background: url(assets/images/marcador_small.png) no-repeat;
+  background: url(assets/images/marcador_school_default.png) no-repeat;
 }
 
 .cursor-hand {

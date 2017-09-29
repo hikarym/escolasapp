@@ -4,7 +4,8 @@ import {SchoolDetailsComponent} from './school-details.component';
 
 const routes: Routes = [
   {
-    path: 'school-details/:id', component: SchoolDetailsComponent
+    // path: 'school-details/:id', component: SchoolDetailsComponent
+    path: '', component: SchoolDetailsComponent
   }
 ];
 

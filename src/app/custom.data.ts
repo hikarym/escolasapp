@@ -42,7 +42,7 @@ export class CustomData extends Subject<CompleterItem[]> implements CompleterDat
       title: typeof data === 'string' ? data : data.NO_ENTIDAD_BAIRRO,
       description: '', // data.NO_ENTIDAD_BAIRRO,
       originalObject: data,
-      image: '../../../../assets/images/marcador_small.png',
+      image: '../../../../assets/images/marcador_school_default.png',
     } as CompleterItem;
   }
 

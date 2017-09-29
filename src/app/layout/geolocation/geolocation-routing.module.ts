@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { GeolocationComponent} from './geolocation.component';
 
 const routes: Routes = [
-  { path: '', component: GeolocationComponent}
+  { path: '', component: GeolocationComponent, data: {title: 'Geolocalizaçao das escolas'}}
 ];
 
 @NgModule({

@@ -8,19 +8,23 @@
         <agm-marker *ngFor = "let escola of schoolsCoordinates"
                     [latitude] = "convertToDouble(convertStringToNumber(escola.Latitude))"
                     [longitude] = "convertToDouble(convertStringToNumber(escola.Longitude))"
-                    [iconUrl] = "'assets/images/marcador_small.png'"
+                    [iconUrl] = "'assets/images/marcador_school_default.png'"
         >
         </agm-marker>
       </agm-map>-->
       <!--<div style="height: 100%;" leaflet [leafletOptions]="options2" [leafletLayers]="neighboringSchoolsLayer"></div>-->
+      <button style="position: absolute; z-index: 3000; top: 70px" (click)="recenter()" >recenter</button>
       <div id="mymap" leaflet style="height: 100%;"
-           [leafletOptions]="options"
-           [leafletBaseLayers]="baseLayers"
-           [leafletLayersControlOptions]="layersControlOptions"
+           [leafletBaseLayers] = "baseLayers"
+           [leafletZoom] = "zoom"
+           [leafletCenter] = "center"
+           [leafletLayers] = "neighboringSchoolsLayer"
+           [leafletLayersControlOptions] = "layersControlOptions"
 
-           [leafletMarkerCluster]="markerClusterData"
-           [leafletMarkerClusterOptions]="markerClusterOptions"
-           (leafletMarkerClusterReady)="markerClusterReady($event)"></div>
+           [leafletMarkerCluster] = "markerClusterData"
+           [leafletMarkerClusterOptions] = "markerClusterOptions"
+           (leafletMarkerClusterReady) = "markerClusterReady($event)">
+      </div>
     </div>
   </div>
 </div>

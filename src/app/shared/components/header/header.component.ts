@@ -6,6 +6,8 @@ import {CompleterData, CompleterItem, CompleterService} from 'ng2-completer';
 import {ShareddataService} from '../../../services/shareddata.service';
 import {Http} from '@angular/http';
 import {CustomData} from '../../../custom.data';
+import {isNull} from "util";
+import {not} from "rxjs/util/not";
 
 @Component({
   selector: 'app-header',
@@ -30,14 +32,15 @@ export class HeaderComponent implements OnInit {
         this.toggleSidebar();
       }
     });*/
+    // The way that we can check which events are the ones we need, ideally NavigationEnd
+    this.router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd) {
+        console.log('val header:' + val);
+      }
+    });
 
     this.schoolListFiltered = new CustomData(http);
     // this.schoolListFiltered = completerService.remote( this.URL_ROOT + 'school/search?text=', 'NO_ENTIDAD','NO_ENTIDAD_BAIRRO');
-    /*this.router.events.subscribe((val) => {
-      if (val instanceof NavigationEnd && window.innerWidth <= 992) {
-        this.toogleSchoolDetails();
-      }
-    });*/
   }
 
   @HostListener('window:resize', ['$event'])
@@ -59,22 +62,23 @@ export class HeaderComponent implements OnInit {
   }
 
   onSchoolSelected(item: CompleterItem) {
-    // this.toggleSidebar();
-    this.toogleSchoolDetails();
-    this.selectedSchoolID = item ? item.originalObject._id : '';
-    // send school ID to school-details component via observable subject
-    this.sharedDataService.sendSchoolID(this.selectedSchoolID);
-    this.onSchoolSel.emit(this.selectedSchoolID);
-    // Get the complete information about the selected school
-    // this.getSchoolDetailedInformation(this.selectedSchoolID);
-    // center the map in the selected school location
-
+    console.log('onSchoolSelected', item);
+    this.toggleSchoolDetails();
+    if (item !== null) {
+      this.selectedSchoolID = item ? item.originalObject._id : '';
+      // send school ID to school-details component via observable subject
+      this.sharedDataService.sendSchoolID(this.selectedSchoolID);
+      this.onSchoolSel.emit(this.selectedSchoolID);
+      // Get the complete information about the selected school
+      // this.getSchoolDetailedInformation(this.selectedSchoolID);
+      // center the map in the selected school location
+    }
   }
 
-  toogleSchoolDetails() {
+  toggleSchoolDetails() {
     const dom: any = document.querySelector('body');
     dom.classList.toggle('push-right-school-details');
-    console.log('procurando a informacao detalhada da escola escolhida');
+    console.log('procurando a informaçao detalhada da escola escolhida');
   }
 
   toggleSidebar() {
