@@ -68,8 +68,7 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
   markerClusterGroup: L.MarkerClusterGroup;
   markerClusterData: any[] = [];
   markerClusterOptions: L.MarkerClusterGroupOptions;
-  private subscription: Subscription;
-  private subs: ISubscription;
+  private subscription = new Subscription();
   selectionSchooolID: any = {};
   LOCATION = {
     LAT: -23.552133,
@@ -79,21 +78,21 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
 
   constructor( private schoolService: SchoolService, private sharedDataService: ShareddataService,
                private router: Router) {
-    /*this.subs = sharedDataService.getSchoolID().subscribe(
+    /*const s = sharedDataService.getSchoolID().subscribe(
       schoolID => {
         this.selectionSchooolID = schoolID;
-      });*/
+      });
+    this.subscription.add(s);*/
   }
 
   // unsubscribe to ensure no memory leaks
   ngOnDestroy() {
-    this.subs.unsubscribe();
     this.subscription.unsubscribe();
   }
 
   ngOnInit( ) {
 
-    this.subscription = this.sharedDataService.getSchoolLoc().subscribe(
+    const s = this.sharedDataService.getSchoolLoc().subscribe(
       res => {
         this.LOCATION = res;
         this.zoom = this.zoom_school_selected;
@@ -102,6 +101,8 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
         this.drawSchoolNeighborhoodArea(this.neighborhoodRadius, this.LOCATION.LAT, this.LOCATION.LON);
 
       });
+    this.subscription.add(s);
+
     // get the school list and Map the schools only once time
     if (this.center.lat === -23.552133) {
       this.getSchoolsList();
@@ -161,8 +162,9 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
         popup = '<b>ESCOLA: </b>' + school_i.NO_ENTIDAD +
           '<br/><b>BAIRRO: </b>' + school_i.BAIRRO +
           '<br/><b>ENDEREÇO: </b>' + school_i.ENDERECO + ' - ' + school_i.NUMERO  +
-          '<br/><b>LOCATION: </b>' + school_i.lat + ', ' + school_i.lon +
-          '<br/><a href="#" class="getSchoolInfo">Ver informaçao da escola</a>';
+          '<br/><b>LOC.: </b>' + school_i.lat + ', ' + school_i.lon +
+          '<br/><a href="#" class="getSchoolInfo">Informaçao da escola</a> - ' +
+          '<a href="#" class="getSchoolInfo">Area de Ponderaçao</a>';
           // '<br/><input type="button" value="Ver informaçao da escola" id="bu-show-school-info" ' +
           // '(click)="showSchoolInfo($event)"/>';
         container.html(popup);

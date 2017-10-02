@@ -85,6 +85,14 @@ export class SchoolDetailsComponent implements OnInit {
     });
   }
 
+  displayNeighborhood() {
+    alert('mostrar a vizinhanza');
+  }
+
+  displayWeightingArea() {
+    alert('Mostrar o area de ponderaçao');
+  }
+
   /* ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     this.subscription.unsubscribe();

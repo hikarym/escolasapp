@@ -10,14 +10,7 @@ import {GeolocationComponent} from './geolocation/geolocation.component';
 })
 export class LayoutComponent implements OnInit {
   selectedSchoolID_cp: string;
-  // lat: number;
-  // lon: number;
-  // codAp: string;
-  // LOCATION = {
-  //   LAT: -23.552133,
-  //   LON: -46.6331418,
-  //   CODAP: ''
-  // };
+
   @ViewChild(SchoolDetailsComponent) schoolDetailsComponent: SchoolDetailsComponent;
   @ViewChild(GeolocationComponent) geolocationComponent: GeolocationComponent;
 
@@ -25,7 +18,7 @@ export class LayoutComponent implements OnInit {
 
   ngOnInit() {
     if (this.router.url === '/' ) {
-      this.router.navigate(['/geolocation']);
+      this.router.navigate(['/geolocation']); // '/geolocation'
     }
   }
 

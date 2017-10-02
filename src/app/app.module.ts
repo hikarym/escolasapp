@@ -17,6 +17,7 @@ import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {LeafletMarkerClusterModule} from '@asymmetrik/ngx-leaflet-markercluster';
 import { SchoolService } from './school.service';
 import {ShareddataService} from './services/shareddata.service';
+import {NotFoundModule} from './not-found/not-found.module';
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
@@ -47,7 +48,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     ReactiveFormsModule,
     HeaderModule,
     SchoolDetailsModule,
-    Ng2CompleterModule
+    Ng2CompleterModule,
+    NotFoundModule
   ],
   providers: [SchoolService, ShareddataService],
   bootstrap: [AppComponent]

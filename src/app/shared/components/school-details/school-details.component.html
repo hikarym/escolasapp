@@ -1,7 +1,10 @@
 <nav class="sidebar-school-details" style="padding: 10px;">
+
   <h3> PANEL DE INFORMAÇOES!!!!!!!! </h3><br>
   <h4 id="no-entidad">{{NO_ENTIDAD}}</h4>
-  <b>Nome do Municipio:</b>{{NOMEMUN}} - {{SIGLA}}
+  <button (click)="displayNeighborhood()" >Ver vizinhança</button>
+  <button (click)="displayWeightingArea()" >Ver Area de ponderaçao</button>
+  <br/><b>Nome do Municipio:</b>{{NOMEMUN}} - {{SIGLA}}
   <br/><b>Endereço: </b>{{ENDERECO}}, {{NUMERO}}
   <br/><b>Bairro: </b>{{BAIRRO}}
   <br/><b>CEP: </b>{{CEP}}
