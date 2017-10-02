@@ -7,6 +7,7 @@ var logger = require('morgan');
 var route = require('./routes/route.js');
 var school = require('./routes/school.js');
 var search = require('./routes/search.js');
+var weightingArea = require('./routes/weightingarea.js');
 
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -33,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.use(route);
 app.use('/school', school);
 app.use('/search', search);
+app.use('/weightingarea', weightingArea);
 
 app.get('*', function (req, res) {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'))

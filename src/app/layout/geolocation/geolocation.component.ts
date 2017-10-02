@@ -9,6 +9,7 @@ import {ShareddataService} from '../../services/shareddata.service';
 import {ISubscription, Subscription} from 'rxjs/Subscription';
 import {Event, NavigationEnd, Router} from '@angular/router';
 import 'rxjs/add/operator/filter';
+import {WeightingAreaService} from '../../weighting-area.service';
 
 @Component({
   selector: 'app-geolocation',
@@ -75,8 +76,11 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
     LON: -46.6331418,
     CODAP: ''
   };
+  weightingAreaOfSchool: any;
 
-  constructor( private schoolService: SchoolService, private sharedDataService: ShareddataService,
+  constructor( private schoolService: SchoolService,
+               private weigthingAreaService: WeightingAreaService,
+               private sharedDataService: ShareddataService,
                private router: Router) {
     /*const s = sharedDataService.getSchoolID().subscribe(
       schoolID => {
@@ -99,7 +103,8 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
         this.center = L.latLng([this.LOCATION.LAT, this.LOCATION.LON]);
         console.log('update center in ngOnInit:', this.center);
         this.drawSchoolNeighborhoodArea(this.neighborhoodRadius, this.LOCATION.LAT, this.LOCATION.LON);
-
+        console.log('dibujar el ap:', this.LOCATION.CODAP);
+        this.drawWeightingAreaPolygon(this.LOCATION.CODAP);
       });
     this.subscription.add(s);
 
@@ -123,6 +128,14 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
       L.marker(L.latLng(schoolLat, schoolLng), {icon: this.selectedSchoolMarkerIcon})];
   }
 
+  drawWeightingAreaPolygon(codAp: string) {
+    this.weigthingAreaService.getWeightingArea(codAp).then((res) => {
+      // console.log('geolocation: ', res);
+      this.weightingAreaOfSchool = res;
+      this.neighboringSchoolsLayer.push(L.geoJSON(this.weightingAreaOfSchool));
+    });
+  }
+
   /* center the map*/
   /*redrawMap(schoolLat: number, schoolLng: number) {
     this.router.events.subscribe((val) => {
@@ -136,6 +149,12 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
     // Dra the school's neighborhood
   }*/
 
+  getWeightingAreaPolygon(codAp: string) {
+    this.weigthingAreaService.getWeightingArea(codAp).then((res) => {
+      this.weightingAreaOfSchool = res;
+      this.neighboringSchoolsLayer.push(L.geoJSON(this.weightingAreaOfSchool));
+    });
+  }
   getSchoolsList() {
     this.schoolService.getAllSchools().then((res) => {
       this.schoolsCoordinates = res;

@@ -18,6 +18,7 @@ import {LeafletMarkerClusterModule} from '@asymmetrik/ngx-leaflet-markercluster'
 import { SchoolService } from './school.service';
 import {ShareddataService} from './services/shareddata.service';
 import {NotFoundModule} from './not-found/not-found.module';
+import {WeightingAreaService} from './weighting-area.service';
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
@@ -51,7 +52,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     Ng2CompleterModule,
     NotFoundModule
   ],
-  providers: [SchoolService, ShareddataService],
+  providers: [SchoolService, ShareddataService, WeightingAreaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -7,11 +7,12 @@ import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
 import { SidebarComponent} from '../shared';
 
-import { SchoolService} from '../school.service';
 import { HttpModule} from '@angular/http';
 import {HeaderModule} from '../shared/components/header/header.module';
 import {SchoolDetailsModule} from '../shared/components/school-details/school-details.module';
 import {ShareddataService} from '../services/shareddata.service';
+import {SchoolService} from '../school.service';
+import {WeightingAreaService} from '../weighting-area.service';
 
 @NgModule({
   imports: [
@@ -29,7 +30,7 @@ import {ShareddataService} from '../services/shareddata.service';
     SidebarComponent
   ],
 
-  providers: [SchoolService, ShareddataService]
+  providers: [SchoolService, WeightingAreaService, ShareddataService]
 
 })
 export class LayoutModule { }
