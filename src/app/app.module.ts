@@ -7,7 +7,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppComponent } from './app.component';
 import { AppRoutingModule} from './app-routing.module';
 import { AgmCoreModule} from '@agm/core';
-import { HttpClient} from '@angular/common/http';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { PageHeaderComponent } from './shared/modules/page-header/page-header.component';
 import {HeaderModule} from './shared/components/header/header.module';
@@ -19,6 +19,7 @@ import { SchoolService } from './school.service';
 import {ShareddataService} from './services/shareddata.service';
 import {NotFoundModule} from './not-found/not-found.module';
 import {WeightingAreaService} from './weighting-area.service';
+import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
@@ -37,12 +38,13 @@ export function HttpLoaderFactory (http: HttpClient) {
     LeafletModule.forRoot(),
     LeafletMarkerClusterModule.forRoot(),
     HttpModule,
+    HttpClientModule,
     AppRoutingModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [Http]
+        useFactory: (HttpLoaderFactory),
+        deps: [HttpClient]
       }
     }),
     FormsModule,
@@ -50,7 +52,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     HeaderModule,
     SchoolDetailsModule,
     Ng2CompleterModule,
-    NotFoundModule
+    NotFoundModule,
+    NgbDropdownModule.forRoot()
   ],
   providers: [SchoolService, ShareddataService, WeightingAreaService],
   bootstrap: [AppComponent]

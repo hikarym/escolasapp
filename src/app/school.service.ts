@@ -23,18 +23,6 @@ export class SchoolService {
     });
   }
 
-  getSchoolSought(schoolName) {
-    return new Promise((resolve, reject) => {
-      this.http.get('/search/' + schoolName)
-        .map(res => res.json())
-        .subscribe(res => {
-          resolve(res);
-        }, (err) => {
-          reject(err);
-        });
-    });
-  }
-
   showEscola(id) {
     return new Promise((resolve, reject) => {
       this.http.get('/school/' + id)

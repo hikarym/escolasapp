@@ -6,8 +6,6 @@ import {CompleterData, CompleterItem, CompleterService} from 'ng2-completer';
 import {ShareddataService} from '../../../services/shareddata.service';
 import {Http} from '@angular/http';
 import {CustomData} from '../../../custom.data';
-import {isNull} from "util";
-import {not} from "rxjs/util/not";
 
 @Component({
   selector: 'app-header',

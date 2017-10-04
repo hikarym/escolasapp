@@ -1,16 +1,16 @@
 <nav class="sidebar">
   <ul class="list-group">
     <a routerLink="/geolocation" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-fw fa-dashboard"></i>&nbsp;{{ 'geolocation' | translate }}
+      <i class="fa fa-fw fa-map-marker"></i>&nbsp;{{ 'geolocation' | translate }}
     </a>
     <a [routerLink]="['/compare']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;{{ 'compare' | translate }}
+      <i class="fa fa-fw fa-columns"></i>&nbsp;{{ 'compare' | translate }}
     </a>
-    <a [routerLink]="['/option1']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-fw fa-table"></i>&nbsp;{{ 'option1' | translate }}
+    <a [routerLink]="['/graphs']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-fw fa-mortar-board"></i>&nbsp;{{ 'educational-variables' | translate }}
     </a>
     <a [routerLink]="['/option2']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-fw fa-edit"></i>&nbsp;{{ 'option2' | translate }}
+      <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;{{ 'socioeconomic-indicators' | translate }}
     </a>
     <a [routerLink]="['/option3']" [routerLinkActive]="['router-link-active']" class="list-group-item">
       <i class="fa fa-fw fa-desktop"></i>&nbsp;{{ 'option3' | translate }}
@@ -19,7 +19,7 @@
       <i class="fa fa-fw fa-wrench"></i>&nbsp;{{ 'option4' | translate }}
     </a>
     <a [routerLink]="['/option5']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-th-list"></i>&nbsp;{{ 'option5' | translate }}
+      <i class="fa fa-fw fa-info-circle"></i>&nbsp;{{ 'aboutproject' | translate }}
     </a>
     <a class="list-group-item more-themes" href="http://centrodametropole.org.br/escolas" >
       {{ 'aboutcem' | translate }}

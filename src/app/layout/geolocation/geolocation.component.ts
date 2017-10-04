@@ -130,10 +130,19 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
 
   drawWeightingAreaPolygon(codAp: string) {
     this.weigthingAreaService.getWeightingArea(codAp).then((res) => {
-      // console.log('geolocation: ', res);
       this.weightingAreaOfSchool = res;
-      this.neighboringSchoolsLayer.push(L.geoJSON(this.weightingAreaOfSchool));
+      this.neighboringSchoolsLayer.push(L.geoJSON(this.weightingAreaOfSchool, {style: this.weightingArestyle}));
     });
+  }
+
+  weightingArestyle(feature) {
+    return {
+      fillColor: 'red',
+      weight: 1,
+      opacity: 1,
+      color: 'red',  // Outline color
+      fillOpacity: 0.2
+    };
   }
 
   /* center the map*/
@@ -149,12 +158,6 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
     // Dra the school's neighborhood
   }*/
 
-  getWeightingAreaPolygon(codAp: string) {
-    this.weigthingAreaService.getWeightingArea(codAp).then((res) => {
-      this.weightingAreaOfSchool = res;
-      this.neighboringSchoolsLayer.push(L.geoJSON(this.weightingAreaOfSchool));
-    });
-  }
   getSchoolsList() {
     this.schoolService.getAllSchools().then((res) => {
       this.schoolsCoordinates = res;

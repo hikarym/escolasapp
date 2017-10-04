@@ -10,11 +10,15 @@ import { TranslateService } from '@ngx-translate/core';
 // classe para exportar todas a propriedades e metodos que desejem ser usados desde a vista
 export class AppComponent {
 
+  private defaultLang = 'pt';
   constructor (private translate: TranslateService) {
-    translate.addLangs(['pt', 'en']);
-    translate.setDefaultLang('en');
-    const browserLang = translate.getBrowserLang();
-    translate.use(browserLang.match(/pt|en/) ? browserLang : 'en');
+    this.translate.addLangs(['pt', 'en']);
+    this.translate.setDefaultLang(this.defaultLang);
+    // this.translate.getTranslation(this.defaultLang).subscribe(() => {});
+    // const browserLang = this.translate.getBrowserLang();
+    // this.translate.use(browserLang.match(/pt|en/) ? browserLang : 'pt');
+    // the lang to use, if the lang isn't available, it will use the current loader to get them
+    this.translate.use('pt');
   }
 }
 
