@@ -18,7 +18,7 @@ export class AppComponent {
     // const browserLang = this.translate.getBrowserLang();
     // this.translate.use(browserLang.match(/pt|en/) ? browserLang : 'pt');
     // the lang to use, if the lang isn't available, it will use the current loader to get them
-    this.translate.use('pt');
+    this.translate.use(this.defaultLang);
   }
 }
 

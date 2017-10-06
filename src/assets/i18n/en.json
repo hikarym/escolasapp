@@ -7,5 +7,22 @@
   "option4": "Option 4",
   "aboutproject": "About of this project",
   "aboutcem": "About of CEM",
-  "language": "Language"
+  "language": "Language",
+  "share": "Share",
+  "neighborhood": "Neighborhood",
+  "weighting-area": "Weighting Area",
+  "city": "City",
+  "address": "Address",
+  "district": "District",
+  "cep": "Postal Code",
+  "administrative-dependency": "Administrative dependency",
+  "status": "Situation",
+  "phone": "Phone",
+  "facilities": "Facilities",
+  "library": "Library",
+  "computer-lab": "Computer lab.",
+  "covered-court": "Covered court",
+  "uncovered-court": "Uncovered Court",
+  "latitude": "Latitude",
+  "longitude": "Longitude"
 }

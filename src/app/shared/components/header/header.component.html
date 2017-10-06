@@ -12,8 +12,8 @@
                    [minSearchLength]="3"
                    [selectOnClick]="true"
                    [textSearching]="'Por favor aguarde, procurando...'"
-                   [textNoResults]="'Nenhum resultado encontrado'"
-                   [placeholder]="'Digite o nome da escola que esta procurando'"
+                   [textNoResults]="'Nenhúm resultado encontrado'"
+                   [placeholder]="'Digite o nome da escola que está procurando'"
                    (selected)="onSchoolSelected($event)" >
     </ng2-completer>
     <!--<p class="text-info">{{removeDiacritics(searchField)}}</p>-->
@@ -24,7 +24,7 @@
             <i class="fa fa-language"></i> {{ 'language' | translate }} <b class="caret"></b>
           </a>
           <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="javascript:void(0)" (click)="changeLang('pt')">Portugues</a>
+            <a class="dropdown-item" href="javascript:void(0)" (click)="changeLang('pt')">Português</a>
             <a class="dropdown-item" href="javascript:void(0)" (click)="changeLang('en')">English</a>
           </div>
         </li>

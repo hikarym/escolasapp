@@ -1,26 +1,142 @@
-<nav class="sidebar-school-details" style="padding: 10px;">
+<nav class="sidebar-school-details" >
+  <div role="region" class="widget-pane-content-holder">
+    <div tabindex="-1" class="section-listbox section-listbox-root">
+      <div class="section-hero-header">
+        <label class="section-hero-header-hero widget-pane-fading widget-pane-fade-in">
+          <img src="assets/images/localize-sua-escola.png" style="position: relative; top: 0px;left: 0px;width: 408px;height: 200px;">
+        </label>
 
-  <h3> PANEL DE INFORMAÇOES!!!!!!!! </h3><br>
-  <h4 id="no-entidad">{{NO_ENTIDAD}}</h4>
-  <button (click)="displayNeighborhood()" >Ver vizinhança</button>
-  <button (click)="displayWeightingArea()" >Ver Area de ponderaçao</button>
-  <br/><b>Nome do Municipio:</b>{{NOMEMUN}} - {{SIGLA}}
-  <br/><b>Endereço: </b>{{ENDERECO}}, {{NUMERO}}
-  <br/><b>Bairro: </b>{{BAIRRO}}
-  <br/><b>CEP: </b>{{CEP}}
-  <br/><b>Dependencia administrativa: </b>{{Dependad}}
-  <br/><b>Situação da escola (em relação ao Censo Escolar 2014): </b>{{DESC_SITUACAO_FUNCIONAMENTO}}
-  <br/><b>Telefone: </b>{{DDD}} {{TELEFONE}}
-  <br/>
-  <h5>INSTALAÇOES</h5>
-  <b>Biblioteca: </b> {{ID_BIBLIOTECA}}
-  <br/><b>Laboratorio de Informatica: </b>{{ID_LABORATORIO_INFORMATICA}}
-  <br/><b>Quadra Coberta: </b>{{ID_QUADRA_ESPORTES_COBERTA}}
-  <br/><b>Quadra Descoberta: </b> {{ID_QUADRA_ESPORTES_DESCOBERTA}}
-  <h5>LOCATION</h5>
-  <b>Latitude: </b> {{LOCATION.LAT}}
-  <b>Longitude: </b> {{LOCATION.LON}}
+        <div class="widget-pane-clear" style="display:none"></div>
+        <div class="section-hero-header-description">
+          <div>
+            <h1 class="section-hero-header-title" id="no-entidad">{{NO_ENTIDAD}}</h1>
+          </div>
+          <div class="section-hero-header-subtitle"></div>
+        </div>
+      </div>
+      <div class="section-action">
+        <div class="section-entity-action">
+          <div class="section-action-popup-container">
+            <button (click)="displayWeightingArea()" aria-haspopup="aria-haspopup" class="section-action-button blue-button-text ripple-container" >
+              <div class="section-action-button-icon fa fa-globe fa-3x fa-fw"></div>
+              <div>{{'weighting-area' | translate}}</div>
+            </button>
+          </div>
+          <button (click)="displayNeighborhood()" class="section-action-button blue-button-text ripple-container" >
+            <div class="section-action-button-icon fa fa-circle-thin fa-3x fa-fw"></div>
+            <div>{{'neighborhood' | translate}}</div>
+          </button>
+          <button class="section-action-button blue-button-text ripple-container">
+            <div class="section-action-button-icon fa fa-share-alt fa-3x fa-fw"></div>
+            <div>{{'share' | translate}}</div>
+          </button>
+        </div>
+      </div>
+      <div class="section-divider" style="height: 20px"></div>
+      <div class="section-info">
+        <div>
+          <div class="section-info-line">
+            <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-angle-right"></span>
+            <div class="section-info-icon" ><b>{{'city' | translate}}:</b></div>
+            <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+            <span class="section-info-text">
+              <span>{{NOMEMUN}} - {{SIGLA}}</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="section-info">
+          <div class="section-info-line">
+            <span role="img" class="section-info-icon fa fa-fw fa-angle-right"></span>
+            <div class="section-info-icon" ><b>{{'address' | translate}}:</b></div>
+            <span class="section-info-text">{{ENDERECO}}, {{NUMERO}}</span>
+          </div>
+      </div>
+      <div class="section-info">
+        <div class="section-info-line">
+          <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-angle-right"></span>
+          <div class="section-info-icon" ><b>{{'district' | translate}}:</b></div>
+          <span class="section-info-text">{{BAIRRO}}</span>
+        </div>
+      </div>
+      <div class="section-info">
+        <div class="section-info-line">
+          <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-angle-right"></span>
+          <div class="section-info-icon" ><b>{{'cep' | translate}}:</b></div>
+          <span class="section-info-text">{{CEP}}</span>
+        </div>
+      </div>
+      <div class="section-info">
+        <div class="section-info-line">
+          <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-angle-right"></span>
+          <div class="section-info-icon" ><b>{{'administrative-dependency' | translate}}:</b></div>
+          <span class="section-info-text">{{Dependad}}</span>
+        </div>
+      </div>
+      <div class="section-info">
+        <div class="section-info-line">
+          <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-angle-right"></span>
+          <div class="section-info-icon" ><b>{{'status' | translate}}:</b></div>
+          <span class="section-info-text">{{DESC_SITUACAO_FUNCIONAMENTO}}</span>
+        </div>
+      </div>
+      <div class="section-info">
+        <div class="section-info-line">
+          <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-angle-right"></span>
+          <div class="section-info-icon" ><b>{{'phone' | translate}}:</b></div>
+          <span class="section-info-text">{{DDD}} {{TELEFONE}}</span>
+        </div>
+      </div>
 
-  <div> Mostrar grafico estatistico </div><br>
-  <div> Mostrar o resto das informaçoes</div>
+      <div class="section-divider" style="height: 10px"></div>
+      <div class="section-info-line">
+        <h5 style="text-transform: capitalize">{{'facilities' | translate}}</h5>
+      </div>
+      <div class="section-divider" style="height: 10px"></div>
+
+      <div class="section-info">
+        <div class="section-info-line">
+          <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-angle-right"></span>
+          <div class="section-info-icon" ><b>{{'library' | translate}}:</b></div>
+          <span class="section-info-text">{{ID_BIBLIOTECA}}</span>
+        </div>
+      </div>
+      <div class="section-info">
+        <div class="section-info-line">
+          <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-angle-right"></span>
+          <div class="section-info-icon" ><b>{{'computer-lab' | translate}}:</b></div>
+          <span class="section-info-text">{{ID_LABORATORIO_INFORMATICA}}</span>
+        </div>
+      </div>
+      <div class="section-info">
+        <div class="section-info-line">
+          <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-angle-right"></span>
+          <div class="section-info-icon" ><b>{{'covered-court' | translate}}:</b></div>
+          <span class="section-info-text">{{ID_QUADRA_ESPORTES_COBERTA}}</span>
+        </div>
+      </div>
+      <div class="section-info">
+        <div class="section-info-line">
+          <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-angle-right"></span>
+          <div class="section-info-icon" ><b>{{'uncovered-court' | translate}}:</b></div>
+          <span class="section-info-text">{{ID_QUADRA_ESPORTES_DESCOBERTA}}</span>
+        </div>
+      </div>
+
+      <div class="section-info">
+        <div class="section-info-line">
+          <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-angle-right"></span>
+          <div class="section-info-icon" ><b>{{'latitude' | translate}}:</b></div>
+          <span class="section-info-text">{{LOCATION.LAT}}</span>
+        </div>
+      </div>
+      <div class="section-info">
+        <div class="section-info-line">
+          <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-angle-right"></span>
+          <div class="section-info-icon" ><b>{{'longitude' | translate}}:</b></div>
+          <span class="section-info-text">{{LOCATION.LON}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </nav>
