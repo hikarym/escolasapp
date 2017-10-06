@@ -17,14 +17,22 @@
       <div class="section-action">
         <div class="section-entity-action">
           <div class="section-action-popup-container">
-            <button (click)="displayWeightingArea()" aria-haspopup="aria-haspopup"
+            <button (click)="displayWeightingArea()" aria-haspopup="aria-haspopup" data-toggle="toggle"
                     class="section-action-button blue-button-text ripple-container" title="{{'weighting-area-button-title' | translate}}">
-              <div class="section-action-button-icon fa fa-globe fa-3x fa-fw"></div>
-              <div>{{'weighting-area' | translate}}</div>
+              <div>
+                <div style="display: block">
+                  <div class="section-action-button-icon fa fa-globe fa-3x fa-fw fa-toggle-on"></div>
+                  <div>{{'weighting-area' | translate}}</div>
+                </div>
+                <div style="display: none">
+                  <div class="section-action-button-icon fa fa-globe fa-3x fa-fw fa-toggle-off"></div>
+                  <div>{{'weighting-area' | translate}}</div>
+                </div>
+              </div>
             </button>
           </div>
           <button (click)="displayNeighborhood()" class="section-action-button blue-button-text ripple-container" >
-            <div class="section-action-button-icon fa fa-circle-thin fa-3x fa-fw"></div>
+            <div class="section-action-button-icon fa fa-circle-thin fa-3x fa-fw fa-toggle-on"></div>
             <div>{{'neighborhood' | translate}}</div>
           </button>
           <button class="section-action-button blue-button-text ripple-container">
