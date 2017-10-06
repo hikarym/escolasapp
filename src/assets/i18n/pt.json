@@ -24,5 +24,6 @@
   "covered-court": "Quadra coberta",
   "uncovered-court": "Quadra descoberta",
   "latitude": "Latitude",
-  "longitude": "Longitude"
+  "longitude": "Longitude",
+  "weighting-area-button-title" : "Mostrar/ocultar a área de ponderação"
 }

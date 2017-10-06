@@ -114,6 +114,17 @@ ng2-completer {
   margin-bottom: 2px!important;
 }
 
+:host>>> .completer-image-holder {
+  float: left!important;
+  width: 14px!important;/*10%*/
+}
+
+:host>>> .completer-item-text-image {
+  float: none!important;
+  width: 100%!important;/*90%*/
+  margin-left: 38px!important;
+}
+
 :host>>> .completer-description {
   font-size: inherit!important;
 }
@@ -123,6 +134,8 @@ ng2-completer {
   height: 14px!important;
   /*background-image: url('../../../../assets/images/marcador_school_default.png');*/
 }
+
+
 
 /*css to keep the controls in a row*/
 @media screen and (max-width: 992px) {

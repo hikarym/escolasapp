@@ -24,5 +24,6 @@
   "covered-court": "Covered court",
   "uncovered-court": "Uncovered Court",
   "latitude": "Latitude",
-  "longitude": "Longitude"
+  "longitude": "Longitude",
+  "weighting-area-button-title" : "Show/hide the weighting area"
 }
