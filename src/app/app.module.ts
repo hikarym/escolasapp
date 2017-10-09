@@ -53,7 +53,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     SchoolDetailsModule,
     Ng2CompleterModule,
     NotFoundModule,
-    NgbDropdownModule.forRoot()
+    NgbDropdownModule.forRoot(),
+
   ],
   providers: [SchoolService, ShareddataService, WeightingAreaService],
   bootstrap: [AppComponent]

@@ -11,4 +11,8 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  changeLang(language: string) {
+    return 0;
+  }
 }
