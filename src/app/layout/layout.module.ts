@@ -13,6 +13,9 @@ import {SchoolDetailsModule} from '../shared/components/school-details/school-de
 import {ShareddataService} from '../services/shareddata.service';
 import {SchoolService} from '../school.service';
 import {WeightingAreaService} from '../weighting-area.service';
+import { AboutProjectComponent } from './about-project/about-project.component';
+import { EducationalVariablesComponent } from './educational-variables/educational-variables.component';
+import { SocioeconomicIndicatorsComponent } from './socioeconomic-indicators/socioeconomic-indicators.component';
 
 @NgModule({
   imports: [
@@ -27,7 +30,10 @@ import {WeightingAreaService} from '../weighting-area.service';
   declarations: [
     LayoutComponent,
     // HeaderComponent,
-    SidebarComponent
+    SidebarComponent,
+    AboutProjectComponent,
+    EducationalVariablesComponent,
+    SocioeconomicIndicatorsComponent
   ],
 
   providers: [SchoolService, WeightingAreaService, ShareddataService]

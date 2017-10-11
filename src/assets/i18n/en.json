@@ -7,8 +7,8 @@
   "socioeconomic-indicators": "Socio-Economic Indicators",
   "option3": "Option 3",
   "option4": "Option 4",
-  "aboutproject": "About of this project",
-  "aboutcem": "About of CEM",
+  "aboutProject": "About of this project",
+  "aboutCem": "About of CEM",
   "language": "Language",
   "share": "Share",
   "neighborhood": "Neighborhood",
@@ -27,5 +27,8 @@
   "uncovered-court": "Uncovered Court",
   "latitude": "Latitude",
   "longitude": "Longitude",
-  "weighting-area-button-title" : "Show/hide the weighting area"
+  "weighting-area-button-title" : "Show/hide the weighting area",
+  "textSearching": "Please wait, searching...",
+  "textNoResults": "No results found",
+  "placeholderSearchingInput": "Enter the school name you are searching"
 }

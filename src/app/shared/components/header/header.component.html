@@ -2,10 +2,7 @@
 <div class="fixed-top header">
   <!-- navbar-toggleable-md : to display the menu icon-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-toggleable-md">
-    <button class="navbar-toggler navbar-le cursor-hand"
-            data-toggle="collapse"
-            data-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup"
+    <button class="navbar-toggler cursor-hand"
             type="button" title="Menu" (click)="toggleSidebar()">
       <span class="navbar-toggler-icon "></span>
     </button>
@@ -17,20 +14,21 @@
                    [datasource]="schoolListFiltered"
                    [minSearchLength]="3"
                    [selectOnClick]="true"
-                   [textSearching]="'Por favor aguarde, procurando...'"
-                   [textNoResults]="'Nenhúm resultado encontrado'"
-                   [placeholder]="'Digite o nome da escola que está procurando'"
+                   [textSearching]="'textSearching' | translate"
+                   [textNoResults]="'textNoResults' | translate"
+                   [placeholder]="'placeholderSearchingInput' | translate"
                    (selected)="onSchoolSelected($event)"
                    >
     </ng2-completer>
-    <!--<p class="text-info">{{removeDiacritics(searchField)}}</p>-->
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+    <div class="collapse navbar-collapse">
       <ul class="navbar-nav ml-auto mt-2 mt-md-0">
-        <li class="nav-item dropdown" ngbDropdown>
-          <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
-            <i class="fa fa-language"></i> {{ 'language' | translate }}<!-- <b class="caret"></b>-->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
+             aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-language"></i> {{ 'language' | translate }}
           </a>
-          <div class="dropdown-menu dropdown-menu-right">
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="javascript:void(0)" (click)="changeLang('pt')">Português</a>
             <a class="dropdown-item" href="javascript:void(0)" (click)="changeLang('en')">English</a>
           </div>

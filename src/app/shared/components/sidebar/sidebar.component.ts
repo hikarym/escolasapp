@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {HeaderComponent} from '../header/header.component';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,12 +9,15 @@ import {Component, OnInit} from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+  // headerComponent: HeaderComponent;
+
+  constructor(private translate: TranslateService) { }
 
   ngOnInit() {
   }
 
   changeLang(language: string) {
-    return 0;
+    // this.headerComponent.changeLang(language);
+    this.translate.use(language);
   }
 }

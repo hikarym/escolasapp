@@ -20,6 +20,7 @@ import {ShareddataService} from './services/shareddata.service';
 import {NotFoundModule} from './not-found/not-found.module';
 import {WeightingAreaService} from './weighting-area.service';
 import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
+import {MatSlideToggleModule, MatIconModule} from '@angular/material';
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
@@ -29,6 +30,7 @@ export function HttpLoaderFactory (http: HttpClient) {
   declarations: [
     AppComponent,
     PageHeaderComponent
+
   ],
   imports: [
     BrowserModule,
@@ -54,7 +56,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     Ng2CompleterModule,
     NotFoundModule,
     NgbDropdownModule.forRoot(),
-
+    MatSlideToggleModule,
+    MatIconModule
   ],
   providers: [SchoolService, ShareddataService, WeightingAreaService],
   bootstrap: [AppComponent]

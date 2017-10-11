@@ -45,6 +45,7 @@
     "leaflet.icon.glyph": "^0.2.0",
     "leaflet.markercluster": "^1.1.0",
     "mapbox-gl": "^0.39.1",
+    "material-design-icons": "^3.0.1",
     "mongoose": "^4.11.4",
     "mongoose-geojson-schema": "^2.1.2",
     "mongoose-long": "^0.1.1",

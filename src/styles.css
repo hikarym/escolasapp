@@ -1,4 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+/*CSS Sngular Material*/
+/*
+"../node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
+"../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+"../node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+"../node_modules/@angular/material/prebuilt-themes/purple-green.css
+*/
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
 html{
   margin:0;
   height:100%;
@@ -166,3 +175,16 @@ body{
 .cursor-hand {
   cursor: pointer!important;
 }
+
+/* toggle*/
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.example-margin {
+  margin: 10px;
+}
+

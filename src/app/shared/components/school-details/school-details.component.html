@@ -16,7 +16,33 @@
       </div>
       <div class="section-action">
         <div class="section-entity-action">
-          <div class="section-action-popup-container">
+          <section class="toggle-icon section-action-button  ripple-container">
+            <mat-slide-toggle class=" section-action-button-icon" [checked]="true" (change)="displayWeightingArea($event)"></mat-slide-toggle>
+            <div class="blue-button-text">{{'weighting-area' | translate}}</div>
+          </section>
+          <section class="toggle-icon section-action-button  ripple-container">
+            <mat-slide-toggle class=" section-action-button-icon" [checked]="true" (change)="displayNeighborhood($event)" ></mat-slide-toggle>
+            <div class="blue-button-text">{{'neighborhood' | translate}}</div>
+          </section>
+          <!--<section class="toggle-icon section-action-button  ripple-container">
+            <mat-icon fontSet="fontawesome" fontIcon="fa-share-alt" class="section-action-button-icon fa-3x"></mat-icon>
+            <div class="blue-button-text">{{'share' | translate}}</div>
+          </section>-->
+          <button (click)="displaySharePopup()" class="section-action-button blue-button-text ripple-container">
+            <!--<i class="section-action-button-icon material-icons">share</i>-->
+            <mat-icon fontSet="fontawesome" fontIcon="fa-share-alt" class="section-action-button-icon fa-3x"></mat-icon>
+            <div>{{'share' | translate}}</div>
+          </button>
+          <!--<button class="section-action-button blue-button-text ripple-container">
+            <div class="section-action-button-icon fa fa-share-alt fa-3x"></div>
+            <div>{{'share' | translate}}</div>
+          </button>-->
+          <!--<div class="section-action-popup-container">
+            <section class="example-section section-action-button ripple-container">
+              <mat-slide-toggle class="example-margin section-action-button blue-button-text ripple-container" [checked]="true" >
+                <div>{{'weighting-area' | translate}}</div>
+              </mat-slide-toggle>
+            </section>
             <button (click)="displayWeightingArea()" aria-haspopup="aria-haspopup" data-toggle="toggle"
                     class="section-action-button blue-button-text ripple-container" title="{{'weighting-area-button-title' | translate}}">
               <div>
@@ -30,7 +56,6 @@
                 </div>
               </div>
             </button>
-
           </div>
           <button (click)="displayNeighborhood()" class="section-action-button blue-button-text ripple-container" >
             <div class="section-action-button-icon fa fa-circle-thin fa-3x fa-fw fa-toggle-on"></div>
@@ -39,7 +64,7 @@
           <button class="section-action-button blue-button-text ripple-container">
             <div class="section-action-button-icon fa fa-share-alt fa-3x fa-fw"></div>
             <div>{{'share' | translate}}</div>
-          </button>
+          </button>-->
         </div>
       </div>
       <div class="section-divider" style="height: 20px"></div>

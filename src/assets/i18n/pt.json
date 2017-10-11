@@ -7,9 +7,9 @@
   "socioeconomic-indicators": "Indicadores Socioeconômicos",
   "option3": "Opção 3",
   "option4": "Opção 4",
-  "aboutproject": "Sobre o projeto",
-  "aboutcem": "Sobre o CEM",
-  "language": "Linguagem",
+  "aboutProject": "Sobre o projeto",
+  "aboutCem": "Sobre o CEM",
+  "language": "Idioma",
   "share": "Compartilhar",
   "neighborhood": "Vizinhança",
   "weighting-area": "Área de Ponderação",
@@ -27,5 +27,8 @@
   "uncovered-court": "Quadra descoberta",
   "latitude": "Latitude",
   "longitude": "Longitude",
-  "weighting-area-button-title" : "Mostrar/ocultar a área de ponderação"
+  "weighting-area-button-title" : "Mostrar/ocultar a área de ponderação",
+  "textSearching": "Por favor aguarde, procurando...",
+  "textNoResults": "Nenhúm resultado encontrado",
+  "placeholderSearchingInput": "Digite o nome da escola que está procurando"
 }

@@ -3,6 +3,7 @@ import {SchoolService} from '../../../school.service';
 import {Router} from '@angular/router';
 import {ShareddataService} from '../../../services/shareddata.service';
 import {Subscription} from 'rxjs/Subscription';
+import {MatIconRegistry} from '@angular/material';
 
 @Component({
   selector: 'app-school-details',
@@ -41,8 +42,10 @@ export class SchoolDetailsComponent implements OnInit {
 
   constructor(private router: Router,
               private schoolService: SchoolService,
-              private sharedDataService: ShareddataService) {
+              private sharedDataService: ShareddataService,
+              iconRegistry: MatIconRegistry) {
     // this.subscription = this.sharedDataService.getSchoolID().subscribe(message => {this.message = message; } );
+    iconRegistry.registerFontClassAlias('fontawesome', 'fa');
   }
 
   ngOnInit() {
@@ -60,7 +63,7 @@ export class SchoolDetailsComponent implements OnInit {
       this.BAIRRO = this.schoolSelected.BAIRRO;
       this.CEP = this.schoolSelected.CEP;
       this.ENDERECO = this.schoolSelected.ENDERECO;
-      this.NUMERO = this.schoolSelected.NUMEROM;
+      this.NUMERO = this.schoolSelected.NUMERO;
       this.DDD = this.schoolSelected.DDD;
       this.TELEFONE = this.schoolSelected.TELEFONE;
       this.NO_REGIAO = this.schoolSelected.NO_REGIAO;
@@ -85,12 +88,26 @@ export class SchoolDetailsComponent implements OnInit {
     });
   }
 
-  displayNeighborhood() {
-    alert('mostrar a vizinhanza');
+  displayWeightingArea(event) {
+    alert(event.checked);
+    if (event.checked) {
+      // display the weighting area
+    } else {
+      // Hide the weighting area
+    }
   }
 
-  displayWeightingArea() {
-    alert('Mostrar o area de ponderaçao');
+  displayNeighborhood(event) {
+    alert(event.checked);
+    if (event.checked) {
+      // display the weighting area
+    } else {
+      // Hide the weighting area
+    }
+  }
+
+  displaySharePopup() {
+    alert('Compartilhar');
   }
 
   /* ngOnDestroy() {
