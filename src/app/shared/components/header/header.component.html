@@ -6,7 +6,11 @@
             type="button" title="Menu" (click)="toggleSidebar()">
       <span class="navbar-toggler-icon "></span>
     </button>
-    <a class="navbar-brand ml-3" href="#">{{brand}}</a>
+    <a class="navbar-brand ml-3" href="#">
+      <!--<img  src="/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">-->
+      <i class="material-icons md-36 d-inline-block align-top" style="width: 36px; height: 36px" alt="">school</i>
+      {{brand}}
+    </a>
 
     <ng2-completer name="searchField"
                    [(ngModel)]="searchField"

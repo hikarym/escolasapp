@@ -34,7 +34,7 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
   LAYER_OSM = {
     id: 'openstreetmap',
     name: 'Open Street Map',
-    enabled: true,
+    enabled: false,
     layer: L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       minZoom: 1,
       maxZoom: 19,
@@ -56,8 +56,8 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
   // Values to bind to Leaflet Directive
   layersControlOptions = { position: 'bottomright' };
   baseLayers = {
-    'Open Street Map': this.LAYER_OSM.layer,
-    'Google Street Maps': this.LAYER_GSM.layer
+    'Google Street Maps': this.LAYER_GSM.layer,
+    'Open Street Map': this.LAYER_OSM.layer
   };
   options = { zoom: 14, center: L.latLng([this.centerLat, this.centerLng])  };
   zoom = 14;
