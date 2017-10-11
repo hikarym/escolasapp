@@ -10,7 +10,7 @@ var weightingArea = require('./routes/weightingarea.js');
 
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-var db = require('./config/db-config.js');
+var db = require('./config/dbconfig.js');
 
 // Call connection to MongoDB on localhost:27017
 /*mongoose.connect('mongodb://172.16.1.32/escolasdb', {config: {autoIndex: false}, useMongoClient: true})
