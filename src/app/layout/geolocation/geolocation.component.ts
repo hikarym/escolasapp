@@ -61,6 +61,9 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
   };
   options = { zoom: 14, center: L.latLng([this.centerLat, this.centerLng])  };
   zoom = 14;
+  zoomOptions = {
+    position: 'topright'
+  };
   center = L.latLng([this.centerLat, this.centerLng]);
   zoom_school_selected = 14;
 

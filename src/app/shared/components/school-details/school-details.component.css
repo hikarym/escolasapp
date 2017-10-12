@@ -4,8 +4,8 @@
   z-index: 500;
   top: 55px;
   left: 0px; /*408px to display it*/
-  width: 408px;
-  margin-left: -408px;
+  width: 360px; /*408*/
+  margin-left: -360px; /*408*/
   border: none;
   border-radius: 0;
   overflow-y: auto;
@@ -124,7 +124,7 @@
   overflow: visible;
   position: absolute;
   height: 100%;
-  width: 408px;
+  width: 360px; /*408*/
 }
 
 .section-listbox-root {
@@ -166,11 +166,42 @@
   filter: saturate(100%);
 }
 
+.section-hero-header-display-hide {
+  float: right;
+  position: relative;
+  cursor: pointer;
+  text-align: center;
+  padding: 10px 0;
+  margin: -38px 8px 10px;
+  min-width: 89px;
+  width: -webkit-min-content;
+  width: -moz-min-content;
+  width: min-content;
+}
+
+.section-hero-header-display-hide-base {
+  width: 56px;
+  height: 56px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.3);
+  transition: box-shadow 150ms cubic-bezier(.4,0,1,1);
+  color: #4285F4;
+}
+
+.section-hero-header-display-hide-icon {
+  background-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
 .section-hero-header-hero {
   overflow: hidden;
   direction: ltr;
   display: block;
-  width: 408px;
+  width: 360px; /*408*/
   height: 200px; /*200*/
 }
 
@@ -203,6 +234,7 @@
   font-size: 18px;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-weight: 400;
 }
 
 .section-hero-header-subtitle {

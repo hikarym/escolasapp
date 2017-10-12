@@ -23,17 +23,17 @@ body{
 }
 
 .push-right-school-details .main-container {
-  margin-left: 408px !important;
+  margin-left: 360px !important; /*408*/
 }
 
 /* CSS for schoolsDetails screen */
 .push-right-school-details .sidebar-school-details {
-  left: 408px !important;
+  left: 360px !important; /*408*/
 }
 
 @media screen and (max-width: 992px) {
   .push-right-school-details .sidebar-school-details {
-    left: 408px !important;
+    left: 360px !important; /*408*/
   }
 }
 
@@ -188,5 +188,15 @@ body{
   margin: 10px;
 }
 
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+  background-color: rgba(66, 133, 244,.5);
+}
+
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+  background-color: #4285f4;
+}
+
 /* icons */
 .material-icons.md-36 { font-size: 36px; }
+
+/* */
