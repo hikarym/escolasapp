@@ -115,4 +115,10 @@ export class SchoolDetailsComponent implements OnInit {
     this.subscription.unsubscribe();
   } */
 
+  toggleSchoolDetails() {
+    const dom: any = document.querySelector('body');
+    dom.classList.toggle('push-right-school-details');
+    console.log('procurando a informaçao detalhada da escola escolhida');
+  }
+
 }
