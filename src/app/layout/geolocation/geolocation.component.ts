@@ -61,13 +61,13 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
   };
   options = { zoom: 14, center: L.latLng([this.centerLat, this.centerLng])  };
   zoom = 14;
+  // zoomOptions= L.control.zoom({position: 'topright'});
   zoomOptions = {
     position: 'topright'
-  };
+  }
   center = L.latLng([this.centerLat, this.centerLng]);
   zoom_school_selected = 14;
 
-  // --------------------------------
   // Marker cluster stuff
   markerClusterGroup: L.MarkerClusterGroup;
   markerClusterData: any[] = [];
@@ -80,6 +80,8 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
     CODAP: ''
   };
   weightingAreaOfSchool: any;
+  toggleSchoolDetailsIcon = 'chevron_right';
+  schoolSelectedFlag= false;
 
   constructor( private schoolService: SchoolService,
                private weigthingAreaService: WeightingAreaService,
@@ -92,11 +94,6 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
     this.subscription.add(s);*/
   }
 
-  // unsubscribe to ensure no memory leaks
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
   ngOnInit( ) {
 
     const s = this.sharedDataService.getSchoolLoc().subscribe(
@@ -104,9 +101,10 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
         this.LOCATION = res;
         this.zoom = this.zoom_school_selected;
         this.center = L.latLng([this.LOCATION.LAT, this.LOCATION.LON]);
+        this.schoolSelectedFlag = true;
         console.log('update center in ngOnInit:', this.center);
         this.drawSchoolNeighborhoodArea(this.neighborhoodRadius, this.LOCATION.LAT, this.LOCATION.LON);
-        console.log('dibujar el ap:', this.LOCATION.CODAP);
+        console.log('Desenhar o ap:', this.LOCATION.CODAP);
         this.drawWeightingAreaPolygon(this.LOCATION.CODAP);
       });
     this.subscription.add(s);
@@ -134,11 +132,11 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
   drawWeightingAreaPolygon(codAp: string) {
     this.weigthingAreaService.getWeightingArea(codAp).then((res) => {
       this.weightingAreaOfSchool = res;
-      this.neighboringSchoolsLayer.push(L.geoJSON(this.weightingAreaOfSchool, {style: this.weightingArestyle}));
+      this.neighboringSchoolsLayer.push(L.geoJSON(this.weightingAreaOfSchool, {style: this.weightingAreaStyle}));
     });
   }
 
-  weightingArestyle(feature) {
+  weightingAreaStyle(feature) {
     return {
       fillColor: 'red',
       weight: 1,
@@ -162,6 +160,7 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
   }*/
 
   getSchoolsList() {
+    this.schoolSelectedFlag = false;
     this.schoolService.getAllSchools().then((res) => {
       this.schoolsCoordinates = res;
       this.featureCollection.features = this.schoolsCoordinates;
@@ -214,4 +213,22 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
     dom.classList.toggle('push-right');
   }
 
+  toggleSchoolDetails() {
+    const dom: any = document.querySelector('body');
+    dom.classList.toggle('push-right-school-details');
+    const togglebutton: any = document.getElementById('toggle-school-details-icon');
+    if (dom.classList.contains('push-right-school-details')) {
+      togglebutton.classList.add('fa-chevron-left');
+      togglebutton.classList.remove('fa-chevron-right');
+    } else {
+      // this.toggleSchoolDetailsIcon = 'chevron_left';
+      togglebutton.classList.add('fa-chevron-right');
+      togglebutton.classList.remove('fa-chevron-left');
+    }
+  }
+
+  // unsubscribe to ensure no memory leaks
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }

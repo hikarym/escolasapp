@@ -7,6 +7,7 @@ import { AgmCoreModule } from '@agm/core';
 import {HeaderModule} from '../../shared/components/header/header.module';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {LeafletMarkerClusterModule} from '@asymmetrik/ngx-leaflet-markercluster';
+import { GraphicsComponent } from './graphics/graphics.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import {LeafletMarkerClusterModule} from '@asymmetrik/ngx-leaflet-markercluster'
     LeafletMarkerClusterModule
   ],
   declarations: [
-    GeolocationComponent
+    GeolocationComponent,
+    GraphicsComponent
   ]
 })
 export class GeolocationModule { }

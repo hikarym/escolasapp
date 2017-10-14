@@ -199,4 +199,7 @@ body{
 /* icons */
 .material-icons.md-36 { font-size: 36px; }
 
-/* */
+/* separator */
+.separator {
+  height: 10px;
+}

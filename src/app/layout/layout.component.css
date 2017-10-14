@@ -1,18 +1,18 @@
 .main-container {
-  margin-top: 56px;
+  margin-top: 62px;
   margin-left: 0px; /*320px - menu*/
-  padding: 10px;
+  padding: 2px;
   -ms-overflow-x: hidden;
   overflow-x: hidden;
-  overflow-y: scroll;
-  overflow: hidden;
+  overflow-y: auto;
+  /*overflow: hidden;*/
   position: fixed;
   background: white;
   /*overflow-y: auto;*/
   top: 0px;
   right: 0px;
   left: 0px;
-  bottom: -13px;
+  bottom: 0px;
 }
 
 @media screen and (max-width: 992px) {
