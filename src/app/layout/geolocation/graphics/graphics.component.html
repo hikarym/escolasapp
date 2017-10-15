@@ -12,7 +12,7 @@
         </div>
       </div>
     </li>
-    <li>
+    <!--<li>
       <div class="timeline-panel">
         <div class="timeline-heading">
           <h6 class="timeline-title">Anos Iniciais</h6>
@@ -26,7 +26,7 @@
               </div>
               <div class="card-block">
                 <canvas baseChart height="130"></canvas>
-                <!--<canvas baseChart height="130"
+                <canvas baseChart height="130"
                         [datasets]="lineChartData"
                         [labels]="lineChartLabels"
                         [options]="lineChartOptions"
@@ -35,40 +35,118 @@
                         [chartType]="lineChartType"
                         (chartHover)="chartHovered($event)"
                         (chartClick)="chartClicked($event)">
-                </canvas>-->
+                </canvas>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </li>
+    </li>-->
     <li>
       <div class="timeline-panel">
         <div class="timeline-heading">
-          <h6 class="timeline-title">Taxa de Aprovação</h6>
+          <h6 class="timeline-title">Anos Iniciais</h6>
         </div>
-        <!--<div class="timeline-body">-->
-          <div class="col col-sm-6">
-            <div class="card mb-3">
-              <div class="card-header">
-                Line Chart
+        <div class="timeline-body">
+          <div class="md-list md-whiteframe-z0 bg-white m-b">
+            <button class="md-list-item-button md-list-item" (click)="popupGraph('TA_EF_AI')"
+                    data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              <div class="md-list-item-left circle green">
+                <!--<i class="fa fa-area-chart "></i>-->
+                <span class="font-thin text-lg">TA</span>
               </div>
-              <div class="card-block">
-                <canvas baseChart height="130"></canvas>
-                <!--<canvas baseChart height="130"
-                        [datasets]="lineChartData"
-                        [labels]="lineChartLabels"
-                        [options]="lineChartOptions"
-                        [colors]="lineChartColors"
-                        [legend]="lineChartLegend"
-                        [chartType]="lineChartType"
-                        (chartHover)="chartHovered($event)"
+              <div class="md-list-item-content">
+                <h3 class="text-md">Taxa de Aprovação</h3>
+                <small class="font-thin">....</small>
+              </div>
+            </button>
+            <div class="collapse" id="collapseExample">
+              <div class="card card-body">
+                <canvas baseChart height="130" [datasets]="lineChartData" [labels]="lineChartLabels"
+                        [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                        [chartType]="lineChartType" (chartHover)="chartHovered($event)"
                         (chartClick)="chartClicked($event)">
-                </canvas>-->
+                </canvas>
+              </div>
+            </div>
+            <button class="md-list-item-button md-list-item" (click)="popupGraph('NPBM_EF_AI')"
+                    data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
+              <div class="md-list-item-left circle indigo">
+                <span class="font-thin text-lg">M</span>
+              </div>
+              <div class="md-list-item-content">
+                <h3 class="text-md">Nota Prova Brasil - Matemática</h3>
+                <small class="font-thin">....</small>
+              </div>
+            </button>
+            <div class="collapse" id="collapseExample2">
+              <div class="card card-body">
+                <canvas baseChart height="130" [datasets]="lineChartData" [labels]="lineChartLabels"
+                        [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                        [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+            </div>
+            <button class="md-list-item-button md-list-item" (click)="popupGraph('NPBLP_EF_AI')"
+                    data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample3">
+              <div class="md-list-item-left circle pink">
+                <span class="font-thin text-lg">LP</span>
+              </div>
+              <div class="md-list-item-content">
+                <h3 class="text-md">Nota Prova Brasil - Lingua Portuguesa</h3>
+                <small class="font-thin">....</small>
+              </div>
+            </button>
+            <div class="collapse" id="collapseExample3">
+              <div class="card card-body">
+                <canvas baseChart height="130" [datasets]="lineChartData" [labels]="lineChartLabels"
+                        [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                        [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+            </div>
+            <button class="md-list-item-button md-list-item" (click)="popupGraph('NPBrasNotaPad_AI')"
+                    data-toggle="collapse" data-target="#collapseExample4" aria-expanded="false" aria-controls="collapseExample4">
+              <div class="md-list-item-left circle teal">
+                <span class="font-thin text-lg">NM</span>
+              </div>
+              <div class="md-list-item-content">
+                <h3 class="text-md">Nota Prova Brasil - Nota Média</h3>
+                <small class="font-thin">....</small>
+              </div>
+            </button>
+            <div class="collapse" id="collapseExample4">
+              <div class="card card-body">
+                <canvas baseChart height="130" [datasets]="lineChartData" [labels]="lineChartLabels"
+                        [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                        [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+            </div>
+            <button class="md-list-item-button md-list-item" (click)="popupGraph('IDEB_AI')"
+                    data-toggle="collapse" data-target="#collapseExample5" aria-expanded="false" aria-controls="collapseExample5">
+              <div class="md-list-item-left circle deep-orange">
+                <span class="font-thin text-lg">I</span>
+              </div>
+              <div class="md-list-item-content">
+                <h3 class="text-md">IDEB</h3>
+                <small class="font-thin">....</small>
+              </div>
+            </button>
+            <div class="collapse" id="collapseExample5">
+              <div class="card card-body">
+                <canvas baseChart height="130" [datasets]="lineChartData" [labels]="lineChartLabels"
+                        [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                        [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
               </div>
             </div>
           </div>
-        <!--</div>-->
+        </div>
       </div>
     </li>
     <li>
@@ -77,7 +155,104 @@
           <h6 class="timeline-title">Anos Finais</h6>
         </div>
         <div class="timeline-body">
-          <p>3</p>
+          <div class="md-list md-whiteframe-z0 bg-white m-b">
+            <button class="md-list-item-button md-list-item" (click)="popupGraph('TA_EF_AF')"
+                    data-toggle="collapse" data-target="#collapseExample6" aria-expanded="false" aria-controls="collapseExample6">
+              <div class="md-list-item-left circle green">
+                <!--<i class="fa fa-area-chart "></i>-->
+                <span class="font-thin text-lg">TA</span>
+              </div>
+              <div class="md-list-item-content">
+                <h3 class="text-md">Taxa de Aprovação</h3>
+                <small class="font-thin">....</small>
+              </div>
+            </button>
+            <div class="collapse" id="collapseExample6">
+              <div class="card card-body">
+                <canvas baseChart height="130" [datasets]="lineChartData" [labels]="lineChartLabels"
+                        [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                        [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+            </div>
+            <button class="md-list-item-button md-list-item" (click)="popupGraph('NPBM_EF_AF')"
+                    data-toggle="collapse" data-target="#collapseExample7" aria-expanded="false" aria-controls="collapseExample7">
+              <div class="md-list-item-left circle indigo">
+                <span class="font-thin text-lg">M</span>
+              </div>
+              <div class="md-list-item-content">
+                <h3 class="text-md">Nota Prova Brasil - Matemática</h3>
+                <small class="font-thin">....</small>
+              </div>
+            </button>
+            <div class="collapse" id="collapseExample7">
+              <div class="card card-body">
+                <canvas baseChart height="130" [datasets]="lineChartData" [labels]="lineChartLabels"
+                        [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                        [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+            </div>
+            <button class="md-list-item-button md-list-item" (click)="popupGraph('NPBLP_EF_AF')"
+                    data-toggle="collapse" data-target="#collapseExample8" aria-expanded="false" aria-controls="collapseExample8">
+              <div class="md-list-item-left circle pink">
+                <span class="font-thin text-lg">LP</span>
+              </div>
+              <div class="md-list-item-content">
+                <h3 class="text-md">Nota Prova Brasil - Lingua Portuguesa</h3>
+                <small class="font-thin">....</small>
+              </div>
+            </button>
+            <div class="collapse" id="collapseExample8">
+              <div class="card card-body">
+                <canvas baseChart height="130" [datasets]="lineChartData" [labels]="lineChartLabels"
+                        [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                        [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+            </div>
+            <button class="md-list-item-button md-list-item" (click)="popupGraph('NPBrasNotaPad_AF')"
+                    data-toggle="collapse" data-target="#collapseExample9" aria-expanded="false" aria-controls="collapseExample9">
+              <div class="md-list-item-left circle teal">
+                <span class="font-thin text-lg">NM</span>
+              </div>
+              <div class="md-list-item-content">
+                <h3 class="text-md">Nota Prova Brasil - Nota Média</h3>
+                <small class="font-thin">....</small>
+              </div>
+            </button>
+            <div class="collapse" id="collapseExample9">
+              <div class="card card-body">
+                <canvas baseChart height="130" [datasets]="lineChartData" [labels]="lineChartLabels"
+                        [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                        [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+            </div>
+            <button class="md-list-item-button md-list-item" (click)="popupGraph('IDEB_AF')"
+                    data-toggle="collapse" data-target="#collapseExample10" aria-expanded="false" aria-controls="collapseExample10">
+              <div class="md-list-item-left circle deep-orange">
+                <span class="font-thin text-lg">I</span>
+              </div>
+              <div class="md-list-item-content">
+                <h3 class="text-md">IDEB</h3>
+                <small class="font-thin">....</small>
+              </div>
+            </button>
+            <div class="collapse" id="collapseExample10">
+              <div class="card card-body">
+                <canvas baseChart height="130" [datasets]="lineChartData" [labels]="lineChartLabels"
+                        [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                        [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </li>
@@ -89,7 +264,7 @@
           <h5 class="timeline-title">ENSINO MÉDIO</h5>
         </div>
         <div class="timeline-body">
-          <p>Descrição</p>
+
         </div>
       </div>
     </li>
@@ -99,7 +274,66 @@
           <h6 class="timeline-title">Taxas</h6>
         </div>
         <div class="timeline-body">
-          <p>3</p>
+          <div class="md-list md-whiteframe-z0 bg-white m-b">
+            <button class="md-list-item-button md-list-item" (click)="popupGraph('TxAprov_3EM')"
+                    data-toggle="collapse" data-target="#collapseExample11" aria-expanded="false" aria-controls="collapseExample11">
+              <div class="md-list-item-left circle green">
+                <!--<i class="fa fa-area-chart "></i>-->
+                <span class="font-thin text-lg">TAp</span>
+              </div>
+              <div class="md-list-item-content">
+                <h3 class="text-md">Taxa de Aprovação na 3a série do Ensino Médio</h3>
+                <small class="font-thin">....</small>
+              </div>
+            </button>
+            <div class="collapse" id="collapseExample11">
+              <div class="card card-body">
+                <canvas baseChart height="130" [datasets]="lineChartData" [labels]="lineChartLabels"
+                        [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                        [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+            </div>
+            <button class="md-list-item-button md-list-item" (click)="popupGraph('TxAband_1EM')"
+                    data-toggle="collapse" data-target="#collapseExample12" aria-expanded="false" aria-controls="collapseExample12">
+              <div class="md-list-item-left circle indigo">
+                <span class="font-thin text-lg">TAb</span>
+              </div>
+              <div class="md-list-item-content">
+                <h3 class="text-md">Taxa de Abandono na 1 série - Médio</h3>
+                <small class="font-thin">....</small>
+              </div>
+            </button>
+            <div class="collapse" id="collapseExample12">
+              <div class="card card-body">
+                <canvas baseChart height="130" [datasets]="lineChartData" [labels]="lineChartLabels"
+                        [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                        [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+            </div>
+            <button class="md-list-item-button md-list-item" (click)="popupGraph('TxDIS_3EM')"
+                    data-toggle="collapse" data-target="#collapseExample13" aria-expanded="false" aria-controls="collapseExample13">
+              <div class="md-list-item-left circle pink">
+                <span class="font-thin text-lg">LP</span>
+              </div>
+              <div class="md-list-item-content">
+                <h3 class="text-md">Taxa de Distorção Idade- Série na 3a</h3>
+                <small class="font-thin">....</small>
+              </div>
+            </button>
+            <div class="collapse" id="collapseExample13">
+              <div class="card card-body">
+                <canvas baseChart height="130" [datasets]="lineChartData" [labels]="lineChartLabels"
+                        [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                        [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </li>
@@ -109,9 +343,43 @@
           <h6 class="timeline-title">ENEM</h6>
         </div>
         <div class="timeline-body">
-          <p>3</p>
+          <div class="md-list md-whiteframe-z0 bg-white m-b">
+            <button class="md-list-item-button md-list-item"
+                    data-toggle="collapse" data-target="#collapseExample14" aria-expanded="false" aria-controls="collapseExample14">
+              <div class="md-list-item-left circle green">
+                <span class="font-thin text-lg">2013</span>
+              </div>
+              <div class="md-list-item-content" (click)="popupGraph('ENEM')"><!---->
+                <h3 class="text-md">2013</h3>
+                <small class="font-thin">....</small>
+              </div>
+            </button>
+            <div class="collapse" id="collapseExample14">
+              <div class="card card-body">
+                <canvas baseChart height="130" [datasets]="lineChartData" [labels]="lineChartLabels"
+                        [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                        [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </li>
   </ul>
+  <!--<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Modal title</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>One fine body&hellip;</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+    </div>
+  </ng-template>-->
 </div>
