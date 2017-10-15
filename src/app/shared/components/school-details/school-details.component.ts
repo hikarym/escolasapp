@@ -39,6 +39,43 @@ export class SchoolDetailsComponent implements OnInit {
     LON: 0,
     CODAP: ''
   };
+  // TA_EF_AI
+  censo_TxAprov_2007_5EF_escola = 'NA';
+  censo_TxAprov_2008_5EF_escola = 'NA';
+  censo_TxAprov_2009_5EF_escola = 'NA';
+  censo_TxAprov_2010_5EF_escola = 'NA';
+  censo_TxAprov_2011_5EF_escola = 'NA';
+  censo_TxAprov_2012_5EF_escola = 'NA';
+  censo_TxAprov_2013_5EF_escola = 'NA';
+  censo_TxAprov_2014_5EF_escola = 'NA';
+
+  censo_TxAprov_2007_5EF_vizinhos = 'NA';
+  censo_TxAprov_2008_5EF_vizinhos = 'NA';
+  censo_TxAprov_2009_5EF_vizinhos = 'NA';
+  censo_TxAprov_2010_5EF_vizinhos = 'NA';
+  censo_TxAprov_2011_5EF_vizinhos = 'NA';
+  censo_TxAprov_2012_5EF_vizinhos = 'NA';
+  censo_TxAprov_2013_5EF_vizinhos = 'NA';
+  censo_TxAprov_2014_5EF_vizinhos = 'NA';
+
+  censo_TxAprov_2007_5EF_SES = 'NA';
+  censo_TxAprov_2008_5EF_SES = 'NA';
+  censo_TxAprov_2009_5EF_SES = 'NA';
+  censo_TxAprov_2010_5EF_SES = 'NA';
+  censo_TxAprov_2011_5EF_SES = 'NA';
+  censo_TxAprov_2012_5EF_SES = 'NA';
+  censo_TxAprov_2013_5EF_SES = 'NA';
+  censo_TxAprov_2014_5EF_SES = 'NA';
+
+  @Output() on_TA_EF_AI = new EventEmitter<any>();
+
+  public lineChartData_TA_EF_AI: Array<any> = [
+    { data: [], label: 'nome_da_escola' },
+    { data: [], label: 'media_da_vizinhanca' },
+    { data: [], label: 'escolas_do_mesmo_nivel_socioeconomico' }
+  ];
+
+  public lineChartLabels_TA_EF_AI: Array<any> = ['2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014'];
 
   constructor(private router: Router,
               private schoolService: SchoolService,
@@ -78,14 +115,96 @@ export class SchoolDetailsComponent implements OnInit {
       this.LOCATION.LAT = this.schoolSelected.lat;
       this.LOCATION.LON = this.schoolSelected.lon;
       this.LOCATION.CODAP = this.schoolSelected.codap;
+      // TA_EF_AI
+      this.censo_TxAprov_2007_5EF_escola = this.schoolSelected.censo_TxAprov_2007_5EF_escola;
+      this.censo_TxAprov_2008_5EF_escola = this.schoolSelected.censo_TxAprov_2008_3EM_escola;
+      this.censo_TxAprov_2009_5EF_escola = this.schoolSelected.censo_TxAprov_2009_5EF_escola;
+      this.censo_TxAprov_2010_5EF_escola = this.schoolSelected.censo_TxAprov_2010_5EF_escola;
+      this.censo_TxAprov_2011_5EF_escola = this.schoolSelected.censo_TxAprov_2011_5EF_escola;
+      this.censo_TxAprov_2012_5EF_escola = this.schoolSelected.censo_TxAprov_2012_5EF_escola;
+      this.censo_TxAprov_2013_5EF_escola = this.schoolSelected.censo_TxAprov_2013_5EF_escola;
+      this.censo_TxAprov_2014_5EF_escola = this.schoolSelected.censo_TxAprov_2014_5EF_escola;
+
+      this.censo_TxAprov_2007_5EF_vizinhos = this.schoolSelected.censo_TxAprov_2007_5EF_vizinhos;
+      this.censo_TxAprov_2008_5EF_vizinhos = this.schoolSelected.censo_TxAprov_2008_5EF_vizinhos;
+      this.censo_TxAprov_2009_5EF_vizinhos = this.schoolSelected.censo_TxAprov_2009_5EF_vizinhos;
+      this.censo_TxAprov_2010_5EF_vizinhos = this.schoolSelected.censo_TxAprov_2010_5EF_vizinhos;
+      this.censo_TxAprov_2011_5EF_vizinhos = this.schoolSelected.censo_TxAprov_2011_5EF_vizinhos;
+      this.censo_TxAprov_2012_5EF_vizinhos = this.schoolSelected.censo_TxAprov_2012_5EF_vizinhos;
+      this.censo_TxAprov_2013_5EF_vizinhos = this.schoolSelected.censo_TxAprov_2013_5EF_vizinhos;
+      this.censo_TxAprov_2014_5EF_vizinhos = this.schoolSelected.censo_TxAprov_2014_5EF_vizinhos;
+
+      this.censo_TxAprov_2007_5EF_SES = this.schoolSelected.censo_TxAprov_2007_5EF_SES;
+      this.censo_TxAprov_2008_5EF_SES = this.schoolSelected.censo_TxAprov_2008_5EF_SES;
+      this.censo_TxAprov_2009_5EF_SES = this.schoolSelected.censo_TxAprov_2009_5EF_SES;
+      this.censo_TxAprov_2010_5EF_SES = this.schoolSelected.censo_TxAprov_2010_5EF_SES;
+      this.censo_TxAprov_2011_5EF_SES = this.schoolSelected.censo_TxAprov_2011_5EF_SES;
+      this.censo_TxAprov_2012_5EF_SES = this.schoolSelected.censo_TxAprov_2012_5EF_SES;
+      this.censo_TxAprov_2013_5EF_SES = this.schoolSelected.censo_TxAprov_2013_5EF_SES;
+      this.censo_TxAprov_2014_5EF_SES = this.schoolSelected.censo_TxAprov_2014_5EF_SES;
 
       // send lat, lon and codAp of a school selected to geolocation component via observable subject
       this.sharedDataService.sendSchoolLocation(this.LOCATION);
       this.onSchoolLocation.emit(this.LOCATION);
 
+      // send TA_EF_AI information
+      this.buildLineChartData();
+      this.sharedDataService.send_TA_EF_AI(this.lineChartData_TA_EF_AI);
+      this.on_TA_EF_AI.emit(this.lineChartData_TA_EF_AI);
+
     }, (err) => {
       console.log(err);
     });
+  }
+
+  buildLineChartData() {
+    this.lineChartData_TA_EF_AI[0] = {
+      data: [
+        this.toFloat(this.censo_TxAprov_2007_5EF_escola),
+        this.toFloat(this.censo_TxAprov_2008_5EF_escola),
+        this.toFloat(this.censo_TxAprov_2009_5EF_escola),
+        this.toFloat(this.censo_TxAprov_2010_5EF_escola),
+        this.toFloat(this.censo_TxAprov_2011_5EF_escola),
+        this.toFloat(this.censo_TxAprov_2012_5EF_escola),
+        this.toFloat(this.censo_TxAprov_2013_5EF_escola),
+        this.toFloat(this.censo_TxAprov_2014_5EF_escola)
+      ],
+      label: this.NO_ENTIDAD
+    };
+    this.lineChartData_TA_EF_AI[1] = {
+      data: [
+        this.toFloat(this.censo_TxAprov_2007_5EF_vizinhos),
+        this.toFloat(this.censo_TxAprov_2008_5EF_vizinhos),
+        this.toFloat(this.censo_TxAprov_2009_5EF_vizinhos),
+        this.toFloat(this.censo_TxAprov_2010_5EF_vizinhos),
+        this.toFloat(this.censo_TxAprov_2011_5EF_vizinhos),
+        this.toFloat(this.censo_TxAprov_2012_5EF_vizinhos),
+        this.toFloat(this.censo_TxAprov_2013_5EF_vizinhos),
+        this.toFloat(this.censo_TxAprov_2014_5EF_vizinhos)
+      ],
+      label: 'Média da vizinhança'
+    };
+    this.lineChartData_TA_EF_AI[2] = {
+      data: [
+        this.toFloat(this.censo_TxAprov_2007_5EF_SES),
+        this.toFloat(this.censo_TxAprov_2008_5EF_SES),
+        this.toFloat(this.censo_TxAprov_2009_5EF_SES),
+        this.toFloat(this.censo_TxAprov_2010_5EF_SES),
+        this.toFloat(this.censo_TxAprov_2011_5EF_SES),
+        this.toFloat(this.censo_TxAprov_2012_5EF_SES),
+        this.toFloat(this.censo_TxAprov_2013_5EF_SES),
+        this.toFloat(this.censo_TxAprov_2014_5EF_SES)
+      ],
+      label: 'Escolas de mesmo nível socio-econômico' };
+  }
+
+  toFloat(input: any) {
+    return input === 'NA' ? null : input;
+    /*if (input ===  'NA') {
+      return null;
+    } else {
+      return input;
+    }*/
   }
 
   displayWeightingArea(event) {

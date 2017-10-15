@@ -12,36 +12,6 @@
         </div>
       </div>
     </li>
-    <!--<li>
-      <div class="timeline-panel">
-        <div class="timeline-heading">
-          <h6 class="timeline-title">Anos Iniciais</h6>
-        </div>
-        <div class="timeline-body">
-          <p>Taxa de Aprovação</p>
-          <div class="col col-sm-6">
-            <div class="card mb-3">
-              <div class="card-header">
-                Line Chart
-              </div>
-              <div class="card-block">
-                <canvas baseChart height="130"></canvas>
-                <canvas baseChart height="130"
-                        [datasets]="lineChartData"
-                        [labels]="lineChartLabels"
-                        [options]="lineChartOptions"
-                        [colors]="lineChartColors"
-                        [legend]="lineChartLegend"
-                        [chartType]="lineChartType"
-                        (chartHover)="chartHovered($event)"
-                        (chartClick)="chartClicked($event)">
-                </canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </li>-->
     <li>
       <div class="timeline-panel">
         <div class="timeline-heading">
@@ -57,12 +27,12 @@
               </div>
               <div class="md-list-item-content">
                 <h3 class="text-md">Taxa de Aprovação</h3>
-                <small class="font-thin">....</small>
+                <small class="font-thin">Anos iniciais (até 4º série / 5º ano)</small>
               </div>
             </button>
             <div class="collapse" id="collapseExample">
               <div class="card card-body">
-                <canvas baseChart height="130" [datasets]="lineChartData" [labels]="lineChartLabels"
+                <canvas baseChart #baseChart="base-chart" height="130" [datasets]="lineChartData_TA_EF_AI" [labels]="lineChartLabels"
                         [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
                         [chartType]="lineChartType" (chartHover)="chartHovered($event)"
                         (chartClick)="chartClicked($event)">
@@ -282,7 +252,7 @@
                 <span class="font-thin text-lg">TAp</span>
               </div>
               <div class="md-list-item-content">
-                <h3 class="text-md">Taxa de Aprovação na 3a série do Ensino Médio</h3>
+                <h3 class="text-md">Taxa de Aprovação na 3ª série do Ensino Médio</h3>
                 <small class="font-thin">....</small>
               </div>
             </button>
@@ -301,7 +271,7 @@
                 <span class="font-thin text-lg">TAb</span>
               </div>
               <div class="md-list-item-content">
-                <h3 class="text-md">Taxa de Abandono na 1 série - Médio</h3>
+                <h3 class="text-md">Taxa de Abandono na 1ª série - Médio do Ensino Médio</h3>
                 <small class="font-thin">....</small>
               </div>
             </button>
@@ -320,7 +290,7 @@
                 <span class="font-thin text-lg">LP</span>
               </div>
               <div class="md-list-item-content">
-                <h3 class="text-md">Taxa de Distorção Idade- Série na 3a</h3>
+                <h3 class="text-md">Taxa de Distorção Idade-Série na 3ª série do Ensino Médio</h3>
                 <small class="font-thin">....</small>
               </div>
             </button>
@@ -368,18 +338,4 @@
       </div>
     </li>
   </ul>
-  <!--<ng-template #content let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h4 class="modal-title">Modal title</h4>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <p>One fine body&hellip;</p>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
-    </div>
-  </ng-template>-->
 </div>

@@ -9,6 +9,7 @@ export class ShareddataService {
   private schoolLocationSource = new Subject<any>();
   private subject = new Subject<any>();
   private subjectLocation = new Subject<any>();
+  private subject_TA_EF_AI = new Subject<any>();
   private schoolIDSource = new Subject<string>();
   // Observable string streams
   location$ = this.schoolLocationSource.asObservable();
@@ -33,7 +34,7 @@ export class ShareddataService {
   }
 
   getSchoolLoc() {
-    return this.subjectLocation.asObservable(); //return this.subjectLocation;
+    return this.subjectLocation.asObservable(); // return this.subjectLocation;
   }
 
   /* Send school location and codAp  from Main Layout to GeolocationComponent*/
@@ -43,5 +44,13 @@ export class ShareddataService {
 
   getSchoolLocation() {
     return this.dataObs$;
+  }
+
+  send_TA_EF_AI(message: any) {
+    this.subject_TA_EF_AI.next(message);
+  }
+
+  get_TA_EF_AI() {
+    return this.subject_TA_EF_AI.asObservable();
   }
 }

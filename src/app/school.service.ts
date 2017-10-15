@@ -23,6 +23,7 @@ export class SchoolService {
     });
   }
 
+  /* Get a single School by ID ("_id"). For example: '58dd2c8be6f8cc9ae0fcfec4' */
   showEscola(id) {
     return new Promise((resolve, reject) => {
       this.http.get('/school/' + id)
@@ -34,4 +35,5 @@ export class SchoolService {
         });
     });
   }
+
 }
