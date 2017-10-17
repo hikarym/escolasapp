@@ -10,7 +10,8 @@
         <!-- button to display/hide the school details -->
         <button class="section-hero-header-display-hide" (click)="toggleSchoolDetails()">
           <div class="section-hero-header-display-hide-base" style="padding: 18px">
-            <i class="material-icons section-hero-header-display-hide-icon">arrow_back</i>
+            <!--<i class="material-icons section-hero-header-display-hide-icon">arrow_back</i>-->
+            <mat-icon fontSet="fontawesome" fontIcon="fa-angle-left" class="section-hero-header-display-hide-icon"></mat-icon>
           </div>
         </button>
         <div class="section-hero-header-description">
@@ -35,7 +36,6 @@
             <div class="blue-button-text">{{'share' | translate}}</div>
           </section>-->
           <button (click)="displaySharePopup()" class="section-action-button blue-button-text ripple-container">
-            <!--<i class="section-action-button-icon material-icons">share</i>-->
             <mat-icon fontSet="fontawesome" fontIcon="fa-share-alt" class="section-action-button-icon fa-3x"></mat-icon>
             <div>{{'share' | translate}}</div>
           </button>

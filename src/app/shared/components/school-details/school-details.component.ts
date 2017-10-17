@@ -1,8 +1,6 @@
-import {Component, Input, OnInit, OnDestroy, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {SchoolService} from '../../../school.service';
-import {Router} from '@angular/router';
 import {ShareddataService} from '../../../services/shareddata.service';
-import {Subscription} from 'rxjs/Subscription';
 import {MatIconRegistry} from '@angular/material';
 
 @Component({
@@ -69,11 +67,7 @@ export class SchoolDetailsComponent implements OnInit {
 
   @Output() on_TA_EF_AI = new EventEmitter<any>();
 
-  public lineChartData_TA_EF_AI: Array<any> = [
-    { data: [], label: 'nome_da_escola' },
-    { data: [], label: 'media_da_vizinhanca' },
-    { data: [], label: 'escolas_do_mesmo_nivel_socioeconomico' }
-  ];
+  public lineChartData_TA_EF_AI: Array<any> = [ ];
 
   public lineChartLabels_TA_EF_AI: Array<any> = ['2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014'];
 
@@ -98,11 +92,7 @@ export class SchoolDetailsComponent implements OnInit {
 
   @Output() on_NPBM_EF_AI = new EventEmitter<any>();
 
-  public lineChartData_NPBM_EF_AI: Array<any> = [
-    { data: [], label: 'nome_da_escola' },
-    { data: [], label: 'media_da_vizinhanca' },
-    { data: [], label: 'escolas_do_mesmo_nivel_socioeconomico' }
-  ];
+  public lineChartData_NPBM_EF_AI: Array<any> = [ ];
 
   // ---- NPBLP_EF_AI
   NPBras_LP_2005_AI_escola = 'NA';
@@ -419,8 +409,7 @@ export class SchoolDetailsComponent implements OnInit {
 
   public barChartData_ENEM: any[] = [ ];
 
-  constructor(private router: Router,
-              private schoolService: SchoolService,
+  constructor(private schoolService: SchoolService,
               private sharedDataService: ShareddataService,
               iconRegistry: MatIconRegistry) {
     // this.subscription = this.sharedDataService.getSchoolID().subscribe(message => {this.message = message; } );
@@ -1381,11 +1370,6 @@ export class SchoolDetailsComponent implements OnInit {
   displaySharePopup() {
     alert('Compartilhar');
   }
-
-  /* ngOnDestroy() {
-    // unsubscribe to ensure no memory leaks
-    this.subscription.unsubscribe();
-  } */
 
   toggleSchoolDetails() {
     const dom: any = document.querySelector('body');

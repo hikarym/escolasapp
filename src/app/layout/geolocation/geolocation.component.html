@@ -12,21 +12,15 @@
         >
         </agm-marker>
       </agm-map>-->
-      <!--<div style="height: 100%;" leaflet [leafletOptions]="options2" [leafletLayers]="neighboringSchoolsLayer"></div>-->
-      <!--<button style="position: absolute; z-index: 3000; top: 70px" (click)="recenter()" >recenter</button>-->
+
+      <!-- button to display/hide the school details -->
       <button *ngIf="schoolSelectedFlag"
               style="position: absolute; z-index: 3000;
               left:25px; top: 80px; width:35px"
               (click)="toggleSchoolDetails()">
-        <!-- <i class="material-icons">chevron_right</i> -->
         <i id="toggle-school-details-icon" class="fa fa-fw"></i>
       </button>
-      <!-- button to display/hide the school details -->
-      <!--<button class="section-hero-header-display-hide" (click)="toggleSchoolDetails()">
-        <div class="section-hero-header-display-hide-base" style="padding: 18px">
-          <i class="material-icons section-hero-header-display-hide-icon">arrow_back</i>
-        </div>
-      </button>-->
+
       <div id="mymap" leaflet style="height: 100%;"
            [leafletBaseLayers] = "baseLayers"
            [leafletZoom] = "zoom"
