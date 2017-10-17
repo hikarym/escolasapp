@@ -59,12 +59,12 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
     'Google Street Maps': this.LAYER_GSM.layer,
     'Open Street Map': this.LAYER_OSM.layer
   };
-  options = { zoom: 14, center: L.latLng([this.centerLat, this.centerLng])  };
+  options = {zoomControl: false};
   zoom = 14;
   // zoomOptions= L.control.zoom({position: 'topright'});
   zoomOptions = {
     position: 'topright'
-  }
+  };
   center = L.latLng([this.centerLat, this.centerLng]);
   zoom_school_selected = 14;
 
@@ -208,9 +208,8 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
     this.markerClusterGroup = group;
   }
 
-  toggleSidebar() {
-    const dom: any = document.querySelector('body');
-    dom.classList.toggle('push-right');
+  mapReady(map: L.Map) {
+    map.addControl(L.control.zoom({ position: 'topright' }));
   }
 
   toggleSchoolDetails() {

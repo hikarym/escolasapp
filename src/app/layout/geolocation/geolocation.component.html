@@ -22,16 +22,17 @@
       </button>
 
       <div id="mymap" leaflet style="height: 100%;"
+           [leafletOptions]="options"
            [leafletBaseLayers] = "baseLayers"
            [leafletZoom] = "zoom"
-           [leafletZoomOptions]="zoomOptions"
            [leafletCenter] = "center"
            [leafletLayers] = "neighboringSchoolsLayer"
            [leafletLayersControlOptions] = "layersControlOptions"
 
            [leafletMarkerCluster] = "markerClusterData"
            [leafletMarkerClusterOptions] = "markerClusterOptions"
-           (leafletMarkerClusterReady) = "markerClusterReady($event)">
+           (leafletMarkerClusterReady) = "markerClusterReady($event)"
+           (leafletMapReady) = "mapReady($event)">
       </div>
     </div>
   </div>
