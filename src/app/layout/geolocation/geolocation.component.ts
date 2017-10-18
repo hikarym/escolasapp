@@ -23,8 +23,18 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
   schoolsCoordinates: any;
   // @ViewChild(AgmMap) private map: any;
   schoolSelectedID: string;
-  schoolMarkerIcon = L.icon({iconUrl: 'assets/images/marcador_school_default.png'});
-  selectedSchoolMarkerIcon = L.icon({iconUrl: 'assets/images/marcador_school_selected.png'});
+  schoolMarkerIcon = L.icon({
+    iconUrl: 'assets/images/marcador_school_default.png',
+    iconSize: [45, 45], // size of the icon
+    iconAnchor: [22, 45], // point of the icon which will correspond to marker's location
+    popupAnchor: [0, -45] // point from which the popup should open relative to the iconAnchor
+  });
+  selectedSchoolMarkerIcon = L.icon({
+    iconUrl: 'assets/images/marcador_school_selected.png',
+    iconSize: [60, 65], // size of the icon
+    iconAnchor: [30, 65], // point of the icon which will correspond to marker's location
+    popupAnchor: [0, -65] // point from which the popup should open relative to the iconAnchor
+  });
   neighborhoodRadius = 2000;
   neighboringSchoolsLayer: any;
   featureCollection: GeoJSON.FeatureCollection<any> = {
