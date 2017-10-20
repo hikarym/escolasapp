@@ -13,18 +13,11 @@
         </agm-marker>
       </agm-map>-->
 
-      <!-- button to display/hide the school details -->
-      <button *ngIf="schoolSelectedFlag"
-              style="position: absolute; z-index: 3000;
-              left:25px; top: 60px; width:35px"
-              (click)="toggleSchoolDetails()">
-        <i id="toggle-school-details-icon" class="fa fa-fw"></i>
-      </button>
       <div class="col-sm-12 col-md-6 col-lg-4">
         <div class="row">
           <div class="col-md-12">
             <form style="position: absolute; z-index: 3000;
-              left:25px; top: 120px; width: 220px; background: rgba(0,0,0,0.7);
+              left:25px; top: 10px; width: 230px; background: rgba(0,0,0,0.7);
               color: #dddddd; padding: 10px; border-radius: .25rem;">
               <!-- Base Layers -->
               <div class="form-group">
@@ -72,6 +65,13 @@
         </div>
       </div>
 
+      <!-- button to display/hide the school details -->
+      <button *ngIf="schoolSelectedFlag"
+              style="position: absolute; z-index: 3000;
+              left:25px; top: 250px; width:35px"
+              (click)="toggleSchoolDetails()">
+        <i id="toggle-school-details-icon" class="fa fa-fw"></i>
+      </button>
 
       <div id="mymap" leaflet style="height: 100%;"
            [leafletOptions]="options"

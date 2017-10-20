@@ -1,7 +1,7 @@
 <!-- class="pos-f-t header"-->
 <div class="fixed-top header">
   <!-- navbar-toggleable-md : to display the menu icon-->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-toggleable-md">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark navbar-toggleable-md">
     <button class="navbar-toggler cursor-hand"
             type="button" title="Menu" (click)="toggleSidebar()">
       <span class="navbar-toggler-icon "></span>
@@ -27,9 +27,9 @@
     </ng2-completer>
 
     <div class="collapse navbar-collapse">
-      <ul class="navbar-nav ml-auto mt-2 mt-md-0">
+      <ul class="navbar-nav" style="width:120px;">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
+          <a id="navbarDropdownMenuLink" class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
              aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-language"></i> {{ 'language' | translate }}
           </a>
