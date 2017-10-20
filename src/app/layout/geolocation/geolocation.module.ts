@@ -9,6 +9,7 @@ import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {LeafletMarkerClusterModule} from '@asymmetrik/ngx-leaflet-markercluster';
 import { GraphicsComponent } from './graphics/graphics.component';
 import {ChartsModule as Ng2Charts} from 'ng2-charts';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import {ChartsModule as Ng2Charts} from 'ng2-charts';
     AgmCoreModule,
     LeafletModule,
     LeafletMarkerClusterModule,
-    Ng2Charts
+    Ng2Charts,
+    FormsModule
   ],
   declarations: [
     GeolocationComponent,

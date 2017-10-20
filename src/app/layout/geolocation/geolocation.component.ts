@@ -1,15 +1,16 @@
 ///<reference path="../../../../node_modules/@types/leaflet/index.d.ts"/>
-import {Component, OnInit, Input, ViewChild, OnDestroy, AfterViewInit} from '@angular/core';
-import { SchoolService } from '../../school.service';
-import { routerTransition } from '../../router.animations';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {SchoolService} from '../../school.service';
+import {routerTransition} from '../../router.animations';
 import {AgmMap} from '@agm/core';
 import * as L from 'leaflet';
 import 'leaflet.markercluster';
 import {ShareddataService} from '../../services/shareddata.service';
-import {ISubscription, Subscription} from 'rxjs/Subscription';
-import {Event, NavigationEnd, Router} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
+import {Router} from '@angular/router';
 import 'rxjs/add/operator/filter';
 import {WeightingAreaService} from '../../weighting-area.service';
+import {LayersModel} from './layers.model';
 
 @Component({
   selector: 'app-geolocation',
@@ -17,7 +18,7 @@ import {WeightingAreaService} from '../../weighting-area.service';
   styleUrls: ['./geolocation.component.css'],
   animations: [routerTransition()]
 })
-export class GeolocationComponent implements OnInit,  OnDestroy {
+export class GeolocationComponent implements OnInit, OnDestroy {
   centerLat = -23.552133;
   centerLng = -46.6331418;
   schoolsCoordinates: any;
@@ -36,11 +37,23 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
     popupAnchor: [0, -65] // point from which the popup should open relative to the iconAnchor
   });
   neighborhoodRadius = 2000;
-  neighboringSchoolsLayer: any;
+  overlays: any;
   featureCollection: GeoJSON.FeatureCollection<any> = {
     type: 'FeatureCollection',
     features: []
   };
+  LAYER_GSM = {
+    id: 'googlemaps',
+    name: 'Google Street Map',
+    enabled: true,
+    layer: L.tileLayer('https://maps.googleapis.com/maps/vt?pb=!1m5!1m4!1i{z}!2i{x}!3i' +
+      '{y}!4i256!2m3!1e0!2sm!3i349018013!3m9!2sen-US!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0', {
+      minZoom: 1,
+      maxZoom: 22,
+      attribution: '&copy; <a href=\'http://maps.google.com\'>Google Maps</a>'
+    })
+  };
+
   LAYER_OSM = {
     id: 'openstreetmap',
     name: 'Open Street Map',
@@ -51,21 +64,54 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     })
   };
-  LAYER_GSM = {
-    id: 'googlemaps',
-    name: 'Google Street Maps',
-    enabled: false,
-    layer: L.tileLayer('https://maps.googleapis.com/maps/vt?pb=!1m5!1m4!1i{z}!2i{x}!3i' +
-      '{y}!4i256!2m3!1e0!2sm!3i349018013!3m9!2sen-US!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0', {
-      minZoom: 1,
-      maxZoom: 22,
-      attribution: '&copy; <a href=\'http://maps.google.com\'>Google Maps</a>'
+
+  // Neighborhood
+  neighborhood = {
+    id: 'neighborhood',
+    name: 'Vizinhança',
+    enabled: true,
+    layer: L.circle([ this.centerLat, this.centerLng], { radius: 2000 })
+  };
+  // Weighting Area
+  weightingArea = {
+    id: 'weightingArea',
+    name: 'Área de Ponderação',
+    enabled: true,
+    layer: L.geoJSON(
+      ({
+        type: 'Polygon',
+        coordinates: [[
+          [ 0, 0 ],
+          [ 0, 0 ],
+          [ 0, 0],
+          [ 0, 0 ]
+        ]]
+      }) as any,
+      { style: () => { return {
+        fillColor: 'red',
+        weight: 1,
+        opacity: 1,
+        color: 'red',  // Outline color
+        fillOpacity: 0.2 }; } })
+  };
+  // Icon of a school selected
+  marker = {
+    id: 'marker',
+    name: 'Marker',
+    enabled: true,
+    layer: L.marker([ this.centerLat, this.centerLng ], {
+      icon: L.icon({
+        iconUrl: 'assets/images/marcador_school_selected.png',
+        iconSize: [60, 65], // size of the icon
+        iconAnchor: [30, 65], // point of the icon which will correspond to marker's location
+        popupAnchor: [0, -65] // point from which the popup should open relative to the iconAnchor
+      })
     })
   };
 
   // Values to bind to Leaflet Directive
-  layersControlOptions = { position: 'bottomright' };
-  baseLayers = {
+  layersControlOptions = {position: 'bottomright'};
+  baseMaps = {
     'Google Street Maps': this.LAYER_GSM.layer,
     'Open Street Map': this.LAYER_OSM.layer
   };
@@ -90,21 +136,59 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
     CODAP: ''
   };
   weightingAreaOfSchool: any;
-  toggleSchoolDetailsIcon = 'chevron_right';
-  schoolSelectedFlag= false;
+  schoolSelectedFlag = false;
+  // ------------------------------
+  // Form model object
+  model = new LayersModel(
+    [ this.LAYER_GSM, this.LAYER_OSM ],
+    this.LAYER_GSM.id,
+    [ this.neighborhood, this.weightingArea, this.marker]
+  );
 
-  constructor( private schoolService: SchoolService,
-               private weigthingAreaService: WeightingAreaService,
-               private sharedDataService: ShareddataService,
-               private router: Router) {
+  // Values to bind to Leaflet Directive
+  layers: L.Layer[];
+  layersControl = {
+    baseLayers: {
+      'Google Street Maps': this.LAYER_GSM.layer,
+      'Open Street Maps': this.LAYER_OSM.layer
+    },
+    overlays: {
+      'Vizinhança': this.neighborhood.layer,
+      'Área de Ponderação': this.weightingArea.layer,
+      'Icone da escola selecionada': this.marker.layer
+    }
+  };
+
+  constructor(private schoolService: SchoolService,
+              private weigthingAreaService: WeightingAreaService,
+              private sharedDataService: ShareddataService,
+              private router: Router) {
     /*const s = sharedDataService.getSchoolID().subscribe(
       schoolID => {
         this.selectionSchooolID = schoolID;
       });
     this.subscription.add(s);*/
+    // Get the active base layer
+    const baseLayer = this.model.baseLayers.find((l) => l.id === this.model.baseLayer);
+    this.layers = [baseLayer.layer];
   }
 
-  ngOnInit( ) {
+  onApply() {
+    // Get the active base layer
+    const baseLayer = this.model.baseLayers.find((l) => l.id === this.model.baseLayer);
+
+    // Get all the active overlay layers
+    const newLayers = this.model.overlayLayers
+      .filter((l) => l.enabled)
+      .map((l) => l.layer);
+    newLayers.unshift(baseLayer.layer);
+
+    this.layers = newLayers;
+
+    return false;
+  }
+
+  ngOnInit() {
 
     const s = this.sharedDataService.getSchoolLoc().subscribe(
       res => {
@@ -113,9 +197,16 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
         this.center = L.latLng([this.LOCATION.LAT, this.LOCATION.LON]);
         this.schoolSelectedFlag = true;
         console.log('update center in ngOnInit:', this.center);
+        this.drawIconForSchoolSelected(this.LOCATION.LAT, this.LOCATION.LON);
         this.drawSchoolNeighborhoodArea(this.neighborhoodRadius, this.LOCATION.LAT, this.LOCATION.LON);
         console.log('Desenhar o ap:', this.LOCATION.CODAP);
-        this.drawWeightingAreaPolygon(this.LOCATION.CODAP);
+        // this.drawWeightingAreaPolygon(this.LOCATION.CODAP);
+        const codAp = this.LOCATION.CODAP;
+        this.weigthingAreaService.getWeightingArea(codAp).then((res1) => {
+          this.weightingAreaOfSchool = res1;
+          this.weightingArea.layer = L.geoJSON(this.weightingAreaOfSchool, {style: this.weightingAreaStyle});
+          this.onApply();
+        });
       });
     this.subscription.add(s);
 
@@ -134,19 +225,25 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
       });
   }
 
-  drawSchoolNeighborhoodArea(neighborhoodRadius: number, schoolLat: number, schoolLng: number ) {
-    this.neighboringSchoolsLayer = [L.circle(L.latLng(schoolLat, schoolLng), { radius: neighborhoodRadius, weight: 1 }),
-      L.marker(L.latLng(schoolLat, schoolLng), {icon: this.selectedSchoolMarkerIcon})];
+  drawIconForSchoolSelected(schoolLat: number, schoolLng: number) {
+    this.marker.layer = L.marker([ schoolLat, schoolLng ], {
+      icon: this.selectedSchoolMarkerIcon
+    });
+  }
+
+  drawSchoolNeighborhoodArea(neighborhoodRadius: number, schoolLat: number, schoolLng: number) {
+    this.neighborhood.layer = L.circle(L.latLng(schoolLat, schoolLng), {radius: neighborhoodRadius, weight: 1}),
+      L.marker(L.latLng(schoolLat, schoolLng));
   }
 
   drawWeightingAreaPolygon(codAp: string) {
     this.weigthingAreaService.getWeightingArea(codAp).then((res) => {
       this.weightingAreaOfSchool = res;
-      this.neighboringSchoolsLayer.push(L.geoJSON(this.weightingAreaOfSchool, {style: this.weightingAreaStyle}));
+      this.weightingArea.layer = L.geoJSON(this.weightingAreaOfSchool, {style: this.weightingAreaStyle});
     });
   }
 
-  weightingAreaStyle(feature) {
+  weightingAreaStyle() {
     return {
       fillColor: 'red',
       weight: 1,
@@ -157,6 +254,7 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
   }
 
   /* center the map*/
+
   /*redrawMap(schoolLat: number, schoolLng: number) {
     this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
@@ -174,20 +272,13 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
     this.schoolService.getAllSchools().then((res) => {
       this.schoolsCoordinates = res;
       this.featureCollection.features = this.schoolsCoordinates;
-
-      /*this.layers = [L.geoJSON(this.featureCollection1, {
-        pointToLayer: function(feature, latlng) {
-          // return L.marker(latlng, {icon: L.icon({iconUrl: 'assets/images/marcador_school_default.png'})});
-          return L.marker(latlng, {icon: L.divIcon({className: 'school-div-icon'})});
-        }
-      })];*/
       const data: any[] = [];
       console.log(this.schoolsCoordinates.length);
       let popup = '';
       let container = $('<div />');
       let marker;
       let school_i;
-      container.on('click', '.getSchoolInfo', function(){
+      container.on('click', '.getSchoolInfo', function () {
         alert('test');
       });
       for (let i = 0; i < this.schoolsCoordinates.length; i++) {
@@ -195,12 +286,12 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
         school_i = this.schoolsCoordinates[i];
         popup = '<b>ESCOLA: </b>' + school_i.NO_ENTIDAD +
           '<br/><b>BAIRRO: </b>' + school_i.BAIRRO +
-          '<br/><b>ENDEREÇO: </b>' + school_i.ENDERECO + ' - ' + school_i.NUMERO  +
+          '<br/><b>ENDEREÇO: </b>' + school_i.ENDERECO + ' - ' + school_i.NUMERO +
           '<br/><b>LOC.: </b>' + school_i.lat + ', ' + school_i.lon +
-          '<br/><a href="#" class="getSchoolInfo">Informaçao da escola</a> - ' +
-          '<a href="#" class="getSchoolInfo">Area de Ponderaçao</a>';
-          // '<br/><input type="button" value="Ver informaçao da escola" id="bu-show-school-info" ' +
-          // '(click)="showSchoolInfo($event)"/>';
+          '<br/><a href="#" class="getSchoolInfo">Informação da escola</a> - ' +
+          '<a href="#" class="getSchoolInfo">Area de Ponderação</a>';
+        // '<br/><input type="button" value="Ver informaçao da escola" id="bu-show-school-info" ' +
+        // '(click)="showSchoolInfo($event)"/>';
         container.html(popup);
         container.append($('<span class="bold">').text('...'));
         marker = L.marker(L.latLng(school_i.lat, school_i.lon), {icon: this.schoolMarkerIcon});
@@ -208,7 +299,7 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
         data.push(marker.bindPopup(container[0]));
       }
       this.markerClusterData = data;
-      console.log('getschoollist: ' , this.center);
+      console.log('getschoollist: ', this.center);
     }, (err) => {
       console.log(err);
     });
@@ -219,7 +310,7 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
   }
 
   mapReady(map: L.Map) {
-    map.addControl(L.control.zoom({ position: 'topright' }));
+    map.addControl(L.control.zoom({position: 'topright'}));
   }
 
   toggleSchoolDetails() {
@@ -234,6 +325,12 @@ export class GeolocationComponent implements OnInit,  OnDestroy {
       togglebutton.classList.add('fa-chevron-right');
       togglebutton.classList.remove('fa-chevron-left');
     }
+  }
+
+  toggleWeigthingArea() {
+    console.log(this.overlays.length);
+    console.log(this.overlays[1]);
+    // this.overlays[1].visible = false;
   }
 
   // unsubscribe to ensure no memory leaks
