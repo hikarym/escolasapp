@@ -30,5 +30,11 @@
   "weighting-area-button-title" : "Show/hide the weighting area",
   "textSearching": "Please wait, searching...",
   "textNoResults": "No results found",
-  "placeholderSearchingInput": "Enter the school name you are searching"
+  "placeholderSearchingInput": "Enter the school name you are searching",
+  "geolocation-icon": "Geolocation",
+  "graphics-icon": "Graphics",
+  "socioeconomic-icon": "Socioeconomic",
+  "settings-map": "Map Settings",
+  "close": "Close",
+  "apply-changes": "Apply Changes"
 }

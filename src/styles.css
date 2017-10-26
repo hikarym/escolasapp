@@ -203,3 +203,30 @@ body{
 .separator {
   height: 10px;
 }
+
+/* Modal */
+.modal-backdrop {
+  z-index: -1;  /*to solve the problem: Bootstrap modal appearing under background*/
+}
+
+.modal-dialog {
+  margin: 58px 10px 0px;
+}
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 500px;
+    margin: 58px auto;
+  }
+}
+.modal {
+  padding-left: 0px;
+}
+
+.btn-map {
+  border: 2px solid rgba(0,0,0,.2);
+  background-clip: padding-box;
+  background-color: #fff;
+  position: absolute;
+  z-index: 401;
+}

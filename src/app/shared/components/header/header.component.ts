@@ -46,11 +46,11 @@ export class HeaderComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     console.log('Width: ' + event.target.innerWidth);
-    this.changeBrandName(event.target.innerWidth, 992);
+    this.changeBrandName(event.target.innerWidth, 768);
   }
 
   ngOnInit() {
-    this.changeBrandName(window.innerWidth, 992);
+    this.changeBrandName(window.innerWidth, 768);
   }
 
   onSchoolSelected(item: CompleterItem) {

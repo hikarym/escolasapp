@@ -11,9 +11,113 @@ agm-map {
   height:100%;
   margin: -7px;
 }*/
-.map-container {
-  background-color: #ffffff;/*#151515;*/
+/*.map-container {
+  background-color: #ffffff;
   margin: 0px -15px -62px;
   padding-bottom: 62px;
   height: 100vh;
+}*/
+.map-container {
+  background-color: #ffffff;
+  padding-bottom: 2px;
+  margin: 2px 0px 0px;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  bottom: 0px;
+}
+
+.section-action-button-icon {
+  margin: 0px auto;
+  position: relative;
+}
+
+/deep/ .mat-tab-labels{
+  justify-content: center; /* align items in Main Axis */
+  background: #ffc107;
+  padding-right: 0px;
+  padding-left: 0px;
+  margin: 0px 0px;
+}
+
+/deep/ .mat-tab-label {
+  height: 70px !important;/*48px*/
+  color: #000000;
+  opacity: .9!important;
+}
+
+.tab-labels{
+  justify-content: center; /* align items in Main Axis */
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  background: #ffc107;
+  padding-right: 0px;
+  padding-left: 0px;
+  margin: 0px 0px;
+}
+
+.nav-tab-link {
+  color: #000000; /*#343a40*/
+  font-weight: 500;
+  /*height: 48px;*/
+  padding: 0 54px;
+  cursor: pointer;
+  box-sizing: border-box;
+  opacity: .98;
+  min-width: 150px;
+  text-align: center;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  position: relative;
+}
+
+@media screen and (max-width: 575px) {
+  .nav-tab-link {
+    padding: 0 0px;
+    min-width: 85px;
+  }
+}
+
+.nav-tab-pills .nav-tab-link.active, .nav-tab-pills .show>.nav-tab-link {
+  color: #343a40;
+  font-weight: 500;
+  background-color: rgba(0,0,0,0.2);
+  border-bottom: #343a40;
+  border-style: none none solid;
+  border-width: 3px;
+}
+
+.nav-tab-link-text {
+  text-align: center;
+  font-size: small;
+}
+
+@media screen and (max-width: 575px) {
+  .nav-tab-link-text {
+    text-align: center;
+    font-size: x-small;
+  }
+}
+
+.btn-toggle-schooldetails {
+  border: 2px solid rgba(0,0,0,.7);
+  left: 1px;
+  top: 1px;
+  width: auto;
+  height: 55px;
+  padding: 0px;
+  position: absolute;
+  z-index: 401;
+}
+
+@media screen and (max-width: 575px) {
+  .btn-toggle-schooldetails {
+    height: 51px;
+  }
 }

@@ -10,6 +10,9 @@ import {LeafletMarkerClusterModule} from '@asymmetrik/ngx-leaflet-markercluster'
 import { GraphicsComponent } from './graphics/graphics.component';
 import {ChartsModule as Ng2Charts} from 'ng2-charts';
 import {FormsModule} from '@angular/forms';
+import {TranslateModule} from '@ngx-translate/core';
+import {MatIconModule, MatTabsModule} from '@angular/material';
+import { MapDirective } from './map.directive';
 
 @NgModule({
   imports: [
@@ -19,11 +22,15 @@ import {FormsModule} from '@angular/forms';
     LeafletModule,
     LeafletMarkerClusterModule,
     Ng2Charts,
-    FormsModule
+    FormsModule,
+    TranslateModule,
+    MatTabsModule,
+    MatIconModule
   ],
   declarations: [
     GeolocationComponent,
-    GraphicsComponent
+    GraphicsComponent,
+    MapDirective
   ]
 })
 export class GeolocationModule { }

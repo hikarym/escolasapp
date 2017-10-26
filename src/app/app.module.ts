@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {Component, NgModule} from '@angular/core';
 import { Http, HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -20,7 +20,7 @@ import {ShareddataService} from './services/shareddata.service';
 import {NotFoundModule} from './not-found/not-found.module';
 import {WeightingAreaService} from './weighting-area.service';
 import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
-import {MatSlideToggleModule, MatIconModule} from '@angular/material';
+import {MatSlideToggleModule, MatIconModule, MatTabsModule, MatTabGroup} from '@angular/material';
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
@@ -57,7 +57,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     NotFoundModule,
     NgbDropdownModule.forRoot(),
     MatSlideToggleModule,
-    MatIconModule
+    MatIconModule,
+    MatTabsModule
   ],
   providers: [SchoolService, ShareddataService, WeightingAreaService],
   bootstrap: [AppComponent]

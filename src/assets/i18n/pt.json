@@ -30,5 +30,11 @@
   "weighting-area-button-title" : "Mostrar/ocultar a área de ponderação",
   "textSearching": "Por favor aguarde, procurando...",
   "textNoResults": "Nenhúm resultado encontrado",
-  "placeholderSearchingInput": "Digite o nome da escola que está procurando"
+  "placeholderSearchingInput": "Digite o nome da escola que está procurando",
+  "geolocation-icon": "Geolocalização",
+  "graphics-icon": "Gráficos",
+  "socioeconomic-icon": "Socio-econômico",
+  "settings-map": "Configurações do Mapa",
+  "close": "Fechar",
+  "apply-changes": "Aplicar mudanças"
 }

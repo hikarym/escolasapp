@@ -11,6 +11,7 @@ import {Router} from '@angular/router';
 import 'rxjs/add/operator/filter';
 import {WeightingAreaService} from '../../weighting-area.service';
 import {LayersModel} from './layers.model';
+import {LeafletDirective} from '@asymmetrik/ngx-leaflet';
 
 @Component({
   selector: 'app-geolocation',
@@ -79,13 +80,13 @@ export class GeolocationComponent implements OnInit, OnDestroy {
     enabled: true,
     layer: L.geoJSON(
       ({
-        type: 'Polygon',
-        coordinates: [[
+        type: 'MultiPolygon',
+        coordinates: [[[
           [ 0, 0 ],
           [ 0, 0 ],
-          [ 0, 0],
+          [ 0, 0 ],
           [ 0, 0 ]
-        ]]
+        ]]]
       }) as any,
       { style: () => { return {
         fillColor: 'red',
@@ -288,8 +289,8 @@ export class GeolocationComponent implements OnInit, OnDestroy {
           '<br/><b>BAIRRO: </b>' + school_i.BAIRRO +
           '<br/><b>ENDEREÇO: </b>' + school_i.ENDERECO + ' - ' + school_i.NUMERO +
           '<br/><b>LOC.: </b>' + school_i.lat + ', ' + school_i.lon +
-          '<br/><a href="#" class="getSchoolInfo">Informação da escola</a> - ' +
-          '<a href="#" class="getSchoolInfo">Area de Ponderação</a>';
+          '<br/><a href="#" class="getSchoolInfo" >Informação da escola</a> - ' +
+          '<a href="javascript:void(0)" class="getWeithignArea">Area de Ponderação</a>';
         // '<br/><input type="button" value="Ver informaçao da escola" id="bu-show-school-info" ' +
         // '(click)="showSchoolInfo($event)"/>';
         container.html(popup);
@@ -333,8 +334,16 @@ export class GeolocationComponent implements OnInit, OnDestroy {
     // this.overlays[1].visible = false;
   }
 
+  toggleSettings() {
+    alert('Mostrar janela de settings');
+  }
+
   // unsubscribe to ensure no memory leaks
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  onTabSelected() {
+
   }
 }

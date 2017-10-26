@@ -156,3 +156,10 @@ ng2-completer {
   }
 }
 
+@media (min-width: 768px) {
+  .navbar-expand-md .navbar-toggler {
+    display: block;
+  }
+}
+
+

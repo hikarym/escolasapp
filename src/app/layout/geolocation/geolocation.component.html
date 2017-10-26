@@ -1,95 +1,59 @@
-<div [@routerTransition] >
-  <div class="row" class="map-container" >
-    <div class="col-lg-12" style="height: 100%">
-      <!--<agm-map id="schools-geolocation"
-               [latitude]="-23.552133"
-               [longitude] = "-46.6331418"
-               [zoom] = "15">
-        <agm-marker *ngFor = "let escola of schoolsCoordinates"
-                    [latitude] = "convertToDouble(convertStringToNumber(escola.Latitude))"
-                    [longitude] = "convertToDouble(convertStringToNumber(escola.Longitude))"
-                    [iconUrl] = "'assets/images/marcador_school_default.png'"
-        >
-        </agm-marker>
-      </agm-map>-->
+<div>
+  <!-- button to display/hide the school details -->
+  <button type="button"  class="btn btn-outline-dark btn-toggle-schooldetails " *ngIf="schoolSelectedFlag"
+          (click)="toggleSchoolDetails()">
+    <i id="toggle-school-details-icon" class="fa fa-fw"></i>
+  </button>
+  <div class="nav nav-tab-pills tab-labels" id="pills-tab" role="tablist">
 
-      <div class="col-sm-12 col-md-6 col-lg-4">
-        <div class="row">
-          <div class="col-md-12">
-            <form style="position: absolute; z-index: 3000;
-              left:25px; top: 10px; width: 230px; background: rgba(0,0,0,0.7);
-              color: #dddddd; padding: 10px; border-radius: .25rem;">
-              <!-- Base Layers -->
-              <div class="form-group">
-                <label class="form-control-label col-sm-8 col-lg-8">
-                  Base Layers
-                </label>
-                <div class="custom-radio col-sm-10 col-lg-10"  style="font-size: 13px;"
-                     [class.col-sm-offset-4]="i !== 0"
-                     [class.col-lg-offset-4]="i !== 0"
-                     *ngFor="let layer of model.baseLayers; let i = index">
-                  <label class="form-check-label">
-                    <input type="radio" class="form-check-input"
-                           [name]="layer.id"
-                           [(ngModel)]="model.baseLayer"
-                           [value]="layer.id">
-                    {{layer.name}}
-                  </label>
-                </div>
-              </div>
-              <!-- Overlay Layers -->
-              <div *ngIf="null != model.overlayLayers && model.overlayLayers.length > 0" class="form-group">
-                <label class="form-control-label col-sm-8 col-lg-8">
-                  Control Layers
-                </label>
-                <div class="form-check col-sm-10 col-lg-10"  style="font-size: 13px;">
-                  <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input"
-                           [name]="model.overlayLayers[0].id"
-                           [(ngModel)]="model.overlayLayers[0].enabled" >
-                    {{model.overlayLayers[0].name}}
-                  </label>
-                  <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input"
-                           [name]="model.overlayLayers[1].id"
-                           [(ngModel)]="model.overlayLayers[1].enabled" >
-                    {{model.overlayLayers[1].name}}
-                  </label>
-                </div>
-              </div>
-              <button type="button" (click)="onApply()" class="btn btn-primary">
-                <i  class="fa fa-fw fa-check"></i> Aplicar
-              </button>
-            </form>
-          </div>
+    <!-- End display/hide school details button -->
+    <a class="nav-tab-link active" id="pills-geolocation-tab" data-toggle="pill" href="#pills-geolocation" role="tab" aria-controls="pills-geolocation" aria-selected="true">
+      <div >
+        <div class="section-action-button-icon fa fa-globe fa-2x fa-fw"></div>
+        <div class="nav-tab-link-text">{{'geolocation-icon' | translate}}</div>
+      </div>
+    </a>
+    <a class="nav-tab-link" id="pills-graphics-tab" data-toggle="pill" href="#pills-graphics" role="tab" aria-controls="pills-graphics" aria-selected="false">
+      <div>
+        <div class="section-action-button-icon fa fa-bar-chart fa-2x fa-fw" ></div>
+        <div class="nav-tab-link-text">{{'graphics-icon' | translate}}</div>
+      </div>
+    </a>
+    <a class="nav-tab-link" id="pills-socioeconomic-tab" data-toggle="pill" href="#pills-socioeconomic" role="tab" aria-controls="pills-socioeconomic" aria-selected="false">
+      <div>
+        <div class="section-action-button-icon fa fa-users fa-2x fa-fw"></div>
+        <div class="nav-tab-link-text">{{'socioeconomic-icon' | translate}}</div>
+      </div>
+    </a>
+  </div>
+
+  <div class="tab-content" id="pills-tabContent" [@routerTransition]>
+    <div class="tab-pane fade show active" id="pills-geolocation" role="tabpanel" aria-labelledby="pills-geolocation-tab">
+      <!-- Geolocation of a school -->
+      <div class="map-container">
+        <!-- Display/hide settings button trigger Modal-->
+        <button type="button" class="btn btn-outline-dark btn-map" style="left:10px; top: 70px;"
+                data-toggle="modal" data-target="#exampleModal"
+                >
+          <i id="toggle-settings-icon" class="fa fa-2x fa-sliders fa-fw"></i>
+        </button>
+        <!-- End Display/hide button -->
+
+        <div id="mymap" leaflet style="height: 100%"
+             [leafletOptions]="options"
+             [leafletZoom] = "zoom"
+             [leafletCenter] = "center"
+             [leafletLayers] = "layers"
+
+             [leafletMarkerCluster] = "markerClusterData"
+             [leafletMarkerClusterOptions] = "markerClusterOptions"
+             (leafletMarkerClusterReady) = "markerClusterReady($event)"
+             (leafletMapReady) = "mapReady($event)">
         </div>
       </div>
-
-      <!-- button to display/hide the school details -->
-      <button *ngIf="schoolSelectedFlag"
-              style="position: absolute; z-index: 3000;
-              left:25px; top: 250px; width:35px"
-              (click)="toggleSchoolDetails()">
-        <i id="toggle-school-details-icon" class="fa fa-fw"></i>
-      </button>
-
-      <div id="mymap" leaflet style="height: 100%;"
-           [leafletOptions]="options"
-           [leafletZoom] = "zoom"
-           [leafletCenter] = "center"
-           [leafletLayers] = "layers"
-
-           [leafletMarkerCluster] = "markerClusterData"
-           [leafletMarkerClusterOptions] = "markerClusterOptions"
-           (leafletMarkerClusterReady) = "markerClusterReady($event)"
-           (leafletMapReady) = "mapReady($event)">
-      </div>
+      <!-- End - Geolocation panel-->
     </div>
-  </div>
-  <div class="separator"></div>
-  <!-- Performance of the schools by education levels -->
-  <div class="row"> <!-- *ngIf="schoolSelectedFlag" -->
-    <div class="col-md-12">
+    <div class="tab-pane fade" id="pills-graphics" role="tabpanel" aria-labelledby="pills-graphics-tab">
       <div class="card card-default">
         <div class="card-header">
           <i class="fa fa-line-chart fa-fw"></i> Desempenho das escolas por níveis de ensino
@@ -100,7 +64,81 @@
       </div>
       <!-- /.card -->
     </div>
+    <!-- Tab content for variáveis socioeconômicas -->
+    <div class="tab-pane fade" id="pills-socioeconomic" role="tabpanel" aria-labelledby="pills-socioeconomic-tab">...</div>
+  </div>
+
+</div>
+
+<!-- MODAL: SETTINGS -->
+<div class="modal fade" id="exampleModal" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{'settings-map' | translate}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- modal body -->
+      <div class="modal-body">
+        <form >
+          <!-- Base Layers -->
+          <div class="form-group">
+            <label class="form-control-label col-sm-8 col-lg-8">
+              Base Layers
+            </label>
+            <div class="custom-radio col-sm-10 col-lg-10"  style="font-size: 13px;"
+                 [class.col-sm-offset-4]="i !== 0"
+                 [class.col-lg-offset-4]="i !== 0"
+                 *ngFor="let layer of model.baseLayers; let i = index">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input"
+                       [name]="layer.id"
+                       [(ngModel)]="model.baseLayer"
+                       [value]="layer.id">
+                {{layer.name}}
+              </label>
+            </div>
+          </div>
+          <!-- Overlay Layers -->
+          <div *ngIf="null != model.overlayLayers && model.overlayLayers.length > 0" class="form-group">
+            <label class="form-control-label col-sm-8 col-lg-8">
+              Control Layers
+            </label>
+            <div class="form-check col-sm-10 col-lg-10"  style="font-size: 13px;">
+              <label class="form-check-label">
+                <input type="checkbox" class="form-check-input"
+                       [name]="model.overlayLayers[0].id"
+                       [(ngModel)]="model.overlayLayers[0].enabled" >
+                {{model.overlayLayers[0].name}}
+              </label>
+              <label class="form-check-label">
+                <input type="checkbox" class="form-check-input"
+                       [name]="model.overlayLayers[1].id"
+                       [(ngModel)]="model.overlayLayers[1].enabled" >
+                {{model.overlayLayers[1].name}}
+              </label>
+            </div>
+          </div>
+          <!--<button type="button" (click)="onApply()" class="btn btn-primary form-control">
+            <i  class="fa fa-fw fa-check"></i> Aplicar
+          </button>-->
+        </form>
+      </div>
+      <!-- end modal body -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          <i  class="fa fa-fw fa-close"></i> {{'close' | translate}}
+        </button>
+        <button type="button" class="btn btn-primary" (click)="onApply()">
+          <i  class="fa fa-fw fa-check"></i>{{'apply-changes' | translate}}
+        </button>
+      </div>
+    </div>
   </div>
 </div>
+<!-- END MODAL: SETTINGS -->
 
 
