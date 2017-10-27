@@ -21,7 +21,9 @@ agm-map {
   background-color: #ffffff;
   padding-bottom: 2px;
   margin: 2px 0px 0px;
-  height: 100vh;
+  height: calc(100vh - 115px);
+  height: -moz-calc(100vh - 115px);
+  height: -webkit-calc(100vh - 115px);
   overflow-x: hidden;
   overflow-y: hidden;
   top: 0px;

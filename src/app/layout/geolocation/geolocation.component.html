@@ -32,14 +32,14 @@
       <!-- Geolocation of a school -->
       <div class="map-container">
         <!-- Display/hide settings button trigger Modal-->
-        <button type="button" class="btn btn-outline-dark btn-map" style="left:10px; top: 70px;"
+        <button type="button" class="btn btn-outline-dark btn-map" style="left:10px; top: 65px;"
                 data-toggle="modal" data-target="#exampleModal"
                 >
           <i id="toggle-settings-icon" class="fa fa-2x fa-sliders fa-fw"></i>
         </button>
         <!-- End Display/hide button -->
 
-        <div id="mymap" leaflet style="height: 100%"
+        <div id="mymap" leaflet style="height: 100%;"
              [leafletOptions]="options"
              [leafletZoom] = "zoom"
              [leafletCenter] = "center"
