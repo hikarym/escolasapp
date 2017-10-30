@@ -843,7 +843,8 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.censo_TxAprov_2013_5EF_escola),
         this.toFloat(this.censo_TxAprov_2014_5EF_escola)
       ],
-      label: this.NO_ENTIDAD
+      label: this.NO_ENTIDAD,
+      borderWidth: 2
     };
     this.lineChartData_TA_EF_AI[1] = {
       data: [
@@ -856,7 +857,8 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.censo_TxAprov_2013_5EF_vizinhos),
         this.toFloat(this.censo_TxAprov_2014_5EF_vizinhos)
       ],
-      label: 'Média da vizinhança'
+      label: 'Média da vizinhança',
+      borderWidth: 2
     };
     this.lineChartData_TA_EF_AI[2] = {
       data: [
@@ -869,7 +871,9 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.censo_TxAprov_2013_5EF_SES),
         this.toFloat(this.censo_TxAprov_2014_5EF_SES)
       ],
-      label: 'Escolas de mesmo nível socio-econômico' };
+      label: 'Escolas de mesmo nível socio-econômico',
+      borderWidth: 2
+    };
   }
 
   // ---- NPBM_EF_AI
@@ -882,7 +886,8 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.NPBras_Mat_2011_AI_escola),
         this.toFloat(this.NPBras_Mat_2013_AI_escola)
       ],
-      label: this.NO_ENTIDAD
+      label: this.NO_ENTIDAD,
+      borderWidth: 2
     };
     this.lineChartData_NPBM_EF_AI[1] = {
       data: [
@@ -892,7 +897,8 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.NPBras_Mat_2011_AI_vizinhos),
         this.toFloat(this.NPBras_Mat_2013_AI_vizinhos)
       ],
-      label: 'Média da vizinhança'
+      label: 'Média da vizinhança',
+      borderWidth: 2
     };
     this.lineChartData_NPBM_EF_AI[2] = {
       data: [
@@ -902,7 +908,9 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.NPBras_Mat_2011_AI_SES),
         this.toFloat(this.NPBras_Mat_2013_AI_SES)
       ],
-      label: 'Escolas de mesmo nível socio-econômico' };
+      label: 'Escolas de mesmo nível socio-econômico',
+      borderWidth: 2
+    };
   }
 
   // ---- NPBLP_EF_AI
@@ -915,7 +923,8 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.NPBras_LP_2011_AI_escola),
         this.toFloat(this.NPBras_LP_2013_AI_escola)
       ],
-      label: this.NO_ENTIDAD
+      label: this.NO_ENTIDAD,
+      borderWidth: 2
     };
     this.lineChartData_NPBLP_EF_AI[1] = {
       data: [
@@ -925,7 +934,8 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.NPBras_LP_2011_AI_vizinhos),
         this.toFloat(this.NPBras_LP_2013_AI_vizinhos)
       ],
-      label: 'Média da vizinhança'
+      label: 'Média da vizinhança',
+      borderWidth: 2
     };
     this.lineChartData_NPBLP_EF_AI[2] = {
       data: [
@@ -935,7 +945,9 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.NPBras_LP_2011_AI_SES),
         this.toFloat(this.NPBras_LP_2013_AI_SES)
       ],
-      label: 'Escolas de mesmo nível socio-econômico' };
+      label: 'Escolas de mesmo nível socio-econômico',
+      borderWidth: 2
+    };
   }
 
   // ---- NPBrasNotaPad_AI
@@ -948,7 +960,8 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.NPBras_NotaPad_2011_AI_escola),
         this.toFloat(this.NPBras_NotaPad_2013_AI_escola)
       ],
-      label: this.NO_ENTIDAD
+      label: this.NO_ENTIDAD,
+      borderWidth: 2
     };
     this.lineChartData_NPBrasNotaPad_AI[1] = {
       data: [
@@ -958,7 +971,8 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.NPBras_NotaPad_2011_AI_vizinhos),
         this.toFloat(this.NPBras_NotaPad_2013_AI_vizinhos)
       ],
-      label: 'Média da vizinhança'
+      label: 'Média da vizinhança',
+      borderWidth: 2
     };
     this.lineChartData_NPBrasNotaPad_AI[2] = {
       data: [
@@ -968,7 +982,9 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.NPBras_NotaPad_2011_AI_SES),
         this.toFloat(this.NPBras_NotaPad_2013_AI_SES)
       ],
-      label: 'Escolas de mesmo nível socio-econômico' };
+      label: 'Escolas de mesmo nível socio-econômico',
+      borderWidth: 2
+    };
   }
 
   // ---- IDEB_AI
@@ -981,7 +997,8 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.censo_IDEB_2011_AI_escola),
         this.toFloat(this.censo_IDEB_2013_AI_escola)
       ],
-      label: this.NO_ENTIDAD
+      label: this.NO_ENTIDAD,
+      borderWidth: 2
     };
     this.lineChartData_IDEB_AI[1] = {
       data: [
@@ -991,7 +1008,8 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.censo_IDEB_2011_AI_vizinhos),
         this.toFloat(this.censo_IDEB_2013_AI_vizinhos)
       ],
-      label: 'Média da vizinhança'
+      label: 'Média da vizinhança',
+      borderWidth: 2
     };
     this.lineChartData_IDEB_AI[2] = {
       data: [
@@ -1001,7 +1019,9 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.censo_IDEB_2011_AI_SES),
         this.toFloat(this.censo_IDEB_2013_AI_SES)
       ],
-      label: 'Escolas de mesmo nível socio-econômico' };
+      label: 'Escolas de mesmo nível socio-econômico',
+      borderWidth: 2
+    };
   }
 
   // ---- TA_EF_AF
@@ -1017,7 +1037,8 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.censo_TxAprov_2013_9EF_escola),
         this.toFloat(this.censo_TxAprov_2014_9EF_escola)
       ],
-      label: this.NO_ENTIDAD
+      label: this.NO_ENTIDAD,
+      borderWidth: 2
     };
     this.lineChartData_TA_EF_AF[1] = {
       data: [
@@ -1030,7 +1051,8 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.censo_TxAprov_2013_9EF_vizinhos),
         this.toFloat(this.censo_TxAprov_2014_9EF_vizinhos)
       ],
-      label: 'Média da vizinhança'
+      label: 'Média da vizinhança',
+      borderWidth: 2
     };
     this.lineChartData_TA_EF_AF[2] = {
       data: [
@@ -1043,7 +1065,9 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.censo_TxAprov_2013_9EF_SES),
         this.toFloat(this.censo_TxAprov_2014_9EF_SES)
       ],
-      label: 'Escolas de mesmo nível socio-econômico' };
+      label: 'Escolas de mesmo nível socio-econômico',
+      borderWidth: 2
+    };
   }
 
   // ---- NPBM_EF_AF
@@ -1056,7 +1080,8 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.NPBras_Mat_2011_AF_escola),
         this.toFloat(this.NPBras_Mat_2013_AF_escola)
       ],
-      label: this.NO_ENTIDAD
+      label: this.NO_ENTIDAD,
+      borderWidth: 2
     };
     this.lineChartData_NPBM_EF_AF[1] = {
       data: [
@@ -1066,7 +1091,8 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.NPBras_Mat_2011_AF_vizinhos),
         this.toFloat(this.NPBras_Mat_2013_AF_vizinhos)
       ],
-      label: 'Média da vizinhança'
+      label: 'Média da vizinhança',
+      borderWidth: 2
     };
     this.lineChartData_NPBM_EF_AF[2] = {
       data: [
@@ -1076,7 +1102,9 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.NPBras_Mat_2011_AF_SES),
         this.toFloat(this.NPBras_Mat_2013_AF_SES)
       ],
-      label: 'Escolas de mesmo nível socio-econômico' };
+      label: 'Escolas de mesmo nível socio-econômico',
+      borderWidth: 2
+    };
   }
 
   // ---- NPBLP_EF_AF
@@ -1089,7 +1117,8 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.NPBras_LP_2011_AF_escola),
         this.toFloat(this.NPBras_LP_2013_AF_escola)
       ],
-      label: this.NO_ENTIDAD
+      label: this.NO_ENTIDAD,
+      borderWidth: 2
     };
     this.lineChartData_NPBLP_EF_AF[1] = {
       data: [
@@ -1099,7 +1128,8 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.NPBras_LP_2011_AF_vizinhos),
         this.toFloat(this.NPBras_LP_2013_AF_vizinhos)
       ],
-      label: 'Média da vizinhança'
+      label: 'Média da vizinhança',
+      borderWidth: 2
     };
     this.lineChartData_NPBLP_EF_AF[2] = {
       data: [
@@ -1109,7 +1139,9 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.NPBras_LP_2011_AF_SES),
         this.toFloat(this.NPBras_LP_2013_AF_SES)
       ],
-      label: 'Escolas de mesmo nível socio-econômico' };
+      label: 'Escolas de mesmo nível socio-econômico',
+      borderWidth: 2
+    };
   }
 
   // ---- NPBrasNotaPad_AF
@@ -1122,7 +1154,8 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.NPBras_NotaPad_2011_AF_escola),
         this.toFloat(this.NPBras_NotaPad_2013_AF_escola)
       ],
-      label: this.NO_ENTIDAD
+      label: this.NO_ENTIDAD,
+      borderWidth: 2
     };
     this.lineChartData_NPBrasNotaPad_AF[1] = {
       data: [
@@ -1132,7 +1165,8 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.NPBras_NotaPad_2011_AF_vizinhos),
         this.toFloat(this.NPBras_NotaPad_2013_AF_vizinhos)
       ],
-      label: 'Média da vizinhança'
+      label: 'Média da vizinhança',
+      borderWidth: 2
     };
     this.lineChartData_NPBrasNotaPad_AF[2] = {
       data: [
@@ -1142,7 +1176,9 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.NPBras_NotaPad_2011_AF_SES),
         this.toFloat(this.NPBras_NotaPad_2013_AF_SES)
       ],
-      label: 'Escolas de mesmo nível socio-econômico' };
+      label: 'Escolas de mesmo nível socio-econômico',
+      borderWidth: 2
+    };
   }
 
   // ---- IDEB_AF
@@ -1155,7 +1191,8 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.censo_IDEB_2011_AF_escola),
         this.toFloat(this.censo_IDEB_2013_AF_escola)
       ],
-      label: this.NO_ENTIDAD
+      label: this.NO_ENTIDAD,
+      borderWidth: 2
     };
     this.lineChartData_IDEB_AF[1] = {
       data: [
@@ -1165,7 +1202,8 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.censo_IDEB_2011_AF_vizinhos),
         this.toFloat(this.censo_IDEB_2013_AF_vizinhos)
       ],
-      label: 'Média da vizinhança'
+      label: 'Média da vizinhança',
+      borderWidth: 2
     };
     this.lineChartData_IDEB_AF[2] = {
       data: [
@@ -1175,7 +1213,9 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.censo_IDEB_2011_AF_SES),
         this.toFloat(this.censo_IDEB_2013_AF_SES)
       ],
-      label: 'Escolas de mesmo nível socio-econômico' };
+      label: 'Escolas de mesmo nível socio-econômico',
+      borderWidth: 2
+    };
   }
 
   // ---- TxAprov_3EM
@@ -1191,7 +1231,8 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.censo_TxAprov_2013_3EM_escola),
         this.toFloat(this.censo_TxAprov_2014_3EM_escola)
       ],
-      label: this.NO_ENTIDAD
+      label: this.NO_ENTIDAD,
+      borderWidth: 2
     };
     this.lineChartData_TxAprov_3EM[1] = {
       data: [
@@ -1204,7 +1245,8 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.censo_TxAprov_2013_3EM_vizinhos),
         this.toFloat(this.censo_TxAprov_2014_3EM_vizinhos)
       ],
-      label: 'Média da vizinhança'
+      label: 'Média da vizinhança',
+      borderWidth: 2
     };
     this.lineChartData_TxAprov_3EM[2] = {
       data: [
@@ -1217,7 +1259,9 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.censo_TxAprov_2013_3EM_SES),
         this.toFloat(this.censo_TxAprov_2014_3EM_SES)
       ],
-      label: 'Escolas de mesmo nível socio-econômico' };
+      label: 'Escolas de mesmo nível socio-econômico',
+      borderWidth: 2
+    };
   }
 
   // ---- TxAband_1EM
@@ -1233,7 +1277,8 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.censo_TxAband_2013_1EM_escola),
         this.toFloat(this.censo_TxAband_2014_1EM_escola)
       ],
-      label: this.NO_ENTIDAD
+      label: this.NO_ENTIDAD,
+      borderWidth: 2
     };
     this.lineChartData_TxAband_1EM[1] = {
       data: [
@@ -1246,7 +1291,8 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.censo_TxAband_2013_1EM_vizinhos),
         this.toFloat(this.censo_TxAband_2014_1EM_vizinhos)
       ],
-      label: 'Média da vizinhança'
+      label: 'Média da vizinhança',
+      borderWidth: 2
     };
     this.lineChartData_TxAband_1EM[2] = {
       data: [
@@ -1259,7 +1305,9 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.censo_TxAband_2013_1EM_SES),
         this.toFloat(this.censo_TxAband_2014_1EM_SES)
       ],
-      label: 'Escolas de mesmo nível socio-econômico' };
+      label: 'Escolas de mesmo nível socio-econômico',
+      borderWidth: 2
+    };
   }
 
   // ---- TxDIS_3EM
@@ -1275,7 +1323,8 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.censo_TxDIS_2013_3EM_escola),
         this.toFloat(this.censo_TxDIS_2014_3EM_escola)
       ],
-      label: this.NO_ENTIDAD
+      label: this.NO_ENTIDAD,
+      borderWidth: 2
     };
     this.lineChartData_TxDIS_3EM[1] = {
       data: [
@@ -1288,7 +1337,8 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.censo_TxDIS_2013_3EM_vizinhos),
         this.toFloat(this.censo_TxDIS_2014_3EM_vizinhos)
       ],
-      label: 'Média da vizinhança'
+      label: 'Média da vizinhança',
+      borderWidth: 2
     };
     this.lineChartData_TxDIS_3EM[2] = {
       data: [
@@ -1301,7 +1351,9 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.censo_TxDIS_2013_3EM_SES),
         this.toFloat(this.censo_TxDIS_2014_3EM_SES)
       ],
-      label: 'Escolas de mesmo nível socio-econômico' };
+      label: 'Escolas de mesmo nível socio-econômico',
+      borderWidth: 2
+    };
   }
 
   // ---- ENEM
@@ -1315,7 +1367,8 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.ENEM_CN_2013_3M_escola),
         this.toFloat(this.ENEM_Geral_2013_3M_escola)
       ],
-      label: this.NO_ENTIDAD
+      label: this.NO_ENTIDAD,
+      borderWidth: 2
     };
     this.barChartData_ENEM[1] = {
       data: [
@@ -1326,7 +1379,8 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.ENEM_CN_2013_3M_vizinhos),
         this.toFloat(this.ENEM_Geral_2013_3M_vizinhos)
       ],
-      label: 'Média da vizinhança'
+      label: 'Média da vizinhança',
+      borderWidth: 2
     };
     this.barChartData_ENEM[2] = {
       data: [
@@ -1337,7 +1391,9 @@ export class SchoolDetailsComponent implements OnInit {
         this.toFloat(this.ENEM_CN_2013_3M_SES),
         this.toFloat(this.ENEM_Geral_2013_3M_SES)
       ],
-      label: 'Escolas de mesmo nível socio-econômico' };
+      label: 'Escolas de mesmo nível socio-econômico',
+      borderWidth: 2
+    };
   }
 
   toFloat(input: any) {
