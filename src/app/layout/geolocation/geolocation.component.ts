@@ -12,6 +12,7 @@ import 'rxjs/add/operator/filter';
 import {WeightingAreaService} from '../../weighting-area.service';
 import {LayersModel} from './layers.model';
 import {LeafletDirective} from '@asymmetrik/ngx-leaflet';
+import {RoundDecimalPipe} from '../../src/app/shared/pipes/round-decimal.pipe';
 
 @Component({
   selector: 'app-geolocation',
@@ -191,17 +192,34 @@ export class GeolocationComponent implements OnInit, OnDestroy {
     return false;
   }
 
+  /*
+  * Function to round the decimal number to 6 decimals
+  * */
+  roundDecimalNumber(decimalNumber: number, numberOfDigitsToRound: number) {
+    return Math.round(decimalNumber * Math.pow(10, numberOfDigitsToRound)) / Math.pow(10, numberOfDigitsToRound);
+  }
+
+  /*
+  * Function to trunc the number's decimal to 6 decimals
+  * */
+
+  truncDecimalNumber(decimalNumber: number, numberOfDigitsToTrunc: number) {
+    return Math.trunc(decimalNumber * Math.pow(10, numberOfDigitsToTrunc)) / Math.pow(10, numberOfDigitsToTrunc);
+  }
+
   ngOnInit() {
 
     const s = this.sharedDataService.getSchoolLoc().subscribe(
       res => {
         this.LOCATION = res;
         this.zoom = this.zoom_school_selected;
-        this.center = L.latLng([this.LOCATION.LAT, this.LOCATION.LON]);
+        const latRounded = this.truncDecimalNumber(this.LOCATION.LAT,6);
+        const lonRounded = this.truncDecimalNumber(this.LOCATION.LON,6);
+        this.center = L.latLng([latRounded, lonRounded]);
         this.schoolSelectedFlag = true;
         console.log('update center in ngOnInit:', this.center);
-        this.drawIconForSchoolSelected(this.LOCATION.LAT, this.LOCATION.LON);
-        this.drawSchoolNeighborhoodArea(this.neighborhoodRadius, this.LOCATION.LAT, this.LOCATION.LON);
+        this.drawIconForSchoolSelected(latRounded, lonRounded);
+        this.drawSchoolNeighborhoodArea(this.neighborhoodRadius, latRounded, lonRounded);
         console.log('Desenhar o ap:', this.LOCATION.CODAP);
         // this.drawWeightingAreaPolygon(this.LOCATION.CODAP);
         const codAp = this.LOCATION.CODAP;
@@ -287,20 +305,21 @@ export class GeolocationComponent implements OnInit, OnDestroy {
       for (let i = 0; i < this.schoolsCoordinates.length; i++) {
         container = $('<div />');
         school_i = this.schoolsCoordinates[i];
-        console.log(school_i);
+        const latRounded = this.truncDecimalNumber(school_i.lat, 6);
+        const lonRounded = this.truncDecimalNumber(school_i.lon, 6);
         popup = '<b>_ID:</b>' + school_i._id +
           '<br/><b>ESCOLA: </b>' + school_i.NO_ENTIDAD +
           '<br/><b>BAIRRO: </b>' + school_i.BAIRRO +
           '<br/><b>ENDEREÇO: </b>' + school_i.ENDERECO + ' - ' + school_i.NUMERO +
-          '<br/><b>LOC.: </b>' + school_i.lat + ', ' + school_i.lon +
-          '<br/><a href="#" class="getSchoolInfo" >Ver escola</a> - ' +
+          '<br/><b>LOC.: </b>' + latRounded + ', ' + lonRounded +
+          '<br/><a href="#" class="getSchoolInfo" >Info de uma escola</a> - ' +
           '<a href="javascript:void(0)" class="getWeithignArea">Area de Ponderação</a> - ' +
           '<a href="javascript:void(0)">Vizinhança</a>';
         // '<br/><input type="button" value="Ver informaçao da escola" id="bu-show-school-info" ' +
         // '(click)="showSchoolInfo($event)"/>';
         container.html(popup);
         container.append($('<span class="bold">').text('...'));
-        marker = L.marker(L.latLng(school_i.lat, school_i.lon), {icon: this.schoolMarkerIcon});
+        marker = L.marker(L.latLng(latRounded, lonRounded), {icon: this.schoolMarkerIcon});
         // data.push(marker.bindPopup($('<a href="#" class="speciallink">TestLink</a>').click(function() {alert('test'); })[0]));
         data.push(marker.bindPopup(container[0]));
         // this.updateSchoolIDSel(school_i._id);

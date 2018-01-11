@@ -16,6 +16,7 @@ import {WeightingAreaService} from '../weighting-area.service';
 import { AboutProjectComponent } from './about-project/about-project.component';
 import { EducationalVariablesComponent } from './educational-variables/educational-variables.component';
 import { SocioeconomicIndicatorsComponent } from './socioeconomic-indicators/socioeconomic-indicators.component';
+import {RoundDecimalPipe} from '../src/app/shared/pipes/round-decimal.pipe';
 
 @NgModule({
   imports: [
@@ -36,7 +37,7 @@ import { SocioeconomicIndicatorsComponent } from './socioeconomic-indicators/soc
     SocioeconomicIndicatorsComponent
   ],
 
-  providers: [SchoolService, WeightingAreaService, ShareddataService]
+  providers: [SchoolService, WeightingAreaService, ShareddataService, RoundDecimalPipe]
 
 })
 export class LayoutModule { }

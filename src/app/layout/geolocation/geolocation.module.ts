@@ -32,5 +32,6 @@ import { MapDirective } from './map.directive';
     GraphicsComponent,
     MapDirective
   ]
+  /*providers: [RoundDecimalPipe]*/
 })
 export class GeolocationModule { }

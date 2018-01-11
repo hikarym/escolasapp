@@ -21,6 +21,8 @@ import {NotFoundModule} from './not-found/not-found.module';
 import {WeightingAreaService} from './weighting-area.service';
 import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
 import {MatSlideToggleModule, MatIconModule, MatTabsModule, MatTabGroup} from '@angular/material';
+import { RoundDecimalPipe } from './shared/pipes/round-decimal.pipe';
+import {SharedPipesModule} from './shared/pipes/shared-pipes.module';
 
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
@@ -30,7 +32,6 @@ export function HttpLoaderFactory (http: HttpClient) {
   declarations: [
     AppComponent,
     PageHeaderComponent
-
   ],
   imports: [
     BrowserModule,
@@ -58,7 +59,8 @@ export function HttpLoaderFactory (http: HttpClient) {
     NgbDropdownModule.forRoot(),
     MatSlideToggleModule,
     MatIconModule,
-    MatTabsModule
+    MatTabsModule,
+    SharedPipesModule
   ],
   providers: [SchoolService, ShareddataService, WeightingAreaService],
   bootstrap: [AppComponent]
