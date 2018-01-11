@@ -1,5 +1,5 @@
 ///<reference path="../../../../node_modules/@types/leaflet/index.d.ts"/>
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, EventEmitter, Output} from '@angular/core';
 import {SchoolService} from '../../school.service';
 import {routerTransition} from '../../router.animations';
 import {AgmMap} from '@agm/core';
@@ -20,6 +20,8 @@ import {LeafletDirective} from '@asymmetrik/ngx-leaflet';
   animations: [routerTransition()]
 })
 export class GeolocationComponent implements OnInit, OnDestroy {
+  // Send information of selected school
+  @Output() onSchoolSel = new EventEmitter<any>();
   centerLat = -23.552133;
   centerLng = -46.6331418;
   schoolsCoordinates: any;
@@ -285,12 +287,15 @@ export class GeolocationComponent implements OnInit, OnDestroy {
       for (let i = 0; i < this.schoolsCoordinates.length; i++) {
         container = $('<div />');
         school_i = this.schoolsCoordinates[i];
-        popup = '<b>ESCOLA: </b>' + school_i.NO_ENTIDAD +
+        console.log(school_i);
+        popup = '<b>_ID:</b>' + school_i._id +
+          '<br/><b>ESCOLA: </b>' + school_i.NO_ENTIDAD +
           '<br/><b>BAIRRO: </b>' + school_i.BAIRRO +
           '<br/><b>ENDEREÇO: </b>' + school_i.ENDERECO + ' - ' + school_i.NUMERO +
           '<br/><b>LOC.: </b>' + school_i.lat + ', ' + school_i.lon +
-          '<br/><a href="#" class="getSchoolInfo" >Informação da escola</a> - ' +
-          '<a href="javascript:void(0)" class="getWeithignArea">Area de Ponderação</a>';
+          '<br/><a href="#" class="getSchoolInfo" >Ver escola</a> - ' +
+          '<a href="javascript:void(0)" class="getWeithignArea">Area de Ponderação</a> - ' +
+          '<a href="javascript:void(0)">Vizinhança</a>';
         // '<br/><input type="button" value="Ver informaçao da escola" id="bu-show-school-info" ' +
         // '(click)="showSchoolInfo($event)"/>';
         container.html(popup);
@@ -298,12 +303,20 @@ export class GeolocationComponent implements OnInit, OnDestroy {
         marker = L.marker(L.latLng(school_i.lat, school_i.lon), {icon: this.schoolMarkerIcon});
         // data.push(marker.bindPopup($('<a href="#" class="speciallink">TestLink</a>').click(function() {alert('test'); })[0]));
         data.push(marker.bindPopup(container[0]));
+        // this.updateSchoolIDSel(school_i._id);
       }
       this.markerClusterData = data;
       console.log('getschoollist: ', this.center);
+
     }, (err) => {
       console.log(err);
     });
+  }
+
+  updateSchoolIDSel(selectedSchoolID) {
+    // send school ID to school-details component via observable subject
+    this.sharedDataService.sendSchoolID(selectedSchoolID);
+    this.onSchoolSel.emit(selectedSchoolID);
   }
 
   markerClusterReady(group: L.MarkerClusterGroup) {
