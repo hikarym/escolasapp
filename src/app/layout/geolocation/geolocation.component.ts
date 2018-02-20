@@ -12,7 +12,6 @@ import 'rxjs/add/operator/filter';
 import {WeightingAreaService} from '../../weighting-area.service';
 import {LayersModel} from './layers.model';
 import {LeafletDirective} from '@asymmetrik/ngx-leaflet';
-import {RoundDecimalPipe} from '../../src/app/shared/pipes/round-decimal.pipe';
 
 @Component({
   selector: 'app-geolocation',
@@ -119,7 +118,7 @@ export class GeolocationComponent implements OnInit, OnDestroy {
     'Google Street Maps': this.LAYER_GSM.layer,
     'Open Street Map': this.LAYER_OSM.layer
   };
-  options = {zoomControl: false};
+  options = {zoomControl: false, fullscreenControl: true};
   zoom = 14;
   // zoomOptions= L.control.zoom({position: 'topright'});
   zoomOptions = {

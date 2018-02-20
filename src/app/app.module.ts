@@ -21,7 +21,6 @@ import {NotFoundModule} from './not-found/not-found.module';
 import {WeightingAreaService} from './weighting-area.service';
 import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
 import {MatSlideToggleModule, MatIconModule, MatTabsModule, MatTabGroup} from '@angular/material';
-import { RoundDecimalPipe } from './shared/pipes/round-decimal.pipe';
 import {SharedPipesModule} from './shared/pipes/shared-pipes.module';
 
 export function HttpLoaderFactory (http: HttpClient) {
@@ -60,7 +59,7 @@ export function HttpLoaderFactory (http: HttpClient) {
     MatSlideToggleModule,
     MatIconModule,
     MatTabsModule,
-    SharedPipesModule
+
   ],
   providers: [SchoolService, ShareddataService, WeightingAreaService],
   bootstrap: [AppComponent]
