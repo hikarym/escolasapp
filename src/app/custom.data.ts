@@ -34,7 +34,7 @@ export class CustomData extends Subject<CompleterItem[]> implements CompleterDat
 
     // data will be string if an initial value is set
     return {
-      title: typeof data === 'string' ? data : data.NO_ENTIDAD_BAIRRO,
+      title: typeof data === 'string' ? data : data.nomeesc_bairro,
       description: '', // data.NO_ENTIDAD_BAIRRO,
       originalObject: data,
       image: '../../../../assets/images/marcador_school.png',

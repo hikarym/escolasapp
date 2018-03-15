@@ -22,11 +22,11 @@ import {LeafletDirective} from '@asymmetrik/ngx-leaflet';
 export class GeolocationComponent implements OnInit, OnDestroy {
   // Send information of selected school
   @Output() onSchoolSel = new EventEmitter<any>();
+  // Constants
   centerLat = -23.552133;
   centerLng = -46.6331418;
+
   schoolsCoordinates: any;
-  // @ViewChild(AgmMap) private map: any;
-  schoolSelectedID: string;
   schoolMarkerIcon = L.icon({
     iconUrl: 'assets/images/marcador_school_default.png',
     iconSize: [45, 45], // size of the icon
@@ -65,6 +65,19 @@ export class GeolocationComponent implements OnInit, OnDestroy {
       minZoom: 1,
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    })
+  };
+
+  LAYER_MBOX = {
+    id: 'mapbox',
+    name: 'Mapbox',
+    enabled: false,
+    layer: L.tileLayer('https://a.tiles.mapbox.com/v4/mapbox.dark/{z}/{x}/{y}.png?access_token={token}', {
+      minZoom: 1,
+      maxZoom: 19,
+      attribution: 'Mapbox',
+      subdomains: ['a', 'b', 'c', 'd'],
+      token: 'pk.eyJ1IjoicHppZWdsZXIiLCJhIjoiY2ltMHo3OGRxMDh0MXR5a3JrdHNqaGQ0bSJ9.KAFBMeyysBLz4Ty-ltXVQQ'
     })
   };
 
@@ -116,7 +129,8 @@ export class GeolocationComponent implements OnInit, OnDestroy {
   layersControlOptions = {position: 'bottomright'};
   baseMaps = {
     'Google Street Maps': this.LAYER_GSM.layer,
-    'Open Street Map': this.LAYER_OSM.layer
+    'Open Street Map': this.LAYER_OSM.layer,
+    'Mapbox': this.LAYER_MBOX.layer
   };
   options = {zoomControl: false, fullscreenControl: true};
   zoom = 14;
@@ -143,7 +157,7 @@ export class GeolocationComponent implements OnInit, OnDestroy {
   // ------------------------------
   // Form model object
   model = new LayersModel(
-    [ this.LAYER_GSM, this.LAYER_OSM ],
+    [ this.LAYER_GSM, this.LAYER_OSM, this.LAYER_MBOX ],
     this.LAYER_GSM.id,
     [ this.neighborhood, this.weightingArea, this.marker]
   );
@@ -211,6 +225,7 @@ export class GeolocationComponent implements OnInit, OnDestroy {
     const s = this.sharedDataService.getSchoolLoc().subscribe(
       res => {
         this.LOCATION = res;
+        console.log(this.LOCATION);
         this.zoom = this.zoom_school_selected;
         const latRounded = this.truncDecimalNumber(this.LOCATION.LAT,6);
         const lonRounded = this.truncDecimalNumber(this.LOCATION.LON,6);
@@ -304,12 +319,12 @@ export class GeolocationComponent implements OnInit, OnDestroy {
       for (let i = 0; i < this.schoolsCoordinates.length; i++) {
         container = $('<div />');
         school_i = this.schoolsCoordinates[i];
-        const latRounded = this.truncDecimalNumber(school_i.lat, 6);
-        const lonRounded = this.truncDecimalNumber(school_i.lon, 6);
+        const latRounded = this.truncDecimalNumber(school_i.latitude, 6);
+        const lonRounded = this.truncDecimalNumber(school_i.longitude, 6);
         popup = '<b>_ID:</b>' + school_i._id +
-          '<br/><b>ESCOLA: </b>' + school_i.NO_ENTIDAD +
-          '<br/><b>BAIRRO: </b>' + school_i.BAIRRO +
-          '<br/><b>ENDEREÇO: </b>' + school_i.ENDERECO + ' - ' + school_i.NUMERO +
+          '<br/><b>ESCOLA: </b>' + school_i.detalhes.nomeesc +
+          '<br/><b>BAIRRO: </b>' + school_i.detalhes.bairro +
+          '<br/><b>ENDEREÇO: </b>' + school_i.detalhes.endereco + ' - ' + school_i.detalhes.numero +
           '<br/><b>LOC.: </b>' + latRounded + ', ' + lonRounded +
           '<br/><a href="#" class="getSchoolInfo" >Info de uma escola</a> - ' +
           '<a href="javascript:void(0)" class="getWeithignArea">Area de Ponderação</a> - ' +

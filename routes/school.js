@@ -1,13 +1,15 @@
+var mongoose = require('mongoose');
 var express = require('express');
 var router = express.Router();
-var School = require('../models/School.js');
+//var School = require('../models/School.js');
+var School = mongoose.model('School', new mongoose.Schema(), 'schools');
 
 /* GET ALL SCHOOLS */
 router.get('/', function(req, res, next) {
   // var query = School.find({}).select('CODESC COD_ESC_TX NO_ENTIDAD ENDERECO NUMERO BAIRRO location');
   // var query = School.find({}).select('-_id type geometry properties');
-  var query = School.find({}).select('CODESC COD_ESC_TX NO_ENTIDAD ENDERECO NUMERO BAIRRO lat lon');
-  query.exec(function (err, products) {
+  var query = School.find({latitude:{$ne:"NA"},longitude:{$ne:"NA"}}).select('codesc detalhes.nomeesc detalhes.endereco detalhes.numero detalhes.bairro latitude longitude');
+  query.lean().exec(function (err, products) {
     if (err) return next(err);
     res.json(products);
   });
@@ -68,15 +70,15 @@ router.get('/search/:name', function(req, res, next) {
   School.aggregate(
     {
       $match: {
-        NO_ENTIDAD: {
+         "detalhes.nomeesc": {
           $regex: new RegExp(req.params.name,'ig')
         }
       }
     },
     {
       $project: {
-        NO_ENTIDAD:1,
-        NO_ENTIDAD_BAIRRO: { $concat: [ "$NO_ENTIDAD", " - ", "$BAIRRO" ] }
+        nomeesc:1,
+        nomeesc_bairro: { $concat: [ "$detalhes.nomeesc", " - ", "$detalhes.bairro" ] }
       }
     }, function (err, post) {
       if (err) return next(err);
