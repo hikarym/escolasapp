@@ -319,8 +319,8 @@ export class GeolocationComponent implements OnInit, OnDestroy {
       for (let i = 0; i < this.schoolsCoordinates.length; i++) {
         container = $('<div />');
         school_i = this.schoolsCoordinates[i];
-        const latRounded = this.truncDecimalNumber(school_i.latitude, 6);
-        const lonRounded = this.truncDecimalNumber(school_i.longitude, 6);
+        const latRounded = this.truncDecimalNumber(school_i.lat, 6);
+        const lonRounded = this.truncDecimalNumber(school_i.lon, 6);
         popup = '<b>_ID:</b>' + school_i._id +
           '<br/><b>ESCOLA: </b>' + school_i.detalhes.nomeesc +
           '<br/><b>BAIRRO: </b>' + school_i.detalhes.bairro +

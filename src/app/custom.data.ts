@@ -7,9 +7,10 @@ export class CustomData extends Subject<CompleterItem[]> implements CompleterDat
     super();
   }
 
- public search(term: string): void {
+  public search(term: string): void {
     term = this.removeDiacritics(term);
     // this.http.get('/school/search?text=' + term )
+    console.log('/school/search/' + term);
     this.http.get('/school/search/' + term )
       .map((res: Response) => {
         // Convert the result to CompleterItem[]

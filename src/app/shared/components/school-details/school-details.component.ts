@@ -444,9 +444,9 @@ export class SchoolDetailsComponent implements OnInit {
       this.ID_QUADRA_ESPORTES_COBERTA = this.schoolSelected.ID_QUADRA_ESPORTES_COBERTA;
       this.ID_QUADRA_ESPORTES_DESCOBERTA = this.schoolSelected.ID_QUADRA_ESPORTES_DESCOBERTA;
       this.ID_BIBLIOTECA = this.schoolSelected.ID_BIBLIOTECA;
-      this.LOCATION.LAT = this.schoolSelected.latitude;
-      this.LOCATION.LON = this.schoolSelected.longitude;
-      this.LOCATION.CODAP = '12'; // this.schoolSelected.codap;
+      this.LOCATION.LAT = this.schoolSelected.lat;
+      this.LOCATION.LON = this.schoolSelected.lon;
+      this.LOCATION.CODAP = this.schoolSelected.codap;
       // send lat, lon and codAp of a school selected to geolocation component via observable subject
       this.sharedDataService.sendSchoolLocation(this.LOCATION);
       this.onSchoolLocation.emit(this.LOCATION);
