@@ -4,21 +4,14 @@ var bodyParser = require('body-parser');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 
-var route = require('./routes/route.js');
+var route = require('./routes/route-noused.js');
 var school = require('./routes/school.js');
 var weightingArea = require('./routes/weightingarea.js');
 
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-var db = require('./config/dbconfig.js');
-
 // Call connection to MongoDB on localhost:27017
-/*mongoose.connect('mongodb://172.16.1.32/escolasdb', {config: {autoIndex: false}, useMongoClient: true})
-//mongoose.connect('mongodb://localhost/escolasdb', { useMongoClient: true })
-  .then( (res) => console.log('connection successful'))
-.catch(
-    (err) => console.error(err)
-);*/
+var db = require('./config/dbconfig.js');
 mongoose.connect(db.url, {config: {autoIndex: false}, useMongoClient: true});
 mongoose.connection;
 
