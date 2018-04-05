@@ -2,22 +2,23 @@ var mongoose = require('mongoose');
 var express = require('express');
 var router = express.Router();
 //var School = require('../models/School.js');
-var School = mongoose.model('School', new mongoose.Schema(), 'schools');
+var Schools = mongoose.model('Schools', new mongoose.Schema(), 'schools');
 
 /* GET ALL SCHOOLS */
 router.get('/', function(req, res, next) {
   // var query = School.find({}).select('CODESC COD_ESC_TX NO_ENTIDAD ENDERECO NUMERO BAIRRO location');
   // var query = School.find({}).select('-_id type geometry properties');
-  var query = School.find({lat:{$ne:"NA"},lon:{$ne:"NA"}}).select('codesc detalhes.nomeesc detalhes.endereco detalhes.numero detalhes.bairro lat lon');
+  var query = Schools.find({lat:{$ne:"NA"},lon:{$ne:"NA"}}).select('codesc detalhes.nomeesc detalhes.endereco detalhes.numero detalhes.bairro lat lon');
   query.lean().exec(function (err, products) {
     if (err) return next(err);
     res.json(products);
   });
 });
 
-/* GET SINGLE SCHOOL BY ID ("_id"). For example: '58dd2c8be6f8cc9ae0fcfec4' */
+/* GET SINGLE SCHOOL BY ID ("_id"). For example: '5ac3a33d61f5122e7261c263' */
+/* Teste: http://localhost:3002/school/5ac3a33d61f5122e7261c263 */
 router.get('/:id', function(req, res, next) {
-  School.findById(req.params.id, function (err, post) {
+  Schools.findById(req.params.id, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
@@ -66,13 +67,12 @@ router.get('/:id', function(req, res, next) {
 });*/
 
 /* GET SCHOOLS LIST WHOSE NO_ENTIDAD LIKE 'TEXT'*/
+/* Teste: http://localhost:3002/school/search/cult */
 router.get('/search/:name', function(req, res, next) {
-  School.aggregate(
+  Schools.aggregate([
     {
       $match: {
-         "detalhes.nomeesc": {
-          $regex: new RegExp(req.params.name,'ig')
-        }
+        "detalhes.nomeesc": { $regex: new RegExp(req.params.name,'ig') }
       }
     },
     {
@@ -80,15 +80,15 @@ router.get('/search/:name', function(req, res, next) {
         nomeesc:1,
         nomeesc_bairro: { $concat: [ "$detalhes.nomeesc", " - ", "$detalhes.bairro" ] }
       }
-    }, function (err, post) {
+    }], function (err, result) {
       if (err) return next(err);
-      res.json(post);
+      res.json(result);
     });
 });
 
 /* SAVE ESCOLAS */
 router.post('/', function(req, res, next) {
-  School.create(req.body, function (err, post) {
+  Schools.create(req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
@@ -96,7 +96,7 @@ router.post('/', function(req, res, next) {
 
 /* UPDATE ESCOLAS */
 router.put('/:id', function(req, res, next) {
-  School.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
+  Schools.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
@@ -104,7 +104,7 @@ router.put('/:id', function(req, res, next) {
 
 /* DELETE ESCOLAS */
 router.delete('/:id', function(req, res, next) {
-  School.findByIdAndRemove(req.params.id, req.body, function (err, post) {
+  Schools.findByIdAndRemove(req.params.id, req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
