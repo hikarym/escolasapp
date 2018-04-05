@@ -15,7 +15,7 @@ var WeightingAreaSchema = new mongoose.Schema({
     coordinates: {type: Array, required: true}  //[[[],[],[]],[[],[],[]]]
   },
   properties : {
-    codap : SchemaTypes.Long, // NumberLong("3530607005007"),
+    codap : String, // SchemaTypes.Long  --> NumberLong("3530607005007"),
     cod_gr : Number, // 3,
     cod_uf : Number, // 35,
     cod_me : Number, // 3515,
@@ -30,7 +30,9 @@ var WeightingAreaSchema = new mongoose.Schema({
     nom_mu : String, // "MOGI DAS CRUZES"
   }
   //updated_at: { type: Date, default: Date.now },
-});
+}, {collection: 'weightingAreas'});
+
+//"collection" is used to the collection's name
 
 var wa = mongoose.model('WeightingArea', WeightingAreaSchema);
 module.exports = wa;

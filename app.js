@@ -6,10 +6,13 @@ var logger = require('morgan');
 
 var route = require('./routes/route-noused.js');
 var school = require('./routes/school.js');
-var weightingArea = require('./routes/weightingarea.js');
+var weightingArea = require('./routes/weightingArea.js');
+var apSecVariable = require('./routes/apSecVariable');
+var brSpRmspSecVariable = require('./routes/brSpRmspSecVariable');
 
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
+
 // Call connection to MongoDB on localhost:27017
 var db = require('./config/dbconfig.js');
 mongoose.connect(db.url, {config: {autoIndex: false}, useMongoClient: true});
@@ -26,6 +29,8 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.use(route);
 app.use('/school', school);
 app.use('/weightingarea', weightingArea);
+app.use('/ap-secvariable', apSecVariable);
+app.use('/br-sp-rmsp-secvariable', brSpRmspSecVariable);
 
 app.get('*', function (req, res) {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'))
