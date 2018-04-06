@@ -10,13 +10,12 @@ var weightingArea = require('./routes/weightingArea.js');
 var apSecVariable = require('./routes/apSecVariable');
 var brSpRmspSecVariable = require('./routes/brSpRmspSecVariable');
 
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 // Call connection to MongoDB on localhost:27017
 var db = require('./config/dbconfig.js');
-mongoose.connect(db.url, {config: {autoIndex: false}, useMongoClient: true});
-mongoose.connection;
+mongoose.connect(db.url);
 
 var app = express();
 
