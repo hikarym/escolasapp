@@ -4,7 +4,6 @@ var bodyParser = require('body-parser');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 
-var route = require('./routes/route-noused.js');
 var school = require('./routes/school.js');
 var weightingArea = require('./routes/weightingArea.js');
 var apSecVariable = require('./routes/apSecVariable');
@@ -25,7 +24,6 @@ app.use(bodyParser.urlencoded({'extended':'false'}));
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
-app.use(route);
 app.use('/school', school);
 app.use('/weightingarea', weightingArea);
 app.use('/ap-secvariable', apSecVariable);
