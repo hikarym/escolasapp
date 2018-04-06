@@ -159,12 +159,12 @@ export class GeolocationComponent implements OnInit, OnDestroy {
   model = new LayersModel(
     [ this.LAYER_GSM, this.LAYER_OSM, this.LAYER_MBOX ],
     this.LAYER_GSM.id,
-    [ this.neighborhood, this.weightingArea, this.marker]
+    [ this.weightingArea, this.marker]
   );
 
   // Values to bind to Leaflet Directive
   layers: L.Layer[];
-  layersControl = {
+  /*layersControl = {
     baseLayers: {
       'Google Street Maps': this.LAYER_GSM.layer,
       'Open Street Maps': this.LAYER_OSM.layer
@@ -174,7 +174,7 @@ export class GeolocationComponent implements OnInit, OnDestroy {
       'Área de Ponderação': this.weightingArea.layer,
       'Icone da escola selecionada': this.marker.layer
     }
-  };
+  };*/
 
   constructor(private schoolService: SchoolService,
               private weigthingAreaService: WeightingAreaService,
@@ -227,13 +227,13 @@ export class GeolocationComponent implements OnInit, OnDestroy {
         this.LOCATION = res;
         console.log(this.LOCATION);
         this.zoom = this.zoom_school_selected;
-        const latRounded = this.truncDecimalNumber(this.LOCATION.LAT,6);
-        const lonRounded = this.truncDecimalNumber(this.LOCATION.LON,6);
+        const latRounded = this.truncDecimalNumber(this.LOCATION.LAT, 6);
+        const lonRounded = this.truncDecimalNumber(this.LOCATION.LON, 6);
         this.center = L.latLng([latRounded, lonRounded]);
         this.schoolSelectedFlag = true;
         console.log('update center in ngOnInit:', this.center);
         this.drawIconForSchoolSelected(latRounded, lonRounded);
-        this.drawSchoolNeighborhoodArea(this.neighborhoodRadius, latRounded, lonRounded);
+        // this.drawSchoolNeighborhoodArea(this.neighborhoodRadius, latRounded, lonRounded);
         console.log('Desenhar o ap:', this.LOCATION.CODAP);
         // this.drawWeightingAreaPolygon(this.LOCATION.CODAP);
         const codAp = this.LOCATION.CODAP;
