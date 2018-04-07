@@ -22,11 +22,11 @@ body{
   margin:0;
 }
 
+/* CSS for schoolsDetails screen */
 .push-right-school-details .main-container {
   margin-left: 360px !important; /*408*/
 }
 
-/* CSS for schoolsDetails screen */
 .push-right-school-details .sidebar-school-details {
   left: 360px !important; /*408*/
 }
@@ -36,6 +36,22 @@ body{
     left: 360px !important; /*408*/
   }
 }
+
+/* CSS for Weighting Area's information screen */
+.push-left-indicators-by-weighting-areas .main-container {
+  margin-right: 360px !important; /*408*/
+}
+
+.push-left-indicators-by-weighting-areas .sidebar-indicators-by-weighting-areas {
+  right: 360px !important; /*408*/
+}
+
+@media screen and (max-width: 992px) {
+  .push-left-indicators-by-weighting-areas .sidebar-indicators-by-weighting-areas {
+    right: 360px !important; /*408*/
+  }
+}
+
 
 /* responsive CSS for sidebar panel*/
 .push-right .sidebar {

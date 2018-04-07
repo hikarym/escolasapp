@@ -4,69 +4,35 @@
           (click)="toggleSchoolDetails()">
     <i id="toggle-school-details-icon" class="fa fa-fw"></i>
   </button>
-  <div class="nav nav-tab-pills tab-labels" id="pills-tab" role="tablist">
 
-    <!-- End display/hide school details button -->
-    <a class="nav-tab-link active" id="pills-geolocation-tab" data-toggle="pill" href="#pills-geolocation" role="tab" aria-controls="pills-geolocation" aria-selected="true">
-      <div >
-        <div class="section-action-button-icon fa fa-globe fa-2x fa-fw"></div>
-        <div class="nav-tab-link-text">{{'geolocation-icon' | translate}}</div>
-      </div>
-    </a>
-    <a class="nav-tab-link" id="pills-graphics-tab" data-toggle="pill" href="#pills-graphics" role="tab" aria-controls="pills-graphics" aria-selected="false">
-      <div>
-        <div class="section-action-button-icon fa fa-bar-chart fa-2x fa-fw" ></div>
-        <div class="nav-tab-link-text">{{'graphics-icon' | translate}}</div>
-      </div>
-    </a>
-    <a class="nav-tab-link" id="pills-socioeconomic-tab" data-toggle="pill" href="#pills-socioeconomic" role="tab" aria-controls="pills-socioeconomic" aria-selected="false">
-      <div>
-        <div class="section-action-button-icon fa fa-users fa-2x fa-fw"></div>
-        <div class="nav-tab-link-text">{{'socioeconomic-icon' | translate}}</div>
-      </div>
-    </a>
-  </div>
+  <!-- Geolocation of a school -->
+  <div class="map-container">
+    <!-- Display/hide settings button trigger Modal-->
+    <button type="button" class="btn btn-outline-dark btn-map" style="left:10px; top: 65px;"
+            data-toggle="modal" data-target="#exampleModal" >
+      <i id="toggle-settings-icon" class="fa fa-2x fa-sliders fa-fw"></i>
+    </button>
+    <!-- End Display/hide button -->
 
-  <div class="tab-content" id="pills-tabContent" [@routerTransition]>
-    <div class="tab-pane fade show active" id="pills-geolocation" role="tabpanel" aria-labelledby="pills-geolocation-tab">
-      <!-- Geolocation of a school -->
-      <div class="map-container">
-        <!-- Display/hide settings button trigger Modal-->
-        <button type="button" class="btn btn-outline-dark btn-map" style="left:10px; top: 65px;"
-                data-toggle="modal" data-target="#exampleModal"
-                >
-          <i id="toggle-settings-icon" class="fa fa-2x fa-sliders fa-fw"></i>
-        </button>
-        <!-- End Display/hide button -->
+    <div id="mymap" leaflet style="height: 100%;"
+         [leafletOptions]="options"
+         [leafletZoom] = "zoom"
+         [leafletCenter] = "center"
+         [leafletLayers] = "layers"
 
-        <div id="mymap" leaflet style="height: 100%;"
-             [leafletOptions]="options"
-             [leafletZoom] = "zoom"
-             [leafletCenter] = "center"
-             [leafletLayers] = "layers"
-
-             [leafletMarkerCluster] = "markerClusterData"
-             [leafletMarkerClusterOptions] = "markerClusterOptions"
-             (leafletMarkerClusterReady) = "markerClusterReady($event)"
-             (leafletMapReady) = "mapReady($event)">
-        </div>
-      </div>
-      <!-- End - Geolocation panel-->
+         [leafletMarkerCluster] = "markerClusterData"
+         [leafletMarkerClusterOptions] = "markerClusterOptions"
+         (leafletMarkerClusterReady) = "markerClusterReady($event)"
+         (leafletMapReady) = "mapReady($event)">
     </div>
-    <div class="tab-pane fade" id="pills-graphics" role="tabpanel" aria-labelledby="pills-graphics-tab">
-      <div class="card card-default">
-        <div class="card-header">
-          <i class="fa fa-line-chart fa-fw"></i> Desempenho das escolas por níveis de ensino
-        </div>
-        <!-- /.graphics-header -->
-        <app-graphics></app-graphics>
-        <!-- /.graphics-body -->
-      </div>
-      <!-- /.card -->
-    </div>
-    <!-- Tab content for variáveis socioeconômicas -->
-    <div class="tab-pane fade" id="pills-socioeconomic" role="tabpanel" aria-labelledby="pills-socioeconomic-tab">...</div>
+
+    <!-- Weighting Area's information Details -->
+    <!-- *ngIf="schoolSelectedFlag" -->
+    <app-indicators-by-weighting-areas></app-indicators-by-weighting-areas>
+    <!-- end Weighting Area's information Details -->
+
   </div>
+  <!-- End - Geolocation panel-->
 
 </div>
 

@@ -23,6 +23,7 @@ import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
 import {MatSlideToggleModule, MatIconModule, MatTabsModule, MatTabGroup} from '@angular/material';
 import {SharedPipesModule} from './shared/pipes/shared-pipes.module';
 
+
 export function HttpLoaderFactory (http: HttpClient) {
   return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
 }

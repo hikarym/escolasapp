@@ -56,6 +56,7 @@ export class HeaderComponent implements OnInit {
   onSchoolSelected(item: CompleterItem) {
     console.log('onSchoolSelected', item);
     this.toggleSchoolDetails();
+    this.toggleIndicatiorsByWeightingAreas();
     if (item !== null) {
       this.selectedSchoolID = item ? item.originalObject._id : '';
       // send school ID to school-details component via observable subject
@@ -71,6 +72,12 @@ export class HeaderComponent implements OnInit {
     const dom: any = document.querySelector('body');
     dom.classList.toggle('push-right-school-details');
     console.log('procurando a informaçao detalhada da escola escolhida');
+  }
+
+  toggleIndicatiorsByWeightingAreas() {
+    const dom: any = document.querySelector('body');
+    dom.classList.toggle('push-left-indicators-by-weighting-areas');
+    console.log('procurando a informação dos indicadores por AP');
   }
 
   toggleSidebar() {
