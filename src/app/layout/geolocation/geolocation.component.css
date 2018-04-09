@@ -116,21 +116,14 @@ agm-map {
   padding: 0px;
   position: absolute;
   z-index: 401;
+  background: rgba(255,255,255,0.9);
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 @media screen and (max-width: 575px) {
   .btn-toggle-schooldetails {
     height: 51px;
   }
-}
-
-.widget-pane-toggle-button {
-  width: 23px;
-  height: 48px;
-  cursor: pointer;
-  background: rgba(255,255,255,0.9) url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAUCAQAAAAXDMSnAAAAi0lEQ…ueTldC08kcT5YOY9xYujqQM03XKXuaLmEtNF1e1Nz89gbL+0do6OEwRwAAAABJRU5ErkJggg==) 7px center/7px 10px no-repeat;
-  border-left: 1px solid #D4D4D4;
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 .btn-toggle-indicatiors-by-weighting-areas {
@@ -142,8 +135,10 @@ agm-map {
   padding: 0px;
   position: absolute;
   z-index: 401;
+  /*background: url("");*/
   background: rgba(255,255,255,0.9);
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
+
 }
 
 @media screen and (max-width: 575px) {
@@ -151,4 +146,3 @@ agm-map {
     height: 51px;
   }
 }
-
