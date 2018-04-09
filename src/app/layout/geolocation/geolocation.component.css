@@ -123,3 +123,32 @@ agm-map {
     height: 51px;
   }
 }
+
+.widget-pane-toggle-button {
+  width: 23px;
+  height: 48px;
+  cursor: pointer;
+  background: rgba(255,255,255,0.9) url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAUCAQAAAAXDMSnAAAAi0lEQ…ueTldC08kcT5YOY9xYujqQM03XKXuaLmEtNF1e1Nz89gbL+0do6OEwRwAAAABJRU5ErkJggg==) 7px center/7px 10px no-repeat;
+  border-left: 1px solid #D4D4D4;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.btn-toggle-indicatiors-by-weighting-areas {
+  border: 2px solid rgba(0,0,0,.7);
+  right: 1px;
+  top: 1px;
+  width: auto;
+  height: 55px;
+  padding: 0px;
+  position: absolute;
+  z-index: 401;
+  background: rgba(255,255,255,0.9);
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+@media screen and (max-width: 575px) {
+  .btn-toggle-indicatiors-by-weighting-areas {
+    height: 51px;
+  }
+}
+

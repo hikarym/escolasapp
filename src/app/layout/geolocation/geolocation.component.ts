@@ -154,6 +154,7 @@ export class GeolocationComponent implements OnInit, OnDestroy {
   };
   weightingAreaOfSchool: any;
   schoolSelectedFlag = false;
+  weightingAreaInfoSelectedFlag = false;
   // ------------------------------
   // Form model object
   model = new LayersModel(
@@ -231,6 +232,7 @@ export class GeolocationComponent implements OnInit, OnDestroy {
         const lonRounded = this.truncDecimalNumber(this.LOCATION.LON, 6);
         this.center = L.latLng([latRounded, lonRounded]);
         this.schoolSelectedFlag = true;
+        this.weightingAreaInfoSelectedFlag = true;
         console.log('update center in ngOnInit:', this.center);
         this.drawIconForSchoolSelected(latRounded, lonRounded);
         // this.drawSchoolNeighborhoodArea(this.neighborhoodRadius, latRounded, lonRounded);
@@ -304,6 +306,7 @@ export class GeolocationComponent implements OnInit, OnDestroy {
 
   getSchoolsList() {
     this.schoolSelectedFlag = false;
+    this.weightingAreaInfoSelectedFlag = false;
     this.schoolService.getAllSchools().then((res) => {
       this.schoolsCoordinates = res;
       this.featureCollection.features = this.schoolsCoordinates;
@@ -357,7 +360,7 @@ export class GeolocationComponent implements OnInit, OnDestroy {
   }
 
   mapReady(map: L.Map) {
-    map.addControl(L.control.zoom({position: 'topright'}));
+    map.addControl(L.control.zoom({position: 'bottomleft'}));
   }
 
   toggleSchoolDetails() {
@@ -371,6 +374,20 @@ export class GeolocationComponent implements OnInit, OnDestroy {
       // this.toggleSchoolDetailsIcon = 'chevron_left';
       togglebutton.classList.add('fa-chevron-right');
       togglebutton.classList.remove('fa-chevron-left');
+    }
+  }
+
+  toggleIndicatiorsByWeightingAreas() {
+    const dom: any = document.querySelector('body');
+    dom.classList.toggle('push-left-indicators-by-weighting-areas');
+    const togglebutton: any = document.getElementById('toggle-weighting-area-icon');
+    console.log('procurando a informação dos indicadores por AP');
+    if (dom.classList.contains('push-left-indicators-by-weighting-areas')) {
+      togglebutton.classList.add('fa-chevron-right');
+      togglebutton.classList.remove('fa-chevron-left');
+    } else {
+      togglebutton.classList.add('fa-chevron-left');
+      togglebutton.classList.remove('fa-chevron-right');
     }
   }
 

@@ -1,6 +1,6 @@
 <div>
   <!-- button to display/hide the school details -->
-  <button type="button"  class="btn btn-outline-dark btn-toggle-schooldetails " *ngIf="schoolSelectedFlag"
+  <button type="button"  class="btn widget-pane-toggle-button btn-toggle-schooldetails " *ngIf="schoolSelectedFlag"
           (click)="toggleSchoolDetails()">
     <i id="toggle-school-details-icon" class="fa fa-fw"></i>
   </button>
@@ -8,7 +8,7 @@
   <!-- Geolocation of a school -->
   <div class="map-container">
     <!-- Display/hide settings button trigger Modal-->
-    <button type="button" class="btn btn-outline-dark btn-map" style="left:10px; top: 65px;"
+    <button type="button" class="btn btn-outline-dark btn-map" style="right:10px; bottom: 25px;"
             data-toggle="modal" data-target="#exampleModal" >
       <i id="toggle-settings-icon" class="fa fa-2x fa-sliders fa-fw"></i>
     </button>
@@ -30,6 +30,11 @@
     <!-- *ngIf="schoolSelectedFlag" -->
     <app-indicators-by-weighting-areas></app-indicators-by-weighting-areas>
     <!-- end Weighting Area's information Details -->
+    <!-- button to display/hide the weighting areas information -->
+    <button type="button"  class="btn widget-pane-toggle-button btn-toggle-indicatiors-by-weighting-areas " *ngIf="weightingAreaInfoSelectedFlag"
+            (click)="toggleIndicatiorsByWeightingAreas()">
+      <i id="toggle-weighting-area-icon" class="fa fa-fw"></i>
+    </button>
 
   </div>
   <!-- End - Geolocation panel-->

@@ -2,7 +2,7 @@
   border-radius: 0;
   position: fixed;
   z-index: 500;
-  top: 55px;
+  top: 57px;
   left: 0px; /*408px to display it*/
   width: 360px; /*408*/
   margin-left: -360px; /*408*/
@@ -231,7 +231,8 @@
 }
 
 .section-hero-header-title {
-  font-size: 18px;
+  font-size: 14px;
+  text-transform: uppercase;
   overflow: hidden;
   text-overflow: ellipsis;
   font-weight: 400;
