@@ -1,5 +1,5 @@
 ///<reference path="../../../../node_modules/@types/leaflet/index.d.ts"/>
-import {Component, OnInit, OnDestroy, EventEmitter, Output} from '@angular/core';
+import {Component, OnInit, OnDestroy, EventEmitter, Output, NgZone} from '@angular/core';
 import {SchoolService} from '../../school.service';
 import {routerTransition} from '../../router.animations';
 import {AgmMap} from '@agm/core';
@@ -12,6 +12,7 @@ import 'rxjs/add/operator/filter';
 import {WeightingAreaService} from '../../weighting-area.service';
 import {LayersModel} from './layers.model';
 import {LeafletDirective} from '@asymmetrik/ngx-leaflet';
+import {marker, popup} from 'leaflet';
 
 @Component({
   selector: 'app-geolocation',
@@ -72,9 +73,11 @@ export class GeolocationComponent implements OnInit, OnDestroy {
     id: 'mapbox',
     name: 'Mapbox',
     enabled: false,
-    layer: L.tileLayer('https://a.tiles.mapbox.com/v4/mapbox.dark/{z}/{x}/{y}.png?access_token={token}', {
+    // layer: L.tileLayer('https://a.tiles.mapbox.com/v4/mapbox.dark/{z}/{x}/{y}.png?access_token={token}', {
+    layer: L.tileLayer('https://a.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token={token}', {
       minZoom: 1,
       maxZoom: 19,
+      style: 'mapbox://styles/mapbox/streets-v9',
       attribution: 'Mapbox',
       subdomains: ['a', 'b', 'c', 'd'],
       token: 'pk.eyJ1IjoicHppZWdsZXIiLCJhIjoiY2ltMHo3OGRxMDh0MXR5a3JrdHNqaGQ0bSJ9.KAFBMeyysBLz4Ty-ltXVQQ'
@@ -176,11 +179,13 @@ export class GeolocationComponent implements OnInit, OnDestroy {
       'Icone da escola selecionada': this.marker.layer
     }
   };*/
+  school_sel_id = '';
+  mark: string;
 
   constructor(private schoolService: SchoolService,
               private weigthingAreaService: WeightingAreaService,
               private sharedDataService: ShareddataService,
-              private router: Router) {
+              private router: Router, private zone: NgZone) {
     /*const s = sharedDataService.getSchoolID().subscribe(
       schoolID => {
         this.selectionSchooolID = schoolID;
@@ -307,56 +312,144 @@ export class GeolocationComponent implements OnInit, OnDestroy {
   getSchoolsList() {
     this.schoolSelectedFlag = false;
     this.weightingAreaInfoSelectedFlag = false;
+    let id_temp = '';
+    this.school_sel_id = '';
     this.schoolService.getAllSchools().then((res) => {
       this.schoolsCoordinates = res;
       this.featureCollection.features = this.schoolsCoordinates;
       const data: any[] = [];
       console.log(this.schoolsCoordinates.length);
-      let popup = '';
+      let popup_text = '';
       let container = $('<div />');
       let marker;
       let school_i;
-      container.on('click', '.getSchoolInfo', function () {
+
+
+      container.on('click', '.speciallink', function () {
         alert('test');
       });
+
       for (let i = 0; i < this.schoolsCoordinates.length; i++) {
         container = $('<div />');
         school_i = this.schoolsCoordinates[i];
         const latRounded = this.truncDecimalNumber(school_i.lat, 6);
         const lonRounded = this.truncDecimalNumber(school_i.lon, 6);
-        popup = '<b>_ID:</b>' + school_i._id +
+        popup_text = '<p style="margin-bottom: 0px;">' + school_i._id + '</p>' +
           '<br/><b>ESCOLA: </b>' + school_i.detalhes.nomeesc +
           '<br/><b>BAIRRO: </b>' + school_i.detalhes.bairro +
           '<br/><b>ENDEREÇO: </b>' + school_i.detalhes.endereco + ' - ' + school_i.detalhes.numero +
-          '<br/><b>LOC.: </b>' + latRounded + ', ' + lonRounded +
-          '<br/><a href="#" class="getSchoolInfo" >Info de uma escola</a> - ' +
-          '<a href="javascript:void(0)" class="getWeithignArea">Area de Ponderação</a> - ' +
-          '<a href="javascript:void(0)">Vizinhança</a>';
-        // '<br/><input type="button" value="Ver informaçao da escola" id="bu-show-school-info" ' +
-        // '(click)="showSchoolInfo($event)"/>';
-        container.html(popup);
-        container.append($('<span class="bold">').text('...'));
+          '<br/><b>LOC.: </b>' + latRounded + ', ' + lonRounded ;
+          // '<br/><button class="trigger">Say hi</button> ' ;
+
+        // popup_text = '<b>_ID:</b> <p id="idschool">' + school_i._id + '</p><button class="trigger">Say hi</button>';
+
+        container.html(popup_text);
         marker = L.marker(L.latLng(latRounded, lonRounded), {icon: this.schoolMarkerIcon});
+        // console.log('me clickaron', school_i._id);
+
+
+
+
         // data.push(marker.bindPopup($('<a href="#" class="speciallink">TestLink</a>').click(function() {alert('test'); })[0]));
-        data.push(marker.bindPopup(container[0]));
+        marker.bindPopup(container[0]);
+        marker.on('mouseover', function (e) {
+          console.log('pasando el mouse');
+          this.openPopup();
+        });
+
+        marker.on('click', (e) => {
+          this.weightingAreaInfoSelectedFlag = true;
+
+          this.zone.run(() => {
+            // this.updateSchoolIDSel('5ac3a33d61f5122e7261c263');
+            console.log('marker clicked:', e.target._popup);
+            console.log('marker clicked:', e.target._popup._content);
+            id_temp = e.target._popup._content.children[0].innerHTML;
+            console.log('id_temp:', id_temp);
+
+            const dom: any = document.querySelector('body');
+            if (!$('.push-left-indicators-by-weighting-areas')[0]) {
+              console.log($('.push-left-indicators-by-weighting-areas')[0]);
+
+              dom.classList.toggle('push-left-indicators-by-weighting-areas');
+              console.log('procurando a informaçao detalhada da escola escolhida');
+            }
+
+            this.updateSchoolIDSel(id_temp);
+          });
+
+        });
+
+        marker.on('mouseout', function (e) {
+          //this.closePopup();
+        });
+        data.push(marker);
+
+
+        this.school_sel_id = school_i._id;
         // this.updateSchoolIDSel(school_i._id);
+        /*const dom: any = document.querySelector('body');
+        dom.classList.toggle('push-right-school-details');
+        console.log('procurando a informaçao detalhada da escola escolhida');*/
+        /*$('#mymap').on('click', '.trigger', function() {
+          // send school ID to school-details component via observable subject
+          id_temp = school_i._id;
+          // let e = document.getElementById('mark').value();
+          // e.value = id_temp;
+          const dom: any = document.querySelector('body');
+          dom.classList.toggle('push-left-indicators-by-weighting-areas');
+          console.log('procurando a informaçao detalhada da escola escolhida');
+        });*/
+
       }
       this.markerClusterData = data;
       console.log('getschoollist: ', this.center);
+      this.school_sel_id = id_temp;
 
     }, (err) => {
       console.log(err);
     });
   }
 
+  signalSelected (markVal: string) {
+    markVal = this.mark
+    console.log(markVal); // it is the value
+  }
+
   updateSchoolIDSel(selectedSchoolID) {
     // send school ID to school-details component via observable subject
     this.sharedDataService.sendSchoolID(selectedSchoolID);
+    console.log('sending school id', selectedSchoolID);
     this.onSchoolSel.emit(selectedSchoolID);
   }
 
   markerClusterReady(group: L.MarkerClusterGroup) {
     this.markerClusterGroup = group;
+    /*markers.on('click', function (a) {
+      console.log('marker ' + a.layer);
+    });*/
+
+    /*$('#mymap').on('click', '.trigger', function(a) {
+      // send school ID to school-details component via observable subject
+      // this.sharedDataService.sendSchoolID(school_i._id);
+      // this.onSchoolSel.emit(school_i._id);
+      console.log('cclik on the marker', a.data);
+      // this.updateSchoolIDSel('5ac3a33e61f5122e7261c79a');
+      // this.sharedDataService.sendSchoolID('5ac3a33e61f5122e7261c79a');
+
+
+      const dom: any = document.querySelector('body');
+      dom.classList.toggle('push-left-indicators-by-weighting-areas');
+      const togglebutton: any = document.getElementById('toggle-weighting-area-icon');
+      console.log('procurando a informação dos indicadores por AP');
+      if (dom.classList.contains('push-left-indicators-by-weighting-areas')) {
+        togglebutton.classList.add('fa-chevron-right');
+        togglebutton.classList.remove('fa-chevron-left');
+      } else {
+        togglebutton.classList.add('fa-chevron-left');
+        togglebutton.classList.remove('fa-chevron-right');
+      }
+    });*/
   }
 
   mapReady(map: L.Map) {

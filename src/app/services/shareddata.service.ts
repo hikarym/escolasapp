@@ -35,6 +35,7 @@ export class ShareddataService {
     // this.schoolIDSource.next(message);
     // this.subject.next({text: message});
     this.subject.next(message);
+    console.log('message:', message);
   }
 
   getSchoolID(): Observable<any> {
