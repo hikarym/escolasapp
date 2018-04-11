@@ -179,8 +179,6 @@ export class GeolocationComponent implements OnInit, OnDestroy {
       'Icone da escola selecionada': this.marker.layer
     }
   };*/
-  school_sel_id = '';
-  mark: string;
 
   constructor(private schoolService: SchoolService,
               private weigthingAreaService: WeightingAreaService,
@@ -313,7 +311,7 @@ export class GeolocationComponent implements OnInit, OnDestroy {
     this.schoolSelectedFlag = false;
     this.weightingAreaInfoSelectedFlag = false;
     let id_temp = '';
-    this.school_sel_id = '';
+    // this.school_sel_id = '';
     this.schoolService.getAllSchools().then((res) => {
       this.schoolsCoordinates = res;
       this.featureCollection.features = this.schoolsCoordinates;
@@ -338,17 +336,14 @@ export class GeolocationComponent implements OnInit, OnDestroy {
           '<br/><b>ESCOLA: </b>' + school_i.detalhes.nomeesc +
           '<br/><b>BAIRRO: </b>' + school_i.detalhes.bairro +
           '<br/><b>ENDEREÇO: </b>' + school_i.detalhes.endereco + ' - ' + school_i.detalhes.numero +
-          '<br/><b>LOC.: </b>' + latRounded + ', ' + lonRounded ;
+          '<br/><b>LOC.: </b>' + latRounded + ', ' + lonRounded +
+        '<br/> Click no icone/marker para ver mais informações';
           // '<br/><button class="trigger">Say hi</button> ' ;
 
         // popup_text = '<b>_ID:</b> <p id="idschool">' + school_i._id + '</p><button class="trigger">Say hi</button>';
 
         container.html(popup_text);
         marker = L.marker(L.latLng(latRounded, lonRounded), {icon: this.schoolMarkerIcon});
-        // console.log('me clickaron', school_i._id);
-
-
-
 
         // data.push(marker.bindPopup($('<a href="#" class="speciallink">TestLink</a>').click(function() {alert('test'); })[0]));
         marker.bindPopup(container[0]);
@@ -362,10 +357,9 @@ export class GeolocationComponent implements OnInit, OnDestroy {
 
           this.zone.run(() => {
             // this.updateSchoolIDSel('5ac3a33d61f5122e7261c263');
-            console.log('marker clicked:', e.target._popup);
             console.log('marker clicked:', e.target._popup._content);
             id_temp = e.target._popup._content.children[0].innerHTML;
-            console.log('id_temp:', id_temp);
+            console.log('id_escola :', id_temp);
 
             const dom: any = document.querySelector('body');
             if (!$('.push-left-indicators-by-weighting-areas')[0]) {
@@ -374,46 +368,24 @@ export class GeolocationComponent implements OnInit, OnDestroy {
               dom.classList.toggle('push-left-indicators-by-weighting-areas');
               console.log('procurando a informaçao detalhada da escola escolhida');
             }
-
+            // update the school ID in the shareservice
             this.updateSchoolIDSel(id_temp);
           });
 
         });
 
         marker.on('mouseout', function (e) {
-          //this.closePopup();
+          // this.closePopup();
         });
         data.push(marker);
-
-
-        this.school_sel_id = school_i._id;
-        // this.updateSchoolIDSel(school_i._id);
-        /*const dom: any = document.querySelector('body');
-        dom.classList.toggle('push-right-school-details');
-        console.log('procurando a informaçao detalhada da escola escolhida');*/
-        /*$('#mymap').on('click', '.trigger', function() {
-          // send school ID to school-details component via observable subject
-          id_temp = school_i._id;
-          // let e = document.getElementById('mark').value();
-          // e.value = id_temp;
-          const dom: any = document.querySelector('body');
-          dom.classList.toggle('push-left-indicators-by-weighting-areas');
-          console.log('procurando a informaçao detalhada da escola escolhida');
-        });*/
 
       }
       this.markerClusterData = data;
       console.log('getschoollist: ', this.center);
-      this.school_sel_id = id_temp;
 
     }, (err) => {
       console.log(err);
     });
-  }
-
-  signalSelected (markVal: string) {
-    markVal = this.mark
-    console.log(markVal); // it is the value
   }
 
   updateSchoolIDSel(selectedSchoolID) {
@@ -425,30 +397,11 @@ export class GeolocationComponent implements OnInit, OnDestroy {
 
   markerClusterReady(group: L.MarkerClusterGroup) {
     this.markerClusterGroup = group;
-    /*markers.on('click', function (a) {
-      console.log('marker ' + a.layer);
-    });*/
 
-    /*$('#mymap').on('click', '.trigger', function(a) {
-      // send school ID to school-details component via observable subject
-      // this.sharedDataService.sendSchoolID(school_i._id);
-      // this.onSchoolSel.emit(school_i._id);
-      console.log('cclik on the marker', a.data);
-      // this.updateSchoolIDSel('5ac3a33e61f5122e7261c79a');
-      // this.sharedDataService.sendSchoolID('5ac3a33e61f5122e7261c79a');
-
-
+    /* // open the panel clicking on the buttom into popup
+      $('#mymap').on('click', '.trigger', function(a) {
       const dom: any = document.querySelector('body');
       dom.classList.toggle('push-left-indicators-by-weighting-areas');
-      const togglebutton: any = document.getElementById('toggle-weighting-area-icon');
-      console.log('procurando a informação dos indicadores por AP');
-      if (dom.classList.contains('push-left-indicators-by-weighting-areas')) {
-        togglebutton.classList.add('fa-chevron-right');
-        togglebutton.classList.remove('fa-chevron-left');
-      } else {
-        togglebutton.classList.add('fa-chevron-left');
-        togglebutton.classList.remove('fa-chevron-right');
-      }
     });*/
   }
 
