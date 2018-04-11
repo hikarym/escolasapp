@@ -1,7 +1,7 @@
 import {Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
-import {SchoolService} from '../../../school.service';
+import {SchoolService} from '../../../services/school.service';
 import {CompleterData, CompleterItem, CompleterService} from 'ng2-completer';
 import {ShareddataService} from '../../../services/shareddata.service';
 import {Http} from '@angular/http';
@@ -17,7 +17,9 @@ export class HeaderComponent implements OnInit {
   searchField: string;
   schoolListFiltered: CompleterData;
   selectedSchoolID = '';
+  selectedSchoolCodAP = '';
   @Output() onSchoolSel = new EventEmitter<string>();
+  @Output() onSelectedSchoolCodAP = new EventEmitter<string>();
   brand: string;
   translateSubscription: Subscription;
 
@@ -65,6 +67,11 @@ export class HeaderComponent implements OnInit {
       // Get the complete information about the selected school
       // this.getSchoolDetailedInformation(this.selectedSchoolID);
       // center the map in the selected school location
+
+      // send codAP
+      this.selectedSchoolCodAP = item ? item.originalObject.codap : '';
+      this.sharedDataService.sendSchoolCodAP(this.selectedSchoolCodAP);
+      // this.onSelectedSchoolCodAP.emit(this.selectedSchoolID);
     }
   }
 

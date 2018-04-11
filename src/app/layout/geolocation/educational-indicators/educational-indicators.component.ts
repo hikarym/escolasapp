@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {SchoolService} from '../../../school.service';
+import {SchoolService} from '../../../services/school.service';
 import {ShareddataService} from '../../../services/shareddata.service';
 import {MatIconRegistry} from '@angular/material';
 import {Subscription} from 'rxjs/Subscription';

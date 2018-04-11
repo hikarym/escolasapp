@@ -1,6 +1,6 @@
 ///<reference path="../../../../node_modules/@types/leaflet/index.d.ts"/>
 import {Component, OnInit, OnDestroy, EventEmitter, Output, NgZone} from '@angular/core';
-import {SchoolService} from '../../school.service';
+import {SchoolService} from '../../services/school.service';
 import {routerTransition} from '../../router.animations';
 import {AgmMap} from '@agm/core';
 import * as L from 'leaflet';
@@ -9,7 +9,7 @@ import {ShareddataService} from '../../services/shareddata.service';
 import {Subscription} from 'rxjs/Subscription';
 import {Router} from '@angular/router';
 import 'rxjs/add/operator/filter';
-import {WeightingAreaService} from '../../weighting-area.service';
+import {WeightingAreaService} from '../../services/weighting-area.service';
 import {LayersModel} from './layers.model';
 import {LeafletDirective} from '@asymmetrik/ngx-leaflet';
 import {marker, popup} from 'leaflet';
@@ -238,6 +238,7 @@ export class GeolocationComponent implements OnInit, OnDestroy {
         this.weightingAreaInfoSelectedFlag = true;
         console.log('update center in ngOnInit:', this.center);
         this.drawIconForSchoolSelected(latRounded, lonRounded);
+
         // this.drawSchoolNeighborhoodArea(this.neighborhoodRadius, latRounded, lonRounded);
         console.log('Desenhar o ap:', this.LOCATION.CODAP);
         // this.drawWeightingAreaPolygon(this.LOCATION.CODAP);
@@ -310,7 +311,7 @@ export class GeolocationComponent implements OnInit, OnDestroy {
   getSchoolsList() {
     this.schoolSelectedFlag = false;
     this.weightingAreaInfoSelectedFlag = false;
-    let id_temp = '';
+
     // this.school_sel_id = '';
     this.schoolService.getAllSchools().then((res) => {
       this.schoolsCoordinates = res;
@@ -332,12 +333,13 @@ export class GeolocationComponent implements OnInit, OnDestroy {
         school_i = this.schoolsCoordinates[i];
         const latRounded = this.truncDecimalNumber(school_i.lat, 6);
         const lonRounded = this.truncDecimalNumber(school_i.lon, 6);
-        popup_text = '<p style="margin-bottom: 0px;">' + school_i._id + '</p>' +
+        popup_text = '<span>' + school_i._id + '</span>' +
           '<br/><b>ESCOLA: </b>' + school_i.detalhes.nomeesc +
           '<br/><b>BAIRRO: </b>' + school_i.detalhes.bairro +
           '<br/><b>ENDEREÇO: </b>' + school_i.detalhes.endereco + ' - ' + school_i.detalhes.numero +
           '<br/><b>LOC.: </b>' + latRounded + ', ' + lonRounded +
-        '<br/> Click no icone/marker para ver mais informações';
+        '<br/> <b>Click no icone para ver mais informações</b>' +
+        '<br/><span>' + school_i.codap + '</span>';
           // '<br/><button class="trigger">Say hi</button> ' ;
 
         // popup_text = '<b>_ID:</b> <p id="idschool">' + school_i._id + '</p><button class="trigger">Say hi</button>';
@@ -357,25 +359,30 @@ export class GeolocationComponent implements OnInit, OnDestroy {
 
           this.zone.run(() => {
             // this.updateSchoolIDSel('5ac3a33d61f5122e7261c263');
-            console.log('marker clicked:', e.target._popup._content);
-            id_temp = e.target._popup._content.children[0].innerHTML;
+            console.log('marker clicked:', e.target._popup._content.children);
+            const id_temp = e.target._popup._content.children[0].innerHTML;
+            const codAp_temp = e.target._popup._content.children[12].innerHTML;
             console.log('id_escola :', id_temp);
 
             const dom: any = document.querySelector('body');
-            if (!$('.push-left-indicators-by-weighting-areas')[0]) {
-              console.log($('.push-left-indicators-by-weighting-areas')[0]);
 
-              dom.classList.toggle('push-left-indicators-by-weighting-areas');
-              console.log('procurando a informaçao detalhada da AP da escola escolhida');
-            }
             if (!$('.push-right-school-details')[0]) {
               console.log($('.push-right-school-details')[0]);
 
               dom.classList.toggle('push-right-school-details');
               console.log('procurando a informaçao detalhada da escola escolhida');
             }
+            if (!$('.push-left-indicators-by-weighting-areas')[0]) {
+              console.log($('.push-left-indicators-by-weighting-areas')[0]);
+
+              dom.classList.toggle('push-left-indicators-by-weighting-areas');
+              console.log('procurando a informaçao detalhada da AP da escola escolhida');
+            }
             // update the school ID in the shareservice
             this.updateSchoolIDSel(id_temp);
+
+            // update the school codAp in the shareservice
+            this.updateSelectedSchoolCodAP(codAp_temp);
           });
 
         });
@@ -399,6 +406,13 @@ export class GeolocationComponent implements OnInit, OnDestroy {
     this.sharedDataService.sendSchoolID(selectedSchoolID);
     console.log('sending school id', selectedSchoolID);
     this.onSchoolSel.emit(selectedSchoolID);
+  }
+
+  updateSelectedSchoolCodAP(selectedSchoolCodAP) {
+    // send school ID to school-details component via observable subject
+    this.sharedDataService.sendSchoolCodAP(selectedSchoolCodAP);
+    console.log('sending school codAp', selectedSchoolCodAP);
+    // this.onSchoolSel.emit(selectedSchoolCodAP);
   }
 
   markerClusterReady(group: L.MarkerClusterGroup) {

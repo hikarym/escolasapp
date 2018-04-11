@@ -2,7 +2,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {NgModule} from '@angular/core';
 import {GeolocationComponent} from './layout/geolocation/geolocation.component';
 import {HeaderComponent} from './shared/components/header/header.component';
-import {NotFoundComponent} from "./not-found/not-found.component";
+import {NotFoundComponent} from './not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', loadChildren: './layout/layout.module#LayoutModule' },

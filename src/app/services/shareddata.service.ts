@@ -7,7 +7,8 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 export class ShareddataService {
   // private location: Subject<any> = new BehaviorSubject<any>();
   private schoolLocationSource = new Subject<any>();
-  private subject = new Subject<any>();
+  private subjectSchoolID = new Subject<any>();
+  private subjectCodAP = new Subject<any>();
   private subjectLocation = new Subject<any>();
   private subject_TA_EF_AI = new Subject<any>();
   private subject_NPBM_EF_AI = new Subject<any>();
@@ -34,13 +35,22 @@ export class ShareddataService {
   sendSchoolID(message: any) {
     // this.schoolIDSource.next(message);
     // this.subject.next({text: message});
-    this.subject.next(message);
+    this.subjectSchoolID.next(message);
     console.log('message:', message);
   }
 
   getSchoolID(): Observable<any> {
-    return this.subject.asObservable();
+    return this.subjectSchoolID.asObservable();
     // return this.schoolID$;
+  }
+
+  sendSchoolCodAP(message: any) {
+    this.subjectCodAP.next(message);
+    // console.log('message:', message);
+  }
+
+  getSchoolCodAP(): Observable<any> {
+    return this.subjectCodAP.asObservable();
   }
 
   sendSchoolLocation(message: any) {
