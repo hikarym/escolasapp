@@ -366,6 +366,12 @@ export class GeolocationComponent implements OnInit, OnDestroy {
               console.log($('.push-left-indicators-by-weighting-areas')[0]);
 
               dom.classList.toggle('push-left-indicators-by-weighting-areas');
+              console.log('procurando a informaçao detalhada da AP da escola escolhida');
+            }
+            if (!$('.push-right-school-details')[0]) {
+              console.log($('.push-right-school-details')[0]);
+
+              dom.classList.toggle('push-right-school-details');
               console.log('procurando a informaçao detalhada da escola escolhida');
             }
             // update the school ID in the shareservice

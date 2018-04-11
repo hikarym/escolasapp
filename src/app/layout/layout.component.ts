@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
-import {SchoolDetailsComponent} from '../shared/components/school-details/school-details.component';
+// import {SchoolDetailsComponent} from '../shared/components/school-details/school-details.component';
 import {GeolocationComponent} from './geolocation/geolocation.component';
 
 @Component({
@@ -11,7 +11,7 @@ import {GeolocationComponent} from './geolocation/geolocation.component';
 export class LayoutComponent implements OnInit {
   selectedSchoolID_cp: string;
 
-  @ViewChild(SchoolDetailsComponent) schoolDetailsComponent: SchoolDetailsComponent;
+  // @ViewChild(SchoolDetailsComponent) schoolDetailsComponent: SchoolDetailsComponent;
   @ViewChild(GeolocationComponent) geolocationComponent: GeolocationComponent;
 
   constructor(public router: Router) { }
@@ -22,11 +22,11 @@ export class LayoutComponent implements OnInit {
     }
   }
 
-  onSchoolSel(selectedSchoolID: string) {
+  /*onSchoolSel(selectedSchoolID: string) {
     this.selectedSchoolID_cp = selectedSchoolID;
     this.schoolDetailsComponent.schoolSelectedID = this.selectedSchoolID_cp;
     this.schoolDetailsComponent.getSchoolDetailedInformation(this.selectedSchoolID_cp);
-  }
+  }*/
 
   /*onSchoolLocation(locationInfo: any) {
     this.LOCATION.LAT = locationInfo.LAT;

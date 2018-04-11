@@ -15,6 +15,7 @@ import {MatIconModule, MatTabsModule} from '@angular/material';
 import {MapDirective } from './map.directive';
 import {IndicatorsByWeightingAreasComponent}
 from './indicators-by-weighting-areas/indicators-by-weighting-areas.component';
+import {EducationalIndicatorsComponent} from './educational-indicators/educational-indicators.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ from './indicators-by-weighting-areas/indicators-by-weighting-areas.component';
     GeolocationComponent,
     GraphicsComponent,
     MapDirective,
-    IndicatorsByWeightingAreasComponent
+    IndicatorsByWeightingAreasComponent,
+    EducationalIndicatorsComponent
   ]
   /*providers: [RoundDecimalPipe]*/
 })
