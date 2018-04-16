@@ -34,22 +34,6 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
   brSpRmspSecInfo: any;
 
   // ---------------D3 GRAPHS---------------------
-  data = [
-    {salesperson: 'Bob', sales: 33},
-    {salesperson: 'Robin', sales: 12},
-    {salesperson: 'Anne', sales: 41},
-    {salesperson: 'Mark', sales: 16},
-    {salesperson: 'Joe', sales: 39}
-  ];
-
-  dataCircle = [
-    { region: 'North', count: 53245},
-    { region: 'South', count: 28479},
-    { region: 'East', count: 19697},
-    { region: 'West', count: 24037},
-    { region: 'Central', count: 40245}
-  ];
-
   dataCircle2 = {
     apples: [
       { region: 'North', count: 53245},
@@ -66,13 +50,36 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       { region: 'Central', count: 200}
     ]
   };
+  dataVertical = [
+    {salesperson: 'Bob', sales: 33},
+    {salesperson: 'Robin', sales: 12},
+    {salesperson: 'Anne', sales: 41},
+    {salesperson: 'Mark', sales: 16},
+    {salesperson: 'Joe', sales: 39}
+  ];
+
+  dataHorizontal = [
+    {'area': 'central ', 'value': 18000},
+    {'area': 'Riverside ', 'value': 17000},
+    {'area': 'Picton ', 'value': 80000},
+    {'area': 'Everton ', 'value': 55000},
+    {'area': 'Kensington ', 'value': 100000},
+    {'area': 'Kirkdale', 'value': 50000}
+  ];
 
   // ----------------
-  @ViewChild('d3elements')
-  private div_d3Elements: ElementRef;
+  @ViewChild('comparativeTableGraph')
+  private div_comparativeTableGraph: ElementRef;
 
   @ViewChild('occupationalStructureGraph')
   private div_occupationalStructureGraph: ElementRef;
+
+  @ViewChild('profileEducationalGraph')
+  private div_profileEducationalGraph: ElementRef;
+
+  @ViewChild('categoriesProfileEducationalGraph')
+  private div_categoriesProfileEducationalGraph: ElementRef;
+
   // ----------------
   private subscription = new Subscription();
 
@@ -105,9 +112,42 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
   }
 
   ngAfterViewInit() {
-    this.generateBarChart();
+    const dataTable = [
+      {model: '%Pobres', salesIn2014: 6621, salesIn2015: 10877, startingPrice: 32850},
+      {model: 'Renda per Capita', salesIn2014: 87451, salesIn2015: 89265, startingPrice: 33150},
+      {model: 'GINI', salesIn2014: 35583, salesIn2015: 40481, startingPrice: 41650}
+      ];
 
-    this.generateOccupationalStructureGraph();
+    this.generateTableGraph(dataTable, this.div_comparativeTableGraph);
+
+    // ---------------------------------------------
+    this.dataHorizontal = [
+      {'area': 'Militares ', 'value': 18000},
+      {'area': 'Gerentes', 'value': 17000},
+      {'area': 'Profissionais ', 'value': 80000},
+      {'area': 'Técnicos', 'value': 55000},
+      {'area': 'Trab. Escritorio', 'value': 100000},
+      {'area': 'Tra. Comércio', 'value': 50000}
+    ];
+    this.generateHorizontalBarChart(this.dataHorizontal, this.div_occupationalStructureGraph);
+
+    // ---------------------------------------------
+    const dataCircle = [
+      { region: 'Alfabetizados', count: 53245},
+      { region: 'Não Alfabetizados', count: 28479}
+    ];
+    this.generatePieGraph(dataCircle, this.div_profileEducationalGraph);
+
+    // ---------------------------------------------
+
+    this.dataVertical = [
+      {salesperson: 'Prim. Comp.', sales: 33},
+      {salesperson: 'Fund. Incomp.', sales: 12},
+      {salesperson: 'Medio Incomp.', sales: 41},
+      {salesperson: 'Superior Incomp.', sales: 16},
+      {salesperson: 'Superior Comp.', sales: 39}
+    ];
+    this.generateVerticalBarChart(this.dataVertical, this.div_categoriesProfileEducationalGraph);
   }
 
   // Invoked from layout.component.ts or from geolocation.component.ts
@@ -125,7 +165,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     });
   }
 
-  generateBarChart() {
+  generateVerticalBarChart(dataGraph2: any, containerDiv: ElementRef) {
     // Define chart dimensions
     const margin = {top: 15, right: 20, bottom: 30, left: 40};
     const width = 335 - margin.left - margin.right;
@@ -133,7 +173,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
     // Define SVG
 //    let svg = d3.select(this.element.nativeElement).append('svg')
-    const svg = d3.select(this.div_d3Elements.nativeElement).append('svg')
+    const svg = d3.select(containerDiv.nativeElement).append('svg')
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
       .style('background-color', '#efefef');
@@ -144,9 +184,9 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
     // Define domain data for X & Y axes from the data array
-    const xDomain = this.data.map(d => d.salesperson);
+    const xDomain = this.dataVertical.map(d => d.salesperson);
     console.log('xDomain:', xDomain);
-    const yDomain = [0, d3.max(this.data, d => d.sales)];
+    const yDomain = [0, d3.max(this.dataVertical, function(d) {return d.sales})];
 
     // Set the scale for X & Y
     const x = d3.scaleBand()
@@ -173,7 +213,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
     // Plotting the chart
     svg.selectAll('bar')
-      .data(this.data)
+      .data(this.dataVertical)
       .enter().append('rect')
       .attr('class', 'bar')
       .attr('x', function(d) { return margin.left + x(d.salesperson) ; })
@@ -182,22 +222,71 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       .attr('height', function(d) { return height - y(d.sales); });
   }
 
+  generateHorizontalBarChart(dataGraph: any, containerDiv: ElementRef ) {
+    // Define chart dimensions
+    const  margin = {top: 20, right: 20, bottom: 30, left: 80};
+    const width = 335 - margin.left - margin.right;
+    const height = 300 - margin.top - margin.bottom;
+    // Define chart dimensions
+    const svg = d3.select(containerDiv.nativeElement).append('svg')
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom)
+      .style('background-color', '#efefef');
 
-  // ----Socieconomic Characteristics Graphs: (ses)----
-  generateComparativeTableGraph() {
+    const tooltip = d3.select('body').append('div').attr('class', 'toolTip');
+
+    const x = d3.scaleLinear().range([0, width]);
+    const y = d3.scaleBand().range([height, 0]);
+
+    const g = svg.append('g')
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+    this.dataHorizontal.sort(function(a, b) { return a.value - b.value; });
+
+    x.domain([0, d3.max(this.dataHorizontal, function(d) { return d.value})]);
+    y.domain(this.dataHorizontal.map(d => d.area )).padding(0.1);
+
+    g.append('g')
+      .attr('class', 'x axis')
+      .attr('transform', 'translate(0,' + height + ')')
+      // .call(d3.axisBottom(x).ticks(5).tickFormat(function(d) { return parseInt(d / 1000); }).tickSizeInner([-height]));
+      .call(d3.axisBottom(x).ticks(5));
+
+    g.append('g')
+      .attr('class', 'y axis')
+      .call(d3.axisLeft(y));
+
+    g.selectAll('.bar')
+      .data(this.dataHorizontal)
+      .enter().append('rect')
+      .attr('class', 'bar')
+      .attr('x', 0)
+      .attr('height', y.bandwidth())
+      .attr('y', function(d) { return y(d.area); })
+      .attr('width', function(d) { return x(d.value); })
+      .on('mousemove', function(d){
+        tooltip
+          .style('left', d3.event.pageX - 50 + 'px')
+          .style('top', d3.event.pageY - 70 + 'px')
+          .style('display', 'inline-block')
+          .html((d.area) + '<br>' + '£' + (d.value));
+      })
+      .on('mouseout', function(d){ tooltip.style('display', 'none');});
+
 
   }
 
-  generateOccupationalStructureGraph() {
+
+  generatePieGraph(dataGraph: any, containerDiv: ElementRef) {
     // Define chart dimensions
     const margin = {top: 20, right: 20, bottom: 30, left: 40};
     const width = 335 - margin.left - margin.right;
     const height = 300 - margin.top - margin.bottom;
     const radius = Math.min(width, height) / 2;
-    console.log('todo el dato', this.dataCircle);
+    console.log('todo el dato', dataGraph);
 
     // Define SVG
-    const svg = d3.select(this.div_occupationalStructureGraph.nativeElement)
+    const svg = d3.select(containerDiv.nativeElement)
         .append('svg')
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom)
@@ -221,12 +310,12 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
     // Join new data
     const arcs = g.selectAll('.arc')
-      .data(pie(this.dataCircle.map(d => d.count)))
+      .data(pie(dataGraph.map(d => d.count)))
       .enter()
       .append('g')
       .attr('class', 'arc');
 
-    console.log(pie(this.dataCircle.map(d => d.count)));
+    console.log(pie(dataGraph.map(d => d.count)));
 
     // Enter new arcs
     arcs.append('path')
@@ -244,7 +333,77 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       .attr('text-anchor', 'middle')
       .text(function(d) {return d.data.toString(); });
   }
+
+  generateTableGraph(dataGraph: any, containerDiv: ElementRef ) {
+
+    const bmw_data = [], audi_data = [];
+
+    dataGraph.forEach(function(d, i) {
+      // now we add another data object value, a calculated value.
+      d.salesChange = ((d.salesIn2015 - d.salesIn2014) / d.salesIn2014 * 100).toFixed(2);
+      if (i < 9) {
+        bmw_data.push([d.model, d.salesIn2014, d.salesIn2015, d.salesChange]);
+      } else {
+        audi_data.push([d.model, d.salesIn2014, d.salesIn2015, d.salesChange]);
+      }
+
+    });
+
+    console.log(dataGraph);
+
+    bmw_data.sort(function(a, b) {return a[3] - b[3]; });
+    audi_data.sort(function(a, b) {return a[3] - b[3]; });
+
+    bmw_data.forEach(function(d, i) {
+      d[3] += '%';
+    });
+
+    audi_data.forEach(function(d, i) {
+      d[3] += '%';
+    });
+
+    // the tabulate function wants the second argument to be your columns in your data that will be in the table.
+    // third argument is the element to put it into on the page
+    /*var regionTable = tabulate(data,
+                                        ["name", "year1990", "year2015", "difference"],
+                                        "#table");*/
+    const table = d3.select(containerDiv.nativeElement).append('table');
+    const thead = table.append('thead').append('tr');
+    const tbody = table.append('tbody');
+
+    thead
+      .selectAll('th')
+      .data(['Cat.', 'AP', 'Mun.', 'RMSP'])
+      .enter()
+      .append('th')
+      .text(function(d) {
+        return d;
+      });
+
+    const rows = tbody
+      .selectAll('tr')
+      .data(bmw_data)
+      .enter()
+      .append('tr');
+
+    const cells = rows
+      .selectAll('td')
+      .data(function(d) {return d;})
+      .enter()
+      .append('td')
+      .text(function(d) {return <any>d;});
+
+    d3.selectAll('tr').select('td').attr('class','model');
+  }
   // --------------------------
+  // ----Socieconomic Characteristics Graphs: (ses)----
+  generateComparativeTableGraph() {
+
+  }
+
+  generateOccupationalStructureGraph() {
+
+  }
 
   // ----Educational Profile Graphs: (educacao) ----
   // code: alfabetizacao

@@ -410,6 +410,7 @@ button {
 }
 
 /* Graphs */
+/* Bar chart */
 .bar {
   fill: #fd6309
 }
@@ -418,6 +419,7 @@ button {
   fill: #0080FF
 }
 
+/* pie chart */
 .arc text {
   font: 10px sans-serif;
   text-anchor: middle;
@@ -425,4 +427,95 @@ button {
 
 .arc path {
   stroke: #fff;
+}
+
+/*table chart*/
+table{
+  font-size: 12px;
+  text-align: right;
+  margin: auto;
+  margin-bottom: 50px;
+  border-collapse: collapse;
+}
+th{
+  font-family: 'Roboto', sans-serif;
+  width: 100px;
+  padding: 5px;
+}
+td{
+  border: 1px solid #fff;
+  padding: 5px;
+  background: #eee;
+}
+
+tr:first-child th:first-child { border-top-left-radius: 10px; }
+tr:first-child th:last-child { border-top-right-radius: 10px; }
+tr:last-child td:first-child { border-bottom-left-radius: 10px; }
+tr:last-child td:last-child { border-bottom-right-radius: 10px; }
+p{
+  margin: auto;
+  margin-bottom: 50px;
+}
+.main{
+  margin: auto;
+  width: 70%;
+}
+.para{
+  float: left;
+  width: 44%;
+}
+.table{
+  width: 49%;
+  float: right;
+}
+.source{
+  float: left;
+  font-size: 16px;
+  margin-top: 30px;
+}
+th{
+  background: #418FC6;
+  color: #fff;
+}
+.subti{
+  font-family: 'Roboto', sans-serif;
+  margin-bottom: 20px;
+}
+a:link, a:visited{
+  text-decoration: none;
+  color: #418FC6;
+}
+.model{
+  font-family: 'Roboto', sans-serif;
+  color: #444;
+}
+.tableTitle{
+  font-family: 'Roboto', sans-serif;
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+/*vertical bar chart graph*/
+.bar {
+  fill: #6F257F;
+}
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #D4D8DA;
+  stroke-width: 1px;
+  shape-rendering: crispEdges;
+}
+.x path {
+  display: none;
+}
+.toolTip {
+  position: absolute;
+  display: none;
+  min-width: 80px;
+  height: auto;
+  background: none repeat scroll 0 0 #ffffff;
+  border: 1px solid #6F257F;
+  padding: 14px;
+  text-align: center;
 }
