@@ -408,3 +408,21 @@ button {
   user-select: none;
   outline: 0;
 }
+
+/* Graphs */
+.bar {
+  fill: #fd6309
+}
+
+.bar:hover {
+  fill: #0080FF
+}
+
+.arc text {
+  font: 10px sans-serif;
+  text-anchor: middle;
+}
+
+.arc path {
+  stroke: #fff;
+}

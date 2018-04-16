@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
+
 @Component({
   selector: 'app-root', // nome do rotulo que se usará quando vai ser representado
   templateUrl: './app.component.html',
