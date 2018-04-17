@@ -116,7 +116,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       {model: '%Pobres', salesIn2014: 6621, salesIn2015: 10877, startingPrice: 32850},
       {model: 'Renda per Capita', salesIn2014: 87451, salesIn2015: 89265, startingPrice: 33150},
       {model: 'GINI', salesIn2014: 35583, salesIn2015: 40481, startingPrice: 41650}
-      ];
+    ];
 
     this.generateTableGraph(dataTable, this.div_comparativeTableGraph);
 
@@ -139,7 +139,6 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     this.generatePieGraph(dataCircle, this.div_profileEducationalGraph);
 
     // ---------------------------------------------
-
     this.dataVertical = [
       {salesperson: 'Prim. Comp.', sales: 33},
       {salesperson: 'Fund. Incomp.', sales: 12},
@@ -167,11 +166,11 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
   generateVerticalBarChart(dataGraph2: any, containerDiv: ElementRef) {
     // Define chart dimensions
-    const margin = {top: 15, right: 20, bottom: 30, left: 40};
+    const margin = {top: 15, right: 20, bottom: 100, left: 20};
     const width = 335 - margin.left - margin.right;
     const height = 300 - margin.top - margin.bottom;
 
-    // Define SVG
+    // Define chart dimensions
 //    let svg = d3.select(this.element.nativeElement).append('svg')
     const svg = d3.select(containerDiv.nativeElement).append('svg')
       .attr('width', width + margin.left + margin.right)
@@ -181,12 +180,12 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     // Define chart plot area
     const chart = svg.append('g')
       .attr('class', 'bar')
-      .attr('transform', `translate(${margin.left}, ${margin.top})`);
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
     // Define domain data for X & Y axes from the data array
     const xDomain = this.dataVertical.map(d => d.salesperson);
     console.log('xDomain:', xDomain);
-    const yDomain = [0, d3.max(this.dataVertical, function(d) {return d.sales})];
+    const yDomain = [0, d3.max(this.dataVertical, function(d) {return d.sales; })];
 
     // Set the scale for X & Y
     const x = d3.scaleBand()
@@ -200,19 +199,24 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
     // Add X & Y axes to the SVG
     // add the x Axis
-    svg.append('g')
+    chart.append('g')
       .attr('class', 'x axis')
-      .attr('transform', `translate(${margin.left}, ${margin.top + height})`)
-      .call(d3.axisBottom(x));
+      .attr('transform', 'translate(' + margin.left + ',' + (margin.top + height) + ')')
+      .call(d3.axisBottom(x))
+      .selectAll('text')
+        .style('text-anchor', 'end')
+        .attr('dx', '-.8em')
+        .attr('dy', '.15em')
+        .attr('transform', 'rotate(-65)');
 
     // add the y Axis
-    svg.append('g')
+    chart.append('g')
       .attr('class', 'y axis')
       .attr('transform', `translate(${margin.left}, ${margin.top})`)
       .call(d3.axisLeft(y));
 
     // Plotting the chart
-    svg.selectAll('bar')
+    chart.selectAll('bar')
       .data(this.dataVertical)
       .enter().append('rect')
       .attr('class', 'bar')
@@ -328,7 +332,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     const text = arcs.append('text')
       .attr('transform',
         function(d) {return 'translate(' + label.centroid(<any>d) + ')';
-      })
+        })
       .attr('dy', '.35em')
       .attr('text-anchor', 'middle')
       .text(function(d) {return d.data.toString(); });
@@ -416,7 +420,6 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
   }
   // --------------------------
-
   // ---- Educational profile of population in scholarship age : (idadeEscolar)
   // --- For 6_10 years old
   generateSixToTenYearsGraphs() {
@@ -435,7 +438,6 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
 
   // --------------------------
-
   // unsubscribe to ensure no memory leaks
   ngOnDestroy() {
     this.subscription.unsubscribe();
