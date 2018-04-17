@@ -108,7 +108,7 @@ agm-map {
 }
 
 .btn-toggle-schooldetails {
-  border: 2px solid rgba(0,0,0,.7);
+  border: 1px solid rgba(0,0,0,.7);
   left: 1px;
   top: 1px;
   width: auto;
@@ -127,7 +127,7 @@ agm-map {
 }
 
 .btn-toggle-indicatiors-by-weighting-areas {
-  border: 2px solid rgba(0,0,0,.7);
+  border: 1px solid rgba(0,0,0,.7);
   right: 1px;
   top: 1px;
   width: auto;
@@ -145,4 +145,9 @@ agm-map {
   .btn-toggle-indicatiors-by-weighting-areas {
     height: 51px;
   }
+}
+
+/deep/ .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
+  border: 1px solid rgba(0,0,0,0)!important;
+  background-clip: padding-box;
 }

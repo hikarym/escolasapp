@@ -434,7 +434,7 @@ table{
   font-size: 12px;
   text-align: right;
   margin: auto;
-  margin-bottom: 50px;
+  margin-bottom: 5px;
   border-collapse: collapse;
 }
 th{
@@ -452,10 +452,10 @@ tr:first-child th:first-child { border-top-left-radius: 5px; }
 tr:first-child th:last-child { border-top-right-radius: 5px; }
 tr:last-child td:first-child { border-bottom-left-radius: 5px; }
 tr:last-child td:last-child { border-bottom-right-radius: 5px; }
-p{
+/*p{
   margin: auto;
   margin-bottom: 50px;
-}
+}*/
 .main{
   margin: auto;
   width: 70%;
@@ -519,3 +519,49 @@ a:link, a:visited{
   padding: 14px;
   text-align: center;
 }
+
+
+/* ---------- */
+.dropdown-toggle_maf::after {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: .255em;
+  vertical-align: 1.8255em!important;
+  content: "";
+  border-top: .3em solid;
+  border-right: .3em solid transparent;
+  border-bottom: 0;
+  border-left: .3em solid transparent;
+  font-size: 18px;
+  margin-bottom: -20px;
+}
+
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+
+.dropdown-menu-maf.show {
+  display: block;
+}
+
+:host /deep/ .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 10rem;
+  padding: .5rem 0;
+  margin: .125rem 0 0 20px!important;
+  font-size: 1rem;
+  color: #212529;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: .25rem;
+}
+

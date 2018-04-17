@@ -21,12 +21,49 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
   @Output() onSecInformations = new EventEmitter<any>();
   codapSelected: any;
   PANELNAME = 'Informação sobre a vizinhança da Escola';
+  CAT_01 = 'Características Socioeconômicas';
+  CAT_02 = 'Perfil Educacional';
+  CAT_03 = 'Perfil Educacional da Pop. em Idade Escolas';
+  CAT_04 = 'Características demográficas';
   // Geral Information about a CODAP
   CODAP = '';
   GINI = 0;
   PERC_POOR = 0;
   RENDA_DOM_PER_CAP_MEDIA = 0;
   OCUP: any;
+
+  categories: any[] = [
+    {
+      id: 0,
+      name: 'Características Socioeconômicas',
+      group: 'cat1',
+      visible: false,
+      graphics: 2
+    },
+    {
+      id: 1,
+      name: 'Perfil Educacional',
+      group: 'cat2',
+      visible: false,
+      graphics: 2
+    },
+    {
+      id: 2,
+      name: 'Perfil Educacional da Pop. em Idade Escolas',
+      group: 'cat3',
+      visible: false,
+      graphics: 1
+    },
+    {
+      id: 3,
+      name: 'Características demográficas',
+      group: 'cat4',
+      visible: false,
+      graphics: 2
+    }
+  ];
+  categoryDefaultIndex = 0;
+
 
   // ------------------------------------
   selectedSchoolCodAP: string;
@@ -92,6 +129,8 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
   }
 
   ngOnInit() {
+    this.categories[this.categoryDefaultIndex].visible = true;
+
     const s = this.sharedDataService.getSchoolCodAP().subscribe(
       res => {
         console.log('Retrieving the selected school cod AP', res);
@@ -113,9 +152,9 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
   ngAfterViewInit() {
     const dataTable = [
-      {model: '%Pobres', salesIn2014: 6621, salesIn2015: 10877, startingPrice: 32850},
-      {model: 'Renda per Capita', salesIn2014: 87451, salesIn2015: 89265, startingPrice: 33150},
-      {model: 'GINI', salesIn2014: 35583, salesIn2015: 40481, startingPrice: 41650}
+      {model: '%Pobres', salesIn2014: 6621, salesIn2015: 10877, startingPrice: 32850, uf: 34, br: 23},
+      {model: 'Renda per Capita', salesIn2014: 87451, salesIn2015: 89265, startingPrice: 33150, uf: 34, br: 23},
+      {model: 'GINI', salesIn2014: 35583, salesIn2015: 40481, startingPrice: 41650, uf: 34, br: 23}
     ];
 
     this.generateTableGraph(dataTable, this.div_comparativeTableGraph);
@@ -247,7 +286,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
     this.dataHorizontal.sort(function(a, b) { return a.value - b.value; });
 
-    x.domain([0, d3.max(this.dataHorizontal, function(d) { return d.value})]);
+    x.domain([0, d3.max(this.dataHorizontal, function(d) { return d.value; })]);
     y.domain(this.dataHorizontal.map(d => d.area )).padding(0.1);
 
     g.append('g')
@@ -268,14 +307,14 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       .attr('height', y.bandwidth())
       .attr('y', function(d) { return y(d.area); })
       .attr('width', function(d) { return x(d.value); })
-      .on('mousemove', function(d){
+      .on('mousemove', function(d) {
         tooltip
           .style('left', d3.event.pageX - 50 + 'px')
           .style('top', d3.event.pageY - 70 + 'px')
           .style('display', 'inline-block')
           .html((d.area) + '<br>' + '£' + (d.value));
       })
-      .on('mouseout', function(d){ tooltip.style('display', 'none');});
+      .on('mouseout', function(d) { tooltip.style('display', 'none'); });
 
 
   }
@@ -346,9 +385,9 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       // now we add another data object value, a calculated value.
       d.salesChange = ((d.salesIn2015 - d.salesIn2014) / d.salesIn2014 * 100).toFixed(2);
       if (i < 9) {
-        bmw_data.push([d.model, d.salesIn2014, d.salesIn2015, d.salesChange]);
+        bmw_data.push([d.model, d.salesIn2014, d.salesIn2015, d.salesChange, d.uf, d.br]);
       } else {
-        audi_data.push([d.model, d.salesIn2014, d.salesIn2015, d.salesChange]);
+        audi_data.push([d.model, d.salesIn2014, d.salesIn2015, d.salesChange, d.uf, d.br]);
       }
 
     });
@@ -377,7 +416,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
     thead
       .selectAll('th')
-      .data(['Cat.', 'AP', 'Mun.', 'RMSP'])
+      .data(['Cat.', 'AP', 'Mun.', 'RMSP', 'UF', 'Br'])
       .enter()
       .append('th')
       .text(function(d) {
@@ -392,12 +431,12 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
     const cells = rows
       .selectAll('td')
-      .data(function(d) {return d;})
+      .data(function(d) {return d; })
       .enter()
       .append('td')
-      .text(function(d) {return <any>d;});
+      .text(function(d) {return <any>d; });
 
-    d3.selectAll('tr').select('td').attr('class','model');
+    d3.selectAll('tr').select('td').attr('class', 'model');
   }
   // --------------------------
   // ----Socieconomic Characteristics Graphs: (ses)----
@@ -436,9 +475,21 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
   }
 
+  /**
+   * Function to show the graphs of a chosen category
+   */
+  onGraphCategoryChange(idCatSelected: number) {
+    for (let i = 0; i < this.categories.length; i++) {
+      this.categories[i].visible = false;
+    }
+    this.categories[idCatSelected].visible = true;
+    this.categoryDefaultIndex = idCatSelected;
+    console.log('categoria selecionada: ', idCatSelected);
+  }
 
-  // --------------------------
-  // unsubscribe to ensure no memory leaks
+  /**
+   * unsubscribe to ensure no memory leaks
+   */
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
