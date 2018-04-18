@@ -166,6 +166,13 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
           // Graph 2:
           this.generateHorizontalBarChart(this.dataHorizontal, this.div_occupationalStructureGraph);
+
+          // Graph 3:
+          this.generatePieGraph(this.dataCircle, this.div_profileEducationalGraph);
+
+          // Graph 4:
+          this.generateVerticalBarChart(this.dataVertical, this.div_categoriesProfileEducationalGraph);
+
         });
       });
     this.subscription.add(s);
@@ -186,20 +193,20 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
 
     // ---------------------------------------------
-    this.dataCircle = [
+    /*this.dataCircle = [
       { region: 'Alfabetizados', count: 53245},
       { region: 'Não Alfabetizados', count: 28479}
-    ];
+    ];*/
     // ---------------------------------------------
-    this.dataVertical = [
+    /*this.dataVertical = [
       {salesperson: 'Prim. Comp.', sales: 33},
       {salesperson: 'Fund. Incomp.', sales: 12},
       {salesperson: 'Medio Incomp.', sales: 41},
       {salesperson: 'Superior Incomp.', sales: 16},
       {salesperson: 'Superior Comp.', sales: 39}
-    ];
-    this.generatePieGraph(this.dataCircle, this.div_profileEducationalGraph);
-    this.generateVerticalBarChart(this.dataVertical, this.div_categoriesProfileEducationalGraph);
+    ];*/
+    // this.generatePieGraph(this.dataCircle, this.div_profileEducationalGraph);
+    // this.generateVerticalBarChart(this.dataVertical, this.div_categoriesProfileEducationalGraph);
   }
 
   // Invoked from layout.component.ts or from geolocation.component.ts
@@ -231,7 +238,25 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
         {type: 'operadoresMaquina', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.operadoresMaquina)},
         {type: 'ocupacoesElementares', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.ocupacoesElementares)}
         ];
+
+      // Graph 3:
+      this.dataCircle = [
+        { region: 'Alfabetizados', count: this.convertToPercentage(this.weightingAreaInfo.educacao.alfabetizacao)},
+        { region: 'Não Alfabetizados', count: this.convertToPercentage(1 - this.weightingAreaInfo.educacao.alfabetizacao)}
+      ];
+
+      // Graph 4:
+      this.dataVertical = [
+        {salesperson: 'Prim. Comp.', sales: this.convertToPercentage(this.weightingAreaInfo.educacao.realizacao.primarioIncompl)},
+        {salesperson: 'Fund. Incomp.', sales: this.convertToPercentage(this.weightingAreaInfo.educacao.realizacao.FundamenIncompl)},
+        {salesperson: 'Medio Incomp.', sales: this.convertToPercentage(this.weightingAreaInfo.educacao.realizacao.MedioIncompl)},
+        {salesperson: 'Superior Incomp.', sales: this.convertToPercentage(this.weightingAreaInfo.educacao.realizacao.SuperiorIncompl)},
+        {salesperson: 'Superior Comp.', sales: this.convertToPercentage(this.weightingAreaInfo.educacao.realizacao.SuperiorComplet)}
+      ];
+
     });
+
+    // Graph 3: Comparative table. Data for AP
   }
 
   convertToPercentage (value: number) {
@@ -244,8 +269,11 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     const width = 335 - margin.left - margin.right;
     const height = 300 - margin.top - margin.bottom;
 
+    // Remove all children from HTML
+    d3.select(containerDiv.nativeElement).html('');
+
     // Define chart dimensions
-//    let svg = d3.select(this.element.nativeElement).append('svg')
+    // let svg = d3.select(this.element.nativeElement).append('svg')
     const svg = d3.select(containerDiv.nativeElement).append('svg')
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
@@ -374,6 +402,9 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     const radius = Math.min(width, height) / 2;
     console.log('todo el dato', dataGraph);
 
+    // Remove all children from HTML
+    d3.select(containerDiv.nativeElement).html('');
+
     // Define SVG
     const svg = d3.select(containerDiv.nativeElement)
         .append('svg')
@@ -411,7 +442,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       .attr('fill', function(d, i) { return color(i.toString()); })
       .attr('d', <any>arc)
       .attr('stroke', 'white')
-      .attr('stroke-width', '4px');
+      .attr('stroke-width', '2px');
 
     // Τransition the labels:
     const text = arcs.append('text')
