@@ -96,12 +96,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
   ];
 
   dataHorizontal = [
-    {'area': 'central ', 'value': 18000},
-    {'area': 'Riverside ', 'value': 17000},
-    {'area': 'Picton ', 'value': 80000},
-    {'area': 'Everton ', 'value': 55000},
-    {'area': 'Kensington ', 'value': 100000},
-    {'area': 'Kirkdale', 'value': 50000}
+    {type: 'tipo', value: 0}
   ];
   dataCircle = [
     { region: 'Alfabetizados', count: 53245},
@@ -152,6 +147,8 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
         this.brSpRmspSecInfoService.getBrSpRmspSecInfo().then((res1) => {
           this.brSpRmspSecInfo = res1;
           console.log('brSpRMSPVariables:', this.brSpRmspSecInfo);
+
+          // Graph 1: Comparative table. Data for Metropole, UF, and Br
           this.dataComparativeTable[0].municipio = 0;
           this.dataComparativeTable[1].municipio = 0;
           this.dataComparativeTable[2].municipio = 0;
@@ -166,6 +163,9 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
           this.dataComparativeTable[2].br = this.brSpRmspSecInfo[0].ses.gini;
 
           this.generateTableGraph(this.dataComparativeTable, this.div_comparativeTableGraph);
+
+          // Graph 2:
+          this.generateHorizontalBarChart(this.dataHorizontal, this.div_occupationalStructureGraph);
         });
       });
     this.subscription.add(s);
@@ -174,24 +174,16 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
   }
 
   ngAfterViewInit() {
-    /*this.dataComparativeTable = [
-      {model: '%Pobres', ap: 0, municipio: 0, metropole: 0, uf: 0, br: 0},
-      {model: 'Renda per Capita', ap: 0, municipio: 0, metropole: 0, uf: 0, br: 0},
-      {model: 'GINI', ap: 0, municipio: 0, metropole: 0, uf: 0, br: 0}
-    ];*/
-
-
-
     // ---------------------------------------------
-    this.dataHorizontal = [
+    /*this.dataHorizontal = [
       {'area': 'Militares ', 'value': 18000},
       {'area': 'Gerentes', 'value': 17000},
       {'area': 'Profissionais ', 'value': 80000},
       {'area': 'Técnicos', 'value': 55000},
       {'area': 'Trab. Escritorio', 'value': 100000},
       {'area': 'Tra. Comércio', 'value': 50000}
-    ];
-    this.generateHorizontalBarChart(this.dataHorizontal, this.div_occupationalStructureGraph);
+    ];*/
+
 
     // ---------------------------------------------
     this.dataCircle = [
@@ -218,17 +210,32 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       this.weightingAreaInfo = res[0];
       console.log(this.weightingAreaInfo);
       this.CODAP = this.weightingAreaInfo.codap;
-      this.GINI = this.weightingAreaInfo.ses.gini;
-      this.PERC_POOR = this.weightingAreaInfo.ses.perc_poor;
-      this.RENDA_DOM_PER_CAP_MEDIA = this.weightingAreaInfo.ses.renda_dom_per_cap_media;
       this.OCUP = this.weightingAreaInfo.ses.ocup;
 
-      // build the datasets
-      // {model: '%Pobres', ap: 6621, municipio: 10877, metropole: 32850, uf: 34, br: 23},
+      // building of datasets
+      // Graph 1: Comparative table. Data for AP
       this.dataComparativeTable[0].ap = this.weightingAreaInfo.ses.perc_poor;
       this.dataComparativeTable[1].ap = this.weightingAreaInfo.ses.renda_dom_per_cap_media;
       this.dataComparativeTable[2].ap = this.weightingAreaInfo.ses.gini;
+
+      // Graph 2: Comparative table. Data for AP
+      this.dataHorizontal = [
+        {type: 'militares', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.militares)},
+        {type: 'gerentes', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.gerentes)},
+        {type: 'profissionais', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.profissionais)},
+        {type: 'tecnicos', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.tecnicos)},
+        {type: 'trabEscritorio', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.trabEscritorio)},
+        {type: 'comercioServicos', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.comercioServicos)},
+        {type: 'agropecuaria', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.agropecuaria)},
+        {type: 'manuaisQualificados', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.manuaisQualificados)},
+        {type: 'operadoresMaquina', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.operadoresMaquina)},
+        {type: 'ocupacoesElementares', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.ocupacoesElementares)}
+        ];
     });
+  }
+
+  convertToPercentage (value: number) {
+    return parseFloat((value * 100).toFixed(2));
   }
 
   generateVerticalBarChart(dataGraph2: any, containerDiv: ElementRef) {
@@ -294,10 +301,21 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
   }
 
   generateHorizontalBarChart(dataGraph: any, containerDiv: ElementRef ) {
+    /*const percentage_data = [];
+    // Pass the values to percentages
+    this.dataHorizontal.forEach(function(d, i) {
+      d.valuePerc = (d.value * 100).toFixed(2) + '%';
+      percentage_data.push([d.type, d.valuePerc]);
+    });*/
+
     // Define chart dimensions
-    const  margin = {top: 20, right: 20, bottom: 30, left: 80};
+    const margin = {top: 20, right: 20, bottom: 30, left: 80};
     const width = 335 - margin.left - margin.right;
     const height = 300 - margin.top - margin.bottom;
+
+    // Remove all children from HTML
+    d3.select(containerDiv.nativeElement).html('');
+
     // Define chart dimensions
     const svg = d3.select(containerDiv.nativeElement).append('svg')
       .attr('width', width + margin.left + margin.right)
@@ -315,7 +333,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     this.dataHorizontal.sort(function(a, b) { return a.value - b.value; });
 
     x.domain([0, d3.max(this.dataHorizontal, function(d) { return d.value; })]);
-    y.domain(this.dataHorizontal.map(d => d.area )).padding(0.1);
+    y.domain(this.dataHorizontal.map(d => d.type )).padding(0.1);
 
     g.append('g')
       .attr('class', 'x axis')
@@ -333,14 +351,14 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       .attr('class', 'bar')
       .attr('x', 0)
       .attr('height', y.bandwidth())
-      .attr('y', function(d) { return y(d.area); })
+      .attr('y', function(d) { return y(d.type); })
       .attr('width', function(d) { return x(d.value); })
       .on('mousemove', function(d) {
         tooltip
           .style('left', d3.event.pageX - 50 + 'px')
           .style('top', d3.event.pageY - 70 + 'px')
           .style('display', 'inline-block')
-          .html((d.area) + '<br>' + '£' + (d.value));
+          .html((d.type) + '<br>' + (d.value) + '%');
       })
       .on('mouseout', function(d) { tooltip.style('display', 'none'); });
 
@@ -421,10 +439,11 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     });
 
     console.log(dataGraph);
+    console.log('bmw_data:', bmw_data);
 
-    // Remove a table if exists
     // Remove all children from HTML
     d3.select(containerDiv.nativeElement).html('');
+    // Remove all children from SVG/HTML
     // d3.select("g.parent").selectAll("*").remove();
 
     const table = d3.select(containerDiv.nativeElement).append('table');
