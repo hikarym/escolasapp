@@ -144,6 +144,10 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       res => {
         console.log('Retrieving the selected school cod AP', res);
 
+        // Get Weighting Area socioeconomic variables's information
+        this.selectedSchoolCodAP = res;
+        this.getWeightingAreaInformation(this.selectedSchoolCodAP);
+
         // Get all the information about BR-SP-RMSP socioeconomic variables
         this.brSpRmspSecInfoService.getBrSpRmspSecInfo().then((res1) => {
           this.brSpRmspSecInfo = res1;
@@ -151,20 +155,18 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
           this.dataComparativeTable[0].municipio = 0;
           this.dataComparativeTable[1].municipio = 0;
           this.dataComparativeTable[2].municipio = 0;
-          this.dataComparativeTable[0].metropole = this.brSpRmspSecInfo[2].perc_poor;
-          this.dataComparativeTable[1].metropole = this.brSpRmspSecInfo[2].renda_dom_per_cap_media;
+          this.dataComparativeTable[0].metropole = this.brSpRmspSecInfo[2].ses.perc_poor;
+          this.dataComparativeTable[1].metropole = this.brSpRmspSecInfo[2].ses.renda_dom_per_cap_media;
           this.dataComparativeTable[2].metropole = this.brSpRmspSecInfo[2].ses.gini;
-          this.dataComparativeTable[0].uf = this.brSpRmspSecInfo[1].perc_poor;
-          this.dataComparativeTable[1].uf = this.brSpRmspSecInfo[1].renda_dom_per_cap_media;
+          this.dataComparativeTable[0].uf = this.brSpRmspSecInfo[1].ses.perc_poor;
+          this.dataComparativeTable[1].uf = this.brSpRmspSecInfo[1].ses.renda_dom_per_cap_media;
           this.dataComparativeTable[2].uf = this.brSpRmspSecInfo[1].ses.gini;
-          this.dataComparativeTable[0].br = this.brSpRmspSecInfo[0].perc_poor;
-          this.dataComparativeTable[1].br = this.brSpRmspSecInfo[0].renda_dom_per_cap_media;
+          this.dataComparativeTable[0].br = this.brSpRmspSecInfo[0].ses.perc_poor;
+          this.dataComparativeTable[1].br = this.brSpRmspSecInfo[0].ses.renda_dom_per_cap_media;
           this.dataComparativeTable[2].br = this.brSpRmspSecInfo[0].ses.gini;
-        });
 
-        // Get Weighting Area socioeconomic variables's information
-        this.selectedSchoolCodAP = res;
-        this.getWeightingAreaInformation(this.selectedSchoolCodAP);
+          this.generateTableGraph(this.dataComparativeTable, this.div_comparativeTableGraph);
+        });
       });
     this.subscription.add(s);
 
@@ -172,13 +174,13 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
   }
 
   ngAfterViewInit() {
-    this.dataComparativeTable = [
-      {model: '%Pobres', ap: 6621, municipio: 0, metropole: 32850, uf: 34, br: 23},
-      {model: 'Renda per Capita', ap: 0, municipio: 89265, metropole: 33150, uf: 34, br: 23},
-      {model: 'GINI', ap: 35583, municipio: 0, metropole: 41650, uf: 34, br: 23}
-    ];
+    /*this.dataComparativeTable = [
+      {model: '%Pobres', ap: 0, municipio: 0, metropole: 0, uf: 0, br: 0},
+      {model: 'Renda per Capita', ap: 0, municipio: 0, metropole: 0, uf: 0, br: 0},
+      {model: 'GINI', ap: 0, municipio: 0, metropole: 0, uf: 0, br: 0}
+    ];*/
 
-    this.generateTableGraph(this.dataComparativeTable, this.div_comparativeTableGraph);
+
 
     // ---------------------------------------------
     this.dataHorizontal = [
@@ -405,37 +407,26 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
   generateTableGraph(dataGraph: any, containerDiv: ElementRef ) {
 
-    const bmw_data = [], audi_data = [];
+    const bmw_data = [];
+    console.log('data table: ', dataGraph);
 
     dataGraph.forEach(function(d, i) {
       // now we add another data object value, a calculated value.
-      d.salesChange = ((d.municipio - d.ap) / d.ap * 100).toFixed(2);
-      if (i < 9) {
-        bmw_data.push([d.model, d.ap, d.municipio, d.salesChange, d.uf, d.br]);
-      } else {
-        audi_data.push([d.model, d.ap, d.municipio, d.salesChange, d.uf, d.br]);
-      }
-
+      d.apPerc = i === 1 ? d.ap.toFixed(2)  : (d.ap * 100).toFixed(2) + '%';
+      d.municipioPerc = i === 1 ? d.municipio.toFixed(2)  : (d.municipio * 100).toFixed(2) + '%';
+      d.metropolePerc = i === 1 ? d.metropole.toFixed(2)  : (d.metropole * 100).toFixed(2) + '%';
+      d.ufPerc = i === 1 ? d.uf.toFixed(2)  : (d.uf * 100).toFixed(2) + '%';
+      d.brPerc = i === 1 ? d.br.toFixed(2)  : (d.br * 100).toFixed(2) + '%';
+      bmw_data.push([d.model, d.apPerc, d.municipioPerc, d.metropolePerc, d.ufPerc, d.brPerc]);
     });
 
     console.log(dataGraph);
 
-    bmw_data.sort(function(a, b) {return a[3] - b[3]; });
-    audi_data.sort(function(a, b) {return a[3] - b[3]; });
+    // Remove a table if exists
+    // Remove all children from HTML
+    d3.select(containerDiv.nativeElement).html('');
+    // d3.select("g.parent").selectAll("*").remove();
 
-    bmw_data.forEach(function(d, i) {
-      d[3] += '%';
-    });
-
-    audi_data.forEach(function(d, i) {
-      d[3] += '%';
-    });
-
-    // the tabulate function wants the second argument to be your columns in your data that will be in the table.
-    // third argument is the element to put it into on the page
-    /*var regionTable = tabulate(data,
-                                        ["name", "year1990", "year2015", "difference"],
-                                        "#table");*/
     const table = d3.select(containerDiv.nativeElement).append('table');
     const thead = table.append('thead').append('tr');
     const tbody = table.append('tbody');

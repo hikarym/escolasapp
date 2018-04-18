@@ -9,7 +9,8 @@
             <h1 class="section-hero-header-subtitle" id="cat-name">{{CAT_01}}</h1>
           </div>
         </div>-->
-        <div _ngcontent-c2="" class="section-hero-header-description" style="text-align:left;width:100%;padding-bottom: 0px">
+        <div _ngcontent-c2="" class="section-hero-header-description"
+             style="text-align:left;width:100%;padding-bottom: 0px">
           <a _ngcontent-c2="" aria-expanded="false" aria-haspopup="true" class="dropdown-toggle_maf"
              data-toggle="dropdown" href="javascript:void(0)" id="navbarDropdownMenu2Link">
             <div style="color: white;">
@@ -17,7 +18,8 @@
               <h1 class="section-hero-header-subtitle" id="cat-name">{{categories[categoryDefaultIndex].name}}</h1>
             </div>
           </a>
-          <div aria-labelledby="navbarDropdownMenu2Link" style="width: 93%; font-size: 12px;" class="dropdown-menu dropdown-menu-right">
+          <div aria-labelledby="navbarDropdownMenu2Link" style="width: 93%; font-size: 12px;"
+               class="dropdown-menu dropdown-menu-right">
             <button *ngFor="let cat of categories" class="dropdown-item" (click)="onGraphCategoryChange(cat.id)">
               {{cat.name}} <span class="badge badge-primary badge-pill">{{cat.graphics}}</span>
             </button>
@@ -27,26 +29,20 @@
       <div class="section-info">
         <div class="alert alert-info" role="alert">
           <h5 class="alert-heading">Description:</h5>
-          <p>Put a short description about the graphs. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+          <p>Put a short description about the graphs. This example text is going to run a bit longer so that you can
+            see how spacing within an alert works with this kind of content.</p>
           <ol>
-            <li>Tabela comparativa de características socioeconômicas entre a AP, Municipio de SP, RMSP, UF de São Paulo e Brasil </li>
+            <li>Tabela comparativa de características socioeconômicas entre a AP, Municipio de SP, RMSP, UF de São Paulo
+              e Brasil
+            </li>
             <li>Estrutura Ocupacional</li>
+            <li>COD.AP: {{CODAP}}</li>
           </ol>
           <!--<hr>
           <p class="mb-0">Another graphs............</p>-->
 
         </div>
       </div>
-      <!--<div class="section-info">
-        <div>
-          <div class="section-info-line">
-            <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-2x fa-caret-right"></span>
-            <span class="section-info-text">
-              <span>{{CODAP}}</span>
-            </span>
-          </div>
-        </div>
-      </div>-->
 
       <!-- section graph: socioeconomic characteristics -->
       <div class="section-divider" style="height: 7px"></div>
@@ -55,13 +51,27 @@
           <!--<h5>Características Socioeconômicas</h5>-->
           <div class="section-graph">
             <div class="md-list md-whiteframe-z0 bg-white m-b"></div>
-            <div [hidden]="!categories[0].visible" >
+            <div [hidden]="!categories[0].visible">
+              <div class="section-info-line">
+                <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-2x fa-caret-right"></span>
+                <span class="section-info-text">
+              <span>Tabela Comparativa de características socieconômicas</span>
+            </span>
+              </div>
               <div #comparativeTableGraph style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
-              <div #occupationalStructureGraph width="335" height="300" style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
+              <div class="section-info-line">
+                <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-2x fa-caret-right"></span>
+                <span class="section-info-text">
+              <span>Estrutura Ocupacional</span>
+            </span>
+              </div>
+              <div #occupationalStructureGraph width="335" height="300"
+                   style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
             </div>
             <div [hidden]="!categories[1].visible">
               <div #profileEducationalGraph style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
-              <div #categoriesProfileEducationalGraph style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
+              <div #categoriesProfileEducationalGraph
+                   style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
             </div>
             <div [hidden]="!categories[2].visible">
               <div #literacyGraph style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
