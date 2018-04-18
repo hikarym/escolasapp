@@ -565,3 +565,6 @@ a:link, a:visited{
   border-radius: .25rem;
 }
 
+/* ------------*/
+[hidden]:not([broken]) { display: none !important;}
+

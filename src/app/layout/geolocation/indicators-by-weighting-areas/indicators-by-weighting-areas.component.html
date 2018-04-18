@@ -55,20 +55,20 @@
           <!--<h5>Características Socioeconômicas</h5>-->
           <div class="section-graph">
             <div class="md-list md-whiteframe-z0 bg-white m-b"></div>
-            <div *ngIf="categories[0].visible === true">
+            <div [hidden]="!categories[0].visible" >
               <div #comparativeTableGraph style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
               <div #occupationalStructureGraph width="335" height="300" style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
             </div>
-            <div *ngIf="categories[1].visible === true">
+            <div [hidden]="!categories[1].visible">
               <div #profileEducationalGraph style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
               <div #categoriesProfileEducationalGraph style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
             </div>
-            <div *ngIf="categories[2].visible === true">
+            <div [hidden]="!categories[2].visible">
               <div #literacyGraph style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
               <div #frequencyGraph style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
               <div #educationalLevelGraph style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
             </div>
-            <div *ngIf="categories[3].visible === true">
+            <div [hidden]="!categories[3].visible">
               <div #agePyramidGraph style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
               <div #racialDistributionGraph style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
             </div>

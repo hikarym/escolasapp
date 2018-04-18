@@ -103,6 +103,15 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     {'area': 'Kensington ', 'value': 100000},
     {'area': 'Kirkdale', 'value': 50000}
   ];
+  dataCircle = [
+    { region: 'Alfabetizados', count: 53245},
+    { region: 'Não Alfabetizados', count: 28479}
+  ];
+  dataComparativeTable = [
+    {model: '%Pobres', ap: 0, municipio: 0, metropole: 0, uf: 0, br: 0},
+    {model: 'Renda per Capita', ap: 0, municipio: 0, metropole: 0, uf: 0, br: 0},
+    {model: 'GINI', ap: 0, municipio: 0, metropole: 0, uf: 0, br: 0}
+  ];
 
   // ----------------
   @ViewChild('comparativeTableGraph')
@@ -125,11 +134,11 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
               private weightingAreaSecInfoService: ApSecVariableService,
               private brSpRmspSecInfoService: BrSpRmspSecVariableService,
               private sharedDataService: ShareddataService) {
-
+    this.categories[this.categoryDefaultIndex].visible = true;
   }
 
   ngOnInit() {
-    this.categories[this.categoryDefaultIndex].visible = true;
+
 
     const s = this.sharedDataService.getSchoolCodAP().subscribe(
       res => {
@@ -139,6 +148,18 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
         this.brSpRmspSecInfoService.getBrSpRmspSecInfo().then((res1) => {
           this.brSpRmspSecInfo = res1;
           console.log('brSpRMSPVariables:', this.brSpRmspSecInfo);
+          this.dataComparativeTable[0].municipio = 0;
+          this.dataComparativeTable[1].municipio = 0;
+          this.dataComparativeTable[2].municipio = 0;
+          this.dataComparativeTable[0].metropole = this.brSpRmspSecInfo[2].perc_poor;
+          this.dataComparativeTable[1].metropole = this.brSpRmspSecInfo[2].renda_dom_per_cap_media;
+          this.dataComparativeTable[2].metropole = this.brSpRmspSecInfo[2].ses.gini;
+          this.dataComparativeTable[0].uf = this.brSpRmspSecInfo[1].perc_poor;
+          this.dataComparativeTable[1].uf = this.brSpRmspSecInfo[1].renda_dom_per_cap_media;
+          this.dataComparativeTable[2].uf = this.brSpRmspSecInfo[1].ses.gini;
+          this.dataComparativeTable[0].br = this.brSpRmspSecInfo[0].perc_poor;
+          this.dataComparativeTable[1].br = this.brSpRmspSecInfo[0].renda_dom_per_cap_media;
+          this.dataComparativeTable[2].br = this.brSpRmspSecInfo[0].ses.gini;
         });
 
         // Get Weighting Area socioeconomic variables's information
@@ -151,13 +172,13 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
   }
 
   ngAfterViewInit() {
-    const dataTable = [
-      {model: '%Pobres', salesIn2014: 6621, salesIn2015: 10877, startingPrice: 32850, uf: 34, br: 23},
-      {model: 'Renda per Capita', salesIn2014: 87451, salesIn2015: 89265, startingPrice: 33150, uf: 34, br: 23},
-      {model: 'GINI', salesIn2014: 35583, salesIn2015: 40481, startingPrice: 41650, uf: 34, br: 23}
+    this.dataComparativeTable = [
+      {model: '%Pobres', ap: 6621, municipio: 0, metropole: 32850, uf: 34, br: 23},
+      {model: 'Renda per Capita', ap: 0, municipio: 89265, metropole: 33150, uf: 34, br: 23},
+      {model: 'GINI', ap: 35583, municipio: 0, metropole: 41650, uf: 34, br: 23}
     ];
 
-    this.generateTableGraph(dataTable, this.div_comparativeTableGraph);
+    this.generateTableGraph(this.dataComparativeTable, this.div_comparativeTableGraph);
 
     // ---------------------------------------------
     this.dataHorizontal = [
@@ -171,12 +192,10 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     this.generateHorizontalBarChart(this.dataHorizontal, this.div_occupationalStructureGraph);
 
     // ---------------------------------------------
-    const dataCircle = [
+    this.dataCircle = [
       { region: 'Alfabetizados', count: 53245},
       { region: 'Não Alfabetizados', count: 28479}
     ];
-    this.generatePieGraph(dataCircle, this.div_profileEducationalGraph);
-
     // ---------------------------------------------
     this.dataVertical = [
       {salesperson: 'Prim. Comp.', sales: 33},
@@ -185,6 +204,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       {salesperson: 'Superior Incomp.', sales: 16},
       {salesperson: 'Superior Comp.', sales: 39}
     ];
+    this.generatePieGraph(this.dataCircle, this.div_profileEducationalGraph);
     this.generateVerticalBarChart(this.dataVertical, this.div_categoriesProfileEducationalGraph);
   }
 
@@ -200,6 +220,12 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       this.PERC_POOR = this.weightingAreaInfo.ses.perc_poor;
       this.RENDA_DOM_PER_CAP_MEDIA = this.weightingAreaInfo.ses.renda_dom_per_cap_media;
       this.OCUP = this.weightingAreaInfo.ses.ocup;
+
+      // build the datasets
+      // {model: '%Pobres', ap: 6621, municipio: 10877, metropole: 32850, uf: 34, br: 23},
+      this.dataComparativeTable[0].ap = this.weightingAreaInfo.ses.perc_poor;
+      this.dataComparativeTable[1].ap = this.weightingAreaInfo.ses.renda_dom_per_cap_media;
+      this.dataComparativeTable[2].ap = this.weightingAreaInfo.ses.gini;
     });
   }
 
@@ -243,10 +269,10 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       .attr('transform', 'translate(' + margin.left + ',' + (margin.top + height) + ')')
       .call(d3.axisBottom(x))
       .selectAll('text')
-        .style('text-anchor', 'end')
-        .attr('dx', '-.8em')
-        .attr('dy', '.15em')
-        .attr('transform', 'rotate(-65)');
+      .style('text-anchor', 'end')
+      .attr('dx', '-.8em')
+      .attr('dy', '.15em')
+      .attr('transform', 'rotate(-65)');
 
     // add the y Axis
     chart.append('g')
@@ -383,11 +409,11 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
     dataGraph.forEach(function(d, i) {
       // now we add another data object value, a calculated value.
-      d.salesChange = ((d.salesIn2015 - d.salesIn2014) / d.salesIn2014 * 100).toFixed(2);
+      d.salesChange = ((d.municipio - d.ap) / d.ap * 100).toFixed(2);
       if (i < 9) {
-        bmw_data.push([d.model, d.salesIn2014, d.salesIn2015, d.salesChange, d.uf, d.br]);
+        bmw_data.push([d.model, d.ap, d.municipio, d.salesChange, d.uf, d.br]);
       } else {
-        audi_data.push([d.model, d.salesIn2014, d.salesIn2015, d.salesChange, d.uf, d.br]);
+        audi_data.push([d.model, d.ap, d.municipio, d.salesChange, d.uf, d.br]);
       }
 
     });
@@ -484,7 +510,21 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     }
     this.categories[idCatSelected].visible = true;
     this.categoryDefaultIndex = idCatSelected;
-    console.log('categoria selecionada: ', idCatSelected);
+    /*switch (idCatSelected) {
+      case 0 : {
+        this.categories[idCatSelected].visible = true;
+        break;
+      }
+      case 1 : {
+        break;
+      }
+      case 2 : {
+        break;
+      }
+      case 3 : {
+        break;
+      }
+    }*/
   }
 
   /**
