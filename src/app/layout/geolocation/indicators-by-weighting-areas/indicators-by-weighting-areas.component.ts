@@ -73,40 +73,65 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
   // ---------------D3 GRAPHS---------------------
   dataCircle2 = {
     apples: [
-      { region: 'North', count: 53245},
-      { region: 'South', count: 28479},
-      { region: 'East', count: 19697},
-      { region: 'West', count: 24037},
-      { region: 'Central', count: 40245}
+      { variableName: 'North', variableValue: 53245},
+      { variableName: 'South', variableValue: 28479},
+      { variableName: 'East', variableValue: 19697},
+      { variableName: 'West', variableValue: 24037},
+      { variableName: 'Central', variableValue: 40245}
     ],
     oranges: [
-      { region: 'North', count: 200},
-      { region: 'South', count: 200},
-      { region: 'East', count: 200},
-      { region: 'West', count: 200},
-      { region: 'Central', count: 200}
+      { variableName: 'North', variableValue: 200},
+      { variableName: 'South', variableValue: 200},
+      { variableName: 'East', variableValue: 200},
+      { variableName: 'West', variableValue: 200},
+      { variableName: 'Central', variableValue: 200}
     ]
   };
   dataVertical = [
-    {salesperson: 'Bob', sales: 33},
-    {salesperson: 'Robin', sales: 12},
-    {salesperson: 'Anne', sales: 41},
-    {salesperson: 'Mark', sales: 16},
-    {salesperson: 'Joe', sales: 39}
+    {variableName: 'tmp', variableValue: 33}
   ];
 
   dataHorizontal = [
     {type: 'tipo', value: 0}
   ];
   dataCircle = [
-    { region: 'Alfabetizados', count: 53245},
-    { region: 'Não Alfabetizados', count: 28479}
+    { variableName: 'Alfabetizados', variableValue: 53245}
   ];
   dataComparativeTable = [
     {model: '%Pobres', ap: 0, municipio: 0, metropole: 0, uf: 0, br: 0},
     {model: 'Renda per Capita', ap: 0, municipio: 0, metropole: 0, uf: 0, br: 0},
     {model: 'GINI', ap: 0, municipio: 0, metropole: 0, uf: 0, br: 0}
   ];
+
+  groupChartData2 = [
+    { '2614': 8, '4449': 15, 'over': 1 },
+    { '2614': 7, '4449': 2, 'over': 2 },
+    { '2614': 4, '4449': 5, 'over': 3 }
+  ];
+  columnsInfo = { '2614': 'Team A', '4449': 'Team B' };
+
+  groupChartDataForLiteracyGraph = {
+    labels: [
+      'cat1', 'cat2', 'cat3'
+    ],
+    series: [
+      {
+        label: 'AP',
+        values: [4, 8, 15]
+      }]
+  };
+
+  groupChartDataForScholarFrequencyGraph = {
+    labels: [
+      'cat1', 'cat2', 'cat3'
+    ],
+    series: [
+      {
+        label: 'AP',
+        values: [4, 8, 15]
+      }]
+  };
+
 
   // ----------------
   @ViewChild('comparativeTableGraph')
@@ -120,6 +145,12 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
   @ViewChild('categoriesProfileEducationalGraph')
   private div_categoriesProfileEducationalGraph: ElementRef;
+
+  @ViewChild('literacyGraph')
+  private div_literacyGraph: ElementRef;
+
+  @ViewChild('scholarFrequencyGraph')
+  private div_scholarFrequencyGraph: ElementRef;
 
   // ----------------
   private subscription = new Subscription();
@@ -141,122 +172,195 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
         // Get Weighting Area socioeconomic variables's information
         this.selectedSchoolCodAP = res;
-        this.getWeightingAreaInformation(this.selectedSchoolCodAP);
 
-        // Get all the information about BR-SP-RMSP socioeconomic variables
-        this.brSpRmspSecInfoService.getBrSpRmspSecInfo().then((res1) => {
-          this.brSpRmspSecInfo = res1;
-          console.log('brSpRMSPVariables:', this.brSpRmspSecInfo);
+        this.weightingAreaSecInfoService.showWeightingAreaInfoByCodAP(this.selectedSchoolCodAP).then((res1) => {
+          this.weightingAreaInfo = res1[0];
+          console.log(this.weightingAreaInfo);
+          this.CODAP = this.weightingAreaInfo.codap;
+          this.OCUP = this.weightingAreaInfo.ses.ocup;
 
-          // Graph 1: Comparative table. Data for Metropole, UF, and Br
-          this.dataComparativeTable[0].municipio = 0;
-          this.dataComparativeTable[1].municipio = 0;
-          this.dataComparativeTable[2].municipio = 0;
-          this.dataComparativeTable[0].metropole = this.brSpRmspSecInfo[2].ses.perc_poor;
-          this.dataComparativeTable[1].metropole = this.brSpRmspSecInfo[2].ses.renda_dom_per_cap_media;
-          this.dataComparativeTable[2].metropole = this.brSpRmspSecInfo[2].ses.gini;
-          this.dataComparativeTable[0].uf = this.brSpRmspSecInfo[1].ses.perc_poor;
-          this.dataComparativeTable[1].uf = this.brSpRmspSecInfo[1].ses.renda_dom_per_cap_media;
-          this.dataComparativeTable[2].uf = this.brSpRmspSecInfo[1].ses.gini;
-          this.dataComparativeTable[0].br = this.brSpRmspSecInfo[0].ses.perc_poor;
-          this.dataComparativeTable[1].br = this.brSpRmspSecInfo[0].ses.renda_dom_per_cap_media;
-          this.dataComparativeTable[2].br = this.brSpRmspSecInfo[0].ses.gini;
+          // Get all the information about BR-SP-RMSP socioeconomic variables
+          this.brSpRmspSecInfoService.getBrSpRmspSecInfo().then((res2) => {
+            this.brSpRmspSecInfo = res2;
+            console.log('brSpRMSPVariables:', this.brSpRmspSecInfo);
 
-          this.generateTableGraph(this.dataComparativeTable, this.div_comparativeTableGraph);
+            this.buildDataForComparativeTable();
 
-          // Graph 2:
-          this.generateHorizontalBarChart(this.dataHorizontal, this.div_occupationalStructureGraph);
+            this.buildDataForOccupationalStructureGraph();
 
-          // Graph 3:
-          this.generatePieGraph(this.dataCircle, this.div_profileEducationalGraph);
+            this.buildDataForProfileEducationalGraph();
 
-          // Graph 4:
-          this.generateVerticalBarChart(this.dataVertical, this.div_categoriesProfileEducationalGraph);
+            this.buildDataForCategoriesProfileEducationalGraph();
+
+            this.buildDataForLiteracyGraph();
+
+            this.buildDataForScholarFrequencyGraph();
+
+          });
 
         });
+
       });
     this.subscription.add(s);
-
-
   }
 
   ngAfterViewInit() {
-    // ---------------------------------------------
-    /*this.dataHorizontal = [
-      {'area': 'Militares ', 'value': 18000},
-      {'area': 'Gerentes', 'value': 17000},
-      {'area': 'Profissionais ', 'value': 80000},
-      {'area': 'Técnicos', 'value': 55000},
-      {'area': 'Trab. Escritorio', 'value': 100000},
-      {'area': 'Tra. Comércio', 'value': 50000}
-    ];*/
 
-
-    // ---------------------------------------------
-    /*this.dataCircle = [
-      { region: 'Alfabetizados', count: 53245},
-      { region: 'Não Alfabetizados', count: 28479}
-    ];*/
-    // ---------------------------------------------
-    /*this.dataVertical = [
-      {salesperson: 'Prim. Comp.', sales: 33},
-      {salesperson: 'Fund. Incomp.', sales: 12},
-      {salesperson: 'Medio Incomp.', sales: 41},
-      {salesperson: 'Superior Incomp.', sales: 16},
-      {salesperson: 'Superior Comp.', sales: 39}
-    ];*/
-    // this.generatePieGraph(this.dataCircle, this.div_profileEducationalGraph);
-    // this.generateVerticalBarChart(this.dataVertical, this.div_categoriesProfileEducationalGraph);
   }
 
-  // Invoked from layout.component.ts or from geolocation.component.ts
-  getWeightingAreaInformation(schoolCodAP: string) {
-    // this.router.navigate([this.URL_ROOT + 'school/school-details/' + schoolID]);
-    // this.schoolObject = schoolID;
-    this.weightingAreaSecInfoService.showWeightingAreaInfoByCodAP(schoolCodAP).then((res) => {
-      this.weightingAreaInfo = res[0];
-      console.log(this.weightingAreaInfo);
-      this.CODAP = this.weightingAreaInfo.codap;
-      this.OCUP = this.weightingAreaInfo.ses.ocup;
+  buildDataForComparativeTable() {
 
-      // building of datasets
-      // Graph 1: Comparative table. Data for AP
-      this.dataComparativeTable[0].ap = this.weightingAreaInfo.ses.perc_poor;
-      this.dataComparativeTable[1].ap = this.weightingAreaInfo.ses.renda_dom_per_cap_media;
-      this.dataComparativeTable[2].ap = this.weightingAreaInfo.ses.gini;
+    // Graph 1: Comparative table. Data for Metropole, UF, and BR
+    this.dataComparativeTable[0].ap = this.weightingAreaInfo.ses.perc_poor;
+    this.dataComparativeTable[1].ap = this.weightingAreaInfo.ses.renda_dom_per_cap_media;
+    this.dataComparativeTable[2].ap = this.weightingAreaInfo.ses.gini;
+    this.dataComparativeTable[0].municipio = 0;
+    this.dataComparativeTable[1].municipio = 0;
+    this.dataComparativeTable[2].municipio = 0;
+    this.dataComparativeTable[0].metropole = this.brSpRmspSecInfo[2].ses.perc_poor;
+    this.dataComparativeTable[1].metropole = this.brSpRmspSecInfo[2].ses.renda_dom_per_cap_media;
+    this.dataComparativeTable[2].metropole = this.brSpRmspSecInfo[2].ses.gini;
+    this.dataComparativeTable[0].uf = this.brSpRmspSecInfo[1].ses.perc_poor;
+    this.dataComparativeTable[1].uf = this.brSpRmspSecInfo[1].ses.renda_dom_per_cap_media;
+    this.dataComparativeTable[2].uf = this.brSpRmspSecInfo[1].ses.gini;
+    this.dataComparativeTable[0].br = this.brSpRmspSecInfo[0].ses.perc_poor;
+    this.dataComparativeTable[1].br = this.brSpRmspSecInfo[0].ses.renda_dom_per_cap_media;
+    this.dataComparativeTable[2].br = this.brSpRmspSecInfo[0].ses.gini;
 
-      // Graph 2: Comparative table. Data for AP
-      this.dataHorizontal = [
-        {type: 'militares', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.militares)},
-        {type: 'gerentes', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.gerentes)},
-        {type: 'profissionais', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.profissionais)},
-        {type: 'tecnicos', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.tecnicos)},
-        {type: 'trabEscritorio', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.trabEscritorio)},
-        {type: 'comercioServicos', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.comercioServicos)},
-        {type: 'agropecuaria', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.agropecuaria)},
-        {type: 'manuaisQualificados', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.manuaisQualificados)},
-        {type: 'operadoresMaquina', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.operadoresMaquina)},
-        {type: 'ocupacoesElementares', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.ocupacoesElementares)}
-        ];
+    this.generateTableGraph(this.dataComparativeTable, this.div_comparativeTableGraph);
 
-      // Graph 3:
-      this.dataCircle = [
-        { region: 'Alfabetizados', count: this.convertToPercentage(this.weightingAreaInfo.educacao.alfabetizacao)},
-        { region: 'Não Alfabetizados', count: this.convertToPercentage(1 - this.weightingAreaInfo.educacao.alfabetizacao)}
-      ];
+  }
 
-      // Graph 4:
-      this.dataVertical = [
-        {salesperson: 'Prim. Comp.', sales: this.convertToPercentage(this.weightingAreaInfo.educacao.realizacao.primarioIncompl)},
-        {salesperson: 'Fund. Incomp.', sales: this.convertToPercentage(this.weightingAreaInfo.educacao.realizacao.FundamenIncompl)},
-        {salesperson: 'Medio Incomp.', sales: this.convertToPercentage(this.weightingAreaInfo.educacao.realizacao.MedioIncompl)},
-        {salesperson: 'Superior Incomp.', sales: this.convertToPercentage(this.weightingAreaInfo.educacao.realizacao.SuperiorIncompl)},
-        {salesperson: 'Superior Comp.', sales: this.convertToPercentage(this.weightingAreaInfo.educacao.realizacao.SuperiorComplet)}
-      ];
+  buildDataForOccupationalStructureGraph() {
+    // Graph 2: Comparative table. Data for AP
+    this.dataHorizontal = [
+      {type: 'militares', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.militares)},
+      {type: 'gerentes', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.gerentes)},
+      {type: 'profissionais', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.profissionais)},
+      {type: 'tecnicos', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.tecnicos)},
+      {type: 'trabEscritorio', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.trabEscritorio)},
+      {type: 'comercioServicos', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.comercioServicos)},
+      {type: 'agropecuaria', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.agropecuaria)},
+      {type: 'manuaisQualificados', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.manuaisQualificados)},
+      {type: 'operadoresMaquina', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.operadoresMaquina)},
+      {type: 'ocupacoesElementares', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.ocupacoesElementares)}
+    ];
 
-    });
+    this.generateHorizontalBarChart(this.dataHorizontal, this.div_occupationalStructureGraph);
 
+  }
+
+  buildDataForProfileEducationalGraph() {
     // Graph 3: Comparative table. Data for AP
+    this.dataCircle = [
+      { variableName: 'Alfabetizados', variableValue: this.convertToPercentage(this.weightingAreaInfo.educacao.alfabetizacao)},
+      { variableName: 'Não Alfabetizados', variableValue: this.convertToPercentage(1 - this.weightingAreaInfo.educacao.alfabetizacao)}
+    ];
+
+    this.generatePieGraph(this.dataCircle, this.div_profileEducationalGraph);
+  }
+
+  buildDataForCategoriesProfileEducationalGraph() {
+    // Graph 4:
+    this.dataVertical = [
+      {variableName: 'primarioIncompl',
+        variableValue: this.convertToPercentage(this.weightingAreaInfo.educacao.realizacao.primarioIncompl)},
+      {variableName: 'FundamenIncompl',
+        variableValue: this.convertToPercentage(this.weightingAreaInfo.educacao.realizacao.FundamenIncompl)},
+      {variableName: 'MedioIncompl',
+        variableValue: this.convertToPercentage(this.weightingAreaInfo.educacao.realizacao.MedioIncompl)},
+      {variableName: 'SuperiorIncompl',
+        variableValue: this.convertToPercentage(this.weightingAreaInfo.educacao.realizacao.SuperiorIncompl)},
+      {variableName: 'SuperiorComplet',
+        variableValue: this.convertToPercentage(this.weightingAreaInfo.educacao.realizacao.SuperiorComplet)}
+    ];
+
+    this.generateVerticalBarChart(this.dataVertical, this.div_categoriesProfileEducationalGraph);
+  }
+
+  buildDataForLiteracyGraph() {
+      this.groupChartDataForLiteracyGraph = {
+        labels: [
+          '6-10', '11-14', '15-17'
+        ],
+        series: [
+          {
+            label: 'AP',
+            values: [
+              this.convertToPercentage(this.weightingAreaInfo.educacao.idadeEscolar.range6to10.alfabetizacao),
+              this.convertToPercentage(this.weightingAreaInfo.educacao.idadeEscolar.range11to14.alfabetizacao),
+              this.convertToPercentage(this.weightingAreaInfo.educacao.idadeEscolar.range15to17.alfabetizacao)
+            ]
+          },
+          {
+            label: 'RMSP',
+            values: [
+              this.convertToPercentage(this.brSpRmspSecInfo[2].educacao.idadeEscolar.range6to10.alfabetizacao),
+              this.convertToPercentage(this.brSpRmspSecInfo[2].educacao.idadeEscolar.range11to14.alfabetizacao),
+              this.convertToPercentage(this.brSpRmspSecInfo[2].educacao.idadeEscolar.range15to17.alfabetizacao)
+            ]
+          },
+          {
+            label: 'UF',
+            values: [
+              this.convertToPercentage(this.brSpRmspSecInfo[1].educacao.idadeEscolar.range6to10.alfabetizacao),
+              this.convertToPercentage(this.brSpRmspSecInfo[1].educacao.idadeEscolar.range11to14.alfabetizacao),
+              this.convertToPercentage(this.brSpRmspSecInfo[1].educacao.idadeEscolar.range15to17.alfabetizacao)
+            ]
+          },
+          {
+            label: 'BR',
+            values: [
+              this.convertToPercentage(this.brSpRmspSecInfo[0].educacao.idadeEscolar.range6to10.alfabetizacao),
+              this.convertToPercentage(this.brSpRmspSecInfo[0].educacao.idadeEscolar.range11to14.alfabetizacao),
+              this.convertToPercentage(this.brSpRmspSecInfo[0].educacao.idadeEscolar.range15to17.alfabetizacao)
+            ]
+          }]
+      };
+  }
+
+  buildDataForScholarFrequencyGraph() {
+    this.groupChartDataForScholarFrequencyGraph = {
+      labels: [
+        '6-10', '11-14', '15-17'
+      ],
+      series: [
+        {
+          label: 'AP',
+          values: [
+            this.convertToPercentage(this.weightingAreaInfo.educacao.idadeEscolar.range6to10.frequentaEscola),
+            this.convertToPercentage(this.weightingAreaInfo.educacao.idadeEscolar.range11to14.frequentaEscola),
+            this.convertToPercentage(this.weightingAreaInfo.educacao.idadeEscolar.range15to17.frequentaEscola)
+          ]
+        },
+        {
+          label: 'RMSP',
+          values: [
+            this.convertToPercentage(this.brSpRmspSecInfo[2].educacao.idadeEscolar.range6to10.frequentaEscola),
+            this.convertToPercentage(this.brSpRmspSecInfo[2].educacao.idadeEscolar.range11to14.frequentaEscola),
+            this.convertToPercentage(this.brSpRmspSecInfo[2].educacao.idadeEscolar.range15to17.frequentaEscola)
+          ]
+        },
+        {
+          label: 'UF',
+          values: [
+            this.convertToPercentage(this.brSpRmspSecInfo[1].educacao.idadeEscolar.range6to10.frequentaEscola),
+            this.convertToPercentage(this.brSpRmspSecInfo[1].educacao.idadeEscolar.range11to14.frequentaEscola),
+            this.convertToPercentage(this.brSpRmspSecInfo[1].educacao.idadeEscolar.range15to17.frequentaEscola)
+          ]
+        },
+        {
+          label: 'BR',
+          values: [
+            this.convertToPercentage(this.brSpRmspSecInfo[0].educacao.idadeEscolar.range6to10.frequentaEscola),
+            this.convertToPercentage(this.brSpRmspSecInfo[0].educacao.idadeEscolar.range11to14.frequentaEscola),
+            this.convertToPercentage(this.brSpRmspSecInfo[0].educacao.idadeEscolar.range15to17.frequentaEscola)
+          ]
+        }]
+    };
+
+    this.generateGroupedHorizontalBarChart(this.groupChartDataForLiteracyGraph, this.div_literacyGraph);
+
   }
 
   convertToPercentage (value: number) {
@@ -279,15 +383,17 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       .attr('height', height + margin.top + margin.bottom)
       .style('background-color', '#efefef');
 
+    const tooltip = d3.select('body').append('div').attr('class', 'toolTip');
+
     // Define chart plot area
     const chart = svg.append('g')
       .attr('class', 'bar')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
     // Define domain data for X & Y axes from the data array
-    const xDomain = this.dataVertical.map(d => d.salesperson);
+    const xDomain = this.dataVertical.map(d => d.variableName);
     console.log('xDomain:', xDomain);
-    const yDomain = [0, d3.max(this.dataVertical, function(d) {return d.sales; })];
+    const yDomain = [0, d3.max(this.dataVertical, function(d) {return d.variableValue; })];
 
     // Set the scale for X & Y
     const x = d3.scaleBand()
@@ -303,7 +409,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     // add the x Axis
     chart.append('g')
       .attr('class', 'x axis')
-      .attr('transform', 'translate(' + margin.left + ',' + (margin.top + height) + ')')
+      .attr('transform', 'translate(' + margin.left + ',' + ( height) + ')')
       .call(d3.axisBottom(x))
       .selectAll('text')
       .style('text-anchor', 'end')
@@ -314,7 +420,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     // add the y Axis
     chart.append('g')
       .attr('class', 'y axis')
-      .attr('transform', `translate(${margin.left}, ${margin.top})`)
+      .attr('transform', 'translate(' + margin.left + ',' + 0 + ')' )
       .call(d3.axisLeft(y));
 
     // Plotting the chart
@@ -322,10 +428,18 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       .data(this.dataVertical)
       .enter().append('rect')
       .attr('class', 'bar')
-      .attr('x', function(d) { return margin.left + x(d.salesperson) ; })
+      .attr('x', function(d) { return margin.left + x(d.variableName) ; })
       .attr('width', x.bandwidth)
-      .attr('y', function(d) { return y(d.sales); })
-      .attr('height', function(d) { return height - y(d.sales); });
+      .attr('y', function(d) { return y(d.variableValue); })
+      .attr('height', function(d) { return height - y(d.variableValue); })
+      .on('mousemove', function(d) {
+        tooltip
+          .style('left', d3.event.pageX - 50 + 'px')
+          .style('top', d3.event.pageY - 70 + 'px')
+          .style('display', 'inline-block')
+          .html((d.variableName) + '<br>' + (d.variableValue) + '%');
+      })
+      .on('mouseout', function(d) { tooltip.style('display', 'none'); });
   }
 
   generateHorizontalBarChart(dataGraph: any, containerDiv: ElementRef ) {
@@ -393,6 +507,122 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
   }
 
+  generateGroupedHorizontalBarChart(dataGraph: any, containerDiv: ElementRef ) {
+    // Define chart dimensions
+    const chartWidth       = 200,
+      barHeight        = 20,
+      groupHeight      = barHeight * dataGraph.series.length,
+      gapBetweenGroups = 20,
+      spaceForLabels   = 50, // 150
+      spaceForLegend   = 80; // 150
+
+    // Zip the series data together (first values, second values, etc.)
+    // [4,12,31, 8,43,28, 15,22,14]
+    const zippedData = [];
+    for (let i = 0; i < dataGraph.labels.length; i++) {
+      for (let j = 0; j < dataGraph.series.length; j++) {
+        zippedData.push(dataGraph.series[j].values[i]);
+      }
+    }
+
+    // Color scale
+    // const color = d3.scale.category20();
+    const color = d3.scaleOrdinal(['#66c2a5', '#fc8d62', '#8da0cb', '#a6d854', '#e78ac3']);
+    const chartHeight = barHeight * zippedData.length + gapBetweenGroups * dataGraph.labels.length;
+
+    const x = d3.scaleLinear()
+      .domain([0, d3.max(zippedData)])
+      .range([0, chartWidth]);
+
+    const y = d3.scaleBand()
+      .range([chartHeight + gapBetweenGroups, 0])
+      .padding(0.1);
+
+    // y.domain(dataGraph.series.map(d => d.label )).padding(0.1);
+
+    // Remove all children from HTML
+    d3.select(containerDiv.nativeElement).html('');
+
+    // Specify the chart area and dimensions
+    const chart = d3.select(containerDiv.nativeElement).append('svg')
+      .attr('class', 'barchart')
+      .attr('width', spaceForLabels + chartWidth + spaceForLegend)
+      .attr('height', chartHeight);
+
+    // Create bars
+    const bar = chart.selectAll('g')
+      .data(zippedData)
+      .enter().append('g')
+      .attr('transform', function(d, i) {
+        return 'translate(' + spaceForLabels + ',' +
+          (i * barHeight + gapBetweenGroups * (0.5 + Math.floor(i / dataGraph.series.length))) + ')';
+      });
+
+    // Create rectangles of the correct width
+    bar.append('rect')
+      .attr('fill', function(d, i) { return color((i % dataGraph.series.length).toString()); }) // ()
+      .attr('class', 'barRect')
+      .attr('width', x)
+      .attr('height', barHeight - 1);
+
+    // Add text label in bar
+    bar.append('text')
+      .attr('x', function(d) { return x(d) - 3; })
+      .attr('y', barHeight / 2)
+      .attr('fill', 'red')
+      .attr('dy', '.35em')
+      .text(function(d) { return d; });
+
+    // Draw labels
+    bar.append('text')
+      .attr('class', 'label')
+      .attr('x', function(d) { return - 10; })
+      .attr('y', groupHeight / 2)
+      .attr('dy', '.35em')
+      .text(function(d, i) {
+        if (i % dataGraph.series.length === 0) {
+          return dataGraph.labels[Math.floor(i / dataGraph.series.length)];
+        } else {
+          return '';
+        }
+      });
+
+    chart.append('g')
+      .attr('class', 'y axis')
+      .attr('transform', 'translate(' + spaceForLabels + ', ' + -gapBetweenGroups / 2 + ')')
+      .call(d3.axisLeft(y));
+
+    // Draw legend
+    const legendRectSize = 18,
+      legendSpacing  = 4;
+
+    const legend = chart.selectAll('.legend')
+      .data(dataGraph.series)
+      .enter()
+      .append('g')
+      .attr('transform', function (d, i) {
+        const height = legendRectSize + legendSpacing;
+        const offset = -gapBetweenGroups / 2;
+        const horz = spaceForLabels + chartWidth + 40 - legendRectSize;
+        const vert = i * height - offset;
+        return 'translate(' + horz + ',' + vert + ')';
+      });
+
+    legend.append('rect')
+      .attr('width', legendRectSize)
+      .attr('height', legendRectSize)
+      .style('fill', function (d, i) { return color(i.toString()); })
+      .style('stroke', function (d, i) { return color(i.toString()); });
+
+    legend.append('text')
+      .attr('class', 'legend')
+      .attr('x', legendRectSize + legendSpacing)
+      .attr('y', legendRectSize - legendSpacing)
+      .text(function (d, i) {
+        console.log('d group bar: ', dataGraph.series[i].label); return dataGraph.series[i].label;
+        // d.label;
+      });
+  }
 
   generatePieGraph(dataGraph: any, containerDiv: ElementRef) {
     // Define chart dimensions
@@ -430,12 +660,12 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
     // Join new data
     const arcs = g.selectAll('.arc')
-      .data(pie(dataGraph.map(d => d.count)))
+      .data(pie(dataGraph.map(d => d.variableValue)))
       .enter()
       .append('g')
       .attr('class', 'arc');
 
-    console.log(pie(dataGraph.map(d => d.count)));
+    console.log(pie(dataGraph.map(d => d.variableValue)));
 
     // Enter new arcs
     arcs.append('path')
@@ -551,21 +781,6 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     }
     this.categories[idCatSelected].visible = true;
     this.categoryDefaultIndex = idCatSelected;
-    /*switch (idCatSelected) {
-      case 0 : {
-        this.categories[idCatSelected].visible = true;
-        break;
-      }
-      case 1 : {
-        break;
-      }
-      case 2 : {
-        break;
-      }
-      case 3 : {
-        break;
-      }
-    }*/
   }
 
   /**

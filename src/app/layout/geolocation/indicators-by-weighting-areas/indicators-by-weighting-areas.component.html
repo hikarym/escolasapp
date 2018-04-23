@@ -54,28 +54,48 @@
             <div [hidden]="!categories[0].visible">
               <div class="section-info-line">
                 <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-2x fa-caret-right"></span>
-                <span class="section-info-text">
-              <span>Tabela Comparativa de características socieconômicas</span>
-            </span>
+                <span class="section-info-text"><span>Tabela Comparativa de características socieconômicas</span> </span>
               </div>
               <div #comparativeTableGraph style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
+
               <div class="section-info-line">
                 <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-2x fa-caret-right"></span>
-                <span class="section-info-text">
-              <span>Estrutura Ocupacional</span>
-            </span>
+                <span class="section-info-text"><span>Estrutura Ocupacional</span></span>
               </div>
               <div #occupationalStructureGraph width="335" height="300"
                    style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
             </div>
             <div [hidden]="!categories[1].visible">
+              <div class="section-info-line">
+                <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-2x fa-caret-right"></span>
+                <span class="section-info-text"><span>Alfabetização</span> </span>
+              </div>
               <div #profileEducationalGraph style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
+
+              <div class="section-info-line">
+                <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-2x fa-caret-right"></span>
+                <span class="section-info-text"><span>Realização</span> </span>
+              </div>
               <div #categoriesProfileEducationalGraph
                    style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
             </div>
             <div [hidden]="!categories[2].visible">
+              <div class="section-info-line">
+                <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-2x fa-caret-right"></span>
+                <span class="section-info-text"><span>ALFABETIZAÇÃO</span> </span>
+              </div>
               <div #literacyGraph style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
-              <div #frequencyGraph style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
+
+              <div class="section-info-line">
+                <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-2x fa-caret-right"></span>
+                <span class="section-info-text"><span>FREQUÊNCIA À ESCOLAS</span> </span>
+              </div>
+              <div #scholarFrequencyGraph ></div>
+
+              <div class="section-info-line">
+                <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-2x fa-caret-right"></span>
+                <span class="section-info-text"><span>NIVEL FREQUENTADO</span> </span>
+              </div>
               <div #educationalLevelGraph style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
             </div>
             <div [hidden]="!categories[3].visible">
@@ -83,6 +103,7 @@
               <div #racialDistributionGraph style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
             </div>
           </div>
+
           <ul *ngFor="let cat of categories">
 
             <li *ngIf="cat.group ==='cat1' && cat.visible === true"

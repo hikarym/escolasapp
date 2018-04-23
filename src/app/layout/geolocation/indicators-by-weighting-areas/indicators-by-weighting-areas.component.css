@@ -519,7 +519,26 @@ a:link, a:visited{
   padding: 14px;
   text-align: center;
 }
+.barchart .legend {
+  fill: black;
+  font: 14px sans-serif;
+  text-anchor: start;
+  font-size: 12px;
+}
+.barchart text {
+  fill: white;
+  font: 10px sans-serif;
+  text-anchor: end;
+}
+.barchart .label {
+  fill: black;
+  font: 14px sans-serif;
+  text-anchor: end;
+}
 
+.barRect:hover {
+  fill: #0080FF
+}
 
 /* ---------- */
 .dropdown-toggle_maf::after {
