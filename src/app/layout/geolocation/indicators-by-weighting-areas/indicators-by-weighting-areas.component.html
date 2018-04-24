@@ -58,12 +58,45 @@
               </div>
               <div #comparativeTableGraph style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
 
+              <!--END ESTRUTURA OCUPACIONAL -->
               <div class="section-info-line">
                 <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-2x fa-caret-right"></span>
                 <span class="section-info-text"><span>Estrutura Ocupacional</span></span>
               </div>
-              <div #occupationalStructureGraph width="335" height="300"
-                   style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
+
+              <!--tab -->
+              <div style="margin: 5px 25px 5px 5px;">
+                <ul class="nav nav-tabs text-center" id="structureOcupationalTab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="ap-tabStructureOcupational" data-toggle="tab" href="#apStructureOcupational" role="tab" aria-controls="apStructureOcupational" aria-selected="true"><i class="fa fa-circle"></i> AP</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="metropole-tabStructureOcupational" data-toggle="tab" href="#metropoleStructureOcupational" role="tab" aria-controls="metropoleStructureOcupational" aria-selected="false"><i class="fa fa-building"></i> RMSP</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="uf-tabStructureOcupational" data-toggle="tab" href="#ufStructureOcupational" role="tab" aria-controls="ufStructureOcupational" aria-selected="false"><i class="fa fa-map-marker"></i> UF de SP</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="brasil-tabStructureOcupational" data-toggle="tab" href="#brasilStructureOcupational" role="tab" aria-controls="brasilStructureOcupational" aria-selected="false"><i class="fa fa-map"></i> Brasil</a>
+                  </li>
+                </ul>
+                <div class="tab-content" id="structureOcupationalTabContent">
+                  <div class="tab-pane fade show active" id="apStructureOcupational" role="tabpanel" aria-labelledby="ap-tabStructureOcupational">
+                    <div #occupationalStructureByAPGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
+                  </div>
+                  <div class="tab-pane fade" id="metropoleStructureOcupational" role="tabpanel" aria-labelledby="metropole-tabStructureOcupational">
+                    <div #occupationalStructureByMetropoleGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
+                  </div>
+                  <div class="tab-pane fade" id="ufStructureOcupational" role="tabpanel" aria-labelledby="uf-tabStructureOcupational">
+                    <div #occupationalStructureByUFGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
+                  </div>
+                  <div class="tab-pane fade" id="brasilStructureOcupational" role="tabpanel" aria-labelledby="brasil-tabStructureOcupational">
+                    <div #occupationalStructureByBrasilGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
+                  </div>
+                </div>
+              </div>
+              <!-- end tab -->
+              <!-- END ESTRUCTURA OCUPACIONAL -->
             </div>
             <div [hidden]="!categories[1].visible">
               <div class="section-info-line">
@@ -72,12 +105,45 @@
               </div>
               <div #profileEducationalGraph style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
 
+              <!--REALIZAÇÃO -->
               <div class="section-info-line">
                 <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-2x fa-caret-right"></span>
                 <span class="section-info-text"><span>Realização</span> </span>
               </div>
-              <div #categoriesProfileEducationalGraph
-                   style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
+              <!--tab -->
+              <div style="margin: 5px 25px 5px 5px;">
+                <ul class="nav nav-tabs text-center" id="CatProfileEducationalTab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="ap-tabCatProfileEducational" data-toggle="tab" href="#apCatProfileEducational" role="tab" aria-controls="apCatProfileEducational" aria-selected="true"><i class="fa fa-circle"></i> AP</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="metropole-tabCatProfileEducational" data-toggle="tab" href="#metropoleCatProfileEducational" role="tab" aria-controls="metropoleCatProfileEducational" aria-selected="false"><i class="fa fa-building"></i> RMSP</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="uf-tabCatProfileEducational" data-toggle="tab" href="#ufCatProfileEducational" role="tab" aria-controls="ufCatProfileEducational" aria-selected="false"><i class="fa fa-map-marker"></i> UF de SP</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="brasil-tabCatProfileEducational" data-toggle="tab" href="#brasilCatProfileEducational" role="tab" aria-controls="brasilCatProfileEducational" aria-selected="false"><i class="fa fa-map"></i> Brasil</a>
+                  </li>
+                </ul>
+                <div class="tab-content" id="CatProfileEducationalTabContent">
+                  <div class="tab-pane fade show active" id="apCatProfileEducational" role="tabpanel" aria-labelledby="ap-tabCatProfileEducational">
+                    <div #categoriesProfileEducationalByAPGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
+                  </div>
+                  <div class="tab-pane fade" id="metropoleCatProfileEducational" role="tabpanel" aria-labelledby="metropole-tabCatProfileEducational">
+                    <div #categoriesProfileEducationalByMetropoleGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
+                  </div>
+                  <div class="tab-pane fade" id="ufCatProfileEducational" role="tabpanel" aria-labelledby="uf-tabCatProfileEducational">
+                    <div #categoriesProfileEducationalByUFGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
+                  </div>
+                  <div class="tab-pane fade" id="brasilCatProfileEducational" role="tabpanel" aria-labelledby="brasil-tabCatProfileEducational">
+                    <div #categoriesProfileEducationalByBrasilGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
+                  </div>
+                </div>
+              </div>
+              <!-- end tab -->
+
+              <!--END REALIZAÇÃO -->
             </div>
             <div [hidden]="!categories[2].visible">
               <div class="section-info-line">
@@ -92,11 +158,43 @@
               </div>
               <div #scholarFrequencyGraph ></div>
 
+              <!-- NIVEL FREQUENTADO -->
               <div class="section-info-line">
                 <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-2x fa-caret-right"></span>
                 <span class="section-info-text"><span>NIVEL FREQUENTADO</span> </span>
               </div>
-              <div #educationalLevelGraph style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
+              <!--tab -->
+              <div style="margin: 5px 25px 5px 5px;">
+                <ul class="nav nav-tabs text-center" id="myTab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="ap-tab" data-toggle="tab" href="#ap" role="tab" aria-controls="ap" aria-selected="true"><i class="fa fa-circle"></i> AP</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="metropole-tab" data-toggle="tab" href="#metropole" role="tab" aria-controls="metropole" aria-selected="false"><i class="fa fa-building"></i> RMSP</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="uf-tab" data-toggle="tab" href="#uf" role="tab" aria-controls="uf" aria-selected="false"><i class="fa fa-map-marker"></i> UF de SP</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="brasil-tab" data-toggle="tab" href="#brasil" role="tab" aria-controls="brasil" aria-selected="false"><i class="fa fa-map"></i> Brasil</a>
+                  </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                  <div class="tab-pane fade show active" id="ap" role="tabpanel" aria-labelledby="ap-tab">
+                    <div #educationalLevelByAPGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
+                  </div>
+                  <div class="tab-pane fade" id="metropole" role="tabpanel" aria-labelledby="metropole-tab">
+                    <div #educationalLevelByMetropoleGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
+                  </div>
+                  <div class="tab-pane fade" id="uf" role="tabpanel" aria-labelledby="uf-tab">
+                    <div #educationalLevelByUFGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
+                  </div>
+                  <div class="tab-pane fade" id="brasil" role="tabpanel" aria-labelledby="brasil-tab">
+                    <div #educationalLevelByBrasilGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
+                  </div>
+                </div>
+              </div>
+              <!--END NIVEL FREQUENTADO -->
             </div>
             <div [hidden]="!categories[3].visible">
               <div #agePyramidGraph style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>

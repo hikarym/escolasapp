@@ -410,15 +410,6 @@ button {
 }
 
 /* Graphs */
-/* Bar chart */
-.bar {
-  fill: #fd6309
-}
-
-.bar:hover {
-  fill: #0080FF
-}
-
 /* pie chart */
 .arc text {
   font: 10px sans-serif;
@@ -474,7 +465,7 @@ tr:last-child td:last-child { border-bottom-right-radius: 5px; }
   margin-top: 30px;
 }
 th{
-  background: #418FC6;
+  background: #0E3D59;
   color: #fff;
 }
 .subti{
@@ -497,13 +488,16 @@ a:link, a:visited{
 
 /*vertical bar chart graph*/
 .bar {
-  fill: #6F257F;
+  fill: #F29F05;
+}
+.bar:hover {
+  fill: #0E3D59;
 }
 .axis path,
 .axis line {
   fill: none;
   stroke: #D4D8DA;
-  stroke-width: 1px;
+  stroke-width: 2px;
   shape-rendering: crispEdges;
 }
 .x path {
@@ -515,7 +509,7 @@ a:link, a:visited{
   min-width: 80px;
   height: auto;
   background: none repeat scroll 0 0 #ffffff;
-  border: 1px solid #6F257F;
+  border: 1px solid #0E3D59;
   padding: 14px;
   text-align: center;
 }
@@ -526,18 +520,21 @@ a:link, a:visited{
   font-size: 12px;
 }
 .barchart text {
-  fill: white;
+  fill: black;
   font: 10px sans-serif;
-  text-anchor: end;
+  text-anchor: end; /*end*/
 }
 .barchart .label {
   fill: black;
-  font: 14px sans-serif;
+  font: 12px sans-serif;
   text-anchor: end;
 }
 
 .barRect:hover {
-  fill: #0080FF
+  /*fill: #000000;
+  fill-opacity: 0.1;*/
+  stroke-width:1;
+  stroke:#000000;
 }
 
 /* ---------- */

@@ -87,13 +87,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       { variableName: 'Central', variableValue: 200}
     ]
   };
-  dataVertical = [
-    {variableName: 'tmp', variableValue: 33}
-  ];
 
-  dataHorizontal = [
-    {type: 'tipo', value: 0}
-  ];
   dataCircle = [
     { variableName: 'Alfabetizados', variableValue: 53245}
   ];
@@ -103,54 +97,54 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     {model: 'GINI', ap: 0, municipio: 0, metropole: 0, uf: 0, br: 0}
   ];
 
-  groupChartData2 = [
-    { '2614': 8, '4449': 15, 'over': 1 },
-    { '2614': 7, '4449': 2, 'over': 2 },
-    { '2614': 4, '4449': 5, 'over': 3 }
-  ];
-  columnsInfo = { '2614': 'Team A', '4449': 'Team B' };
-
-  groupChartDataForLiteracyGraph = {
-    labels: [
-      'cat1', 'cat2', 'cat3'
-    ],
-    series: [
-      {
-        label: 'AP',
-        values: [4, 8, 15]
-      }]
-  };
-
-  groupChartDataForScholarFrequencyGraph = {
-    labels: [
-      'cat1', 'cat2', 'cat3'
-    ],
-    series: [
-      {
-        label: 'AP',
-        values: [4, 8, 15]
-      }]
-  };
-
-
   // ----------------
   @ViewChild('comparativeTableGraph')
   private div_comparativeTableGraph: ElementRef;
 
-  @ViewChild('occupationalStructureGraph')
-  private div_occupationalStructureGraph: ElementRef;
+  @ViewChild('occupationalStructureByAPGraph')
+  private div_occupationalStructureByAPGraph: ElementRef;
+
+  @ViewChild('occupationalStructureByMetropoleGraph')
+  private div_occupationalStructureByMetropoleGraph: ElementRef;
+
+  @ViewChild('occupationalStructureByUFGraph')
+  private div_occupationalStructureByUFGraph: ElementRef;
+
+  @ViewChild('occupationalStructureByBrasilGraph')
+  private div_occupationalStructureByBrasilGraph: ElementRef;
 
   @ViewChild('profileEducationalGraph')
   private div_profileEducationalGraph: ElementRef;
 
-  @ViewChild('categoriesProfileEducationalGraph')
-  private div_categoriesProfileEducationalGraph: ElementRef;
+  @ViewChild('categoriesProfileEducationalByAPGraph')
+  private div_categoriesProfileEducationalByAPGraph: ElementRef;
+
+  @ViewChild('categoriesProfileEducationalByMetropoleGraph')
+  private div_categoriesProfileEducationalByMetropoleGraph: ElementRef;
+
+  @ViewChild('categoriesProfileEducationalByUFGraph')
+  private div_categoriesProfileEducationalByUFGraph: ElementRef;
+
+  @ViewChild('categoriesProfileEducationalByBrasilGraph')
+  private div_categoriesProfileEducationalByBrasilGraph: ElementRef;
 
   @ViewChild('literacyGraph')
   private div_literacyGraph: ElementRef;
 
   @ViewChild('scholarFrequencyGraph')
   private div_scholarFrequencyGraph: ElementRef;
+
+  @ViewChild('educationalLevelByAPGraph')
+  private div_educationalLevelByAPGraph: ElementRef;
+
+  @ViewChild('educationalLevelByMetropoleGraph')
+  private div_educationalLevelByMetropoleGraph: ElementRef;
+
+  @ViewChild('educationalLevelByUFGraph')
+  private div_educationalLevelByUFGraph: ElementRef;
+
+  @ViewChild('educationalLevelByBrasilGraph')
+  private div_educationalLevelByBrasilGraph: ElementRef;
 
   // ----------------
   private subscription = new Subscription();
@@ -186,15 +180,41 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
             this.buildDataForComparativeTable();
 
-            this.buildDataForOccupationalStructureGraph();
+            this.buildDataForOccupationalStructureGraph(this.weightingAreaInfo,
+              this.div_occupationalStructureByAPGraph);
+            this.buildDataForOccupationalStructureGraph(this.brSpRmspSecInfo[2],
+              this.div_occupationalStructureByMetropoleGraph);
+            this.buildDataForOccupationalStructureGraph(this.brSpRmspSecInfo[1],
+              this.div_occupationalStructureByUFGraph);
+            this.buildDataForOccupationalStructureGraph(this.brSpRmspSecInfo[0],
+              this.div_occupationalStructureByBrasilGraph);
 
             this.buildDataForProfileEducationalGraph();
 
-            this.buildDataForCategoriesProfileEducationalGraph();
+            this.buildDataForCategoriesProfileEducationalGraph(this.weightingAreaInfo,
+              this.div_categoriesProfileEducationalByAPGraph);
+            this.buildDataForCategoriesProfileEducationalGraph(this.brSpRmspSecInfo[2],
+              this.div_categoriesProfileEducationalByMetropoleGraph);
+            this.buildDataForCategoriesProfileEducationalGraph(this.brSpRmspSecInfo[1],
+              this.div_categoriesProfileEducationalByUFGraph);
+            this.buildDataForCategoriesProfileEducationalGraph(this.brSpRmspSecInfo[0],
+              this.div_categoriesProfileEducationalByBrasilGraph);
 
             this.buildDataForLiteracyGraph();
 
             this.buildDataForScholarFrequencyGraph();
+
+            this.buildDataForEducationalLevelGraph(this.weightingAreaInfo, this.div_educationalLevelByAPGraph);
+            this.buildDataForEducationalLevelGraph(this.brSpRmspSecInfo[2], this.div_educationalLevelByMetropoleGraph);
+            this.buildDataForEducationalLevelGraph(this.brSpRmspSecInfo[1], this.div_educationalLevelByUFGraph);
+            this.buildDataForEducationalLevelGraph(this.brSpRmspSecInfo[0], this.div_educationalLevelByBrasilGraph);
+            /*this.buildDataForEducationalLevelByAPGraph();
+
+            this.buildDataForEducationalLevelByMetropoleGraph();
+
+            this.buildDataForEducationalLevelByUFGraph();
+
+            this.buildDataForEducationalLevelByBrasilGraph();*/
 
           });
 
@@ -231,22 +251,22 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
   }
 
-  buildDataForOccupationalStructureGraph() {
-    // Graph 2: Comparative table. Data for AP
-    this.dataHorizontal = [
-      {type: 'militares', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.militares)},
-      {type: 'gerentes', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.gerentes)},
-      {type: 'profissionais', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.profissionais)},
-      {type: 'tecnicos', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.tecnicos)},
-      {type: 'trabEscritorio', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.trabEscritorio)},
-      {type: 'comercioServicos', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.comercioServicos)},
-      {type: 'agropecuaria', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.agropecuaria)},
-      {type: 'manuaisQualificados', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.manuaisQualificados)},
-      {type: 'operadoresMaquina', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.operadoresMaquina)},
-      {type: 'ocupacoesElementares', value: this.convertToPercentage(this.weightingAreaInfo.ses.ocup.ocupacoesElementares)}
+  buildDataForOccupationalStructureGraph(data: any, containerDiv: ElementRef) {
+
+    const ocupationalStructureData = [
+      {variableName: 'militares', variableValue: this.convertToPercentage(data.ses.ocup.militares)},
+      {variableName: 'gerentes', variableValue: this.convertToPercentage(data.ses.ocup.gerentes)},
+      {variableName: 'profissionais', variableValue: this.convertToPercentage(data.ses.ocup.profissionais)},
+      {variableName: 'tecnicos', variableValue: this.convertToPercentage(data.ses.ocup.tecnicos)},
+      {variableName: 'trabEscritorio', variableValue: this.convertToPercentage(data.ses.ocup.trabEscritorio)},
+      {variableName: 'comercioServicos', variableValue: this.convertToPercentage(data.ses.ocup.comercioServicos)},
+      {variableName: 'agropecuaria', variableValue: this.convertToPercentage(data.ses.ocup.agropecuaria)},
+      {variableName: 'manuaisQualificados', variableValue: this.convertToPercentage(data.ses.ocup.manuaisQualificados)},
+      {variableName: 'operadoresMaquina', variableValue: this.convertToPercentage(data.ses.ocup.operadoresMaquina)},
+      {variableName: 'ocupacoesElementares', variableValue: this.convertToPercentage(data.ses.ocup.ocupacoesElementares)}
     ];
 
-    this.generateHorizontalBarChart(this.dataHorizontal, this.div_occupationalStructureGraph);
+    this.generateHorizontalBarChart(ocupationalStructureData, containerDiv);
 
   }
 
@@ -260,26 +280,26 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     this.generatePieGraph(this.dataCircle, this.div_profileEducationalGraph);
   }
 
-  buildDataForCategoriesProfileEducationalGraph() {
+  buildDataForCategoriesProfileEducationalGraph(data: any, containerDiv: ElementRef) {
     // Graph 4:
-    this.dataVertical = [
+    const dataVertical = [
       {variableName: 'primarioIncompl',
-        variableValue: this.convertToPercentage(this.weightingAreaInfo.educacao.realizacao.primarioIncompl)},
+        variableValue: this.convertToPercentage(data.educacao.realizacao.primarioIncompl)},
       {variableName: 'FundamenIncompl',
-        variableValue: this.convertToPercentage(this.weightingAreaInfo.educacao.realizacao.FundamenIncompl)},
+        variableValue: this.convertToPercentage(data.educacao.realizacao.FundamenIncompl)},
       {variableName: 'MedioIncompl',
-        variableValue: this.convertToPercentage(this.weightingAreaInfo.educacao.realizacao.MedioIncompl)},
+        variableValue: this.convertToPercentage(data.educacao.realizacao.MedioIncompl)},
       {variableName: 'SuperiorIncompl',
-        variableValue: this.convertToPercentage(this.weightingAreaInfo.educacao.realizacao.SuperiorIncompl)},
+        variableValue: this.convertToPercentage(data.educacao.realizacao.SuperiorIncompl)},
       {variableName: 'SuperiorComplet',
-        variableValue: this.convertToPercentage(this.weightingAreaInfo.educacao.realizacao.SuperiorComplet)}
+        variableValue: this.convertToPercentage(data.educacao.realizacao.SuperiorComplet)}
     ];
 
-    this.generateVerticalBarChart(this.dataVertical, this.div_categoriesProfileEducationalGraph);
+    this.generateVerticalBarChart(dataVertical, containerDiv);
   }
 
   buildDataForLiteracyGraph() {
-      this.groupChartDataForLiteracyGraph = {
+      const groupChartDataForLiteracyGraph = {
         labels: [
           '6-10', '11-14', '15-17'
         ],
@@ -318,11 +338,11 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
           }]
       };
 
-    this.generateGroupedHorizontalBarChart(this.groupChartDataForLiteracyGraph, this.div_literacyGraph);
+    this.generateGroupedHorizontalBarChart(groupChartDataForLiteracyGraph, this.div_literacyGraph);
   }
 
   buildDataForScholarFrequencyGraph() {
-    this.groupChartDataForScholarFrequencyGraph = {
+    const groupChartDataForScholarFrequencyGraph = {
       labels: [
         '6-10', '11-14', '15-17'
       ],
@@ -361,15 +381,50 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
         }]
     };
 
-    this.generateGroupedHorizontalBarChart(this.groupChartDataForScholarFrequencyGraph, this.div_scholarFrequencyGraph);
+    this.generateGroupedHorizontalBarChart(groupChartDataForScholarFrequencyGraph, this.div_scholarFrequencyGraph);
 
+  }
+
+  buildDataForEducationalLevelGraph(data: any, containerDiv: ElementRef) {
+    const groupChartDataForEducationalLevelGraph = {
+      labels: [
+        '6-10', '11-14', '15-17'
+      ],
+      series: [
+        {
+          label: 'Fund.',
+          values: [
+            this.convertToPercentage(data.educacao.idadeEscolar.range6to10.frequentaFundamental),
+            this.convertToPercentage(data.educacao.idadeEscolar.range11to14.frequentaFundamental),
+            this.convertToPercentage(data.educacao.idadeEscolar.range15to17.frequentaFundamental)
+          ]
+        },
+        {
+          label: 'Medio',
+          values: [
+            this.convertToPercentage(data.educacao.idadeEscolar.range6to10.frequentaMedio),
+            this.convertToPercentage(data.educacao.idadeEscolar.range11to14.frequentaMedio),
+            this.convertToPercentage(data.educacao.idadeEscolar.range15to17.frequentaMedio)
+          ]
+        },
+        {
+          label: 'Outro',
+          values: [
+            this.convertToPercentage(data.educacao.idadeEscolar.range6to10.frequentaOutro),
+            this.convertToPercentage(data.educacao.idadeEscolar.range11to14.frequentaOutro),
+            this.convertToPercentage(data.educacao.idadeEscolar.range15to17.frequentaOutro)
+          ]
+        }]
+    };
+
+    this.generateGroupedHorizontalBarChart(groupChartDataForEducationalLevelGraph, containerDiv);
   }
 
   convertToPercentage (value: number) {
     return parseFloat((value * 100).toFixed(2));
   }
 
-  generateVerticalBarChart(dataGraph2: any, containerDiv: ElementRef) {
+  generateVerticalBarChart(dataGraph: {variableName: string; variableValue: number; }[], containerDiv: ElementRef) {
     // Define chart dimensions
     const margin = {top: 15, right: 20, bottom: 100, left: 20};
     const width = 335 - margin.left - margin.right;
@@ -393,9 +448,9 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
     // Define domain data for X & Y axes from the data array
-    const xDomain = this.dataVertical.map(d => d.variableName);
+    const xDomain = dataGraph.map(d => d.variableName);
     console.log('xDomain:', xDomain);
-    const yDomain = [0, d3.max(this.dataVertical, function(d) {return d.variableValue; })];
+    const yDomain = [0, d3.max(dataGraph, function(d) {return d.variableValue; })];
 
     // Set the scale for X & Y
     const x = d3.scaleBand()
@@ -427,7 +482,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
     // Plotting the chart
     chart.selectAll('bar')
-      .data(this.dataVertical)
+      .data(dataGraph)
       .enter().append('rect')
       .attr('class', 'bar')
       .attr('x', function(d) { return margin.left + x(d.variableName) ; })
@@ -444,10 +499,10 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       .on('mouseout', function(d) { tooltip.style('display', 'none'); });
   }
 
-  generateHorizontalBarChart(dataGraph: any, containerDiv: ElementRef ) {
+  generateHorizontalBarChart(dataGraph: {variableName: string; variableValue: number; }[], containerDiv: ElementRef ) {
     /*const percentage_data = [];
     // Pass the values to percentages
-    this.dataHorizontal.forEach(function(d, i) {
+    this.ocupationalStructureByAPData.forEach(function(d, i) {
       d.valuePerc = (d.value * 100).toFixed(2) + '%';
       percentage_data.push([d.type, d.valuePerc]);
     });*/
@@ -474,10 +529,10 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     const g = svg.append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-    this.dataHorizontal.sort(function(a, b) { return a.value - b.value; });
+    dataGraph.sort(function(a, b) { return a.variableValue - b.variableValue; });
 
-    x.domain([0, d3.max(this.dataHorizontal, function(d) { return d.value; })]);
-    y.domain(this.dataHorizontal.map(d => d.type )).padding(0.1);
+    x.domain([0, d3.max(dataGraph, function(d) {return d.variableValue; } )]);
+    y.domain(dataGraph.map(d => d.variableName )).padding(0.1);
 
     g.append('g')
       .attr('class', 'x axis')
@@ -490,19 +545,19 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       .call(d3.axisLeft(y));
 
     g.selectAll('.bar')
-      .data(this.dataHorizontal)
+      .data(dataGraph)
       .enter().append('rect')
       .attr('class', 'bar')
       .attr('x', 0)
       .attr('height', y.bandwidth())
-      .attr('y', function(d) { return y(d.type); })
-      .attr('width', function(d) { return x(d.value); })
+      .attr('y', function(d) { return y(d.variableName); })
+      .attr('width', function(d) { return x(d.variableValue); })
       .on('mousemove', function(d) {
         tooltip
           .style('left', d3.event.pageX - 50 + 'px')
           .style('top', d3.event.pageY - 70 + 'px')
           .style('display', 'inline-block')
-          .html((d.type) + '<br>' + (d.value) + '%');
+          .html((d.variableName) + '<br>' + (d.variableValue) + '%');
       })
       .on('mouseout', function(d) { tooltip.style('display', 'none'); });
 
@@ -511,7 +566,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
   generateGroupedHorizontalBarChart(dataGraph: any, containerDiv: ElementRef ) {
     // Define chart dimensions
-    const chartWidth       = 200,
+    const chartWidth       = 190,
       barHeight        = 20,
       groupHeight      = barHeight * dataGraph.series.length,
       gapBetweenGroups = 20,
@@ -529,12 +584,12 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
     // Color scale
     // const color = d3.scale.category20();
-    const color = d3.scaleOrdinal(['#66c2a5', '#fc8d62', '#8da0cb', '#a6d854', '#e78ac3']);
+    const color = d3.scaleOrdinal(['#0E3D59', '#88A61B', '#F29F05', '#FA6F1E', '#D92525']);
     const chartHeight = barHeight * zippedData.length + gapBetweenGroups * dataGraph.labels.length;
 
     const x = d3.scaleLinear()
       .domain([0, d3.max(zippedData)])
-      .range([0, chartWidth]);
+      .range([0, chartWidth - 18]);
 
     const y = d3.scaleBand()
       .range([chartHeight + gapBetweenGroups, 0])
@@ -551,6 +606,8 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       .attr('width', spaceForLabels + chartWidth + spaceForLegend)
       .attr('height', chartHeight);
 
+    const tooltip = d3.select('body').append('div').attr('class', 'toolTip');
+
     // Create bars
     const bar = chart.selectAll('g')
       .data(zippedData)
@@ -558,24 +615,32 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       .attr('transform', function(d, i) {
         return 'translate(' + spaceForLabels + ',' +
           (i * barHeight + gapBetweenGroups * (0.5 + Math.floor(i / dataGraph.series.length))) + ')';
-      });
+      })
+      .on('mousemove', function(d) {
+        tooltip
+          .style('left', d3.event.pageX - 50 + 'px')
+          .style('top', d3.event.pageY - 70 + 'px')
+          .style('display', 'inline-block')
+          .html(d + '%');
+      })
+      .on('mouseout', function(d) { tooltip.style('display', 'none'); });
 
     // Create rectangles of the correct width
     bar.append('rect')
-      .attr('fill', function(d, i) { return color((i % dataGraph.series.length).toString()); }) // ()
+      .attr('fill', function(d, i) { return color((i % dataGraph.series.length).toString()); })
       .attr('class', 'barRect')
       .attr('width', x)
       .attr('height', barHeight - 1);
 
     // Add text label in bar
     bar.append('text')
-      .attr('x', function(d) { return x(d) - 3; })
+      .attr('x', function(d) { return x(d) + 37; })
       .attr('y', barHeight / 2)
-      .attr('fill', 'red')
+      // .attr('fill', 'red')
       .attr('dy', '.35em')
-      .text(function(d) { return d; });
+      .text(function(d) { return d + '%'; });
 
-    // Draw labels
+    // Draw labels on y axis
     bar.append('text')
       .attr('class', 'label')
       .attr('x', function(d) { return - 10; })
@@ -647,7 +712,8 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
         + (height + margin.top + margin.bottom) / 2 + ')');
 
     // Define the slices color
-    const color = d3.scaleOrdinal(['#66c2a5', '#fc8d62', '#8da0cb', '#e78ac3', '#a6d854']);
+    // ['#66c2a5', '#fc8d62', '#8da0cb', '#e78ac3', '#a6d854']);
+    const color = d3.scaleOrdinal(['#88A61B', '#F29F05', '#FA6F1E', '#0E3D59', '#D92525']);
 
     const pie = d3.pie()
       .sort(null);
@@ -736,42 +802,6 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       .text(function(d) {return <any>d; });
 
     d3.selectAll('tr').select('td').attr('class', 'model');
-  }
-  // --------------------------
-  // ----Socieconomic Characteristics Graphs: (ses)----
-  generateComparativeTableGraph() {
-
-  }
-
-  generateOccupationalStructureGraph() {
-
-  }
-
-  // ----Educational Profile Graphs: (educacao) ----
-  // code: alfabetizacao
-  generateLiteracyGraph() {
-
-  }
-
-  // code: realizacao
-  generateAchievementGraph() {
-
-  }
-  // --------------------------
-  // ---- Educational profile of population in scholarship age : (idadeEscolar)
-  // --- For 6_10 years old
-  generateSixToTenYearsGraphs() {
-
-  }
-
-
-  // -----------Generic Graphs
-  generateCircleGraph() {
-
-  }
-
-  generateHorizontalBarGraph() {
-
   }
 
   /**
