@@ -317,6 +317,8 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
             ]
           }]
       };
+
+    this.generateGroupedHorizontalBarChart(this.groupChartDataForLiteracyGraph, this.div_literacyGraph);
   }
 
   buildDataForScholarFrequencyGraph() {
@@ -359,7 +361,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
         }]
     };
 
-    this.generateGroupedHorizontalBarChart(this.groupChartDataForLiteracyGraph, this.div_literacyGraph);
+    this.generateGroupedHorizontalBarChart(this.groupChartDataForScholarFrequencyGraph, this.div_scholarFrequencyGraph);
 
   }
 
