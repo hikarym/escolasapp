@@ -8,6 +8,8 @@ import {ShareddataService} from '../../../services/shareddata.service';
 import {ApSecVariableService} from '../../../services/ap-sec-variable.service';
 import {BrSpRmspSecVariableService} from '../../../services/br-sp-rmsp-sec-variable.service';
 import * as d3 from 'd3';
+import {formatSize} from '@angular/cli/utilities/stats';
+import {text} from 'd3-fetch';
 
 
 @Component({
@@ -52,7 +54,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       name: 'Perfil Educacional da Pop. em Idade Escolas',
       group: 'cat3',
       visible: false,
-      graphics: 1
+      graphics: 3
     },
     {
       id: 3,
@@ -88,9 +90,6 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     ]
   };
 
-  dataCircle = [
-    { variableName: 'Alfabetizados', variableValue: 53245}
-  ];
   dataComparativeTable = [
     {model: '%Pobres', ap: 0, municipio: 0, metropole: 0, uf: 0, br: 0},
     {model: 'Renda per Capita', ap: 0, municipio: 0, metropole: 0, uf: 0, br: 0},
@@ -113,8 +112,17 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
   @ViewChild('occupationalStructureByBrasilGraph')
   private div_occupationalStructureByBrasilGraph: ElementRef;
 
-  @ViewChild('profileEducationalGraph')
-  private div_profileEducationalGraph: ElementRef;
+  @ViewChild('profileEducationalByAPGraph')
+  private div_profileEducationalByAPGraph: ElementRef;
+
+  @ViewChild('profileEducationalByMetropoleGraph')
+  private div_profileEducationalByMetropoleGraph: ElementRef;
+
+  @ViewChild('profileEducationalByUFGraph')
+  private div_profileEducationalByUFGraph: ElementRef;
+
+  @ViewChild('profileEducationalByBrasilGraph')
+  private div_profileEducationalByBrasilGraph: ElementRef;
 
   @ViewChild('categoriesProfileEducationalByAPGraph')
   private div_categoriesProfileEducationalByAPGraph: ElementRef;
@@ -145,6 +153,21 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
   @ViewChild('educationalLevelByBrasilGraph')
   private div_educationalLevelByBrasilGraph: ElementRef;
+
+  @ViewChild('racialDistributionGraph')
+  private div_racialDistributionGraph: ElementRef;
+
+  @ViewChild('agePyramidByAPGraph')
+  private div_agePyramidByAPGraph: ElementRef;
+
+  @ViewChild('agePyramidByMetropoleGraph')
+  private div_agePyramidByMetropoleGraph: ElementRef;
+
+  @ViewChild('agePyramidByUFGraph')
+  private div_agePyramidByUFGraph: ElementRef;
+
+  @ViewChild('agePyramidByBrasilGraph')
+  private div_agePyramidByBrasilGraph: ElementRef;
 
   // ----------------
   private subscription = new Subscription();
@@ -189,7 +212,10 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
             this.buildDataForOccupationalStructureGraph(this.brSpRmspSecInfo[0],
               this.div_occupationalStructureByBrasilGraph);
 
-            this.buildDataForProfileEducationalGraph();
+            this.buildDataForProfileEducationalGraph(this.weightingAreaInfo, this.div_profileEducationalByAPGraph);
+            this.buildDataForProfileEducationalGraph(this.brSpRmspSecInfo[2], this.div_profileEducationalByMetropoleGraph);
+            this.buildDataForProfileEducationalGraph(this.brSpRmspSecInfo[1], this.div_profileEducationalByUFGraph);
+            this.buildDataForProfileEducationalGraph(this.brSpRmspSecInfo[0], this.div_profileEducationalByBrasilGraph);
 
             this.buildDataForCategoriesProfileEducationalGraph(this.weightingAreaInfo,
               this.div_categoriesProfileEducationalByAPGraph);
@@ -208,13 +234,13 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
             this.buildDataForEducationalLevelGraph(this.brSpRmspSecInfo[2], this.div_educationalLevelByMetropoleGraph);
             this.buildDataForEducationalLevelGraph(this.brSpRmspSecInfo[1], this.div_educationalLevelByUFGraph);
             this.buildDataForEducationalLevelGraph(this.brSpRmspSecInfo[0], this.div_educationalLevelByBrasilGraph);
-            /*this.buildDataForEducationalLevelByAPGraph();
 
-            this.buildDataForEducationalLevelByMetropoleGraph();
+            this.buildDataForAgePyramidGraph(this.weightingAreaInfo, this.div_agePyramidByAPGraph);
+            this.buildDataForAgePyramidGraph(this.brSpRmspSecInfo[2], this.div_agePyramidByMetropoleGraph);
+            this.buildDataForAgePyramidGraph(this.brSpRmspSecInfo[1], this.div_agePyramidByUFGraph);
+            this.buildDataForAgePyramidGraph(this.brSpRmspSecInfo[0], this.div_agePyramidByBrasilGraph);
 
-            this.buildDataForEducationalLevelByUFGraph();
-
-            this.buildDataForEducationalLevelByBrasilGraph();*/
+            this.buildDataForRacialDistributionGraph(this.weightingAreaInfo, this.brSpRmspSecInfo, this.div_racialDistributionGraph);
 
           });
 
@@ -270,14 +296,17 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
   }
 
-  buildDataForProfileEducationalGraph() {
-    // Graph 3: Comparative table. Data for AP
-    this.dataCircle = [
-      { variableName: 'Alfabetizados', variableValue: this.convertToPercentage(this.weightingAreaInfo.educacao.alfabetizacao)},
-      { variableName: 'Não Alfabetizados', variableValue: this.convertToPercentage(1 - this.weightingAreaInfo.educacao.alfabetizacao)}
+  buildDataForProfileEducationalGraph(data: any, containerDiv: ElementRef) {
+
+    const dataCircle = [
+      { variableName: 'Alfabetizados', variableValue: this.convertToPercentage(data.educacao.alfabetizacao)},
+      { variableName: 'Não Alfabetizados', variableValue: this.convertToPercentage(1 - data.educacao.alfabetizacao)}
     ];
 
-    this.generatePieGraph(this.dataCircle, this.div_profileEducationalGraph);
+    const panelWidth = 150; // 335
+    const panelHeight = 150; // 300
+
+    this.generatePieGraph(dataCircle, containerDiv, panelWidth, panelHeight);
   }
 
   buildDataForCategoriesProfileEducationalGraph(data: any, containerDiv: ElementRef) {
@@ -299,44 +328,44 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
   }
 
   buildDataForLiteracyGraph() {
-      const groupChartDataForLiteracyGraph = {
-        labels: [
-          '6-10', '11-14', '15-17'
-        ],
-        series: [
-          {
-            label: 'AP',
-            values: [
-              this.convertToPercentage(this.weightingAreaInfo.educacao.idadeEscolar.range6to10.alfabetizacao),
-              this.convertToPercentage(this.weightingAreaInfo.educacao.idadeEscolar.range11to14.alfabetizacao),
-              this.convertToPercentage(this.weightingAreaInfo.educacao.idadeEscolar.range15to17.alfabetizacao)
-            ]
-          },
-          {
-            label: 'RMSP',
-            values: [
-              this.convertToPercentage(this.brSpRmspSecInfo[2].educacao.idadeEscolar.range6to10.alfabetizacao),
-              this.convertToPercentage(this.brSpRmspSecInfo[2].educacao.idadeEscolar.range11to14.alfabetizacao),
-              this.convertToPercentage(this.brSpRmspSecInfo[2].educacao.idadeEscolar.range15to17.alfabetizacao)
-            ]
-          },
-          {
-            label: 'UF',
-            values: [
-              this.convertToPercentage(this.brSpRmspSecInfo[1].educacao.idadeEscolar.range6to10.alfabetizacao),
-              this.convertToPercentage(this.brSpRmspSecInfo[1].educacao.idadeEscolar.range11to14.alfabetizacao),
-              this.convertToPercentage(this.brSpRmspSecInfo[1].educacao.idadeEscolar.range15to17.alfabetizacao)
-            ]
-          },
-          {
-            label: 'BR',
-            values: [
-              this.convertToPercentage(this.brSpRmspSecInfo[0].educacao.idadeEscolar.range6to10.alfabetizacao),
-              this.convertToPercentage(this.brSpRmspSecInfo[0].educacao.idadeEscolar.range11to14.alfabetizacao),
-              this.convertToPercentage(this.brSpRmspSecInfo[0].educacao.idadeEscolar.range15to17.alfabetizacao)
-            ]
-          }]
-      };
+    const groupChartDataForLiteracyGraph = {
+      labels: [
+        '6-10', '11-14', '15-17'
+      ],
+      series: [
+        {
+          label: 'AP',
+          values: [
+            this.convertToPercentage(this.weightingAreaInfo.educacao.idadeEscolar.range6to10.alfabetizacao),
+            this.convertToPercentage(this.weightingAreaInfo.educacao.idadeEscolar.range11to14.alfabetizacao),
+            this.convertToPercentage(this.weightingAreaInfo.educacao.idadeEscolar.range15to17.alfabetizacao)
+          ]
+        },
+        {
+          label: 'RMSP',
+          values: [
+            this.convertToPercentage(this.brSpRmspSecInfo[2].educacao.idadeEscolar.range6to10.alfabetizacao),
+            this.convertToPercentage(this.brSpRmspSecInfo[2].educacao.idadeEscolar.range11to14.alfabetizacao),
+            this.convertToPercentage(this.brSpRmspSecInfo[2].educacao.idadeEscolar.range15to17.alfabetizacao)
+          ]
+        },
+        {
+          label: 'UF',
+          values: [
+            this.convertToPercentage(this.brSpRmspSecInfo[1].educacao.idadeEscolar.range6to10.alfabetizacao),
+            this.convertToPercentage(this.brSpRmspSecInfo[1].educacao.idadeEscolar.range11to14.alfabetizacao),
+            this.convertToPercentage(this.brSpRmspSecInfo[1].educacao.idadeEscolar.range15to17.alfabetizacao)
+          ]
+        },
+        {
+          label: 'BR',
+          values: [
+            this.convertToPercentage(this.brSpRmspSecInfo[0].educacao.idadeEscolar.range6to10.alfabetizacao),
+            this.convertToPercentage(this.brSpRmspSecInfo[0].educacao.idadeEscolar.range11to14.alfabetizacao),
+            this.convertToPercentage(this.brSpRmspSecInfo[0].educacao.idadeEscolar.range15to17.alfabetizacao)
+          ]
+        }]
+    };
 
     this.generateGroupedHorizontalBarChart(groupChartDataForLiteracyGraph, this.div_literacyGraph);
   }
@@ -418,6 +447,106 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     };
 
     this.generateGroupedHorizontalBarChart(groupChartDataForEducationalLevelGraph, containerDiv);
+  }
+
+  buildDataForAgePyramidGraph(data: any, containerDiv: ElementRef) {
+
+    const agePyramidData = [];
+    const populacao = data.demograficas.populacao;
+    const homemObject = data.demograficas.piramide.Homens;
+    const mulherObject = data.demograficas.piramide.Mulheres;
+    // Get the object properties. Homem and Mulher have the same properties
+    const properties = Object.keys(homemObject);
+    // console.log('properties:', properties);
+    let homensPercentagem = 0;
+
+    for (let i = 0; i < properties.length; i++) {
+      const jsonData = {};
+      jsonData['group'] = this.getRangeIntoText('range', properties[i]);
+      jsonData['male'] = homemObject[properties[i]] * populacao;
+      jsonData['female'] = mulherObject[properties[i]] * populacao;
+      jsonData['maleperc'] = this.convertToPercentage(homemObject[properties[i]]);
+      jsonData['femaleperc'] = this.convertToPercentage(mulherObject[properties[i]]);
+      agePyramidData.push(jsonData);
+
+      homensPercentagem += homemObject[properties[i]];
+    }
+
+    console.log(agePyramidData);
+    this.generateAgePyramid(agePyramidData, populacao, homensPercentagem, containerDiv);
+
+    /* // some contrived data
+    const agePyramidData = [
+      {group: '0-9', male: 10, female: 12},
+      {group: '10-19', male: 14, female: 15},
+      {group: '20-29', male: 15, female: 18},
+      {group: '30-39', male: 18, female: 18},
+      {group: '40-49', male: 21, female: 22},
+      {group: '50-59', male: 19, female: 24},
+      {group: '60-69', male: 15, female: 14},
+      {group: '70-79', male: 8, female: 10},
+      {group: '80-89', male: 4, female: 5},
+      {group: '90-99', male: 2, female: 3},
+      {group: '100-109', male: 1, female: 1},
+    ];
+
+    this.generateAgePyramid(agePyramidData, containerDiv);*/
+
+
+  }
+
+  getRangeIntoText(token: string, propertyName: string) {
+    const range = propertyName.substr(token.length, propertyName.length);
+    const limits = range.split('to');
+    const beginBoundary = limits[0];
+    const endBoundary = limits[1];
+    return beginBoundary + '-' + endBoundary;
+  }
+
+  buildDataForRacialDistributionGraph(dataGraph1: any, dataGraph2: any, containerDiv: ElementRef) {
+
+    const groupChartDataGraph = {
+      labels: [
+        'brancosAmarelos', 'pardosIndigenas', 'pretos'
+      ],
+      series: [
+        {
+          label: 'AP',
+          values: [
+            this.convertToPercentage(dataGraph1.demograficas.raca.brancosAmarelos),
+            this.convertToPercentage(dataGraph1.demograficas.raca.pardosIndigenas),
+            this.convertToPercentage(dataGraph1.demograficas.raca.pretos)
+          ]
+        },
+        {
+          label: 'RMSP',
+          values: [
+            this.convertToPercentage(dataGraph2[2].demograficas.raca.brancosAmarelos),
+            this.convertToPercentage(dataGraph2[2].demograficas.raca.pardosIndigenas),
+            this.convertToPercentage(dataGraph2[2].demograficas.raca.pretos)
+          ]
+        },
+        {
+          label: 'UF',
+          values: [
+            this.convertToPercentage(dataGraph2[1].demograficas.raca.brancosAmarelos),
+            this.convertToPercentage(dataGraph2[1].demograficas.raca.pardosIndigenas),
+            this.convertToPercentage(dataGraph2[1].demograficas.raca.pretos)
+          ]
+        },
+        {
+          label: 'BR',
+          values: [
+            this.convertToPercentage(dataGraph2[0].demograficas.raca.brancosAmarelos),
+            this.convertToPercentage(dataGraph2[0].demograficas.raca.pardosIndigenas),
+            this.convertToPercentage(dataGraph2[0].demograficas.raca.pretos)
+          ]
+        }]
+    };
+
+    this.generateGroupedHorizontalBarChart(groupChartDataGraph, containerDiv);
+    // this.generateGroupedVerticalBarChart(groupChartDataGraph, containerDiv);
+
   }
 
   convertToPercentage (value: number) {
@@ -691,11 +820,12 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       });
   }
 
-  generatePieGraph(dataGraph: any, containerDiv: ElementRef) {
+  generatePieGraph(dataGraph: {variableName: string; variableValue: number; }[],
+                   containerDiv: ElementRef, panelWidth: number, panelHeight: number) {
     // Define chart dimensions
     const margin = {top: 20, right: 20, bottom: 30, left: 40};
-    const width = 335 - margin.left - margin.right;
-    const height = 300 - margin.top - margin.bottom;
+    const width = panelWidth - margin.left - margin.right;
+    const height = panelHeight - margin.top - margin.bottom;
     const radius = Math.min(width, height) / 2;
     console.log('todo el dato', dataGraph);
 
@@ -802,6 +932,221 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       .text(function(d) {return <any>d; });
 
     d3.selectAll('tr').select('td').attr('class', 'model');
+  }
+
+  generateAgePyramid(dataGraph: {group: string, male: number, female: number, maleperc: number, femaleperc: number}[],
+                     population: number, homensPopPerc: number, containerDiv: ElementRef) {
+
+    // update x scales
+    // SET UP DIMENSIONS
+    const w = 330,
+      h = 340,
+      cx = w / 2;
+
+    // margin.middle is distance from center line to each y-axis
+    const margin = {
+      top: 20,
+      right: 10,
+      bottom: 24,
+      left: 10,
+      middle: 28
+    };
+    const legendHeight  = 50;
+
+    // the width of each side of the chart
+    const regionWidth = w / 2 - margin.middle;
+
+    // these are the x-coordinates of the y-axes
+    const pointA = regionWidth,
+      pointB = w - regionWidth;
+
+    // GET THE TOTAL POPULATION SIZE AND CREATE A FUNCTION FOR RETURNING THE PERCENTAGE
+    /*const totalPopulation = d3.sum(dataGraph, function(d) { return d.male + d.female; });
+    const percentage = function(d) { return d / totalPopulation; };*/
+
+    // Remove all children from HTML
+    d3.select(containerDiv.nativeElement).html('');
+    // CREATE SVG
+    const svg = d3.select(containerDiv.nativeElement).append('svg')
+      .attr('width', margin.left + w + margin.right)
+      .attr('height', margin.top + h + margin.bottom + legendHeight);
+
+    // ------ Female and Males lengend -------------
+    function uptext ( root, lines ) {
+      lines = this.selectAll( 'tspan' ).data( this.datum() );
+      lines.text( d => d );
+      lines.exit().remove();
+      lines.enter().append( 'tspan' )
+        .attr( 'x', 0 )
+        .attr( 'dy', (d, i) => ( i * 1.2 ) + 'em' )
+        .text( d => d );
+      return this;
+    }
+
+    const formatter = d3.format( ',d' );
+
+    const svg_text_total = svg.append( 'text' )
+      .attr( 'transform', 'translate(' + (cx + 14) + ',' + margin.top + ')' )
+      .style( 'font', '14px sans-serif' )
+      .attr( 'text-anchor', 'middle' );
+
+    const svg_text_m = svg.append( 'text' )
+      .attr( 'transform', 'translate(' + 10 + ',' + margin.top + ')' )
+      .style( 'font', '12px sans-serif' )
+      .attr( 'text-anchor', 'start' );
+
+    const svg_text_f = svg.append( 'text' )
+      .attr( 'transform', 'translate(' + 2 * cx + ',' + margin.top + ')' )
+      .style( 'font', '12px sans-serif' )
+      .attr( 'text-anchor', 'end' );
+
+    const m_total = homensPopPerc * population;
+    const homensPopPercFormatted = this.convertToPercentage(homensPopPerc);
+
+    svg_text_total.selectAll('tspan')
+      .data([ 'População', formatter(population) ])
+      .enter().append('tspan')
+      .attr( 'x', 0 )
+      .attr( 'y', (d, i) => ( i * 1.2 ) + 'em' )
+      .text(d => d);
+
+    svg_text_m.selectAll('tspan')
+      .data([ 'Homens', formatter(m_total) , homensPopPercFormatted.toFixed(2) + '%'])
+      .enter().append('tspan')
+      .attr( 'x', 0 )
+      .attr( 'y', (d, i) => ( i * 1.2 ) + 'em' )
+      .text(d => d);
+
+    svg_text_f.selectAll('tspan')
+      .data([ 'Mulheres', formatter( population - m_total ), (100 - homensPopPercFormatted).toFixed(2) + '%' ])
+      .enter().append('tspan')
+      .attr( 'x', 0 )
+      .attr( 'y', (d, i) => ( i * 1.2 ) + 'em' )
+      .text(d => d);
+
+    // TOOLTIP
+    const tooltip = d3.select('body').append('div').attr('class', 'toolTip');
+
+    // ----------------------
+    // ADD A GROUP FOR THE SPACE WITHIN THE MARGINS
+    const chart = svg.append('g')
+      .attr('transform', translation(margin.left, legendHeight));
+
+    // find the maximum data value on either side
+    //  since this will be shared by both of the x-axes
+    /*const maxValue = Math.max(
+      d3.max(dataGraph, function(d) { return percentage(d.male); }),
+      d3.max(dataGraph, function(d) { return percentage(d.female); })
+    );*/
+
+    const maxValue = Math.max(
+      d3.max(dataGraph, function(d) { return d.maleperc; }),
+      d3.max(dataGraph, function(d) { return d.femaleperc; })
+    );
+
+    // SET UP SCALES
+    // the xScale goes from 0 to the width of a region
+    //  it will be reversed for the left x-axis
+    const xScale = d3.scaleLinear()
+      .domain([0, maxValue])
+      .range([0, regionWidth])
+      .nice();
+
+    const yScale = d3.scaleBand()
+      .rangeRound([h, 0])
+      .padding(0.1)
+      .domain(dataGraph.map(function(d) { return d.group; }));
+
+    // SET UP AXES
+    const yAxisLeft = d3.axisRight(yScale)
+      // .tickSize(4)
+      .tickPadding(margin.middle - 4);
+
+    const yAxisRight = d3.axisLeft(yScale)
+      // .tickSize(4) ;
+      .tickFormat(function(d) {return ''; });
+
+    const xAxisRight = d3.axisBottom(xScale)
+      .ticks(4)
+      .tickFormat(function(d) {return (<any>d).toFixed(0) + '%'; });
+
+    const xAxisLeft = d3.axisBottom(xScale.copy().range([pointA, 0]))
+      // REVERSE THE X-AXIS SCALE ON THE LEFT SIDE BY REVERSING THE RANGE
+      .tickFormat(function(d) {return (<any>d).toFixed(0) + '%'; })
+      .ticks(4);
+
+    // MAKE GROUPS FOR EACH SIDE OF CHART
+    // scale(-1,1) is used to reverse the left side so the bars grow left instead of right
+    const leftBarGroup = chart.append('g')
+      .attr('transform', translation(pointA, 0) + 'scale(-1,1)');
+    const rightBarGroup = chart.append('g')
+      .attr('transform', translation(pointB,  0));
+
+    // DRAW AXES
+    chart.append('g')
+      .attr('class', 'axis y left')
+      .attr('transform', translation(pointA, 0))
+      .call(yAxisLeft)
+      .selectAll('text')
+      .style('text-anchor', 'middle');
+
+    chart.append('g')
+      .attr('class', 'axis y right')
+      .attr('transform', translation(pointB, 0))
+      .call(yAxisRight);
+
+    chart.append('g')
+      .attr('class', 'axis x left')
+      .attr('transform', translation(0, h))
+      .call(xAxisLeft);
+
+    chart.append('g')
+      .attr('class', 'axis x right')
+      .attr('transform', translation(pointB, h))
+      .call(xAxisRight);
+      // .attr('class', 'labelsAxis');
+
+    // DRAW BARS
+    leftBarGroup.selectAll('.barPyramid.left')
+      .data(dataGraph)
+      .enter().append('rect')
+      .attr('class', 'barPyramid left')
+      .attr('x', 0)
+      .attr('y', function(d) { return yScale(d.group); })
+      .attr('width', function(d) { return xScale(d.maleperc); })
+      .attr('height', yScale.bandwidth())
+      .on('mousemove', function(d) {
+        tooltip
+          .style('left', d3.event.pageX - 50 + 'px')
+          .style('top', d3.event.pageY - 70 + 'px')
+          .style('display', 'inline-block')
+          .html(d.group + '<br>' + d.maleperc + '%');
+      })
+      .on('mouseout', function(d) { tooltip.style('display', 'none'); });
+
+    rightBarGroup.selectAll('.barPyramid.right')
+      .data(dataGraph)
+      .enter().append('rect')
+      .attr('class', 'barPyramid right')
+      .attr('x', 0)
+      .attr('y', function(d) { return yScale(d.group); })
+      .attr('width', function(d) { return xScale(d.femaleperc); })
+      .attr('height', yScale.bandwidth())
+      .on('mousemove', function(d) {
+        tooltip
+          .style('left', d3.event.pageX - 50 + 'px')
+          .style('top', d3.event.pageY - 70 + 'px')
+          .style('display', 'inline-block')
+          .html(d.group + '<br>' +  d.femaleperc + '%');
+      })
+      .on('mouseout', function(d) { tooltip.style('display', 'none'); });
+
+
+    // so sick of string concatenation for translations
+    function translation(x, y) {
+      return 'translate(' + x + ',' + y + ')';
+    }
+
   }
 
   /**

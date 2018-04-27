@@ -103,7 +103,14 @@
                 <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-2x fa-caret-right"></span>
                 <span class="section-info-text"><span>Alfabetização</span> </span>
               </div>
-              <div #profileEducationalGraph style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
+              <div class="row" >
+                <div #profileEducationalByAPGraph class="block"></div>
+                <div #profileEducationalByMetropoleGraph class="block"></div>
+              </div>
+              <div class="row">
+                <div #profileEducationalByUFGraph class="block"></div>
+                <div #profileEducationalByBrasilGraph class="block"></div>
+              </div>
 
               <!--REALIZAÇÃO -->
               <div class="section-info-line">
@@ -114,16 +121,20 @@
               <div style="margin: 5px 25px 5px 5px;">
                 <ul class="nav nav-tabs text-center" id="CatProfileEducationalTab" role="tablist">
                   <li class="nav-item">
-                    <a class="nav-link active" id="ap-tabCatProfileEducational" data-toggle="tab" href="#apCatProfileEducational" role="tab" aria-controls="apCatProfileEducational" aria-selected="true"><i class="fa fa-circle"></i> AP</a>
+                    <a class="nav-link active" id="ap-tabCatProfileEducational" data-toggle="tab" href="#apCatProfileEducational"
+                       role="tab" aria-controls="apCatProfileEducational" aria-selected="true"><i class="fa fa-circle"></i> AP</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" id="metropole-tabCatProfileEducational" data-toggle="tab" href="#metropoleCatProfileEducational" role="tab" aria-controls="metropoleCatProfileEducational" aria-selected="false"><i class="fa fa-building"></i> RMSP</a>
+                    <a class="nav-link" id="metropole-tabCatProfileEducational" data-toggle="tab" href="#metropoleCatProfileEducational"
+                       role="tab" aria-controls="metropoleCatProfileEducational" aria-selected="false"><i class="fa fa-building"></i> RMSP</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" id="uf-tabCatProfileEducational" data-toggle="tab" href="#ufCatProfileEducational" role="tab" aria-controls="ufCatProfileEducational" aria-selected="false"><i class="fa fa-map-marker"></i> UF de SP</a>
+                    <a class="nav-link" id="uf-tabCatProfileEducational" data-toggle="tab" href="#ufCatProfileEducational"
+                       role="tab" aria-controls="ufCatProfileEducational" aria-selected="false"><i class="fa fa-map-marker"></i> UF de SP</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" id="brasil-tabCatProfileEducational" data-toggle="tab" href="#brasilCatProfileEducational" role="tab" aria-controls="brasilCatProfileEducational" aria-selected="false"><i class="fa fa-map"></i> Brasil</a>
+                    <a class="nav-link" id="brasil-tabCatProfileEducational" data-toggle="tab" href="#brasilCatProfileEducational"
+                       role="tab" aria-controls="brasilCatProfileEducational" aria-selected="false"><i class="fa fa-map"></i> Brasil</a>
                   </li>
                 </ul>
                 <div class="tab-content" id="CatProfileEducationalTabContent">
@@ -194,15 +205,62 @@
                   </div>
                 </div>
               </div>
+              <!-- end tab -->
               <!--END NIVEL FREQUENTADO -->
             </div>
             <div [hidden]="!categories[3].visible">
-              <div #agePyramidGraph style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
+              <!-- AGE PYRAMID -->
+              <div class="section-info-line">
+                <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-2x fa-caret-right"></span>
+                <span class="section-info-text"><span>PIRAMIDE ETÁRIA</span> </span>
+              </div>
+              <!--tab -->
+              <div style="margin: 5px 25px 5px 5px;">
+                <ul class="nav nav-tabs text-center" id="agePyramidTab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="agePyramidByAp-tab" data-toggle="tab" href="#agePyramidByAp" role="tab" aria-controls="agePyramidByAp" aria-selected="true"><i class="fa fa-circle"></i> AP</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="agePyramidByMetropole-tab" data-toggle="tab" href="#agePyramidByMetropole" role="tab" aria-controls="agePyramidByMetropole" aria-selected="false"><i class="fa fa-building"></i> RMSP</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="agePyramidByUF-tab" data-toggle="tab" href="#agePyramidByUF" role="tab" aria-controls="agePyramidByUF" aria-selected="false"><i class="fa fa-map-marker"></i> UF de SP</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="agePyramidByBrasil-tab" data-toggle="tab" href="#agePyramidByBrasil" role="tab" aria-controls="agePyramidByBrasil" aria-selected="false"><i class="fa fa-map"></i> Brasil</a>
+                  </li>
+                </ul>
+                <div class="tab-content" id="agePyramidContent">
+                  <div class="tab-pane fade show active" id="agePyramidByAp" role="tabpanel" aria-labelledby="agePyramidByAp-tab">
+                    <!--<div class="row" >
+                      <div #profileEducationalByAPGraph class="block"></div>
+                      <div #profileEducationalByMetropoleGraph class="block"></div>
+                    </div>-->
+                    <div #agePyramidByAPGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
+                  </div>
+                  <div class="tab-pane fade" id="agePyramidByMetropole" role="tabpanel" aria-labelledby="agePyramidByMetropole-tab">
+                    <div #agePyramidByMetropoleGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
+                  </div>
+                  <div class="tab-pane fade" id="agePyramidByUF" role="tabpanel" aria-labelledby="agePyramidByUF-tab">
+                    <div #agePyramidByUFGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
+                  </div>
+                  <div class="tab-pane fade" id="agePyramidByBrasil" role="tabpanel" aria-labelledby="agePyramidByBrasil-tab">
+                    <div #agePyramidByBrasilGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
+                  </div>
+                </div>
+              </div>
+              <!-- end tab -->
+              <!-- END: AGE PYRAMID -->
+
+              <div class="section-info-line">
+                <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-2x fa-caret-right"></span>
+                <span class="section-info-text"><span>DISTRIBUIÇÃO RACIAL</span> </span>
+              </div>
               <div #racialDistributionGraph style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
             </div>
           </div>
 
-          <ul *ngFor="let cat of categories">
+          <!--<ul *ngFor="let cat of categories">
 
             <li *ngIf="cat.group ==='cat1' && cat.visible === true"
                 class="text-success">
@@ -220,7 +278,7 @@
                 class="text-warning">
               {{ cat.name }} ({{ cat.group }})
             </li>
-          </ul>
+          </ul>-->
 
         </div>
       </div>

@@ -500,6 +500,9 @@ a:link, a:visited{
   stroke-width: 2px;
   shape-rendering: crispEdges;
 }
+.axis text {
+  font-size: 10px;
+}
 .x path {
   display: none;
 }
@@ -526,7 +529,7 @@ a:link, a:visited{
 }
 .barchart .label {
   fill: black;
-  font: 12px sans-serif;
+  font: 11px sans-serif;
   text-anchor: end;
 }
 
@@ -581,6 +584,35 @@ a:link, a:visited{
   border-radius: .25rem;
 }
 
-/* ------------*/
+/* ------------ */
 [hidden]:not([broken]) { display: none !important;}
+
+/* ------------ */
+.row {
+  width: 100%;
+  margin: 5px auto;
+  background: rgba(255,255,255, 0.8);
+}
+
+.block {
+  width: 150px;
+  display: inline-block;
+}
+
+/* -----Age pyramid ------ */
+.barPyramid.left {
+  fill: #88A61B;
+}
+.barPyramid.right {
+  fill: #F29F05;
+}
+
+.barPyramid:hover {
+  stroke-width:1;
+  stroke:#000000;
+}
+
+.labelsAxis {
+  font-size: 10px;
+}
 
