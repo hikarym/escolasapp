@@ -303,8 +303,8 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       { variableName: 'Não Alfabetizados', variableValue: this.convertToPercentage(1 - data.educacao.alfabetizacao)}
     ];
 
-    const panelWidth = 150; // 335
-    const panelHeight = 150; // 300
+    const panelWidth = 170; // 335
+    const panelHeight = 160; // 300
 
     this.generatePieGraph(dataCircle, containerDiv, panelWidth, panelHeight);
   }
@@ -837,7 +837,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
         .append('svg')
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom)
-        .style('background-color', '#efefef'),
+        .style('background-color', '#ffffff'),
       g = svg.append('g').attr('transform', 'translate(' + (width + margin.left + margin.right) / 2 + ','
         + (height + margin.top + margin.bottom) / 2 + ')');
 
