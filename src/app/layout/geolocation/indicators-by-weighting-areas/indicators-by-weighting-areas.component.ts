@@ -292,8 +292,8 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       {variableName: 'operadoresMaquina', variableValue: this.convertToPercentage(data.ses.ocup.operadoresMaquina)},
       {variableName: 'ocupacoesElementares', variableValue: this.convertToPercentage(data.ses.ocup.ocupacoesElementares)}
     ];
-
-    this.generateHorizontalBarChart(ocupationalStructureData, containerDiv);
+    const maxValueInDomainX = 50;
+    this.generateHorizontalBarChart(ocupationalStructureData, containerDiv, maxValueInDomainX);
 
   }
 
@@ -670,7 +670,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       .on('mouseout', function(d) { tooltip.style('display', 'none'); });
   }
 
-  generateHorizontalBarChart(dataGraph: {variableName: string; variableValue: number; }[], containerDiv: ElementRef ) {
+  generateHorizontalBarChart(dataGraph: any[], containerDiv: ElementRef, maxValueInDomainX: number) {
     /*const percentage_data = [];
     // Pass the values to percentages
     this.ocupationalStructureByAPData.forEach(function(d, i) {
@@ -700,9 +700,10 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     const g = svg.append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-    dataGraph.sort(function(a, b) { return a.variableValue - b.variableValue; });
-
-    x.domain([0, d3.max(dataGraph, function(d) {return d.variableValue; } )]);
+    // To order according to variable value
+    // dataGraph.sort(function(a, b) { return a.variableValue - b.variableValue; });
+    // const maxValue = d3.max(dataGraph, function(d) {return d.variableValue; } );
+    x.domain([0, maxValueInDomainX]);
     y.domain(dataGraph.map(d => d.variableName )).padding(0.1);
 
     g.append('g')
