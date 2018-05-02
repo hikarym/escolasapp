@@ -10,6 +10,7 @@ import {BrSpRmspSecVariableService} from '../../../services/br-sp-rmsp-sec-varia
 import * as d3 from 'd3';
 import {formatSize} from '@angular/cli/utilities/stats';
 import {text} from 'd3-fetch';
+import {toInteger} from '@ng-bootstrap/ng-bootstrap/util/util';
 
 
 @Component({
@@ -449,58 +450,99 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     this.generateGroupedHorizontalBarChart(groupChartDataForEducationalLevelGraph, containerDiv);
   }
 
+
+
   buildDataForAgePyramidGraph(data: any, containerDiv: ElementRef) {
 
-    const agePyramidData = [];
+    let agePyramidData = [];
     const populacao = data.demograficas.populacao;
     const homemObject = data.demograficas.piramide.Homens;
     const mulherObject = data.demograficas.piramide.Mulheres;
     // Get the object properties. Homem and Mulher have the same properties
-    const properties = Object.keys(homemObject);
-    // console.log('properties:', properties);
+    const homemProperties = Object.keys(homemObject);
+    const homemPropertiesNumber = homemProperties.length;
     let homensPercentagem = 0;
+    let boundaries = [];
 
-    for (let i = 0; i < properties.length; i++) {
+
+    for (let i = 0; i < homemPropertiesNumber; i++) {
+      boundaries = this.getRangeBoundaries('range', 'to', homemProperties[i]);
+
       const jsonData = {};
-      jsonData['group'] = this.getRangeIntoText('range', properties[i]);
-      jsonData['male'] = homemObject[properties[i]] * populacao;
-      jsonData['female'] = mulherObject[properties[i]] * populacao;
-      jsonData['maleperc'] = this.convertToPercentage(homemObject[properties[i]]);
-      jsonData['femaleperc'] = this.convertToPercentage(mulherObject[properties[i]]);
-      agePyramidData.push(jsonData);
+      jsonData['group'] = boundaries[0] + '-' + boundaries[1];
+      jsonData['male'] = homemObject[homemProperties[i]] * populacao;
+      jsonData['female'] = mulherObject[homemProperties[i]] * populacao;
+      jsonData['maleperc'] = this.convertToPercentage(homemObject[homemProperties[i]]);
+      jsonData['femaleperc'] = this.convertToPercentage(mulherObject[homemProperties[i]]);
+      jsonData['order'] = Number( boundaries[0]);
+      // agePyramidData.push(jsonData);
+      agePyramidData = this.insertIntoArrayOrdered(agePyramidData, jsonData);
 
-      homensPercentagem += homemObject[properties[i]];
+      homensPercentagem += homemObject[homemProperties[i]];
     }
 
-    console.log(agePyramidData);
     this.generateAgePyramid(agePyramidData, populacao, homensPercentagem, containerDiv);
-
-    /* // some contrived data
-    const agePyramidData = [
-      {group: '0-9', male: 10, female: 12},
-      {group: '10-19', male: 14, female: 15},
-      {group: '20-29', male: 15, female: 18},
-      {group: '30-39', male: 18, female: 18},
-      {group: '40-49', male: 21, female: 22},
-      {group: '50-59', male: 19, female: 24},
-      {group: '60-69', male: 15, female: 14},
-      {group: '70-79', male: 8, female: 10},
-      {group: '80-89', male: 4, female: 5},
-      {group: '90-99', male: 2, female: 3},
-      {group: '100-109', male: 1, female: 1},
-    ];
-
-    this.generateAgePyramid(agePyramidData, containerDiv);*/
-
 
   }
 
-  getRangeIntoText(token: string, propertyName: string) {
+  insertIntoArrayOrdered(list: any[], object: any) {
+    const size = list.length;
+
+    if (size === 0) {
+      list.push(object);
+    } else {
+      let l = 0;
+      let r = size - 1;
+
+      while ( l >= 0 && r < size && l <= r ) {
+        const m  = Math.floor((l + r) / 2);
+        const pivot = list[m].order;
+        const newEl = object.order;
+
+        if (l === r) {
+          if (newEl >= pivot) {
+            // insert in the r + 1 position
+            list = this.moveElementsToRight(list, r + 1);
+            list[r + 1] = object;
+            return list;
+          } else {
+            list = this.moveElementsToRight(list, r);
+            list[r] = object;
+            return list;
+          }
+        } else {
+          if (newEl > pivot) {
+            l = m + 1;
+          } else {
+            if (newEl === pivot) {
+              list = this.moveElementsToRight(list, r + 1);
+              list[r + 1] = newEl;
+              return list;
+            } else {
+              r = m - 1;
+            }
+          }
+        }
+      }
+    }
+    return list;
+  }
+
+  moveElementsToRight(list: any[], start: number) {
+    list.push();
+    const size = list.length;
+    for (let k = size - 1; k >= start; k--) {
+      list[k] = list[k - 1];
+    }
+    return list;
+  }
+
+  getRangeBoundaries(token: string, separator: string, propertyName: string) {
     const range = propertyName.substr(token.length, propertyName.length);
-    const limits = range.split('to');
-    const beginBoundary = limits[0];
-    const endBoundary = limits[1];
-    return beginBoundary + '-' + endBoundary;
+    const limits = range.split(separator);
+    const lowerBound = limits[0];
+    const upperBound = limits[1];
+    return [lowerBound, upperBound];
   }
 
   buildDataForRacialDistributionGraph(dataGraph1: any, dataGraph2: any, containerDiv: ElementRef) {
@@ -578,7 +620,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
     // Define domain data for X & Y axes from the data array
     const xDomain = dataGraph.map(d => d.variableName);
-    console.log('xDomain:', xDomain);
+    // console.log('xDomain:', xDomain);
     const yDomain = [0, d3.max(dataGraph, function(d) {return d.variableValue; })];
 
     // Set the scale for X & Y
@@ -827,7 +869,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     const width = panelWidth - margin.left - margin.right;
     const height = panelHeight - margin.top - margin.bottom;
     const radius = Math.min(width, height) / 2;
-    console.log('todo el dato', dataGraph);
+    // console.log('todo el dato', dataGraph);
 
     // Remove all children from HTML
     d3.select(containerDiv.nativeElement).html('');
@@ -885,7 +927,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
   generateTableGraph(dataGraph: any, containerDiv: ElementRef ) {
 
     const bmw_data = [];
-    console.log('data table: ', dataGraph);
+    // console.log('data table: ', dataGraph);
 
     dataGraph.forEach(function(d, i) {
       // now we add another data object value, a calculated value.
@@ -934,7 +976,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     d3.selectAll('tr').select('td').attr('class', 'model');
   }
 
-  generateAgePyramid(dataGraph: {group: string, male: number, female: number, maleperc: number, femaleperc: number}[],
+  generateAgePyramid(dataGraph: any[],
                      population: number, homensPopPerc: number, containerDiv: ElementRef) {
 
     // update x scales
@@ -1059,11 +1101,11 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
     // SET UP AXES
     const yAxisLeft = d3.axisRight(yScale)
-      // .tickSize(4)
+    // .tickSize(4)
       .tickPadding(margin.middle - 4);
 
     const yAxisRight = d3.axisLeft(yScale)
-      // .tickSize(4) ;
+    // .tickSize(4) ;
       .tickFormat(function(d) {return ''; });
 
     const xAxisRight = d3.axisBottom(xScale)
@@ -1071,7 +1113,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       .tickFormat(function(d) {return (<any>d).toFixed(0) + '%'; });
 
     const xAxisLeft = d3.axisBottom(xScale.copy().range([pointA, 0]))
-      // REVERSE THE X-AXIS SCALE ON THE LEFT SIDE BY REVERSING THE RANGE
+    // REVERSE THE X-AXIS SCALE ON THE LEFT SIDE BY REVERSING THE RANGE
       .tickFormat(function(d) {return (<any>d).toFixed(0) + '%'; })
       .ticks(4);
 
@@ -1104,7 +1146,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       .attr('class', 'axis x right')
       .attr('transform', translation(pointB, h))
       .call(xAxisRight);
-      // .attr('class', 'labelsAxis');
+    // .attr('class', 'labelsAxis');
 
     // DRAW BARS
     leftBarGroup.selectAll('.barPyramid.left')
