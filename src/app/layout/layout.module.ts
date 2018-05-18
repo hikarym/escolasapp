@@ -9,13 +9,12 @@ import { SidebarComponent} from '../shared';
 
 import { HttpModule} from '@angular/http';
 import {HeaderModule} from '../shared/components/header/header.module';
-import {SchoolDetailsModule} from '../shared/components/school-details/school-details.module';
+// import {SchoolDetailsModule} from '../shared/components/school-details/school-details.module';
 import {ShareddataService} from '../services/shareddata.service';
 import {SchoolService} from '../services/school.service';
 import {WeightingAreaService} from '../services/weighting-area.service';
 import { AboutProjectComponent } from './about-project/about-project.component';
 import { EducationalVariablesComponent } from './educational-variables/educational-variables.component';
-import { SocioeconomicIndicatorsComponent } from './socioeconomic-indicators/socioeconomic-indicators.component';
 
 
 @NgModule({
@@ -25,16 +24,14 @@ import { SocioeconomicIndicatorsComponent } from './socioeconomic-indicators/soc
     LayoutRoutingModule,
     TranslateModule,
     HttpModule,
-    HeaderModule,
-    SchoolDetailsModule
+    HeaderModule
+    // SchoolDetailsModule
   ],
   declarations: [
     LayoutComponent,
-    // HeaderComponent,
     SidebarComponent,
     AboutProjectComponent,
-    EducationalVariablesComponent,
-    SocioeconomicIndicatorsComponent
+    EducationalVariablesComponent
   ],
 
   providers: [SchoolService, WeightingAreaService, ShareddataService]

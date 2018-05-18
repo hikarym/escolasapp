@@ -140,7 +140,7 @@
 }
 
 .section-hero-header {
-  background-color: #292b2c;
+  background-color: #4178ba; /*292b2c*/
   color: #fff;
   -webkit-flex: none;
   -ms-flex: none;
@@ -371,11 +371,11 @@ button {
   position: relative;
 }
 
-.section-info-icon {
+.section-info-icon-ed {
   margin-right: 10px; /*24px*/
-  -webkit-flex: 0 0 20px; /*0 0 24px*/
-  -ms-flex: 0 0 20px; /*0 0 24px*/
-  flex: 0 0 20px; /*0 0 24px*/
+  -webkit-flex: 0 0 80px; /*0 0 24px*/
+  -ms-flex: 0 0 80px; /*0 0 24px*/
+  flex: 0 0 80px; /*0 0 24px*/
 }
 
 .section-info-text, .section-info-text .widget-pane-link {

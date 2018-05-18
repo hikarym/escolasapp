@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { GeolocationRoutingModule } from './geolocation-routing.module';
 import { GeolocationComponent } from './geolocation.component';
 import { AgmCoreModule } from '@agm/core';
-import {HeaderModule} from '../../shared/components/header/header.module';
+// import {HeaderModule} from '../../shared/components/header/header.module';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {LeafletMarkerClusterModule} from '@asymmetrik/ngx-leaflet-markercluster';
 import { GraphicsComponent } from './graphics/graphics.component';
@@ -17,6 +17,8 @@ import {
   IndicatorsByWeightingAreasComponent
 } from './indicators-by-weighting-areas/indicators-by-weighting-areas.component';
 import {EducationalIndicatorsComponent} from './educational-indicators/educational-indicators.component';
+import { GeralInformationComponent } from './educational-indicators/geral-information/geral-information.component';
+import { GraphsComponent } from './educational-indicators/graphs/graphs.component';
 
 @NgModule({
   imports: [
@@ -36,7 +38,9 @@ import {EducationalIndicatorsComponent} from './educational-indicators/education
     GraphicsComponent,
     MapDirective,
     IndicatorsByWeightingAreasComponent,
-    EducationalIndicatorsComponent
+    EducationalIndicatorsComponent,
+    GeralInformationComponent,
+    GraphsComponent
   ]
   /*providers: [RoundDecimalPipe]*/
 })

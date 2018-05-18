@@ -246,3 +246,26 @@ body{
   position: absolute;
   z-index: 401;
 }
+
+/*box*/
+.box {
+  position: relative;
+  padding: .75rem 1.25rem;
+  margin: .2rem .2rem 1rem;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+}
+
+.box-info {
+  color: #0c5460;
+  background-color: #ECF1F9;
+  /*border-color: rgba(65,120,186,0.2);*/ /*#bee5eb;*/
+}
+
+/*separador*/
+.title-underline {
+  height: 0;
+  margin: .5rem .3rem .5rem 1.2rem;
+  overflow: hidden;
+  border-top: 2px solid #323c3c;
+}

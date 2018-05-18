@@ -24,10 +24,6 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
   @Output() onSecInformations = new EventEmitter<any>();
   codapSelected: any;
   PANELNAME = 'Informação sobre a vizinhança da Escola';
-  CAT_01 = 'Características Socioeconômicas';
-  CAT_02 = 'Perfil Educacional';
-  CAT_03 = 'Perfil Educacional da Pop. em Idade Escolas';
-  CAT_04 = 'Características demográficas';
   // Geral Information about a CODAP
   CODAP = '';
   GINI = 0;
@@ -182,7 +178,6 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
   }
 
   ngOnInit() {
-
 
     const s = this.sharedDataService.getSchoolCodAP().subscribe(
       res => {
