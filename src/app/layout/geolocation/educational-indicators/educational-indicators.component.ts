@@ -10,24 +10,12 @@ import {Subscription} from 'rxjs/Subscription';
   styleUrls: ['./educational-indicators.component.css']
 })
 export class EducationalIndicatorsComponent implements OnInit {
-  @Output() onSchoolLocation = new EventEmitter<any>();
   schoolSelectedID: string;
   schoolSelected: any;
   // Geral Information about a school
   CODESC = '';
   NO_ENTIDAD = '';
-  NOMEMUN = '';
-  BAIRRO = '';
-  CEP = '';
-  ENDERECO = '';
-  NUMERO = '';
-  DDD = '';
-  TELEFONE = '';
-  NO_REGIAO = '';
-  SIGLA = '';
-  Dependad = '';
-  DESC_SITUACAO_FUNCIONAMENTO = '';
-  ID_LOCALIZACAO = '';
+
   ID_LABORATORIO_INFORMATICA = '';
   ID_QUADRA_ESPORTES_COBERTA = '';
   ID_QUADRA_ESPORTES_DESCOBERTA = '';
@@ -440,28 +428,7 @@ export class EducationalIndicatorsComponent implements OnInit {
       console.log(this.schoolSelected);
       this.CODESC = this.schoolSelected.codesc;
       this.NO_ENTIDAD = this.schoolSelected.detalhes.nomeesc;
-      this.NOMEMUN = this.schoolSelected.detalhes.nomemun.x;
-      this.BAIRRO = this.schoolSelected.detalhes.bairro;
-      this.CEP = this.schoolSelected.detalhes.cep;
-      this.ENDERECO = this.schoolSelected.detalhes.endereco;
-      this.NUMERO = this.schoolSelected.detalhes.numero;
-      this.DDD = this.schoolSelected.detalhes.ddd;
-      this.TELEFONE = this.schoolSelected.detalhes.telefone;
-      // this.NO_REGIAO = this.schoolSelected.detalhes.noregiao;
-      // this.SIGLA = this.schoolSelected.detalhes.sigla;
-      this.Dependad = this.schoolSelected.detalhes.tipodep;
-      // this.DESC_SITUACAO_FUNCIONAMENTO = this.schoolSelected.sitfun.2016;
-      this.ID_LOCALIZACAO = this.schoolSelected.detalhes.localiza;
-      this.ID_LABORATORIO_INFORMATICA = this.schoolSelected.detalhes.ID_LABORATORIO_INFORMATICA;
-      this.ID_QUADRA_ESPORTES_COBERTA = this.schoolSelected.ID_QUADRA_ESPORTES_COBERTA;
-      this.ID_QUADRA_ESPORTES_DESCOBERTA = this.schoolSelected.ID_QUADRA_ESPORTES_DESCOBERTA;
-      this.ID_BIBLIOTECA = this.schoolSelected.ID_BIBLIOTECA;
-      this.LOCATION.LAT = this.schoolSelected.lat;
-      this.LOCATION.LON = this.schoolSelected.lon;
-      this.LOCATION.CODAP = this.schoolSelected.codap;
-      // send lat, lon and codAp of a school selected to geolocation component via observable subject
-      this.sharedDataService.sendSchoolLocation(this.LOCATION);
-      this.onSchoolLocation.emit(this.LOCATION);
+
 
       // TA_EF_AI
       this.censo_TxAprov_2007_5EF_escola = this.schoolSelected.censo_TxAprov_2007_5EF_escola;

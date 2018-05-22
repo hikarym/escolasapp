@@ -188,14 +188,14 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
         this.weightingAreaSecInfoService.showWeightingAreaInfoByCodAP(this.selectedSchoolCodAP).then((res1) => {
           this.weightingAreaInfo = res1[0];
-          console.log(this.weightingAreaInfo);
+          // console.log(this.weightingAreaInfo);
           this.CODAP = this.weightingAreaInfo.codap;
           this.OCUP = this.weightingAreaInfo.ses.ocup;
 
           // Get all the information about BR-SP-RMSP socioeconomic variables
           this.brSpRmspSecInfoService.getBrSpRmspSecInfo().then((res2) => {
             this.brSpRmspSecInfo = res2;
-            console.log('brSpRMSPVariables:', this.brSpRmspSecInfo);
+            // console.log('brSpRMSPVariables:', this.brSpRmspSecInfo);
 
             this.buildDataForComparativeTable();
 
@@ -853,7 +853,8 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       .attr('x', legendRectSize + legendSpacing)
       .attr('y', legendRectSize - legendSpacing)
       .text(function (d, i) {
-        console.log('d group bar: ', dataGraph.series[i].label); return dataGraph.series[i].label;
+        // console.log('d group bar: ', dataGraph.series[i].label);
+        return dataGraph.series[i].label;
         // d.label;
       });
   }
@@ -901,7 +902,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       .append('g')
       .attr('class', 'arc');
 
-    console.log(pie(dataGraph.map(d => d.variableValue)));
+    // console.log(pie(dataGraph.map(d => d.variableValue)));
 
     // Enter new arcs
     arcs.append('path')
@@ -935,8 +936,8 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       bmw_data.push([d.model, d.apPerc, d.municipioPerc, d.metropolePerc, d.ufPerc, d.brPerc]);
     });
 
-    console.log(dataGraph);
-    console.log('bmw_data:', bmw_data);
+    // console.log(dataGraph);
+    // console.log('bmw_data:', bmw_data);
 
     // Remove all children from HTML
     d3.select(containerDiv.nativeElement).html('');
