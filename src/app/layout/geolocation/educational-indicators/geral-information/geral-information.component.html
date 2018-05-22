@@ -1,0 +1,316 @@
+<div class="section-info">
+  <div class="box box-info" role="alert">
+    <h6 class="alert-heading">Dados Gerais:</h6>
+    <!--<p>Put a short description about the graphs. This example text is going to run a bit longer so that you can
+      see how spacing within an alert works with this kind of content.</p>-->
+    <div class="section-info-line">
+      <div class="section-info-icon-ed"><b>{{'codesc' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{codesc}}</span></span>
+    </div>
+    <div class="section-info-line">
+      <div class="section-info-icon-ed" ><b>{{'end_esc' | translate}}:</b></div>
+      <span class="section-info-text">{{end_esc}}, {{NUM_ESC}}</span>
+    </div>
+    <div class="section-info-line">
+      <div class="section-info-icon-ed"><b>{{'nomemun' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{nomemun}}</span></span>
+    </div>
+    <div class="section-info-line">
+      <div class="section-info-icon-ed" ><b>{{'nomdist' | translate}}:</b></div>
+      <span class="section-info-text">{{nomdist}}</span>
+    </div>
+    <div class="section-info-line">
+      <div class="section-info-icon-ed" ><b>{{'bairro' | translate}}:</b></div>
+      <span class="section-info-text">{{bairro}}</span>
+    </div>
+    <div class="section-info-line">
+      <div class="section-info-icon-ed" ><b>{{'tipdep' | translate}}:</b></div>
+      <span class="section-info-text">{{tipdep}}</span>
+    </div>
+    <div class="section-info-line">
+      <div class="section-info-icon-ed" ><b>{{'localiza' | translate}}:</b></div>
+      <span class="section-info-text">{{localiza}}</span>
+    </div>
+    <div class="section-info-line">
+      <div class="section-info-icon-ed" ><b>{{'Quadra.coberta' | translate}}:</b></div>
+      <span class="section-info-text">{{DESC_SITUACAO_FUNCIONAMENTO}}</span>
+    </div>
+
+    <!-- -->
+    <hr>
+    <div class="section-info-line">
+      <div class="section-info-icon-ed" ><b>{{'ano' | translate}}:</b></div>
+      <select (change)="onYearChange($event.target.value)" class="custom-select">
+        <option *ngFor="let ano of anos">{{ano.name}}</option>
+      </select>
+    </div>
+    <!--<p class="mb-0">Another graphs............</p>-->
+
+  </div>
+</div>
+
+<!-- FILTER:  BY YEAR -->
+<!--<div class="section-info">
+  <div class="section-info-line" style="margin-left: 25px;">
+    <div class="section-info-icon-ed" ><b>{{'ano' | translate}}:</b></div>
+    <select (change)="onYearChange($event.target.value)" class="custom-select">
+      <option *ngFor="let ano of anos">{{ano.name}}</option>
+    </select>
+  </div>
+</div>-->
+
+<!-- SEÇÃO: Outras informações -->
+<div class="section-info" *ngIf="detalhesAnuais">
+  <div class="box" role="alert">
+    <h6 class="alert-heading sub-title">Outras Informações:</h6>
+
+    <div class="section-info-line"  *ngIf="detalhesAnuais.sitfun && detalhesAnuais.sitfun != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'sitfun' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{detalhesAnuais.sitfun}}</span></span>
+    </div>
+    <div class="section-info-line" *ngIf="detalhesAnuais.totalFuncionarios && detalhesAnuais.totalFuncionarios != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'totalFuncionarios' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{detalhesAnuais.totalFuncionarios}}</span></span>
+    </div>
+    <div class="section-info-line" *ngIf="mantenedora != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'mantenedora' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{mantenedora}}</span></span>
+    </div>
+    <div class="section-info-line" *ngIf="detalhesAnuais.atendimentoEspecializado && detalhesAnuais.atendimentoEspecializado != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'atendimentoEspecializado' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{detalhesAnuais.atendimentoEspecializado}}</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- SEÇÃO: Acessibilidade -->
+<div class="section-info" *ngIf="acessibilidade">
+  <div class="box" role="alert">
+
+    <h6 class="alert-heading sub-title">{{'acessibilidade' | translate}}</h6>
+
+    <div class="section-info-line"  *ngIf="acessibilidade.BanheiroDeficientes && acessibilidade.BanheiroDeficientes != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'BanheiroDeficientes' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{acessibilidade.BanheiroDeficientes}}</span></span>
+    </div>
+    <div class="section-info-line" *ngIf="acessibilidade.ViasDeficientes && acessibilidade.ViasDeficientes != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'ViasDeficientes' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{acessibilidade.ViasDeficientes}}</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- SEÇÃO: Alimentação -->
+<div class="section-info" *ngIf="alimentacao">
+  <div class="box" role="alert">
+    <h6 class="alert-heading sub-title">{{'AlimentacaoTitle' | translate}}</h6>
+
+    <div class="section-info-line"  *ngIf="alimentacao && alimentacao != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'Alimentacao' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{alimentacao}}</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- SEÇÃO: Saneamento -->
+<div class="section-info" *ngIf="saneamento">
+  <div class="box" role="alert">
+    <h6 class="alert-heading sub-title">{{'saneamento' | translate}}</h6>
+
+    <div class="section-info-line"  *ngIf="agua && agua != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'agua' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{agua}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="energia && energia != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'energia' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{energia}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="esgoto && esgoto != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'esgoto' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{esgoto}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="lixo && lixo != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'lixo' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{lixo}}</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- SEÇÃO: Equipamentos -->
+<div class="section-info" *ngIf="equipamentos">
+  <div class="box" role="alert">
+    <h6 class="alert-heading sub-title">{{'equipamentos' | translate}}</h6>
+
+    <div class="section-info-line"  *ngIf="equipamentos.Televisao && equipamentos.Televisao != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'equipamentos.Televisao' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{equipamentos.Televisao}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="equipamentos.VideoCassete && equipamentos.VideoCassete != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'equipamentos.VideoCassete' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{equipamentos.VideoCassete}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="equipamentos.DVD && equipamentos.DVD != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'equipamentos.DVD' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{equipamentos.DVD}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="equipamentos.Computador.possui && equipamentos.Computador.possui != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'equipamentos.Computador.possui' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{equipamentos.Computador.possui}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="equipamentos.Computador.quantidade && equipamentos.Computador.quantidade != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'equipamentos.Computador.quantidade' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{equipamentos.Computador.quantidade}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="equipamentos.Computador.administrativo && equipamentos.Computador.administrativo != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'equipamentos.Computador.administrativo' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{equipamentos.Computador.administrativo}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="equipamentos.Computador.alunos && equipamentos.Computador.alunos != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'equipamentos.Computador.alunos' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{equipamentos.Computador.alunos}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="equipamentos.AcessoInternet.possui && equipamentos.AcessoInternet.possui != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'equipamentos.AcessoInternet.possui' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{equipamentos.AcessoInternet.possui}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="equipamentos.AcessoInternet.bandaLarga && equipamentos.AcessoInternet.bandaLarga != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'equipamentos.AcessoInternet.bandaLarga' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{equipamentos.AcessoInternet.bandaLarga}}</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- SEÇÃO: Infraestrutura -->
+<div class="section-info" *ngIf="dependencias">
+  <div class="box" role="alert">
+    <h6 class="alert-heading sub-title">{{'infraestrutura' | translate}} ({{'dependencias' | translate}})</h6>
+
+    <div class="section-info-line"  *ngIf="local != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'dependencias.local' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{local}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="dependencias.formaOcupacao && dependencias.formaOcupacao.predioEscolar && dependencias.formaOcupacao.predioEscolar != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'dependencias.formaOcupacao.predioEscolar' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{dependencias.formaOcupacao.predioEscolar}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="dependencias.diretoria && dependencias.diretoria != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'dependencias.diretoria' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{dependencias.diretoria}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="dependencias.salaProfessores && dependencias.salaProfessores != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'dependencias.salaProfessores' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{dependencias.salaProfessores}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="dependencias.laboratorioInformatica && dependencias.laboratorioInformatica != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'dependencias.laboratorioInformatica' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{dependencias.laboratorioInformatica}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="dependencias.laboratorioCiencias && dependencias.laboratorioCiencias != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'dependencias.laboratorioCiencias' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{dependencias.laboratorioCiencias}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="dependencias.salaEspecial && dependencias.salaEspecial != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'dependencias.salaEspecial' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{dependencias.salaEspecial}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="quadra != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'dependencias.quadra' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{quadra}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="dependencias.Cozinha && dependencias.Cozinha != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'dependencias.Cozinha' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{dependencias.Cozinha}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="dependencias.Biblioteca && dependencias.Biblioteca != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'dependencias.Biblioteca' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{dependencias.Biblioteca}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="dependencias.salaLeitura && dependencias.salaLeitura != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'dependencias.salaLeitura' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{dependencias.salaLeitura}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="dependencias.BibliotecaSalaLeitura && dependencias.BibliotecaSalaLeitura != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'dependencias.BibliotecaSalaLeitura' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{dependencias.BibliotecaSalaLeitura}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="dependencias.BanheiroFora && dependencias.BanheiroFora != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'dependencias.BanheiroFora' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{dependencias.BanheiroFora}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="dependencias.BanheiroDentro && dependencias.BanheiroDentro != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'dependencias.BanheiroDentro' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{dependencias.BanheiroDentro}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="dependencias.BanheiroInfantil && dependencias.BanheiroInfantil != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'dependencias.BanheiroInfantil' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{dependencias.BanheiroInfantil}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="dependencias.salaSecretaria && dependencias.salaSecretaria != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'dependencias.salaSecretaria' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{dependencias.salaSecretaria}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="dependencias.Refeitorio && dependencias.Refeitorio != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'dependencias.Refeitorio' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{dependencias.Refeitorio}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="dependencias.Auditorio && dependencias.Auditorio != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'dependencias.Auditorio' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{dependencias.Auditorio}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="dependencias.numeroSalas && dependencias.numeroSalas != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'dependencias.numeroSalas' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{dependencias.numeroSalas}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="dependencias.numeroSalasUsadasComoSalas && dependencias.numeroSalasUsadasComoSalas != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'dependencias.numeroSalasUsadasComoSalas' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{dependencias.numeroSalasUsadasComoSalas}}</span></span>
+    </div>
+    <div class="section-info-line"  *ngIf="dependencias.EspacoBrasilAlfabetizado && dependencias.EspacoBrasilAlfabetizado != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'dependencias.EspacoBrasilAlfabetizado' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text"><span>{{dependencias.EspacoBrasilAlfabetizado}}</span></span>
+    </div>
+  </div>
+</div>
