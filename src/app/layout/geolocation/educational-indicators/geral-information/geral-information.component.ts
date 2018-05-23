@@ -73,52 +73,38 @@ export class GeralInformationComponent implements OnInit {
   }
 
   ngOnInit() {
-    const s = this.sharedDataService.getSchoolID().subscribe(
+    const s = this.sharedDataService.getSchoolInformation().subscribe(
       res => {
-        // console.log('cosa', this.sharedDataService);
-        // console.log('res', res);
-        this.schoolSelectedID = res;
-        // this.getSchoolDetailedInformation(this.schoolSelectedID);
-        this.getSchoolDetailedInformation(this.schoolSelectedID);
+        const schoolInformation = res;
+        this.getSchoolDetailedInformation(schoolInformation);
       });
     this.subscription.add(s);
   }
 
   // Invoked from layout.component.ts or from geolocation.component.ts
-  getSchoolDetailedInformation(schoolID: string) {
+  getSchoolDetailedInformation(schoolInformation: any) {
     // this.router.navigate([this.URL_ROOT + 'school/school-details/' + schoolID]);
-    // this.schoolObject = schoolID;
-    this.schoolService.showEscola(schoolID).then((res) => {
-      this.schoolSelected = res;
-      console.log(this.schoolSelected);
+    this.schoolSelected = schoolInformation;
+    console.log(this.schoolSelected);
 
-      // Geral Data
-      this.codesc = this.schoolSelected.codesc;
-      this.nomeesc = this.schoolSelected.detalhes.nomeesc;
-      this.nomemun = this.schoolSelected.detalhes.nomemun;
-      this.nomdist = this.schoolSelected.detalhes.nomdist;
-      this.bairro = this.schoolSelected.detalhes.bairro;
-      this.end_esc = this.schoolSelected.detalhes.end_esc;
-      this.num_esc = this.schoolSelected.detalhes.num_esc;
-      this.tipdep = this.schoolSelected.detalhes.tipdep;
-      this.localiza = this.schoolSelected.detalhes.localiza;
-      // Annual Information
-      const yearSelFieldName = 'ano' + this.yearSelValue;
-      this.loadAnnualDetails(yearSelFieldName);
-      this.loadAcessibilidadeInfo(yearSelFieldName);
-      this.loadAlimentacaoInfo(yearSelFieldName);
-      this.loadSaneamentoInfo(yearSelFieldName);
-      this.loadEquipamentosInfo(yearSelFieldName);
-      this.loadDependenciasInfo(yearSelFieldName);
-
-      this.LOCATION.LAT = this.schoolSelected.lat;
-      this.LOCATION.LON = this.schoolSelected.lon;
-      this.LOCATION.CODAP = this.schoolSelected.codap;
-      // send lat, lon and codAp of a school selected to geolocation component via observable subject
-      this.sharedDataService.sendSchoolLocation(this.LOCATION);
-    }, (err) => {
-      console.log(err);
-    });
+    // Geral Data
+    this.codesc = this.schoolSelected.codesc;
+    this.nomeesc = this.schoolSelected.detalhes.nomeesc;
+    this.nomemun = this.schoolSelected.detalhes.nomemun;
+    this.nomdist = this.schoolSelected.detalhes.nomdist;
+    this.bairro = this.schoolSelected.detalhes.bairro;
+    this.end_esc = this.schoolSelected.detalhes.end_esc;
+    this.num_esc = this.schoolSelected.detalhes.num_esc;
+    this.tipdep = this.schoolSelected.detalhes.tipdep;
+    this.localiza = this.schoolSelected.detalhes.localiza;
+    // Annual Information
+    const yearSelFieldName = 'ano' + this.yearSelValue;
+    this.loadAnnualDetails(yearSelFieldName);
+    this.loadAcessibilidadeInfo(yearSelFieldName);
+    this.loadAlimentacaoInfo(yearSelFieldName);
+    this.loadSaneamentoInfo(yearSelFieldName);
+    this.loadEquipamentosInfo(yearSelFieldName);
+    this.loadDependenciasInfo(yearSelFieldName);
   }
 
   /**

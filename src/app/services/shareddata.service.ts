@@ -8,6 +8,7 @@ export class ShareddataService {
   // private location: Subject<any> = new BehaviorSubject<any>();
   private schoolLocationSource = new Subject<any>();
   private subjectSchoolID = new Subject<any>();
+  private subjectSchoolInformation = new Subject<any>();
   private subjectCodAP = new Subject<any>();
   private subjectLocation = new Subject<any>();
   private subject_TA_EF_AI = new Subject<any>();
@@ -51,6 +52,14 @@ export class ShareddataService {
 
   getSchoolCodAP(): Observable<any> {
     return this.subjectCodAP.asObservable();
+  }
+
+  sendSchoolInformation(message: any) {
+    this.subjectSchoolInformation.next(message);
+  }
+
+  getSchoolInformation(): Observable<any> {
+    return this.subjectSchoolInformation.asObservable();
   }
 
   sendSchoolLocation(message: any) {
