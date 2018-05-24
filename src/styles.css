@@ -22,6 +22,10 @@ body{
   margin:0;
 }
 
+.header .navbar {
+  background: #323c3c !important; /*#222*/
+}
+
 /* CSS for schoolsDetails screen */
 .push-right-school-details .main-container {
   margin-left: 360px !important; /*408*/
@@ -200,6 +204,11 @@ body{
   height: 10px;
 }
 
+/* colors*/
+.bg-darkgreen {
+  background-color: #323c3c;
+}
+
 /* Modal */
 .modal-backdrop {
   z-index: -1;  /*to solve the problem: Bootstrap modal appearing under background*/
@@ -283,6 +292,8 @@ body{
   -ms-flex: none;
   flex: none;
   font-size: 13px;
+  margin: 0 .1rem;
+  border-radius: .25rem;
 }
 
 .section-action {
@@ -389,6 +400,10 @@ body{
   /*border: 1px solid transparent; maf1*/
   border: 1px solid #ffc107;
   border-radius: .25rem;
+}
+
+.box-title {
+  color: #0c5460;
 }
 
 .box-info {

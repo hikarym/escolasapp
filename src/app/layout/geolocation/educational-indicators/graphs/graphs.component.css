@@ -7,7 +7,8 @@
   background: #efc100; /*ffc107, efc100, ecf1f8*/
   padding-right: 0px;
   padding-left: 0px;
-  margin: 1px 0px;
+  margin: .1rem .2rem 1px;
+  border-radius: .25rem;
 }
 
 .nav-tab-link {
@@ -64,4 +65,8 @@
   height: 24px;
   width: 24px;
 }
-/*---------------------*/
+/*--------- GRAPHS ------------*/
+.section-graph {
+  background: rgba(255,255,255, 0.8);
+  margin: 5px 25px 5px 5px;
+}

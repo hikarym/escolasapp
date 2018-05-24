@@ -130,5 +130,34 @@
 
   "ensinoInfantil": "Infantil",
   "ensinoFundamental": "Fundamental",
-  "ensinoMedio": "Médio"
+  "ensinoMedio": "Médio",
+
+  "adequacaoFormacaoDocenteGraph": "Adequação Formação Docente",
+  "group": "Grupos do ensino infantil",
+  "Grupo1": "Grupo 1",
+  "Grupo2": "Grupo 2",
+  "Grupo3": "Grupo 3",
+  "Grupo4": "Grupo 4",
+  "Grupo5": "Grupo 5",
+  "Grupo6": "Grupo 6",
+  "Grupo7": "Grupo 7",
+  "ano2005": "2005",
+  "ano2006": "2006",
+  "ano2007": "2007",
+  "ano2008": "2008",
+  "ano2009": "2009",
+  "ano2010": "2010",
+  "ano2011": "2011",
+  "ano2012": "2012",
+  "ano2013": "2013",
+  "ano2014": "2014",
+  "ano2015": "2015",
+  "ano2016": "2016",
+  "ano2017": "2017",
+  "ano2018": "2018",
+  "ano2019": "2019",
+  "ano2020": "2020",
+  "ano2021": "2021",
+  "docentesCursoSuperiorGraph": "Docentes com Curso Superior"
+
 }

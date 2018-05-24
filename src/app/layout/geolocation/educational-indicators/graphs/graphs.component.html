@@ -22,12 +22,34 @@
     </a>
   </div>
 
-  <!-- Tab content for 'Ensino Fundamental' -->
+
   <div class="tab-content" id="pills-tabContent">
+    <!-- Tab content for 'Ensino Infantil' -->
     <div class="tab-pane fade show active" id="pills-infantil" role="tabpanel" aria-labelledby="pills-infantil-tab">
-      Infantil
+      <div class="box" role="alert">
+        <h6 class="alert-heading "><i class="fa fa-graduation-cap fa-fw"></i>{{'adequacaoFormacaoDocenteGraph' | translate}}</h6>
+        <div class="section-info-line">
+          <div class="section-info-icon-ed" ><b>{{'group' | translate}}:</b></div>
+          <select (change)="onGroupChange($event.target.value)" class="custom-select">
+            <option *ngFor="let prop of propAFDInfantil">{{prop}}</option>
+          </select>
+        </div>
+        <div #adequacaoFormacaoDocenteGraph>
+
+          gtgt
+        </div>
+      </div>
+
+      <div class="box" role="alert">
+        <h6 class="alert-heading box-title"><i class="fa fa-graduation-cap fa-fw"></i>{{'docentesCursoSuperiorGraph' | translate}}</h6>
+        <div #docentesCursoSuperiorGraph>
+          frfr
+        </div>
+      </div>
+
     </div>
 
+    <!-- Tab content for 'Ensino Fundamental' -->
     <div class="tab-pane fade" id="pills-fundamental" role="tabpanel" aria-labelledby="pills-fundamental-tab">
       <div class="card card-default">
         <div class="card-header">

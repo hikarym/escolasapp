@@ -590,7 +590,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     return parseFloat((value * 100).toFixed(2));
   }
 
-  generateVerticalBarChart(dataGraph: {variableName: string; variableValue: number; }[], containerDiv: ElementRef) {
+  generateVerticalBarChart(dataGraph: any[], containerDiv: ElementRef) {
     // Define chart dimensions
     const margin = {top: 15, right: 20, bottom: 100, left: 20};
     const width = 335 - margin.left - margin.right;
