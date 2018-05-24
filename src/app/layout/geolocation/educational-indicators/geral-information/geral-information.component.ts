@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SchoolService} from '../../../../services/school.service';
 import {ShareddataService} from '../../../../services/shareddata.service';
 import {MatIconRegistry} from '@angular/material';
@@ -11,9 +11,7 @@ import {iteratorToArray} from '@angular/animations/browser/src/util';
   templateUrl: './geral-information.component.html',
   styleUrls: ['./geral-information.component.css']
 })
-export class GeralInformationComponent implements OnInit {
-  // @Output() onSchoolLocation = new EventEmitter<any>();
-  schoolSelectedID: string;
+export class GeralInformationComponent implements OnInit, OnDestroy {
   schoolSelected: any;
   // Geral Information about a school
   codesc = 'NA';
@@ -326,6 +324,11 @@ export class GeralInformationComponent implements OnInit {
       }
     }
     return nfieldsNA;
+  }
+
+  // unsubscribe to ensure no memory leaks
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
 

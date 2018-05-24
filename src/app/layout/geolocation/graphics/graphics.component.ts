@@ -193,14 +193,6 @@ export class GraphicsComponent implements OnInit, OnDestroy {
     'C.Nat.',
     'P.Obj.'
   ];
-  /*public barChartLabels_ENEM: string[] = [
-    'Redação',
-    'Linguagens e Códigos',
-    'Matemática',
-    'Ciências Humanas',
-    'Ciências da Natureza',
-    'Prova Objetiva'
-  ];*/
 
   // -------------
   private subscription = new Subscription();

@@ -51,6 +51,7 @@ agm-map {
   opacity: .9!important;
 }
 
+/*--------Tabs pills-------------*/
 .tab-labels{
   justify-content: center; /* align items in Main Axis */
   -webkit-box-pack: center;
@@ -106,6 +107,7 @@ agm-map {
     font-size: x-small;
   }
 }
+/*---------------------*/
 
 .btn-toggle-schooldetails {
   border: 1px solid rgba(0,0,0,.7);

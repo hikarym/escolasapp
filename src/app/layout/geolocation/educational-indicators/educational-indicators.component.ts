@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {SchoolService} from '../../../services/school.service';
 import {ShareddataService} from '../../../services/shareddata.service';
 import {MatIconRegistry} from '@angular/material';
@@ -9,7 +9,7 @@ import {Subscription} from 'rxjs/Subscription';
   templateUrl: './educational-indicators.component.html',
   styleUrls: ['./educational-indicators.component.css']
 })
-export class EducationalIndicatorsComponent implements OnInit {
+export class EducationalIndicatorsComponent implements OnInit, OnDestroy {
   schoolSelectedID: string;
   schoolSelected: any;
   // Geral Information about a school
@@ -22,12 +22,28 @@ export class EducationalIndicatorsComponent implements OnInit {
     CODAP: ''
   };
 
+  sections: any[] = [
+    {
+      id: 0,
+      name: 'Informações Gerais',
+      group: 'section1',
+      visible: false
+    },
+    {
+      id: 1,
+      name: 'Gráficos dos Níveis de Ensino',
+      group: 'section2',
+      visible: false
+    }
+  ];
+  sectionDefaultIndex = 0;
+
   private subscription = new Subscription();
 
   constructor(private schoolService: SchoolService,
               private sharedDataService: ShareddataService,
               iconRegistry: MatIconRegistry) {
-    // this.subscription = this.sharedDataService.getSchoolID().subscribe(message => {this.message = message; } );
+    this.sections[this.sectionDefaultIndex].visible = true;
     iconRegistry.registerFontClassAlias('fontawesome', 'fa');
   }
 
@@ -37,7 +53,6 @@ export class EducationalIndicatorsComponent implements OnInit {
         console.log('cosa', this.sharedDataService);
         console.log('res', res);
         this.schoolSelectedID = res;
-        // this.getSchoolDetailedInformation(this.schoolSelectedID);
         this.getSchoolDetailedInformation(this.schoolSelectedID);
       });
     this.subscription.add(s);
@@ -64,5 +79,23 @@ export class EducationalIndicatorsComponent implements OnInit {
     }, (err) => {
       console.log(err);
     });
+  }
+
+  /**
+   * Function to show a specify section
+   */
+  onSectionChange(idSectionSelected: number) {
+    for (let i = 0; i < this.sections.length; i++) {
+      this.sections[i].visible = false;
+    }
+    this.sections[idSectionSelected].visible = true;
+    this.sectionDefaultIndex = idSectionSelected;
+  }
+
+  /**
+   * unsubscribe to ensure no memory leaks
+   */
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

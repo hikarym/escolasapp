@@ -1,6 +1,6 @@
 <div class="section-info">
-  <div class="box box-info" role="alert">
-    <h6 class="alert-heading">Dados Gerais:</h6>
+  <div class="box box-info" role="alert" style=" border: 1px solid #323c3c;">
+    <h6 class="alert-heading"><i class="fa fa-graduation-cap fa-fw"></i>{{'dados-gerais' | translate}}</h6>
     <!--<p>Put a short description about the graphs. This example text is going to run a bit longer so that you can
       see how spacing within an alert works with this kind of content.</p>-->
     <div class="section-info-line">
@@ -64,7 +64,7 @@
 <!-- SEÇÃO: Outras informações -->
 <div class="section-info" *ngIf="detalhesAnuais">
   <div class="box" role="alert">
-    <h6 class="alert-heading sub-title">Outras Informações:</h6>
+    <h6 class="alert-heading sub-title"><i class="fa fa-file fa-fw"></i>Outras Informações:</h6>
 
     <div class="section-info-line"  *ngIf="detalhesAnuais.sitfun && detalhesAnuais.sitfun != 'NA'">
       <div class="section-info-icon-ed"><b>{{'sitfun' | translate}}:</b></div>
@@ -93,7 +93,7 @@
 <div class="section-info" *ngIf="acessibilidade">
   <div class="box" role="alert">
 
-    <h6 class="alert-heading sub-title">{{'acessibilidade' | translate}}</h6>
+    <h6 class="alert-heading sub-title"><i class="fa fa-universal-access fa-fw"></i>{{'acessibilidade' | translate}}</h6>
 
     <div class="section-info-line"  *ngIf="acessibilidade.BanheiroDeficientes && acessibilidade.BanheiroDeficientes != 'NA'">
       <div class="section-info-icon-ed"><b>{{'BanheiroDeficientes' | translate}}:</b></div>
@@ -111,7 +111,7 @@
 <!-- SEÇÃO: Alimentação -->
 <div class="section-info" *ngIf="alimentacao">
   <div class="box" role="alert">
-    <h6 class="alert-heading sub-title">{{'AlimentacaoTitle' | translate}}</h6>
+    <h6 class="alert-heading sub-title"><i class="fa fa-coffee fa-fw"></i>{{'AlimentacaoTitle' | translate}}</h6>
 
     <div class="section-info-line"  *ngIf="alimentacao && alimentacao != 'NA'">
       <div class="section-info-icon-ed"><b>{{'Alimentacao' | translate}}:</b></div>
@@ -124,7 +124,7 @@
 <!-- SEÇÃO: Saneamento -->
 <div class="section-info" *ngIf="saneamento">
   <div class="box" role="alert">
-    <h6 class="alert-heading sub-title">{{'saneamento' | translate}}</h6>
+    <h6 class="alert-heading sub-title"><i class="fa fa-lightbulb-o fa-fw"></i>{{'saneamento' | translate}}</h6>
 
     <div class="section-info-line"  *ngIf="agua && agua != 'NA'">
       <div class="section-info-icon-ed"><b>{{'agua' | translate}}:</b></div>
@@ -152,7 +152,7 @@
 <!-- SEÇÃO: Equipamentos -->
 <div class="section-info" *ngIf="equipamentos">
   <div class="box" role="alert">
-    <h6 class="alert-heading sub-title">{{'equipamentos' | translate}}</h6>
+    <h6 class="alert-heading sub-title"><i class="fa fa-desktop fa-fw"></i>{{'equipamentos' | translate}}</h6>
 
     <div class="section-info-line"  *ngIf="equipamentos.Televisao && equipamentos.Televisao != 'NA'">
       <div class="section-info-icon-ed"><b>{{'equipamentos.Televisao' | translate}}:</b></div>
@@ -205,7 +205,7 @@
 <!-- SEÇÃO: Infraestrutura -->
 <div class="section-info" *ngIf="dependencias">
   <div class="box" role="alert">
-    <h6 class="alert-heading sub-title">{{'infraestrutura' | translate}} ({{'dependencias' | translate}})</h6>
+    <h6 class="alert-heading sub-title"><i class="fa fa-building fa-fw"></i>{{'infraestrutura' | translate}} ({{'dependencias' | translate}})</h6>
 
     <div class="section-info-line"  *ngIf="local != 'NA'">
       <div class="section-info-icon-ed"><b>{{'dependencias.local' | translate}}:</b></div>

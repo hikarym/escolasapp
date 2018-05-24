@@ -20,14 +20,14 @@
           </a>
           <div aria-labelledby="navbarDropdownMenu2Link" style="width: 93%; font-size: 12px;"
                class="dropdown-menu dropdown-menu-right">
-            <button *ngFor="let cat of categories" class="dropdown-item" (click)="onGraphCategoryChange(cat.id)">
-              {{cat.name}} <span class="badge badge-primary badge-pill">{{cat.graphics}}</span>
+            <button *ngFor="let cat of categories" class="dropdown-item-maf btn-outline-blue" (click)="onGraphCategoryChange(cat.id)">
+              {{cat.name}} <span class="badge badge-warning badge-pill">{{cat.graphics}}</span>
             </button>
           </div>
         </div>
       </div>
       <div class="section-info">
-        <div class="box box-info" role="alert">
+        <div class="box box-info" style=" border: 1px solid #323c3c;" role="alert">
           <h5 class="alert-heading">Description:</h5>
           <p>Put a short description about the graphs. This example text is going to run a bit longer so that you can
             see how spacing within an alert works with this kind of content.</p>

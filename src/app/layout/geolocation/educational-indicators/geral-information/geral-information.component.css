@@ -48,6 +48,14 @@
   color: inherit;
 }*/
 
+.section-entity-action {
+  -webkit-align-items: flex-start;
+  -ms-align-items: flex-start;
+  align-items: flex-start;
+  border-bottom: 1px solid #E6E6E6;
+  padding: 8px 20px;
+}
+
 .section-action-button-icon {
   margin: 0px auto 6px;
   position: relative;
@@ -77,64 +85,6 @@
   text-indent: 0px;
   text-shadow: none;
   display: inline-block;
-}
-
-/*button {
-  margin: 0;
-  border: 0;
-  outline: 0;
-  font: inherit;
-  vertical-align: baseline;
-  background: transparent;
-  list-style: none;
-
-  align-items: flex-start;
-  text-align: center;
-  box-sizing: border-box;
-
-  text-rendering: auto;
-  letter-spacing: normal;
-  word-spacing: normal;
-  text-indent: 0px;
-  text-shadow: none;
-  display: inline-block;
-}*/
-
-.section-divider {
-  -webkit-flex: none;
-  -ms-flex: none;
-  flex: none;
-}
-
-.section-info {
-  font-size: 12px;
-  -webkit-flex: none;
-  -ms-flex: none;
-  flex: none;
-  position: relative;
-}
-
-.section-info-line {
-  padding: 4px 20px; /*4px 24px*/
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center;
-  position: relative;
-}
-
-.section-info-icon-ed {
-  margin-right: 10px; /*24px*/
-  -webkit-flex: 0 0 130px; /*0 0 24px*/
-  -ms-flex: 0 0 130px; /*0 0 24px*/
-  flex: 0 0 130px; /*0 0 24px*/
-}
-
-.section-info-text, .section-info-text .widget-pane-link {
-  color: rgba(0, 0, 0, 0.87);
-  text-align: left;
 }
 
 /* toggle */

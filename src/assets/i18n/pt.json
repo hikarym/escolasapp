@@ -23,6 +23,8 @@
   "settings-map": "Configurações do Mapa",
   "close": "Fechar",
   "apply-changes": "Aplicar mudanças",
+
+  "dados-gerais": "Dados gerais",
   "codesc": "Código INEP",
   "nomeesc": "Escola",
   "nomemun": "Município",
@@ -124,5 +126,9 @@
   "dependencias.Auditorio": "A escola possui Auditório?",
   "dependencias.numeroSalas": "Número de Salas",
   "dependencias.numeroSalasUsadasComoSalas": "Número de salas usadas como salas",
-  "dependencias.EspacoBrasilAlfabetizado": "A escola é um Espaço Brasil alfabetizado?"
+  "dependencias.EspacoBrasilAlfabetizado": "A escola é um Espaço Brasil alfabetizado?",
+
+  "ensinoInfantil": "Infantil",
+  "ensinoFundamental": "Fundamental",
+  "ensinoMedio": "Médio"
 }
