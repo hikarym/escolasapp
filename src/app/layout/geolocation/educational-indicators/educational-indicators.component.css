@@ -85,26 +85,6 @@
 .sidebar-school-details .sidebar-dropdown .panel-collapse .panel-body .list-group-item:hover {
   background: #151515; /*nc*/
 }
-.nested-menu .list-group-item {
-  cursor: pointer;
-}
-.nested-menu .nested {
-  list-style-type: none;
-}
-.nested-menu ul.submenu {
-  display: none;
-  height: 0;
-}
-.nested-menu .expand ul.submenu {
-  display: block;
-  list-style-type: none;
-  height: auto;
-}
-.nested-menu .expand ul.submenu li a {
-  color: rgba(0, 0, 0, 0.87);
-  padding: 10px;
-  display: block;
-}
 @media screen and (max-width: 992px) {
   .sidebar-school-details {
     top: 54px;

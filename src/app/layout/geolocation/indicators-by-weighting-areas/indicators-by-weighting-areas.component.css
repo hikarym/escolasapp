@@ -85,26 +85,7 @@
 .sidebar-indicators-by-weighting-areas .sidebar-dropdown .panel-collapse .panel-body .list-group-item:hover {
   background: #151515; /*nc*/
 }
-.nested-menu .list-group-item {
-  cursor: pointer;
-}
-.nested-menu .nested {
-  list-style-type: none;
-}
-.nested-menu ul.submenu {
-  display: none;
-  height: 0;
-}
-.nested-menu .expand ul.submenu {
-  display: block;
-  list-style-type: none;
-  height: auto;
-}
-.nested-menu .expand ul.submenu li a {
-  color: rgba(0, 0, 0, 0.87);
-  padding: 10px;
-  display: block;
-}
+
 @media screen and (max-width: 992px) {
   .sidebar-indicators-by-weighting-areas {
     top: 65px;/*54*/
@@ -112,108 +93,7 @@
   }
 }
 
-
-
-
-/*-------------------*/
-.section-entity-action {
-  -webkit-align-items: flex-start;
-  -ms-align-items: flex-start;
-  align-items: flex-start;
-  border-bottom: 1px solid #E6E6E6;
-  padding: 8px 20px;
-}
-
-.section-entity-action>.section-action-popup-container,
-.section-entity-action>.section-action-button {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  padding: 4px;
-}
-
-.section-action-popup-container {
-  position: relative;
-}
-
-.section-action-button.blue-button-text {
-  font-size: 12px;
-}
-
-.section-action-popup-container .section-action-button {
-  width: 100%;
-}
-
-.button-text, .blue-button-text, .blue-link, .link-like {
-  cursor: pointer;
-}
-
-.blue-button-text {
-  color: #4285F4;
-}
-
-.button-text, .blue-button-text {
-  font-size: 13px;
-  font-weight: 500;
-  text-transform: uppercase;
-}
-
-.ripple-container {
-  position: relative;
-  overflow: hidden;
-}
-
-/*button, input, textarea {
-  color: inherit;
-}*/
-
-.section-action-button-icon {
-  margin: 0px auto 6px;
-  position: relative;
-}
-
-.section-button-icon-size {
-  height: 24px;
-  width: 24px;
-}
-
-.toggle-icon {
-  margin: 0;
-  border: 0;
-  outline: 0;
-  font: inherit;
-  vertical-align: baseline;
-  background: transparent;
-  list-style: none;
-
-  align-items: flex-start;
-  text-align: center;
-  box-sizing: border-box;
-
-  text-rendering: auto;
-  letter-spacing: normal;
-  word-spacing: normal;
-  text-indent: 0px;
-  text-shadow: none;
-  display: inline-block;
-}
-
-/* toggle */
-.mat-slide-toggle {
-  display: inline-block;
-  height: 24px;
-  line-height: 24px;
-  white-space: nowrap;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  outline: 0;
-}
-
-/*-------------------*/
-
-/* Graphs */
+/*------ Graphs -----*/
 /* pie chart */
 .arc text {
   font: 10px sans-serif;
