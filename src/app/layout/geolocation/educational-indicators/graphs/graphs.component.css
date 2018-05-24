@@ -1,0 +1,67 @@
+/*--------Tabs pills-------------*/
+.tab-labels{
+  justify-content: center; /* align items in Main Axis */
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  background: #efc100; /*ffc107, efc100, ecf1f8*/
+  padding-right: 0px;
+  padding-left: 0px;
+  margin: 1px 0px;
+}
+
+.nav-tab-link {
+  color: #3c4646; /*#000000, 3c4646, 4178bd*/
+  font-weight: 500;
+  /*height: 48px;*/
+  padding: 0 4px;
+  cursor: pointer;
+  box-sizing: border-box;
+  opacity: .98;
+  min-width: 100px;
+  text-align: center;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  position: relative;
+}
+
+@media screen and (max-width: 575px) {
+  .nav-tab-link {
+    padding: 0 0px;
+    min-width: 85px;
+  }
+}
+
+.nav-tab-pills .nav-tab-link.active, .nav-tab-pills .show>.nav-tab-link {
+  color: #343a40;
+  font-weight: 500;
+  background-color: rgba(0,0,0,0.2);
+  border-bottom: #343a40;
+  border-style: none none solid;
+  border-width: 3px;
+}
+
+.nav-tab-link-text {
+  text-align: center;
+  font-size: small;
+}
+
+@media screen and (max-width: 575px) {
+  .nav-tab-link-text {
+    text-align: center;
+    font-size: x-small;
+  }
+}
+
+.section-action-button-icon {
+  margin: 0px auto 6px;
+  position: relative;
+}
+
+.section-button-icon-size {
+  height: 24px;
+  width: 24px;
+}
+/*---------------------*/
