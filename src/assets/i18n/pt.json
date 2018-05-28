@@ -158,6 +158,8 @@
   "ano2019": "2019",
   "ano2020": "2020",
   "ano2021": "2021",
-  "docentesCursoSuperiorGraph": "Docentes com Curso Superior"
+  "docentesCursoSuperiorGraph": "Percentual de Funções Docentes com curso superior",
+  "horasAulaGraph": "Média de Horas-Aula Diária",
+  "alunosPorTurmaGraph": "Média de Alunos por Turma"
 
 }

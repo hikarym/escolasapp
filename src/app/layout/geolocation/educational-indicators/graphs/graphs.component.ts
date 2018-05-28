@@ -15,13 +15,18 @@ export class GraphsComponent implements OnInit, OnDestroy {
   schoolSelected: any;
   private subscription = new Subscription();
 
-  @ViewChild('adequacaoFormacaoDocenteGraph')
-  private div_adequacaoFormacaoDocenteGraph: ElementRef;
+  @ViewChild('AFDNivelInfantilGraph')
+  private div_AFDNivelInfantilGraph: ElementRef;
   propAFDInfantil: any;
 
-  @ViewChild('docentesCursoSuperiorGraph')
-  private div_docentesCursoSuperiorGraph: ElementRef;
-  propDCSInfantil: any;
+  @ViewChild('DCSNivelInfantilGraph')
+  private div_DCSNivelInfantilGraph: ElementRef;
+
+  @ViewChild('horasAulaGraph')
+  private div_horasAulaGraph: ElementRef;
+
+  @ViewChild('alunosPorTurmaGraph')
+  private div_alunosPorTurmaGraph: ElementRef;
 
   private margin = {top: 15, right: 20, bottom: 40, left: 20};
   private width = 297;
@@ -39,10 +44,16 @@ export class GraphsComponent implements OnInit, OnDestroy {
         // ---
         const adequacaoFormacaoDocenteInfantil = this.schoolSelected['AdequacaoFormacaoDocente']['Infantil'];
         this.propAFDInfantil = Object.keys(adequacaoFormacaoDocenteInfantil);
-        this.showGraphOfAdequacaoFormacaoDocente(adequacaoFormacaoDocenteInfantil['Grupo1'], this.div_adequacaoFormacaoDocenteGraph);
+        this.showGraphForAFDNivelInfantil(adequacaoFormacaoDocenteInfantil['Grupo1']);
 
         const docentesCursoSuperior = this.schoolSelected['docentes']['cursoSuperior']['infantil'];
-        this.showGraphOfDocenteCursoSuperior(docentesCursoSuperior, this.div_docentesCursoSuperiorGraph);
+        this.showGraphForDCSNivelInfantil(docentesCursoSuperior);
+
+        const horasAula = this.schoolSelected['horasAula']['infantil'];
+        this.showGraphForHorasAulaNivelInfantil(horasAula);
+
+        const alunosPorTurma = this.schoolSelected['AlunosPorTurma']['infantil'];
+        this.showGraphForAlunosPorTurmaNivelInfantil(alunosPorTurma);
 
       });
     this.subscription.add(s);
@@ -53,7 +64,7 @@ export class GraphsComponent implements OnInit, OnDestroy {
    */
   onGroupChange(groupValueSelected: number) {
     const adequacaoFormacaoDocenteInfantil = this.schoolSelected['AdequacaoFormacaoDocente']['Infantil'];
-    this.showGraphOfAdequacaoFormacaoDocente(adequacaoFormacaoDocenteInfantil[groupValueSelected], this.div_adequacaoFormacaoDocenteGraph);
+    this.showGraphForAFDNivelInfantil(adequacaoFormacaoDocenteInfantil[groupValueSelected]);
   }
 
   /**
@@ -61,20 +72,61 @@ export class GraphsComponent implements OnInit, OnDestroy {
    * @param groupData
    * @param {ElementRef} containerDiv
    */
-  showGraphOfAdequacaoFormacaoDocente(groupData: any, containerDiv: ElementRef) {
+  showGraphForAFDNivelInfantil(groupData: any) {
     const dataForGraph = this.getPropertiesNamesAndValues(groupData);
+    const containerDiv = this.div_AFDNivelInfantilGraph;
     this.buildVerticalBarChart(dataForGraph, containerDiv);
   }
 
   /**
-   * shows graph for Docente com curso superior
+   * shows graph for "Docente com curso superior"
    * @param groupData
    * @param {ElementRef} containerDiv
    */
-
-  showGraphOfDocenteCursoSuperior(groupData: any, containerDiv: ElementRef) {
+  showGraphForDCSNivelInfantil(groupData: any) {
     const dataForGraph = this.getPropertiesNamesAndValues(groupData);
-    this.buildVerticalBarChart(dataForGraph, containerDiv);
+    const dom: any = document.querySelector('#boxDCSNivelInfantilGraph');
+    if (dataForGraph.length > 0) {
+      dom.classList.remove('hide-section');
+      const containerDiv = this.div_DCSNivelInfantilGraph;
+      this.buildVerticalBarChart(dataForGraph, containerDiv);
+    } else {
+      dom.classList.add('hide-section');
+    }
+  }
+
+  /**
+   * shows graph for "Horas Aula"
+   * @param groupData
+   * @param {ElementRef} containerDiv
+   */
+  showGraphForHorasAulaNivelInfantil(groupData: any) {
+    const dataForGraph = this.getPropertiesNamesAndValues(groupData);
+    const dom: any = document.querySelector('#boxHorasAulaNivelInfantilGraph');
+    if (dataForGraph.length > 0) {
+      dom.classList.remove('hide-section');
+      const containerDiv = this.div_horasAulaGraph;
+      this.buildVerticalBarChart(dataForGraph, containerDiv);
+    } else {
+      dom.classList.add('hide-section');
+    }
+  }
+
+  /**
+   * shows graph for 'Alunos por Turma'
+   * @param groupData
+   * @param {ElementRef} containerDiv
+   */
+  showGraphForAlunosPorTurmaNivelInfantil(groupData: any) {
+    const dataForGraph = this.getPropertiesNamesAndValues(groupData);
+    const dom: any = document.querySelector('#boxAlunosPorTurmaNivelInfantilGraph');
+    if (dataForGraph.length > 0) {
+      dom.classList.remove('hide-section');
+      const containerDiv = this.div_alunosPorTurmaGraph;
+      this.buildVerticalBarChart(dataForGraph, containerDiv);
+    } else {
+      dom.classList.add('hide-section');
+    }
   }
 
   /**
@@ -82,7 +134,6 @@ export class GraphsComponent implements OnInit, OnDestroy {
    * @param {any[]} dataGraph
    * @param {ElementRef} containerDiv
    */
-
   buildVerticalBarChart(dataGraph: any[], containerDiv: ElementRef) {
     // Define chart dimensions
     const margin = this.margin;
@@ -184,7 +235,6 @@ export class GraphsComponent implements OnInit, OnDestroy {
    * @param document
    * @returns {Array}
    */
-
   getProperties(document: any) {
     const prop = Object.keys(document);
     const numberOfProp = prop.length;
@@ -203,7 +253,6 @@ export class GraphsComponent implements OnInit, OnDestroy {
    * @param document
    * @returns {Array}
    */
-
   getPropertiesNamesAndValues(document: any) {
     const prop = Object.keys(document);
     const numberOfProp = prop.length;
