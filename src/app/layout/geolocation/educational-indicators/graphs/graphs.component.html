@@ -28,11 +28,11 @@
     <div class="tab-pane fade show active" id="pills-infantil" role="tabpanel" aria-labelledby="pills-infantil-tab">
 
       <div class="box" role="alert">
-        <h6 class="alert-heading "><i class="fa fa-graduation-cap fa-fw"></i>{{'AFDadequacaoFormacaoDocenteGraph' | translate}}</h6>
+        <h6 class="alert-heading "><i class="fa fa-graduation-cap fa-fw"></i>{{'AFDGraph' | translate}}</h6>
         <div class="section-info-line">
           <div class="section-info-icon-ed" ><b>{{'group' | translate}}:</b></div>
-          <select (change)="onGroupChange($event.target.value)" class="custom-select">
-            <option *ngFor="let prop of propAFDInfantil">{{prop}}</option>
+          <select (change)="onGroupChangeAFDInfantil($event.target.value)" class="custom-select">
+            <option *ngFor="let group of groupsAFDInfantil">{{group}}</option>
           </select>
         </div>
         <div #AFDNivelInfantilGraph>
@@ -40,7 +40,7 @@
       </div>
 
       <div id="boxDCSNivelInfantilGraph" class="box" role="alert" >
-        <h6 class="alert-heading box-title"><i class="fa fa-book fa-fw"></i>{{'docentesCursoSuperiorGraph' | translate}}</h6>
+        <h6 class="alert-heading box-title"><i class="fa fa-book fa-fw"></i>{{'DCSGraph' | translate}}</h6>
         <div #DCSNivelInfantilGraph>
         </div>
       </div>
@@ -62,40 +62,73 @@
     <!-- Tab content for 'Ensino Fundamental' -->
     <div class="tab-pane fade" id="pills-fundamental" role="tabpanel" aria-labelledby="pills-fundamental-tab">
       <div class="box" role="alert">
-        <h6 class="alert-heading "><i class="fa fa-graduation-cap fa-fw"></i>{{'adequacaoFormacaoDocenteGraph' | translate}}</h6>
-        <div class="section-info-line">
-          <div class="section-info-icon-ed" ><b>{{'group' | translate}}:</b></div>
-          <select (change)="onGroupChange($event.target.value)" class="custom-select">
-            <option *ngFor="let prop of propAFDInfantil">{{prop}}</option>
-          </select>
+        <h6 class="alert-heading "><i class="fa fa-graduation-cap fa-fw"></i>{{'AFDGraph' | translate}}</h6>
+
+        <!--tab -->
+        <div style="margin: 5px 25px 5px 5px;">
+          <ul class="nav nav-tabs text-center" id="AFDEnsFundamentalTabControl" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="tabAFDEnsFundamentalAIniciais" data-toggle="tab" href="#AFDEnsFundamentalAIniciaisPanel"
+                 role="tab" aria-controls="AFDEnsFundamentalAIniciaisPanel" aria-selected="true"><i class="fa fa-circle"></i> {{'anosIniciais' | translate}}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="tabAFDEnsFundamentalAFinais" data-toggle="tab" href="#AFDEnsFundamentalAFinaisPanel"
+                 role="tab" aria-controls="AFDEnsFundamentalAFinaisPanel" aria-selected="true"><i class="fa fa-circle"></i> {{'anosFinais' | translate}}</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="AFDEnsFundamentalTabContent">
+            <div class="tab-pane fade show active" id="AFDEnsFundamentalAIniciaisPanel" role="tabpanel" aria-labelledby="tabAFDEnsFundamentalAIniciais">
+              <div class="section-info-line">
+                <div class="section-info-icon-ed" ><b>{{'group' | translate}}:</b></div>
+                <select (change)="onGroupChangeAFDEnsFundAIniciais($event.target.value)" class="custom-select">
+                  <option *ngFor="let group of groupsAFDEnsFundAIniciais">{{group}}</option>
+                </select>
+              </div>
+              <div #AFDEnsFundAIniciaisGraph>
+              </div>
+            </div>
+            <div class="tab-pane fade show" id="AFDEnsFundamentalAFinaisPanel" role="tabpanel" aria-labelledby="tabAFDEnsFundamentalAFinais">
+              <div class="section-info-line">
+                <div class="section-info-icon-ed" ><b>{{'group' | translate}}:</b></div>
+                <select (change)="onGroupChangeAFDEnsFundAFinais($event.target.value)" class="custom-select">
+                  <option *ngFor="let group of groupsAFDEnsFundAFinais">{{group}}</option>
+                </select>
+              </div>
+              <div #AFDEnsFundAFinaisGraph> </div>
+            </div>
+          </div>
         </div>
-        <div #AFDEnsinoFundamentalGraph>
-        </div>
+        <!-- end tab -->
       </div>
 
       <div id="boxDCSEnsinoFundamentalGraph" class="box" role="alert" >
-        <h6 class="alert-heading box-title"><i class="fa fa-book fa-fw"></i>{{'docentesCursoSuperiorGraph' | translate}}</h6>
-        <div #DCSEnsinoFundamentalGraph>
-        </div>
+        <h6 class="alert-heading box-title"><i class="fa fa-book fa-fw"></i>{{'DCSGraph' | translate}}</h6>
+        <div #DCSEnsinoFundamentalGraph></div>
       </div>
 
       <div id="boxHorasAulaEnsinoFundamentalGraph" class="box" role="alert" >
         <h6 class="alert-heading box-title"><i class="fa fa-clock-o fa-fw"></i>{{'horasAulaGraph' | translate}}</h6>
-        <div #horasAulaEnsinoFundamentalGraph>
-        </div>
+        <div #horasAulaEnsinoFundamentalGraph></div>
       </div>
 
       <div id="boxAlunosPorTurmaEnsinoFundamentalGraph" class="box" role="alert" >
         <h6 class="alert-heading box-title"><i class="fa fa-child fa-fw"></i>{{'alunosPorTurmaGraph' | translate}}</h6>
-        <div #alunosPorTurmaEnsinoFundamentalGraph>
-        </div>
+        <div #alunosPorTurmaEnsinoFundamentalGraph></div>
       </div>
     </div>
 
     <!-- Tab content for 'Ensino Médio' -->
     <div class="tab-pane fade" id="pills-medio" role="tabpanel" aria-labelledby="pills-medio-tab">
-      Medio
+      <div class="box" role="alert">
+        <h6 class="alert-heading "><i class="fa fa-graduation-cap fa-fw"></i>{{'AFDGraph' | translate}}</h6>
+        <div class="section-info-line">
+          <div class="section-info-icon-ed" ><b>{{'group' | translate}}:</b></div>
+          <select (change)="onGroupChangeAFDEnsMedio($event.target.value)" class="custom-select">
+            <option *ngFor="let group of groupsAFDEnsMedio">{{group}}</option>
+          </select>
+        </div>
+        <div #AFDEnsMedioGraph> </div>
+      </div>
     </div>
   </div>
-
 </div>

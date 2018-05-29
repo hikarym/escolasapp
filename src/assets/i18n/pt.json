@@ -132,8 +132,8 @@
   "ensinoFundamental": "Fundamental",
   "ensinoMedio": "Médio",
 
-  "adequacaoFormacaoDocenteGraph": "Adequação Formação Docente",
-  "group": "Grupos do ensino infantil",
+  "AFDGraph": "Adequação Formação Docente",
+  "group": "Grupos",
   "Grupo1": "Grupo 1",
   "Grupo2": "Grupo 2",
   "Grupo3": "Grupo 3",
@@ -158,8 +158,9 @@
   "ano2019": "2019",
   "ano2020": "2020",
   "ano2021": "2021",
-  "docentesCursoSuperiorGraph": "Percentual de Funções Docentes com curso superior",
+  "DCSGraph": "Percentual de Funções Docentes com curso superior",
   "horasAulaGraph": "Média de Horas-Aula Diária",
-  "alunosPorTurmaGraph": "Média de Alunos por Turma"
+  "alunosPorTurmaGraph": "Média de Alunos por Turma",
+  "anosIniciais": "Anos Iniciais"
 
 }
