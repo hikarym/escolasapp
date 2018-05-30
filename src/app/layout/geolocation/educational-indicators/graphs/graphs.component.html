@@ -39,19 +39,19 @@
         </div>
       </div>
 
-      <div id="boxDCSNivelInfantilGraph" class="box" role="alert" >
+      <div id="box-DCSNivelInfantil" class="box" role="alert" >
         <h6 class="alert-heading box-title"><i class="fa fa-book fa-fw"></i>{{'DCSGraph' | translate}}</h6>
         <div #DCSNivelInfantilGraph>
         </div>
       </div>
 
-      <div id="boxHorasAulaNivelInfantilGraph" class="box" role="alert" >
+      <div id="box-horasAulaNivelInfantil" class="box" role="alert" >
         <h6 class="alert-heading box-title"><i class="fa fa-clock-o fa-fw"></i>{{'horasAulaGraph' | translate}}</h6>
         <div #horasAulaNivelInfantilGraph>
         </div>
       </div>
 
-      <div id="boxAlunosPorTurmaNivelInfantilGraph" class="box" role="alert" >
+      <div id="box-alunosPorTurmaNivelInfantil" class="box" role="alert" >
         <h6 class="alert-heading box-title"><i class="fa fa-child fa-fw"></i>{{'alunosPorTurmaGraph' | translate}}</h6>
         <div #alunosPorTurmaNivelInfantilGraph>
         </div>
@@ -61,33 +61,67 @@
 
     <!-- Tab content for 'Ensino Fundamental' -->
     <div class="tab-pane fade" id="pills-fundamental" role="tabpanel" aria-labelledby="pills-fundamental-tab">
-      <div class="box" role="alert">
-        <h6 class="alert-heading "><i class="fa fa-graduation-cap fa-fw"></i>{{'AFDGraph' | translate}}</h6>
-
-        <!--tab -->
-        <div style="margin: 5px 25px 5px 5px;">
-          <ul class="nav nav-tabs text-center" id="AFDEnsFundamentalTabControl" role="tablist">
-            <li class="nav-item">
-              <a class="nav-link active" id="tabAFDEnsFundamentalAIniciais" data-toggle="tab" href="#AFDEnsFundamentalAIniciaisPanel"
-                 role="tab" aria-controls="AFDEnsFundamentalAIniciaisPanel" aria-selected="true"><i class="fa fa-circle"></i> {{'anosIniciais' | translate}}</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="tabAFDEnsFundamentalAFinais" data-toggle="tab" href="#AFDEnsFundamentalAFinaisPanel"
-                 role="tab" aria-controls="AFDEnsFundamentalAFinaisPanel" aria-selected="true"><i class="fa fa-circle"></i> {{'anosFinais' | translate}}</a>
-            </li>
-          </ul>
-          <div class="tab-content" id="AFDEnsFundamentalTabContent">
-            <div class="tab-pane fade show active" id="AFDEnsFundamentalAIniciaisPanel" role="tabpanel" aria-labelledby="tabAFDEnsFundamentalAIniciais">
+      <!--tab -->
+      <div>
+        <ul class="nav nav-tabs text-center" id="AFDEnsFundTabControl" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link text-capitalize large active" id="tabEnsFundAIniciais" data-toggle="tab" href="#ensFundAIniciaisPanel"
+               role="tab" aria-controls="ensFundAIniciaisPanel" aria-selected="true"><i class="fa fa-angle-right"></i> {{'anosIniciais' | translate}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-capitalize large" id="tabEnsFundAFinais" data-toggle="tab" href="#ensFundAFinaisPanel"
+               role="tab" aria-controls="ensFundAFinaisPanel" aria-selected="true"><i class="fa fa-angle-right"></i> {{'anosFinais' | translate}}</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="ensFundTabContent">
+          <div class="tab-pane fade show active" id="ensFundAIniciaisPanel" role="tabpanel" aria-labelledby="tabEnsFundAIniciais">
+            <!-- Graph: AFD -->
+            <div class="box" role="alert">
+              <h6 class="alert-heading "><i class="fa fa-graduation-cap fa-fw"></i>{{'AFDGraph' | translate}}</h6>
               <div class="section-info-line">
                 <div class="section-info-icon-ed" ><b>{{'group' | translate}}:</b></div>
                 <select (change)="onGroupChangeAFDEnsFundAIniciais($event.target.value)" class="custom-select">
                   <option *ngFor="let group of groupsAFDEnsFundAIniciais">{{group}}</option>
                 </select>
               </div>
-              <div #AFDEnsFundAIniciaisGraph>
-              </div>
+              <div #AFDEnsFundAIniciaisGraph></div>
             </div>
-            <div class="tab-pane fade show" id="AFDEnsFundamentalAFinaisPanel" role="tabpanel" aria-labelledby="tabAFDEnsFundamentalAFinais">
+
+            <!-- Graph: DCS  -->
+            <div id="box-DCSEnsFundAIniciais" class="box" role="alert" >
+              <h6 class="alert-heading box-title"><i class="fa fa-book fa-fw"></i>{{'DCSGraph' | translate}}</h6>
+              <div #DCSEnsFundAIniciaisGraph></div>
+            </div>
+
+            <!-- Graph: Horas Aula  -->
+            <div id="box-horasAulaEnsFundAIniciais" class="box" role="alert" >
+              <h6 class="alert-heading box-title"><i class="fa fa-book fa-fw"></i>{{'horasAulaGraph' | translate}}</h6>
+              <div #horasAulaEnsFundAIniciaisGraph></div>
+            </div>
+
+            <!-- Graph: Alunos por turma  -->
+            <div id="box-alunosPorTurmaEnsFundAIniciais" class="box" role="alert" >
+              <h6 class="alert-heading box-title"><i class="fa fa-book fa-fw"></i>{{'DCSGraph' | translate}}</h6>
+              <div #alunosPorTurmaEnsFundAIniciaisGraph></div>
+            </div>
+
+            <!-- Graph: ED -->
+            <div class="box" role="alert">
+              <h6 class="alert-heading "><i class="fa fa-graduation-cap fa-fw"></i>{{'EDGraph' | translate}}</h6>
+              <div class="section-info-line">
+                <div class="section-info-icon-ed" ><b>{{'nivel' | translate}}:</b></div>
+                <select (change)="onNivelChangeEDEnsFundAIniciais($event.target.value)" class="custom-select">
+                  <option *ngFor="let nivel of nivelesEDEnsFundAIniciais">{{nivel}}</option>
+                </select>
+              </div>
+              <div #EDEnsFundAIniciaisGraph> </div>
+            </div>
+
+          </div>
+          <div class="tab-pane fade show" id="ensFundAFinaisPanel" role="tabpanel" aria-labelledby="tabEnsFundAFinais">
+            <!-- Graph: AFD -->
+            <div class="box" role="alert">
+              <h6 class="alert-heading "><i class="fa fa-graduation-cap fa-fw"></i>{{'AFDGraph' | translate}}</h6>
               <div class="section-info-line">
                 <div class="section-info-icon-ed" ><b>{{'group' | translate}}:</b></div>
                 <select (change)="onGroupChangeAFDEnsFundAFinais($event.target.value)" class="custom-select">
@@ -96,29 +130,46 @@
               </div>
               <div #AFDEnsFundAFinaisGraph> </div>
             </div>
+
+            <!-- Graph: DCS  -->
+            <div id="box-DCSEnsFundAFinais" class="box" role="alert" >
+              <h6 class="alert-heading box-title"><i class="fa fa-book fa-fw"></i>{{'DCSGraph' | translate}}</h6>
+              <div #DCSEnsFundAFinaisGraph></div>
+            </div>
+
+            <!-- Graph: Horas Aula  -->
+            <div id="box-horasAulaEnsFundAFinais" class="box" role="alert" >
+              <h6 class="alert-heading box-title"><i class="fa fa-book fa-fw"></i>{{'horasAulaGraph' | translate}}</h6>
+              <div #horasAulaEnsFundAFinaisGraph></div>
+            </div>
+
+            <!-- Graph: Alunos por turma  -->
+            <div id="box-alunosPorTurmaEnsFundAFinais" class="box" role="alert" >
+              <h6 class="alert-heading box-title"><i class="fa fa-book fa-fw"></i>{{'DCSGraph' | translate}}</h6>
+              <div #alunosPorTurmaEnsFundAFinaisGraph></div>
+            </div>
+
+            <!-- Graph: ED -->
+            <div class="box" role="alert">
+              <h6 class="alert-heading "><i class="fa fa-graduation-cap fa-fw"></i>{{'EDGraph' | translate}}</h6>
+              <div class="section-info-line">
+                <div class="section-info-icon-ed" ><b>{{'nivel' | translate}}:</b></div>
+                <select (change)="onNivelChangeEDEnsFundAFinais($event.target.value)" class="custom-select">
+                  <option *ngFor="let nivel of nivelesEDEnsFundAFinais">{{nivel}}</option>
+                </select>
+              </div>
+              <div #EDEnsFundAFinaisGraph> </div>
+            </div>
+
           </div>
         </div>
-        <!-- end tab -->
       </div>
-
-      <div id="boxDCSEnsinoFundamentalGraph" class="box" role="alert" >
-        <h6 class="alert-heading box-title"><i class="fa fa-book fa-fw"></i>{{'DCSGraph' | translate}}</h6>
-        <div #DCSEnsinoFundamentalGraph></div>
-      </div>
-
-      <div id="boxHorasAulaEnsinoFundamentalGraph" class="box" role="alert" >
-        <h6 class="alert-heading box-title"><i class="fa fa-clock-o fa-fw"></i>{{'horasAulaGraph' | translate}}</h6>
-        <div #horasAulaEnsinoFundamentalGraph></div>
-      </div>
-
-      <div id="boxAlunosPorTurmaEnsinoFundamentalGraph" class="box" role="alert" >
-        <h6 class="alert-heading box-title"><i class="fa fa-child fa-fw"></i>{{'alunosPorTurmaGraph' | translate}}</h6>
-        <div #alunosPorTurmaEnsinoFundamentalGraph></div>
-      </div>
+      <!-- end tab -->
     </div>
 
     <!-- Tab content for 'Ensino Médio' -->
     <div class="tab-pane fade" id="pills-medio" role="tabpanel" aria-labelledby="pills-medio-tab">
+      <!-- Graph: AFD -->
       <div class="box" role="alert">
         <h6 class="alert-heading "><i class="fa fa-graduation-cap fa-fw"></i>{{'AFDGraph' | translate}}</h6>
         <div class="section-info-line">
@@ -129,6 +180,40 @@
         </div>
         <div #AFDEnsMedioGraph> </div>
       </div>
+
+      <!-- Graph: DCS  -->
+      <div id="box-DCSEnsMedio" class="box" role="alert" >
+        <h6 class="alert-heading box-title"><i class="fa fa-book fa-fw"></i>{{'DCSGraph' | translate}}</h6>
+        <div #DCSNivelInfantilGraph>
+        </div>
+      </div>
+
+      <!-- Graph: Horas por Aula -->
+      <div id="box-horasAulaEnsMedio" class="box" role="alert" >
+        <h6 class="alert-heading box-title"><i class="fa fa-clock-o fa-fw"></i>{{'horasAulaGraph' | translate}}</h6>
+        <div #horasAulaNivelInfantilGraph>
+        </div>
+      </div>
+
+      <!-- Graph: Alunos por turma  -->
+      <div id="box-alunosPorTurmaEnsMedio" class="box" role="alert" >
+        <h6 class="alert-heading box-title"><i class="fa fa-child fa-fw"></i>{{'alunosPorTurmaGraph' | translate}}</h6>
+        <div #alunosPorTurmaNivelInfantilGraph>
+        </div>
+      </div>
+
+      <!-- Graph: ED -->
+      <div class="box" role="alert">
+        <h6 class="alert-heading "><i class="fa fa-graduation-cap fa-fw"></i>{{'EDGraph' | translate}}</h6>
+        <div class="section-info-line">
+          <div class="section-info-icon-ed" ><b>{{'nivel' | translate}}:</b></div>
+          <select (change)="onNivelChangeEDEnsMedio($event.target.value)" class="custom-select">
+            <option *ngFor="let nivel of nivelesEDEnsMedio">{{nivel}}</option>
+          </select>
+        </div>
+        <div #EDEnsMedioGraph> </div>
+      </div>
+
     </div>
   </div>
 </div>

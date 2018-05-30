@@ -32,23 +32,63 @@ export class GraphsComponent implements OnInit, OnDestroy {
   private div_AFDEnsFundAIniciaisGraph: ElementRef;
   groupsAFDEnsFundAIniciais: any;
 
+  @ViewChild('DCSEnsFundAIniciaisGraph')
+  private div_DCSEnsFundAIniciaisGraph: ElementRef;
+
+  @ViewChild('horasAulaEnsFundAIniciaisGraph')
+  private div_horasAulaEnsFundAIniciaisGraph: ElementRef;
+
+  @ViewChild('alunosPorTurmaEnsFundAIniciaisGraph')
+  private div_alunosPorTurmaEnsFundAIniciaisGraph: ElementRef;
+
+  @ViewChild('EDEnsFundAIniciaisGraph')
+  private div_EDEnsFundAIniciaisGraph: ElementRef;
+  nivelesEDEnsFundAIniciais: any;
+
   @ViewChild('AFDEnsFundAFinaisGraph')
   private div_AFDEnsFundAFinaisGraph: ElementRef;
   groupsAFDEnsFundAFinais: any;
+
+  @ViewChild('DCSEnsFundAFinaisGraph')
+  private div_DCSEnsFundAFinaisGraph: ElementRef;
+
+  @ViewChild('horasAulaEnsFundAFinaisGraph')
+  private div_horasAulaEnsFundAFinaisGraph: ElementRef;
+
+  @ViewChild('alunosPorTurmaEnsFundAFinaisGraph')
+  private div_alunosPorTurmaEnsFundAFinaisGraph: ElementRef;
+
+  @ViewChild('EDEnsFundAFinaisGraph')
+  private div_EDEnsFundAFinaisGraph: ElementRef;
+  nivelesEDEnsFundAFinais: any;
 
   @ViewChild('AFDEnsMedioGraph')
   private div_AFDEnsMedioGraph: ElementRef;
   groupsAFDEnsMedio: any;
 
+  @ViewChild('DCSEnsMedioGraph')
+  private div_DCSEnsMedioGraph: ElementRef;
+
+  @ViewChild('horasAulaEnsMedioGraph')
+  private div_horasAulaEnsMedioGraph: ElementRef;
+
+  @ViewChild('alunosPorTurmaEnsMedioGraph')
+  private div_alunosPorTurmaEnsMedioGraph: ElementRef;
+
+  @ViewChild('EDEnsMedioGraph')
+  private div_EDEnsMedioGraph: ElementRef;
+  nivelesEDEnsMedio: any;
+
   private groupDefault = 'Grupo1';
+  private nivelDefault = 'Nivel1';
   private margin = {top: 15, right: 20, bottom: 40, left: 20};
   private width = 297;
   private heigth = 250;
 
   // Indicadores, niveis, categorias
-  private indicadores = ['AdequacaoFormacaoDocente', 'docentes'];
-  private niveis = ['infantil', 'Fundamental', 'Medio'];
-  private categorias = ['AnosIniciais', 'AnosFinais', 'AnosIniciais8', 'AnosFinais9'];
+  private indicadores = ['AdequacaoFormacaoDocente', 'docentes', 'horasAula', 'AlunosPorTurma', 'EsforcoDocente'];
+  private niveis = ['Infantil', 'Fundamental', 'Medio'];
+  private categorias = ['AnosIniciais', 'AnosFinais', 'AnosIniciais8', 'AnosFinais8', 'AnosIniciais9', 'AnosFinais9'];
 
   constructor(private sharedDataService: ShareddataService,
               private translate: TranslateService) {
@@ -59,38 +99,100 @@ export class GraphsComponent implements OnInit, OnDestroy {
       res => {
         this.schoolSelected = res;
 
-        // --- Ensino Infantil
+        // --- 1. Ensino Infantil
         // AFD
         const dadosAFDInfantil = this.getDadosDoIndicador(this.indicadores[0], this.niveis[0], '');
         this.groupsAFDInfantil = Object.keys(dadosAFDInfantil);
         this.showGraphForAFD(this.indicadores[0], this.niveis[0], '', this.groupDefault, this.div_AFDNivelInfantilGraph);
 
         // DCS - cursoSuperior
-        const dadosDCSInfantil = this.schoolSelected[this.indicadores[1]]['cursoSuperior'][this.categorias[0]];
-        this.showGraphForDCSNivelInfantil(dadosDCSInfantil, this.div_DCSNivelInfantilGraph, '#boxDCSNivelInfantilGraph');
+        const dadosDCSNivelInfantil = this.schoolSelected[this.indicadores[1]]['cursoSuperior'][this.niveis[0]];
+        this.showGraphWithVerticalBar(dadosDCSNivelInfantil, this.div_DCSNivelInfantilGraph, '#box-DCSNivelInfantil');
 
-        const horasAula = this.schoolSelected['horasAula']['infantil'];
-        this.showGraphForHorasAulaNivelInfantil(horasAula);
+        // horasAula - Infantil
+        const dadosHorasAulaNivelInfantil = this.schoolSelected[this.indicadores[2]][this.niveis[0]];
+        this.showGraphWithVerticalBar(dadosHorasAulaNivelInfantil, this.div_horasAulaNivelInfantilGraph, '#box-horasAulaNivelInfantil');
 
-        const alunosPorTurma = this.schoolSelected['AlunosPorTurma']['infantil'];
-        this.showGraphForAlunosPorTurmaNivelInfantil(alunosPorTurma);
+        // alunosPorTurma - Infantil
+        const dadosAlunosPorTurmaNivelInfantil = this.schoolSelected[this.indicadores[3]][this.niveis[0]];
+        this.showGraphWithVerticalBar(dadosAlunosPorTurmaNivelInfantil, this.div_alunosPorTurmaNivelInfantilGraph,
+          '#box-alunosPorTurmaNivelInfantil');
 
-        // --- Ensino Fundamental
-        // AFD - Anos Iniciais
+        // --- 2. Ensino Fundamental
+        // ----- Anos Iniciais -----
+        // AFD
         const dadosAFDEnsFundAIniciais = this.getDadosDoIndicador(this.indicadores[0], this.niveis[1], this.categorias[0]);
         this.groupsAFDEnsFundAIniciais = Object.keys(dadosAFDEnsFundAIniciais);
         this.showGraphForAFD(this.indicadores[0], this.niveis[1], this.categorias[0], this.groupDefault, this.div_AFDEnsFundAIniciaisGraph);
 
-        // AFD - Anos Finais
+        // DCS - cursoSuperior
+        const dadosDCSEnsFundAIniciais = this.schoolSelected[this.indicadores[1]]['cursoSuperior'][this.niveis[1]];
+        this.showGraphWithVerticalBar(dadosDCSEnsFundAIniciais, this.div_DCSEnsFundAIniciaisGraph, '#box-DCSEnsFundAIniciais');
+
+        // horasAula ------ falta 9a
+        const dadosHorasAulaEnsFundAIniciais = this.schoolSelected[this.indicadores[2]][this.niveis[1]][this.categorias[2]];
+        this.showGraphWithVerticalBar(dadosHorasAulaEnsFundAIniciais, this.div_horasAulaEnsFundAIniciaisGraph,
+          '#box-horasAulaEnsFundAIniciais');
+
+        // alunosPorTurma ------ falta 9a
+        const dadosAlunosPorTurmaEnsFundAIniciais = this.schoolSelected[this.indicadores[3]][this.niveis[1]][this.categorias[2]];
+        this.showGraphWithVerticalBar(dadosAlunosPorTurmaEnsFundAIniciais, this.div_alunosPorTurmaEnsFundAIniciaisGraph,
+          '#box-alunosPorTurmaEnsFundAIniciais');
+
+        // EsforcoDocente
+        const dadosEDEnsFundAIniciais = this.getDadosDoIndicador(this.indicadores[4], this.niveis[1], this.categorias[0]);
+        this.nivelesEDEnsFundAIniciais = Object.keys(dadosEDEnsFundAIniciais);
+        this.showGraphForAFD(this.indicadores[4], this.niveis[1], this.categorias[0], this.nivelDefault, this.div_EDEnsFundAIniciaisGraph);
+
+        // ----- Anos Finais -----
+        // AFD
         const dadosAFDEnsFundAFinais = this.getDadosDoIndicador(this.indicadores[0], this.niveis[1], this.categorias[1]);
         this.groupsAFDEnsFundAFinais = Object.keys(dadosAFDEnsFundAFinais);
         this.showGraphForAFD(this.indicadores[0], this.niveis[1], this.categorias[1], this.groupDefault, this.div_AFDEnsFundAFinaisGraph);
 
-        // --- Ensino Medio
+        // DCS - cursoSuperior
+        const dadosDCSEnsFundAFinais = this.schoolSelected[this.indicadores[1]]['cursoSuperior'][this.niveis[1]];
+        this.showGraphWithVerticalBar(dadosDCSEnsFundAFinais, this.div_DCSEnsFundAFinaisGraph,
+          '#box-DCSEnsFundAFinais');
+
+        // horasAula ------ falta 9a
+        const dadosHorasAulaEnsFundAFinais = this.schoolSelected[this.indicadores[2]][this.niveis[1]][this.categorias[3]];
+        this.showGraphWithVerticalBar(dadosHorasAulaEnsFundAFinais, this.div_horasAulaEnsFundAFinaisGraph,
+          '#box-horasAulaEnsFundAFinais');
+
+        // alunosPorTurma ------ falta 9a
+        const dadosAlunosPorTurmaEnsFundAFinais = this.schoolSelected[this.indicadores[3]][this.niveis[1]][this.categorias[3]];
+        this.showGraphWithVerticalBar(dadosAlunosPorTurmaEnsFundAFinais, this.div_alunosPorTurmaEnsFundAFinaisGraph,
+          '#box-alunosPorTurmaEnsFundAFinais');
+
+        // EsforcoDocente
+        const dadosEDEnsFundAFinais = this.getDadosDoIndicador(this.indicadores[4], this.niveis[1], this.categorias[1]);
+        this.nivelesEDEnsFundAFinais = Object.keys(dadosEDEnsFundAFinais);
+        this.showGraphForAFD(this.indicadores[4], this.niveis[1], this.categorias[1], this.nivelDefault, this.div_EDEnsFundAFinaisGraph);
+
+        // --- 3. Ensino Medio
         // AFD
         const dadosAFDEnsMedio = this.getDadosDoIndicador(this.indicadores[0], this.niveis[2], '');
         this.groupsAFDEnsMedio = Object.keys(dadosAFDEnsMedio);
         this.showGraphForAFD(this.indicadores[0], this.niveis[2], '', this.groupDefault, this.div_AFDEnsMedioGraph);
+
+        // DCS - cursoSuperior
+        const dadosDCSEnsMedio = this.schoolSelected[this.indicadores[1]]['cursoSuperior'][this.niveis[2]];
+        this.showGraphWithVerticalBar(dadosDCSEnsMedio, this.div_DCSEnsMedioGraph, '#box-DCSEnsMedio');
+
+        // horasAula
+        const dadosHorasAulaEnsMedio = this.schoolSelected[this.indicadores[2]][this.niveis[2]];
+        this.showGraphWithVerticalBar(dadosHorasAulaEnsMedio, this.div_horasAulaEnsMedioGraph, '#box-horasAulaEnsMedio');
+
+        // alunosPorTurma
+        const dadosAlunosPorTurmaEnsMedio = this.schoolSelected[this.indicadores[3]][this.niveis[2]];
+        this.showGraphWithVerticalBar(dadosAlunosPorTurmaEnsMedio, this.div_alunosPorTurmaEnsMedioGraph,
+          '#box-alunosPorTurmaEnsMedio');
+
+        // EsforcoDocente
+        const dadosEDEnsMedio = this.getDadosDoIndicador(this.indicadores[4], this.niveis[2], '');
+        this.nivelesEDEnsMedio = Object.keys(dadosEDEnsMedio);
+        this.showGraphForAFD(this.indicadores[4], this.niveis[2], '', this.nivelDefault, this.div_EDEnsMedioGraph);
 
       });
     this.subscription.add(s);
@@ -118,10 +220,35 @@ export class GraphsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Function to show school's information (..of the group chosen) - Nivel Médio
+   * Function to show the 'AFD' indicator (..of the group chosen) - Nivel Médio
+   * @param {string} groupValueSelected
    */
   onGroupChangeAFDEnsMedio(groupValueSelected: string) {
     this.showGraphForAFD(this.indicadores[0], this.niveis[2], '', groupValueSelected, this.div_AFDEnsMedioGraph);
+  }
+
+  /**
+   * Function to show the 'esforço docente' indicator (..of the level chosen) - Nivel Fundamental, anos iniciais
+   * @param {string} groupValueSelected
+   */
+  onNivelChangeEDEnsFundAIniciais(nivelValueSelected: string) {
+    this.showGraphForAFD(this.indicadores[4], this.niveis[1], this.categorias[0], nivelValueSelected, this.div_EDEnsFundAIniciaisGraph);
+  }
+
+  /**
+   * Function to show the 'esforço docente' indicator (..of the level chosen) - Nivel Fundamental, anos finais
+   * @param {string} groupValueSelected
+   */
+  onNivelChangeEDEnsFundAFinais(nivelValueSelected: string) {
+    this.showGraphForAFD(this.indicadores[4], this.niveis[1], this.categorias[1], nivelValueSelected, this.div_EDEnsFundAFinaisGraph);
+  }
+
+  /**
+   * Function to show the 'esforço docente' indicator (..of the level chosen) - Nivel Médio
+   * @param {string} groupValueSelected
+   */
+  onNivelChangeEDEnsMedio(nivelValueSelected: string) {
+    this.showGraphForAFD(this.indicadores[4], this.niveis[2], '', nivelValueSelected, this.div_EDEnsMedioGraph);
   }
 
   /**
@@ -149,11 +276,28 @@ export class GraphsComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Shows graph using vartical bar chart
+   * @param groupData
+   * @param {ElementRef} containerDiv
+   * @param {string} boxContainer
+   */
+  showGraphWithVerticalBar(groupData: any, containerDiv: ElementRef, boxContainer: string) {
+    const dataForGraph = this.getPropertiesNamesAndValues(groupData);
+    const dom: any = document.querySelector(boxContainer);
+    if (dataForGraph.length > 0) {
+      dom.classList.remove('hide-section');
+      this.buildVerticalBarChart(dataForGraph, containerDiv);
+    } else {
+      dom.classList.add('hide-section');
+    }
+  }
+
+  /**
    * shows graph for "Docente com curso superior"
    * @param groupData
    * @param {ElementRef} containerDiv
    */
-  showGraphForDCSNivelInfantil(groupData: any, containerDiv: ElementRef, boxContainer: string) {
+  showGraphForDCS(groupData: any, containerDiv: ElementRef, boxContainer: string) {
     const dataForGraph = this.getPropertiesNamesAndValues(groupData);
     const dom: any = document.querySelector(boxContainer);
     if (dataForGraph.length > 0) {
@@ -169,12 +313,11 @@ export class GraphsComponent implements OnInit, OnDestroy {
    * @param groupData
    * @param {ElementRef} containerDiv
    */
-  showGraphForHorasAulaNivelInfantil(groupData: any) {
+  showGraphForHorasAula(groupData: any, containerDiv: ElementRef, boxContainer: string) {
     const dataForGraph = this.getPropertiesNamesAndValues(groupData);
-    const dom: any = document.querySelector('#boxHorasAulaNivelInfantilGraph');
+    const dom: any = document.querySelector(boxContainer);
     if (dataForGraph.length > 0) {
       dom.classList.remove('hide-section');
-      const containerDiv = this.div_horasAulaNivelInfantilGraph;
       this.buildVerticalBarChart(dataForGraph, containerDiv);
     } else {
       dom.classList.add('hide-section');
@@ -186,12 +329,11 @@ export class GraphsComponent implements OnInit, OnDestroy {
    * @param groupData
    * @param {ElementRef} containerDiv
    */
-  showGraphForAlunosPorTurmaNivelInfantil(groupData: any) {
+  showGraphForAlunosPorTurma(groupData: any, containerDiv: ElementRef, boxContainer: string) {
     const dataForGraph = this.getPropertiesNamesAndValues(groupData);
-    const dom: any = document.querySelector('#boxAlunosPorTurmaNivelInfantilGraph');
+    const dom: any = document.querySelector(boxContainer);
     if (dataForGraph.length > 0) {
       dom.classList.remove('hide-section');
-      const containerDiv = this.div_alunosPorTurmaNivelInfantilGraph;
       this.buildVerticalBarChart(dataForGraph, containerDiv);
     } else {
       dom.classList.add('hide-section');

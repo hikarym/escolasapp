@@ -161,6 +161,17 @@
   "DCSGraph": "Percentual de Funções Docentes com curso superior",
   "horasAulaGraph": "Média de Horas-Aula Diária",
   "alunosPorTurmaGraph": "Média de Alunos por Turma",
-  "anosIniciais": "Anos Iniciais"
+  "anosIniciais": "Anos Iniciais",
+  "anosFinais": "Anos Finais",
 
+  "EDGraph": "Esforço Docente",
+  "nivel": "Niveles",
+  "Nivel1": "Nivel 1",
+  "Nivel2": "Nivel 2",
+  "Nivel3": "Nivel 3",
+  "Nivel4": "Nivel 4",
+  "Nivel5": "Nivel 5",
+  "Nivel6": "Nivel 6",
+  "Nivel7": "Nivel 7",
+  "Nivel8": "Nivel 8"
 }
