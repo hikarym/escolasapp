@@ -81,11 +81,17 @@ export class GraphsComponent implements OnInit, OnDestroy {
   @ViewChild('DCSEnsMedioGraph')
   private div_DCSEnsMedioGraph: ElementRef;
 
-  @ViewChild('horasAulaEnsMedioGraph')
-  private div_horasAulaEnsMedioGraph: ElementRef;
+  @ViewChild('horasAulaPorAnosEnsMedioGraph')
+  private div_horasAulaPorAnosEnsMedioGraph: ElementRef;
 
-  @ViewChild('alunosPorTurmaEnsMedioGraph')
-  private div_alunosPorTurmaEnsMedioGraph: ElementRef;
+  @ViewChild('horasAulaAno3EnsMedioGraph')
+  private div_horasAulaAno3EnsMedioGraph: ElementRef;
+
+  @ViewChild('alunosPorTurmaPorAnosEnsMedioGraph')
+  private div_alunosPorTurmaPorAnosEnsMedioGraph: ElementRef;
+
+  @ViewChild('alunosPorTurmaAno3EnsMedioGraph')
+  private div_alunosPorTurmaAno3EnsMedioGraph: ElementRef;
 
   @ViewChild('EDEnsMedioGraph')
   private div_EDEnsMedioGraph: ElementRef;
@@ -100,7 +106,7 @@ export class GraphsComponent implements OnInit, OnDestroy {
   // Indicadores, niveis, categorias
   private indicadores = ['AdequacaoFormacaoDocente', 'docentes', 'horasAula', 'AlunosPorTurma', 'EsforcoDocente'];
   private niveis = ['Infantil', 'Fundamental', 'Medio'];
-  private categorias = ['AnosIniciais', 'AnosFinais', 'AnosIniciais8', 'AnosFinais8', 'AnosIniciais9', 'AnosFinais9'];
+  private categorias = ['AnosIniciais', 'AnosFinais', 'AnosIniciais8', 'AnosFinais8', 'AnosIniciais9', 'AnosFinais9', 'anos', 'terceiroAno'];
 
   constructor(private sharedDataService: ShareddataService,
               private translate: TranslateService) {
@@ -132,6 +138,9 @@ export class GraphsComponent implements OnInit, OnDestroy {
 
         // --- 2. Ensino Fundamental
         // ----- Anos Iniciais -----
+        // Taxa de aprovação
+
+
         // AFD
         const dadosAFDEnsFundAIniciais = this.getDadosDoIndicador(this.indicadores[0], this.niveis[1], this.categorias[0]);
         this.groupsAFDEnsFundAIniciais = Object.keys(dadosAFDEnsFundAIniciais);
@@ -214,14 +223,24 @@ export class GraphsComponent implements OnInit, OnDestroy {
         const dadosDCSEnsMedio = this.schoolSelected[this.indicadores[1]]['cursoSuperior'][this.niveis[2]];
         this.showGraphWithVerticalBar(dadosDCSEnsMedio, this.div_DCSEnsMedioGraph, '#box-DCSEnsMedio');
 
-        // horasAula
-        const dadosHorasAulaEnsMedio = this.schoolSelected[this.indicadores[2]][this.niveis[2]];
-        this.showGraphWithVerticalBar(dadosHorasAulaEnsMedio, this.div_horasAulaEnsMedioGraph, '#box-horasAulaEnsMedio');
+        // horasAula -  por anos
+        const dadosHorasAulaPorAnosEnsMedio = this.schoolSelected[this.indicadores[2]][this.niveis[2]][this.categorias[6]];
+        this.showGraphWithVerticalBar(dadosHorasAulaPorAnosEnsMedio, this.div_horasAulaPorAnosEnsMedioGraph,
+          '#box-horasAulaPorAnosEnsMedio');
 
-        // alunosPorTurma
-        const dadosAlunosPorTurmaEnsMedio = this.schoolSelected[this.indicadores[3]][this.niveis[2]];
-        this.showGraphWithVerticalBar(dadosAlunosPorTurmaEnsMedio, this.div_alunosPorTurmaEnsMedioGraph,
-          '#box-alunosPorTurmaEnsMedio');
+        // horasAula - Terceiro Ano
+        const dadosHorasAulaAno3EnsMedio = this.schoolSelected[this.indicadores[2]][this.niveis[2]][this.categorias[7]];
+        this.showGraphWithVerticalBar(dadosHorasAulaAno3EnsMedio, this.div_horasAulaAno3EnsMedioGraph, '#box-horasAulaAno3EnsMedio');
+
+        // alunosPorTurma por anos
+        const dadosAlunosPorTurmaPorAnosEnsMedio = this.schoolSelected[this.indicadores[3]][this.niveis[2]][this.categorias[6]];
+        this.showGraphWithVerticalBar(dadosAlunosPorTurmaPorAnosEnsMedio, this.div_alunosPorTurmaPorAnosEnsMedioGraph,
+          '#box-alunosPorTurmaPorAnosEnsMedio');
+
+        // alunosPorTurma - Terceiro Ano
+        const dadosAlunosPorTurmaAno3EnsMedio = this.schoolSelected[this.indicadores[3]][this.niveis[2]][this.categorias[7]];
+        this.showGraphWithVerticalBar(dadosAlunosPorTurmaAno3EnsMedio, this.div_alunosPorTurmaAno3EnsMedioGraph,
+          '#box-alunosPorTurmaAno3EnsMedio');
 
         // EsforcoDocente
         const dadosEDEnsMedio = this.getDadosDoIndicador(this.indicadores[4], this.niveis[2], '');
