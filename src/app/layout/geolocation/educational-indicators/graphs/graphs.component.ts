@@ -35,11 +35,17 @@ export class GraphsComponent implements OnInit, OnDestroy {
   @ViewChild('DCSEnsFundAIniciaisGraph')
   private div_DCSEnsFundAIniciaisGraph: ElementRef;
 
-  @ViewChild('horasAulaEnsFundAIniciaisGraph')
-  private div_horasAulaEnsFundAIniciaisGraph: ElementRef;
+  @ViewChild('horasAulaEnsFundAIniciais8Graph')
+  private div_horasAulaEnsFundAIniciais8Graph: ElementRef;
 
-  @ViewChild('alunosPorTurmaEnsFundAIniciaisGraph')
-  private div_alunosPorTurmaEnsFundAIniciaisGraph: ElementRef;
+  @ViewChild('horasAulaEnsFundAIniciais9Graph')
+  private div_horasAulaEnsFundAIniciais9Graph: ElementRef;
+
+  @ViewChild('alunosPorTurmaEnsFundAIniciais8Graph')
+  private div_alunosPorTurmaEnsFundAIniciais8Graph: ElementRef;
+
+  @ViewChild('alunosPorTurmaEnsFundAIniciais9Graph')
+  private div_alunosPorTurmaEnsFundAIniciais9Graph: ElementRef;
 
   @ViewChild('EDEnsFundAIniciaisGraph')
   private div_EDEnsFundAIniciaisGraph: ElementRef;
@@ -52,11 +58,17 @@ export class GraphsComponent implements OnInit, OnDestroy {
   @ViewChild('DCSEnsFundAFinaisGraph')
   private div_DCSEnsFundAFinaisGraph: ElementRef;
 
-  @ViewChild('horasAulaEnsFundAFinaisGraph')
-  private div_horasAulaEnsFundAFinaisGraph: ElementRef;
+  @ViewChild('horasAulaEnsFundAFinais8Graph')
+  private div_horasAulaEnsFundAFinais8Graph: ElementRef;
 
-  @ViewChild('alunosPorTurmaEnsFundAFinaisGraph')
-  private div_alunosPorTurmaEnsFundAFinaisGraph: ElementRef;
+  @ViewChild('horasAulaEnsFundAFinais9Graph')
+  private div_horasAulaEnsFundAFinais9Graph: ElementRef;
+
+  @ViewChild('alunosPorTurmaEnsFundAFinais8Graph')
+  private div_alunosPorTurmaEnsFundAFinais8Graph: ElementRef;
+
+  @ViewChild('alunosPorTurmaEnsFundAFinais9Graph')
+  private div_alunosPorTurmaEnsFundAFinais9Graph: ElementRef;
 
   @ViewChild('EDEnsFundAFinaisGraph')
   private div_EDEnsFundAFinaisGraph: ElementRef;
@@ -129,15 +141,25 @@ export class GraphsComponent implements OnInit, OnDestroy {
         const dadosDCSEnsFundAIniciais = this.schoolSelected[this.indicadores[1]]['cursoSuperior'][this.niveis[1]];
         this.showGraphWithVerticalBar(dadosDCSEnsFundAIniciais, this.div_DCSEnsFundAIniciaisGraph, '#box-DCSEnsFundAIniciais');
 
-        // horasAula ------ falta 9a
-        const dadosHorasAulaEnsFundAIniciais = this.schoolSelected[this.indicadores[2]][this.niveis[1]][this.categorias[2]];
-        this.showGraphWithVerticalBar(dadosHorasAulaEnsFundAIniciais, this.div_horasAulaEnsFundAIniciaisGraph,
-          '#box-horasAulaEnsFundAIniciais');
+        // horasAula 8a
+        const dadosHorasAulaEnsFundAIniciais8 = this.schoolSelected[this.indicadores[2]][this.niveis[1]][this.categorias[2]];
+        this.showGraphWithVerticalBar(dadosHorasAulaEnsFundAIniciais8, this.div_horasAulaEnsFundAIniciais8Graph,
+          '#box-horasAulaEnsFundAIniciais8');
 
-        // alunosPorTurma ------ falta 9a
-        const dadosAlunosPorTurmaEnsFundAIniciais = this.schoolSelected[this.indicadores[3]][this.niveis[1]][this.categorias[2]];
-        this.showGraphWithVerticalBar(dadosAlunosPorTurmaEnsFundAIniciais, this.div_alunosPorTurmaEnsFundAIniciaisGraph,
-          '#box-alunosPorTurmaEnsFundAIniciais');
+        // horasAula 9a
+        const dadosHorasAulaEnsFundAIniciais9 = this.schoolSelected[this.indicadores[2]][this.niveis[1]][this.categorias[4]];
+        this.showGraphWithVerticalBar(dadosHorasAulaEnsFundAIniciais9, this.div_horasAulaEnsFundAIniciais9Graph,
+          '#box-horasAulaEnsFundAIniciais9');
+
+        // alunosPorTurma 8a
+        const dadosAlunosPorTurmaEnsFundAIniciais8 = this.schoolSelected[this.indicadores[3]][this.niveis[1]][this.categorias[2]];
+        this.showGraphWithVerticalBar(dadosAlunosPorTurmaEnsFundAIniciais8, this.div_alunosPorTurmaEnsFundAIniciais8Graph,
+          '#box-alunosPorTurmaEnsFundAIniciais8');
+
+        // alunosPorTurma 9a
+        const dadosAlunosPorTurmaEnsFundAIniciais9 = this.schoolSelected[this.indicadores[3]][this.niveis[1]][this.categorias[4]];
+        this.showGraphWithVerticalBar(dadosAlunosPorTurmaEnsFundAIniciais9, this.div_alunosPorTurmaEnsFundAIniciais9Graph,
+          '#box-alunosPorTurmaEnsFundAIniciais9');
 
         // EsforcoDocente
         const dadosEDEnsFundAIniciais = this.getDadosDoIndicador(this.indicadores[4], this.niveis[1], this.categorias[0]);
@@ -155,15 +177,25 @@ export class GraphsComponent implements OnInit, OnDestroy {
         this.showGraphWithVerticalBar(dadosDCSEnsFundAFinais, this.div_DCSEnsFundAFinaisGraph,
           '#box-DCSEnsFundAFinais');
 
+        // horasAula ------ falta 8a
+        const dadosHorasAulaEnsFundAFinais8 = this.schoolSelected[this.indicadores[2]][this.niveis[1]][this.categorias[3]];
+        this.showGraphWithVerticalBar(dadosHorasAulaEnsFundAFinais8, this.div_horasAulaEnsFundAFinais8Graph,
+          '#box-horasAulaEnsFundAFinais8');
+
         // horasAula ------ falta 9a
-        const dadosHorasAulaEnsFundAFinais = this.schoolSelected[this.indicadores[2]][this.niveis[1]][this.categorias[3]];
-        this.showGraphWithVerticalBar(dadosHorasAulaEnsFundAFinais, this.div_horasAulaEnsFundAFinaisGraph,
-          '#box-horasAulaEnsFundAFinais');
+        const dadosHorasAulaEnsFundAFinais9 = this.schoolSelected[this.indicadores[2]][this.niveis[1]][this.categorias[5]];
+        this.showGraphWithVerticalBar(dadosHorasAulaEnsFundAFinais9, this.div_horasAulaEnsFundAFinais9Graph,
+          '#box-horasAulaEnsFundAFinais9');
+
+        // alunosPorTurma ------ falta 8a
+        const dadosAlunosPorTurmaEnsFundAFinais8 = this.schoolSelected[this.indicadores[3]][this.niveis[1]][this.categorias[3]];
+        this.showGraphWithVerticalBar(dadosAlunosPorTurmaEnsFundAFinais8, this.div_alunosPorTurmaEnsFundAFinais8Graph,
+          '#box-alunosPorTurmaEnsFundAFinais8');
 
         // alunosPorTurma ------ falta 9a
-        const dadosAlunosPorTurmaEnsFundAFinais = this.schoolSelected[this.indicadores[3]][this.niveis[1]][this.categorias[3]];
-        this.showGraphWithVerticalBar(dadosAlunosPorTurmaEnsFundAFinais, this.div_alunosPorTurmaEnsFundAFinaisGraph,
-          '#box-alunosPorTurmaEnsFundAFinais');
+        const dadosAlunosPorTurmaEnsFundAFinais9 = this.schoolSelected[this.indicadores[3]][this.niveis[1]][this.categorias[5]];
+        this.showGraphWithVerticalBar(dadosAlunosPorTurmaEnsFundAFinais9, this.div_alunosPorTurmaEnsFundAFinais9Graph,
+          '#box-alunosPorTurmaEnsFundAFinais9');
 
         // EsforcoDocente
         const dadosEDEnsFundAFinais = this.getDadosDoIndicador(this.indicadores[4], this.niveis[1], this.categorias[1]);
