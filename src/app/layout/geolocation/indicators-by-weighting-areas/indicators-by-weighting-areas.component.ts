@@ -168,7 +168,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
   private div_agePyramidByBrasilGraph: ElementRef;
 
   private margin = {top: 15, right: 20, bottom: 40, left: 20};
-  private width = 335;
+  private width = 300;
   private height = 300;
 
   // ----------------
@@ -206,22 +206,22 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
             const ocupAp = this.weightingAreaInfo['ses']['ocup'];
             const dataForOcupAp = this.getPropertiesNamesAndValuesForNumbers(ocupAp);
             this.generateHorizontalBarChart(dataForOcupAp, this.div_occupationalStructureByAPGraph, 50,
-              this.width, this.height, {top: 15, right: 20, bottom: 40, left: 130});
+              this.width, this.height, {top: 15, right: 20, bottom: 40, left: 120});
 
             const ocupRmsp = this.brSpRmspSecInfo[2]['ses']['ocup'];
             const dataForOcupRmsp = this.getPropertiesNamesAndValuesForNumbers(ocupRmsp);
             this.generateHorizontalBarChart(dataForOcupRmsp, this.div_occupationalStructureByMetropoleGraph, 50,
-              this.width, this.height, {top: 15, right: 20, bottom: 40, left: 130});
+              this.width, this.height, {top: 15, right: 20, bottom: 40, left: 120});
 
             const ocupBr = this.brSpRmspSecInfo[1]['ses']['ocup'];
             const dataForOcupBr = this.getPropertiesNamesAndValuesForNumbers(ocupBr);
             this.generateHorizontalBarChart(dataForOcupBr, this.div_occupationalStructureByBrasilGraph, 50,
-              this.width, this.height, {top: 15, right: 20, bottom: 40, left: 130});
+              this.width, this.height, {top: 15, right: 20, bottom: 40, left: 120});
 
             const ocupSP = this.brSpRmspSecInfo[0]['ses']['ocup'];
             const dataForOcupSP = this.getPropertiesNamesAndValuesForNumbers(ocupSP);
             this.generateHorizontalBarChart(dataForOcupSP, this.div_occupationalStructureByUFGraph, 50,
-              this.width, this.height, {top: 15, right: 20, bottom: 40, left: 130});
+              this.width, this.height, {top: 15, right: 20, bottom: 40, left: 120});
 
             this.buildDataForProfileEducationalGraph(this.weightingAreaInfo, this.div_profileEducationalByAPGraph);
             this.buildDataForProfileEducationalGraph(this.brSpRmspSecInfo[2], this.div_profileEducationalByMetropoleGraph);

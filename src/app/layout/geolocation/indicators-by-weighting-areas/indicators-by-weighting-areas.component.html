@@ -52,55 +52,53 @@
           <div class="section-graph">
             <div class="md-list md-whiteframe-z0 bg-white m-b"></div>
             <div [hidden]="!categories[0].visible">
-              <div class="section-info-line">
-                <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-2x fa-caret-right"></span>
-                <span class="section-info-text"><span>Tabela Comparativa de características socieconômicas</span> </span>
+              <div class="box" role="alert" >
+                <h6 class="alert-heading text-center"><i class="fa fa-users fa-fw"></i>{{'ses' | translate}}</h6>
+                <div #comparativeTableGraph ></div>
               </div>
-              <div #comparativeTableGraph style="background: rgba(255,255,255, 0.8); margin: 5px 25px 5px 5px;"></div>
 
               <!--END ESTRUTURA OCUPACIONAL -->
-              <div class="section-info-line">
-                <span aria-hidden="true" role="img" class="section-info-icon fa fa-fw fa-2x fa-caret-right"></span>
-                <span class="section-info-text"><span>Estrutura Ocupacional</span></span>
-              </div>
+              <div class="box" role="alert" >
+                <h6 class="alert-heading text-center"><i class="fa fa-wrench fa-fw"></i>{{'ocup' | translate}}</h6>
 
-              <!--tab -->
-              <div style="margin: 5px 25px 5px 5px;">
-                <ul class="nav nav-tabs text-center" id="structureOcupationalTab" role="tablist">
-                  <li class="nav-item">
-                    <a class="nav-link active" id="ap-tabStructureOcupational" data-toggle="tab" href="#apStructureOcupational"
-                       role="tab" aria-controls="apStructureOcupational" aria-selected="true"><i class="fa fa-circle"></i> AP</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" id="metropole-tabStructureOcupational" data-toggle="tab" href="#metropoleStructureOcupational"
-                       role="tab" aria-controls="metropoleStructureOcupational" aria-selected="false"><i class="fa fa-building"></i> RMSP</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" id="uf-tabStructureOcupational" data-toggle="tab" href="#ufStructureOcupational"
-                       role="tab" aria-controls="ufStructureOcupational" aria-selected="false"><i class="fa fa-map-marker"></i> UF de SP</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" id="brasil-tabStructureOcupational" data-toggle="tab" href="#brasilStructureOcupational"
-                       role="tab" aria-controls="brasilStructureOcupational" aria-selected="false"><i class="fa fa-map"></i> Brasil</a>
-                  </li>
-                </ul>
-                <div class="tab-content" id="structureOcupationalTabContent">
-                  <div class="tab-pane fade show active" id="apStructureOcupational" role="tabpanel" aria-labelledby="ap-tabStructureOcupational">
-                    <div #occupationalStructureByAPGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
-                  </div>
-                  <div class="tab-pane fade" id="metropoleStructureOcupational" role="tabpanel" aria-labelledby="metropole-tabStructureOcupational">
-                    <div #occupationalStructureByMetropoleGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
-                  </div>
-                  <div class="tab-pane fade" id="ufStructureOcupational" role="tabpanel" aria-labelledby="uf-tabStructureOcupational">
-                    <div #occupationalStructureByUFGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
-                  </div>
-                  <div class="tab-pane fade" id="brasilStructureOcupational" role="tabpanel" aria-labelledby="brasil-tabStructureOcupational">
-                    <div #occupationalStructureByBrasilGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
+                <!--tab -->
+                <div >
+                  <ul class="nav nav-tabs text-center" id="structureOcupationalTab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="ap-tabStructureOcupational" data-toggle="tab" href="#apStructureOcupational"
+                         role="tab" aria-controls="apStructureOcupational" aria-selected="true"><i class="fa fa-circle"></i> AP</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="metropole-tabStructureOcupational" data-toggle="tab" href="#metropoleStructureOcupational"
+                         role="tab" aria-controls="metropoleStructureOcupational" aria-selected="false"><i class="fa fa-building"></i> RMSP</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="uf-tabStructureOcupational" data-toggle="tab" href="#ufStructureOcupational"
+                         role="tab" aria-controls="ufStructureOcupational" aria-selected="false"><i class="fa fa-map-marker"></i> SP</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="brasil-tabStructureOcupational" data-toggle="tab" href="#brasilStructureOcupational"
+                         role="tab" aria-controls="brasilStructureOcupational" aria-selected="false"><i class="fa fa-map"></i> Brasil</a>
+                    </li>
+                  </ul>
+                  <div class="tab-content" id="structureOcupationalTabContent">
+                    <div class="tab-pane fade show active" id="apStructureOcupational" role="tabpanel" aria-labelledby="ap-tabStructureOcupational">
+                      <div #occupationalStructureByAPGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
+                    </div>
+                    <div class="tab-pane fade" id="metropoleStructureOcupational" role="tabpanel" aria-labelledby="metropole-tabStructureOcupational">
+                      <div #occupationalStructureByMetropoleGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
+                    </div>
+                    <div class="tab-pane fade" id="ufStructureOcupational" role="tabpanel" aria-labelledby="uf-tabStructureOcupational">
+                      <div #occupationalStructureByUFGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
+                    </div>
+                    <div class="tab-pane fade" id="brasilStructureOcupational" role="tabpanel" aria-labelledby="brasil-tabStructureOcupational">
+                      <div #occupationalStructureByBrasilGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
+                    </div>
                   </div>
                 </div>
+                <!-- end tab -->
+                <!-- END ESTRUCTURA OCUPACIONAL -->
               </div>
-              <!-- end tab -->
-              <!-- END ESTRUCTURA OCUPACIONAL -->
             </div>
             <div [hidden]="!categories[1].visible">
               <div class="section-info-line">
