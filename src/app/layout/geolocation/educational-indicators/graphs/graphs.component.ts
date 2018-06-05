@@ -40,6 +40,9 @@ export class GraphsComponent implements OnInit, OnDestroy {
   @ViewChild('ntProvaPadronizEnsFundAIniciaisGraph')
   private div_ntProvaPadronizEnsFundAIniciaisGraph: ElementRef;
 
+  @ViewChild('idebEnsFundAIniciaisGraph')
+  private div_idebEnsFundAIniciaisGraph: ElementRef;
+
   @ViewChild('AFDEnsFundAIniciaisGraph')
   private div_AFDEnsFundAIniciaisGraph: ElementRef;
   groupsAFDEnsFundAIniciais: any;
@@ -74,6 +77,9 @@ export class GraphsComponent implements OnInit, OnDestroy {
 
   @ViewChild('ntProvaPadronizEnsFundAFinaisGraph')
   private div_ntProvaPadronizEnsFundAFinaisGraph: ElementRef;
+
+  @ViewChild('idebEnsFundAFinaisGraph')
+  private div_idebEnsFundAFinaisGraph: ElementRef;
 
   @ViewChild('AFDEnsFundAFinaisGraph')
   private div_AFDEnsFundAFinaisGraph: ElementRef;
@@ -201,6 +207,11 @@ export class GraphsComponent implements OnInit, OnDestroy {
         this.showGraphWithVerticalBar(dadosNtProvaPadronizEnsFundAIniciais, this.div_ntProvaPadronizEnsFundAIniciaisGraph,
           '#box-ntProvaPadronizEnsFundAIniciais');
 
+        // Nota IDEB
+        const dadosIDEBEnsFundAIniciais = this.schoolSelected[this.indicadores[11]][this.niveis[1]][this.categorias[0]];
+        this.showGraphWithVerticalBar(dadosIDEBEnsFundAIniciais, this.div_idebEnsFundAIniciaisGraph,
+          '#box-idebEnsFundAIniciais');
+
         // AFD
         const dadosAFDEnsFundAIniciais = this.getDadosDoIndicador(this.indicadores[0], this.niveis[1], this.categorias[0]);
         this.groupsAFDEnsFundAIniciais = Object.keys(dadosAFDEnsFundAIniciais);
@@ -244,19 +255,24 @@ export class GraphsComponent implements OnInit, OnDestroy {
           '#box-txAprovEnsFundAFinais');
 
         // Nota Matematica
-        const dadosNtProvaMatEnsFundAFinais = this.schoolSelected[this.indicadores[8]][this.niveis[1]][this.categorias[0]];
+        const dadosNtProvaMatEnsFundAFinais = this.schoolSelected[this.indicadores[8]][this.niveis[1]][this.categorias[1]];
         this.showGraphWithVerticalBar(dadosNtProvaMatEnsFundAFinais, this.div_ntProvaMatEnsFundAFinaisGraph,
           '#box-ntProvaMatEnsFundAFinais');
 
         // Nota Lingua Portuguesa
-        const dadosNtProvaPortuEnsFundAFinais = this.schoolSelected[this.indicadores[9]][this.niveis[1]][this.categorias[0]];
+        const dadosNtProvaPortuEnsFundAFinais = this.schoolSelected[this.indicadores[9]][this.niveis[1]][this.categorias[1]];
         this.showGraphWithVerticalBar(dadosNtProvaPortuEnsFundAFinais, this.div_ntProvaPortuEnsFundAFinaisGraph,
           '#box-ntProvaPortuEnsFundAFinais');
 
         // Nota Média Padronizada
-        const dadosNtProvaPadronizEnsFundAFinais = this.schoolSelected[this.indicadores[10]][this.niveis[1]][this.categorias[0]];
+        const dadosNtProvaPadronizEnsFundAFinais = this.schoolSelected[this.indicadores[10]][this.niveis[1]][this.categorias[1]];
         this.showGraphWithVerticalBar(dadosNtProvaPadronizEnsFundAFinais, this.div_ntProvaPadronizEnsFundAFinaisGraph,
           '#box-ntProvaPadronizEnsFundAFinais');
+
+        // Nota IDEB
+        const dadosIDEBEnsFundAFinais = this.schoolSelected[this.indicadores[11]][this.niveis[1]][this.categorias[1]];
+        this.showGraphWithVerticalBar(dadosIDEBEnsFundAFinais, this.div_idebEnsFundAFinaisGraph,
+          '#box-idebEnsFundAFinais');
 
         // AFD
         const dadosAFDEnsFundAFinais = this.getDadosDoIndicador(this.indicadores[0], this.niveis[1], this.categorias[1]);

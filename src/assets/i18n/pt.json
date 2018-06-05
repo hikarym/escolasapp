@@ -187,5 +187,7 @@
   "primeiraSerie": "Primeira Serie",
   "ntProvaMat": "Nota Prova Brasil - Matemática",
   "ntProvaPortu": "Nota Prova Brasil - Língua Portuguesa",
-  "ntProvaPadroniz": "Nota Prova Brasil - Nota Média Padronizada"
+  "ntProvaPadroniz": "Nota Prova Brasil - Nota Média Padronizada",
+  "ideb": "IDEB",
+  "enem": "ENEM"
 }
