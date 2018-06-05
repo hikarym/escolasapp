@@ -28,6 +28,18 @@ export class GraphsComponent implements OnInit, OnDestroy {
   @ViewChild('alunosPorTurmaNivelInfantilGraph')
   private div_alunosPorTurmaNivelInfantilGraph: ElementRef;
 
+  @ViewChild('txAprovEnsFundAIniciaisGraph')
+  private div_txAprovEnsFundAIniciaisGraph: ElementRef;
+
+  @ViewChild('ntProvaMatEnsFundAIniciaisGraph')
+  private div_ntProvaMatEnsFundAIniciaisGraph: ElementRef;
+
+  @ViewChild('ntProvaPortuEnsFundAIniciaisGraph')
+  private div_ntProvaPortuEnsFundAIniciaisGraph: ElementRef;
+
+  @ViewChild('ntProvaPadronizEnsFundAIniciaisGraph')
+  private div_ntProvaPadronizEnsFundAIniciaisGraph: ElementRef;
+
   @ViewChild('AFDEnsFundAIniciaisGraph')
   private div_AFDEnsFundAIniciaisGraph: ElementRef;
   groupsAFDEnsFundAIniciais: any;
@@ -51,6 +63,18 @@ export class GraphsComponent implements OnInit, OnDestroy {
   private div_EDEnsFundAIniciaisGraph: ElementRef;
   nivelesEDEnsFundAIniciais: any;
 
+  @ViewChild('txAprovEnsFundAFinaisGraph')
+  private div_txAprovEnsFundAFinaisGraph: ElementRef;
+
+  @ViewChild('ntProvaMatEnsFundAFinaisGraph')
+  private div_ntProvaMatEnsFundAFinaisGraph: ElementRef;
+
+  @ViewChild('ntProvaPortuEnsFundAFinaisGraph')
+  private div_ntProvaPortuEnsFundAFinaisGraph: ElementRef;
+
+  @ViewChild('ntProvaPadronizEnsFundAFinaisGraph')
+  private div_ntProvaPadronizEnsFundAFinaisGraph: ElementRef;
+
   @ViewChild('AFDEnsFundAFinaisGraph')
   private div_AFDEnsFundAFinaisGraph: ElementRef;
   groupsAFDEnsFundAFinais: any;
@@ -73,6 +97,15 @@ export class GraphsComponent implements OnInit, OnDestroy {
   @ViewChild('EDEnsFundAFinaisGraph')
   private div_EDEnsFundAFinaisGraph: ElementRef;
   nivelesEDEnsFundAFinais: any;
+
+  @ViewChild('txAprovEnsMedioGraph')
+  private div_txAprovEnsMedioGraph: ElementRef;
+
+  @ViewChild('txAbandonoEnsMedioGraph')
+  private div_txAbandonoEnsMedioGraph: ElementRef;
+
+  @ViewChild('txDistorEnsMedioGraph')
+  private div_txDistorEnsMedioGraph: ElementRef;
 
   @ViewChild('AFDEnsMedioGraph')
   private div_AFDEnsMedioGraph: ElementRef;
@@ -104,9 +137,19 @@ export class GraphsComponent implements OnInit, OnDestroy {
   private heigth = 250;
 
   // Indicadores, niveis, categorias
-  private indicadores = ['AdequacaoFormacaoDocente', 'docentes', 'horasAula', 'AlunosPorTurma', 'EsforcoDocente'];
+  private indicadores = [
+    'AdequacaoFormacaoDocente', 'docentes', 'horasAula', 'AlunosPorTurma', 'EsforcoDocente',
+    'txAprov', 'txAbandono', 'txDistor',
+    'ntProvaMat', 'ntProvaPortu', 'ntProvaPadroniz', 'ideb', 'enem'
+  ];
   private niveis = ['Infantil', 'Fundamental', 'Medio'];
-  private categorias = ['AnosIniciais', 'AnosFinais', 'AnosIniciais8', 'AnosFinais8', 'AnosIniciais9', 'AnosFinais9', 'anos', 'terceiroAno'];
+  private categorias = [
+    'AnosIniciais', 'AnosFinais',
+    'AnosIniciais8', 'AnosFinais8',
+    'AnosIniciais9', 'AnosFinais9',
+    'anos', 'terceiroAno',
+    'primeiraSerie', 'terceiraSerie'
+  ];
 
   constructor(private sharedDataService: ShareddataService,
               private translate: TranslateService) {
@@ -139,7 +182,24 @@ export class GraphsComponent implements OnInit, OnDestroy {
         // --- 2. Ensino Fundamental
         // ----- Anos Iniciais -----
         // Taxa de aprovação
+        const dadosTxAprovEnsFundAIniciais = this.schoolSelected[this.indicadores[5]][this.niveis[1]][this.categorias[0]];
+        this.showGraphWithVerticalBar(dadosTxAprovEnsFundAIniciais, this.div_txAprovEnsFundAIniciaisGraph,
+          '#box-txAprovEnsFundAIniciais');
 
+        // Nota Matematica
+        const dadosNtProvaMatEnsFundAIniciais = this.schoolSelected[this.indicadores[8]][this.niveis[1]][this.categorias[0]];
+        this.showGraphWithVerticalBar(dadosNtProvaMatEnsFundAIniciais, this.div_ntProvaMatEnsFundAIniciaisGraph,
+          '#box-ntProvaMatEnsFundAIniciais');
+
+        // Nota Lingua Portuguesa
+        const dadosNtProvaPortuEnsFundAIniciais = this.schoolSelected[this.indicadores[9]][this.niveis[1]][this.categorias[0]];
+        this.showGraphWithVerticalBar(dadosNtProvaPortuEnsFundAIniciais, this.div_ntProvaPortuEnsFundAIniciaisGraph,
+          '#box-ntProvaPortuEnsFundAIniciais');
+
+        // Nota Média Padronizada
+        const dadosNtProvaPadronizEnsFundAIniciais = this.schoolSelected[this.indicadores[10]][this.niveis[1]][this.categorias[0]];
+        this.showGraphWithVerticalBar(dadosNtProvaPadronizEnsFundAIniciais, this.div_ntProvaPadronizEnsFundAIniciaisGraph,
+          '#box-ntProvaPadronizEnsFundAIniciais');
 
         // AFD
         const dadosAFDEnsFundAIniciais = this.getDadosDoIndicador(this.indicadores[0], this.niveis[1], this.categorias[0]);
@@ -178,6 +238,26 @@ export class GraphsComponent implements OnInit, OnDestroy {
           this.div_EDEnsFundAIniciaisGraph);
 
         // ----- Anos Finais -----
+        // Taxa de aprovação
+        const dadosTxAprovEnsFundAFinais = this.schoolSelected[this.indicadores[5]][this.niveis[1]][this.categorias[1]];
+        this.showGraphWithVerticalBar(dadosTxAprovEnsFundAFinais, this.div_txAprovEnsFundAFinaisGraph,
+          '#box-txAprovEnsFundAFinais');
+
+        // Nota Matematica
+        const dadosNtProvaMatEnsFundAFinais = this.schoolSelected[this.indicadores[8]][this.niveis[1]][this.categorias[0]];
+        this.showGraphWithVerticalBar(dadosNtProvaMatEnsFundAFinais, this.div_ntProvaMatEnsFundAFinaisGraph,
+          '#box-ntProvaMatEnsFundAFinais');
+
+        // Nota Lingua Portuguesa
+        const dadosNtProvaPortuEnsFundAFinais = this.schoolSelected[this.indicadores[9]][this.niveis[1]][this.categorias[0]];
+        this.showGraphWithVerticalBar(dadosNtProvaPortuEnsFundAFinais, this.div_ntProvaPortuEnsFundAFinaisGraph,
+          '#box-ntProvaPortuEnsFundAFinais');
+
+        // Nota Média Padronizada
+        const dadosNtProvaPadronizEnsFundAFinais = this.schoolSelected[this.indicadores[10]][this.niveis[1]][this.categorias[0]];
+        this.showGraphWithVerticalBar(dadosNtProvaPadronizEnsFundAFinais, this.div_ntProvaPadronizEnsFundAFinaisGraph,
+          '#box-ntProvaPadronizEnsFundAFinais');
+
         // AFD
         const dadosAFDEnsFundAFinais = this.getDadosDoIndicador(this.indicadores[0], this.niveis[1], this.categorias[1]);
         this.groupsAFDEnsFundAFinais = Object.keys(dadosAFDEnsFundAFinais);
@@ -214,6 +294,21 @@ export class GraphsComponent implements OnInit, OnDestroy {
         this.showGraphByGroups(this.indicadores[4], this.niveis[1], this.categorias[1], this.nivelDefault, this.div_EDEnsFundAFinaisGraph);
 
         // --- 3. Ensino Medio
+        // Taxa de aprovação
+        const dadosTxAprovEnsMedio = this.schoolSelected[this.indicadores[5]][this.niveis[2]][this.categorias[9]];
+        this.showGraphWithVerticalBar(dadosTxAprovEnsMedio, this.div_txAprovEnsMedioGraph,
+          '#box-txAprovEnsMedio');
+
+        // Taxa de Abandono
+        const dadosTxAbandonoEnsMedio = this.schoolSelected[this.indicadores[6]][this.niveis[2]][this.categorias[8]];
+        this.showGraphWithVerticalBar(dadosTxAbandonoEnsMedio, this.div_txAbandonoEnsMedioGraph,
+          '#box-txAbandonoEnsMedio');
+
+        // Taxa de Distorção
+        const dadosTxDistorEnsMedio = this.schoolSelected[this.indicadores[7]][this.niveis[2]][this.categorias[9]];
+        this.showGraphWithVerticalBar(dadosTxDistorEnsMedio, this.div_txDistorEnsMedioGraph,
+          '#box-txDistorEnsMedio');
+
         // AFD
         const dadosAFDEnsMedio = this.getDadosDoIndicador(this.indicadores[0], this.niveis[2], '');
         this.groupsAFDEnsMedio = Object.keys(dadosAFDEnsMedio);
@@ -435,6 +530,52 @@ export class GraphsComponent implements OnInit, OnDestroy {
           tooltip.style('display', 'none');
         });
     }
+  }
+
+  buildMultiplelineChart(dataGraph: any[], containerDiv: ElementRef) {
+    const width = this.width - this.margin.left - this.margin.right,
+      height = this.heigth - this.margin.top - this.margin.bottom;
+
+    // Define domain data for X & Y axes from the data array
+    const xDomain = dataGraph.map(d => d.variableName);
+    // console.log('xDomain:', xDomain);
+    const yDomain = [0, d3.max(dataGraph, function (d) {
+      return d.variableValue;
+    })];
+
+    // Set the scale for X & Y
+    const x = d3.scaleBand()
+      .domain(xDomain)
+      .rangeRound([0, width])
+      .padding(0.2);
+
+    const y = d3.scaleLinear()
+      .domain(yDomain)
+      .range([height, 0]);
+
+    const color = d3.scaleOrdinal(d3.schemeCategory10);
+
+    const xAxis = d3.axisBottom(x);
+    const yAxis = d3.axisLeft(y);
+
+    /*const line = d3.line()
+      .curve(d3.curveBasis)
+      .x(function(d) {
+        return x(d.variableName);
+      })
+      .y(function(d) {
+        return y(d.variableValue);
+      });
+
+    // Define chart dimensions
+    // let svg = d3.select(this.element.nativeElement).append('svg')
+    const svg = d3.select(containerDiv.nativeElement).append('svg')
+      .attr('width', width + this.margin.left + this.margin.right)
+      .attr('height', height + this.margin.top + this.margin.bottom)
+      .append('g')
+      .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');*/
+
+
   }
 
   /**
