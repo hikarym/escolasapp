@@ -24,6 +24,17 @@
   "close": "Fechar",
   "apply-changes": "Aplicar mudanças",
 
+  "ocupacoesElementares": "Ocupações Elementares",
+  "operadoresMaquina": "Operadores de Máquina",
+  "manuaisQualificados": "Qualificados",
+  "agropecuaria": "Agropecuária",
+  "comercioServicos": "Comecio de serviços",
+  "trabEscritorio": "Trabalho de Escritório",
+  "tecnicos": "Técnicos",
+  "profissionais": "Profissionais",
+  "gerentes": "Gerentes",
+  "militares": "Militares",
+
   "dados-gerais": "Dados gerais",
   "codesc": "Código INEP",
   "nomeesc": "Escola",

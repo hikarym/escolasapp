@@ -11,6 +11,7 @@ import * as d3 from 'd3';
 import {formatSize} from '@angular/cli/utilities/stats';
 import {text} from 'd3-fetch';
 import {toInteger} from '@ng-bootstrap/ng-bootstrap/util/util';
+import {TranslateService} from '@ngx-translate/core';
 
 
 @Component({
@@ -166,14 +167,17 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
   @ViewChild('agePyramidByBrasilGraph')
   private div_agePyramidByBrasilGraph: ElementRef;
 
+  private margin = {top: 15, right: 20, bottom: 40, left: 20};
+  private width = 335;
+  private height = 300;
+
   // ----------------
   private subscription = new Subscription();
 
-  constructor(private renderer: Renderer2,
-              private router: Router,
-              private weightingAreaSecInfoService: ApSecVariableService,
+  constructor(private weightingAreaSecInfoService: ApSecVariableService,
               private brSpRmspSecInfoService: BrSpRmspSecVariableService,
-              private sharedDataService: ShareddataService) {
+              private sharedDataService: ShareddataService,
+              private translate: TranslateService) {
     this.categories[this.categoryDefaultIndex].visible = true;
   }
 
@@ -199,14 +203,25 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
             this.buildDataForComparativeTable();
 
-            this.buildDataForOccupationalStructureGraph(this.weightingAreaInfo,
-              this.div_occupationalStructureByAPGraph);
-            this.buildDataForOccupationalStructureGraph(this.brSpRmspSecInfo[2],
-              this.div_occupationalStructureByMetropoleGraph);
-            this.buildDataForOccupationalStructureGraph(this.brSpRmspSecInfo[1],
-              this.div_occupationalStructureByUFGraph);
-            this.buildDataForOccupationalStructureGraph(this.brSpRmspSecInfo[0],
-              this.div_occupationalStructureByBrasilGraph);
+            const ocupAp = this.weightingAreaInfo['ses']['ocup'];
+            const dataForOcupAp = this.getPropertiesNamesAndValuesForNumbers(ocupAp);
+            this.generateHorizontalBarChart(dataForOcupAp, this.div_occupationalStructureByAPGraph, 50,
+              this.width, this.height, {top: 15, right: 20, bottom: 40, left: 130});
+
+            const ocupRmsp = this.brSpRmspSecInfo[2]['ses']['ocup'];
+            const dataForOcupRmsp = this.getPropertiesNamesAndValuesForNumbers(ocupRmsp);
+            this.generateHorizontalBarChart(dataForOcupRmsp, this.div_occupationalStructureByMetropoleGraph, 50,
+              this.width, this.height, {top: 15, right: 20, bottom: 40, left: 130});
+
+            const ocupBr = this.brSpRmspSecInfo[1]['ses']['ocup'];
+            const dataForOcupBr = this.getPropertiesNamesAndValuesForNumbers(ocupBr);
+            this.generateHorizontalBarChart(dataForOcupBr, this.div_occupationalStructureByBrasilGraph, 50,
+              this.width, this.height, {top: 15, right: 20, bottom: 40, left: 130});
+
+            const ocupSP = this.brSpRmspSecInfo[0]['ses']['ocup'];
+            const dataForOcupSP = this.getPropertiesNamesAndValuesForNumbers(ocupSP);
+            this.generateHorizontalBarChart(dataForOcupSP, this.div_occupationalStructureByUFGraph, 50,
+              this.width, this.height, {top: 15, right: 20, bottom: 40, left: 130});
 
             this.buildDataForProfileEducationalGraph(this.weightingAreaInfo, this.div_profileEducationalByAPGraph);
             this.buildDataForProfileEducationalGraph(this.brSpRmspSecInfo[2], this.div_profileEducationalByMetropoleGraph);
@@ -270,25 +285,6 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     this.dataComparativeTable[2].br = this.brSpRmspSecInfo[0].ses.gini;
 
     this.generateTableGraph(this.dataComparativeTable, this.div_comparativeTableGraph);
-
-  }
-
-  buildDataForOccupationalStructureGraph(data: any, containerDiv: ElementRef) {
-
-    const ocupationalStructureData = [
-      {variableName: 'militares', variableValue: this.convertToPercentage(data.ses.ocup.militares)},
-      {variableName: 'gerentes', variableValue: this.convertToPercentage(data.ses.ocup.gerentes)},
-      {variableName: 'profissionais', variableValue: this.convertToPercentage(data.ses.ocup.profissionais)},
-      {variableName: 'tecnicos', variableValue: this.convertToPercentage(data.ses.ocup.tecnicos)},
-      {variableName: 'trabEscritorio', variableValue: this.convertToPercentage(data.ses.ocup.trabEscritorio)},
-      {variableName: 'comercioServicos', variableValue: this.convertToPercentage(data.ses.ocup.comercioServicos)},
-      {variableName: 'agropecuaria', variableValue: this.convertToPercentage(data.ses.ocup.agropecuaria)},
-      {variableName: 'manuaisQualificados', variableValue: this.convertToPercentage(data.ses.ocup.manuaisQualificados)},
-      {variableName: 'operadoresMaquina', variableValue: this.convertToPercentage(data.ses.ocup.operadoresMaquina)},
-      {variableName: 'ocupacoesElementares', variableValue: this.convertToPercentage(data.ses.ocup.ocupacoesElementares)}
-    ];
-    const maxValueInDomainX = 50;
-    this.generateHorizontalBarChart(ocupationalStructureData, containerDiv, maxValueInDomainX);
 
   }
 
@@ -665,7 +661,8 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       .on('mouseout', function(d) { tooltip.style('display', 'none'); });
   }
 
-  generateHorizontalBarChart(dataGraph: any[], containerDiv: ElementRef, maxValueInDomainX: number) {
+  generateHorizontalBarChart(dataGraph: any[], containerDiv: ElementRef, maxValueInDomainX: number,
+                             divWidth: number = this.width, divHeight: number = this.height, margin: any = this.margin) {
     /*const percentage_data = [];
     // Pass the values to percentages
     this.ocupationalStructureByAPData.forEach(function(d, i) {
@@ -674,9 +671,9 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     });*/
 
     // Define chart dimensions
-    const margin = {top: 20, right: 20, bottom: 30, left: 80};
-    const width = 335 - margin.left - margin.right;
-    const height = 300 - margin.top - margin.bottom;
+    // const margin = {top: 20, right: 20, bottom: 30, left: 80};
+    const width = divWidth - margin.left - margin.right;
+    const height = divHeight - margin.top - margin.bottom;
 
     // Remove all children from HTML
     d3.select(containerDiv.nativeElement).html('');
@@ -684,8 +681,8 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     // Define chart dimensions
     const svg = d3.select(containerDiv.nativeElement).append('svg')
       .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
-      .style('background-color', '#efefef');
+      .attr('height', height + margin.top + margin.bottom);
+      // .style('background-color', '#efefef');
 
     const tooltip = d3.select('body').append('div').attr('class', 'toolTip');
 
@@ -1197,6 +1194,56 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     }
     this.categories[idCatSelected].visible = true;
     this.categoryDefaultIndex = idCatSelected;
+  }
+
+  /**
+   * Builds a array with documents (variableName and variableValue) properties
+   * @param document
+   * @returns {Array}
+   */
+  getPropertiesNamesAndValuesForNumbers(document: any) {
+    const prop = Object.keys(document);
+    const numberOfProp = prop.length;
+    const data = [];
+    for (let i = 0; i < numberOfProp; i++) {
+      if (typeof  document[prop[i]] === 'number' && document[prop[i]] !== 0) {
+        const jsonData = {};
+        jsonData['variableName'] = this.getInstant(prop[i]);
+        jsonData['variableValue'] = this.convertToPercentage(document[prop[i]]);
+        data.push(jsonData);
+      }
+    }
+    return data;
+  }
+
+  /**
+   * Get names and values for 'String' properties
+   * @param document
+   * @returns {Array}
+   */
+  getPropNamesAndValuesForStrings(document: any) {
+    const prop = Object.keys(document);
+    const numberOfProp = prop.length;
+    const data = [];
+    for (let i = 0; i < numberOfProp; i++) {
+      if (typeof  document[prop[i]] === 'string' && document[prop[i]] !== 'NA') {
+        const jsonData = {};
+        jsonData['variableName'] = this.getInstant(prop[i]);
+        jsonData['variableValue'] = document[prop[i]];
+        data.push(jsonData);
+      }
+    }
+    return data;
+  }
+
+  /**
+   * Returns the translation of a word
+   * @param key
+   * @returns {string | any}
+   */
+  getInstant(key) {
+    return this.translate.instant(key);
+    // return this.translate.get(key).subscribe(data => data)
   }
 
   /**

@@ -146,7 +146,6 @@ export class GraphsComponent implements OnInit, OnDestroy {
 
   private groupDefault = 'Grupo1';
   private nivelDefault = 'Nivel1';
-  private anoProvasEnemDefault = '2012';
   private margin = {top: 15, right: 20, bottom: 40, left: 20};
   private width = 297;
   private height = 250;
@@ -479,6 +478,9 @@ export class GraphsComponent implements OnInit, OnDestroy {
    * @param groupData
    * @param {ElementRef} containerDiv
    * @param {string} boxContainer
+   * @param {number} divWidth
+   * @param {number} divHeight
+   * @param {{top: number; right: number; bottom: number; left: number}} margin
    */
   showGraphWithVerticalBar(groupData: any, containerDiv: ElementRef, boxContainer: string,
                            divWidth: number = this.width, divHeight: number = this.height, margin = this.margin) {
@@ -496,6 +498,9 @@ export class GraphsComponent implements OnInit, OnDestroy {
    * Build a vertical bar chart
    * @param {any[]} dataGraph
    * @param {ElementRef} containerDiv
+   * @param {number} divWidth
+   * @param {number} divHeight
+   * @param margin
    */
   buildVerticalBarChart(dataGraph: any[], containerDiv: ElementRef, divWidth: number, divHeight: number, margin: any) {
     // Define chart dimensions
