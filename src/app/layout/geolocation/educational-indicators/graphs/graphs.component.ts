@@ -12,6 +12,7 @@ import {select} from 'd3-selection';
 })
 export class GraphsComponent implements OnInit, OnDestroy {
 
+  ano2011to2013 = 'NA';
   schoolSelected: any;
   private subscription = new Subscription();
 
@@ -113,6 +114,13 @@ export class GraphsComponent implements OnInit, OnDestroy {
   @ViewChild('txDistorEnsMedioGraph')
   private div_txDistorEnsMedioGraph: ElementRef;
 
+  dataForEnemINSEAB: any;
+  dataForEnemINSECL: any;
+
+  @ViewChild('provasEnemEnsMedioGraph')
+  private div_provasEnemEnsMedioGraph: ElementRef;
+  anosProvasEnemEnsMedio: any;
+
   @ViewChild('AFDEnsMedioGraph')
   private div_AFDEnsMedioGraph: ElementRef;
   groupsAFDEnsMedio: any;
@@ -138,9 +146,10 @@ export class GraphsComponent implements OnInit, OnDestroy {
 
   private groupDefault = 'Grupo1';
   private nivelDefault = 'Nivel1';
+  private anoProvasEnemDefault = '2012';
   private margin = {top: 15, right: 20, bottom: 40, left: 20};
   private width = 297;
-  private heigth = 250;
+  private height = 250;
 
   // Indicadores, niveis, categorias
   private indicadores = [
@@ -154,7 +163,8 @@ export class GraphsComponent implements OnInit, OnDestroy {
     'AnosIniciais8', 'AnosFinais8',
     'AnosIniciais9', 'AnosFinais9',
     'anos', 'terceiroAno',
-    'primeiraSerie', 'terceiraSerie'
+    'primeiraSerie', 'terceiraSerie',
+    'INSEAB', 'INSECL', 'provas'
   ];
 
   constructor(private sharedDataService: ShareddataService,
@@ -325,6 +335,20 @@ export class GraphsComponent implements OnInit, OnDestroy {
         this.showGraphWithVerticalBar(dadosTxDistorEnsMedio, this.div_txDistorEnsMedioGraph,
           '#box-txDistorEnsMedio');
 
+        // INSEAB
+        const enemINSEAB = this.schoolSelected[this.indicadores[12]][this.niveis[2]][this.categorias[10]];
+        this.dataForEnemINSEAB = this.getPropertiesNamesAndValuesForNumbers(enemINSEAB);
+
+        // INSECL
+        const enemINSECL = this.schoolSelected[this.indicadores[12]][this.niveis[2]][this.categorias[11]];
+        this.dataForEnemINSECL = this.getPropNamesAndValuesForStrings(enemINSECL);
+
+        // Provas do ENEM
+        const dadosProvasEnemEnsMedio = this.getDadosDoIndicador(this.indicadores[12], this.niveis[2], this.categorias[12]);
+        this.anosProvasEnemEnsMedio = Object.keys(dadosProvasEnemEnsMedio);
+        this.showGraphByGroups(this.indicadores[12], this.niveis[2], this.categorias[12], this.anosProvasEnemEnsMedio[0],
+          this.div_provasEnemEnsMedioGraph, this.width, 320, {top: 15, right: 20, bottom: 110, left: 20});
+
         // AFD
         const dadosAFDEnsMedio = this.getDadosDoIndicador(this.indicadores[0], this.niveis[2], '');
         this.groupsAFDEnsMedio = Object.keys(dadosAFDEnsMedio);
@@ -416,15 +440,26 @@ export class GraphsComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Function to show the 'esforço docente' indicator (..of the level chosen) - Nivel Médio
+   * @param {string} groupValueSelected
+   */
+  onGroupChangeAnoProvaEnemEnsMedio(anoSelected: string) {
+    const ano = 'ano' + anoSelected;
+    this.showGraphByGroups(this.indicadores[12], this.niveis[2], this.categorias[12], ano, this.div_provasEnemEnsMedioGraph,
+      this.width, 320, {top: 15, right: 20, bottom: 110, left: 20});
+  }
+
+  /**
    * shows graph by Groups/levels (Grupo/Nivel)
    * @param groupData
    * @param {ElementRef} containerDiv
    */
-  showGraphByGroups(indicador: string, nivelEnsino: string, categoria: string, group: string, divForGraph: ElementRef) {
-    const AFD = this.getDadosDoIndicador(indicador, nivelEnsino, categoria);
-    const groupData = AFD[group];
-    const dataForGraph = this.getPropertiesNamesAndValues(groupData);
-    this.buildVerticalBarChart(dataForGraph, divForGraph);
+  showGraphByGroups(indicador: string, nivelEnsino: string, categoria: string, group: string, divForGraph: ElementRef,
+                    divWidth: number = this.width, divHeight: number = this.height, margin = this.margin) {
+    const dadosCategoria = this.getDadosDoIndicador(indicador, nivelEnsino, categoria);
+    const groupData = dadosCategoria[group];
+    const dataForGraph = this.getPropertiesNamesAndValuesForNumbers(groupData);
+    this.buildVerticalBarChart(dataForGraph, divForGraph, divWidth, divHeight, margin);
   }
 
   getDadosDoIndicador(indicador: string, nivelEnsino: string, categoria: string) {
@@ -445,12 +480,13 @@ export class GraphsComponent implements OnInit, OnDestroy {
    * @param {ElementRef} containerDiv
    * @param {string} boxContainer
    */
-  showGraphWithVerticalBar(groupData: any, containerDiv: ElementRef, boxContainer: string) {
-    const dataForGraph = this.getPropertiesNamesAndValues(groupData);
+  showGraphWithVerticalBar(groupData: any, containerDiv: ElementRef, boxContainer: string,
+                           divWidth: number = this.width, divHeight: number = this.height, margin = this.margin) {
+    const dataForGraph = this.getPropertiesNamesAndValuesForNumbers(groupData);
     const dom: any = document.querySelector(boxContainer);
     if (dataForGraph.length > 0) {
       dom.classList.remove('hide-section');
-      this.buildVerticalBarChart(dataForGraph, containerDiv);
+      this.buildVerticalBarChart(dataForGraph, containerDiv, divWidth, divHeight, margin);
     } else {
       dom.classList.add('hide-section');
     }
@@ -461,11 +497,11 @@ export class GraphsComponent implements OnInit, OnDestroy {
    * @param {any[]} dataGraph
    * @param {ElementRef} containerDiv
    */
-  buildVerticalBarChart(dataGraph: any[], containerDiv: ElementRef) {
+  buildVerticalBarChart(dataGraph: any[], containerDiv: ElementRef, divWidth: number, divHeight: number, margin: any) {
     // Define chart dimensions
-    const margin = this.margin;
-    const width = this.width - margin.left - margin.right;
-    const height = this.heigth - margin.top - margin.bottom;
+    // const margin = this.margin;
+    const width = divWidth - margin.left - margin.right;
+    const height = divHeight - margin.top - margin.bottom;
 
     // Remove all children from HTML
     d3.select(containerDiv.nativeElement).html('');
@@ -548,9 +584,9 @@ export class GraphsComponent implements OnInit, OnDestroy {
     }
   }
 
-  buildMultiplelineChart(dataGraph: any[], containerDiv: ElementRef) {
-    const width = this.width - this.margin.left - this.margin.right,
-      height = this.heigth - this.margin.top - this.margin.bottom;
+  buildMultiplelineChart(dataGraph: any[], containerDiv: ElementRef, divWidth: number, divHeight: number, margin: any) {
+    const width = divWidth - margin.left - margin.right,
+      height = divHeight - margin.top - margin.bottom;
 
     // Define domain data for X & Y axes from the data array
     const xDomain = dataGraph.map(d => d.variableName);
@@ -626,12 +662,32 @@ export class GraphsComponent implements OnInit, OnDestroy {
    * @param document
    * @returns {Array}
    */
-  getPropertiesNamesAndValues(document: any) {
+  getPropertiesNamesAndValuesForNumbers(document: any) {
     const prop = Object.keys(document);
     const numberOfProp = prop.length;
     const data = [];
     for (let i = 0; i < numberOfProp; i++) {
       if (typeof  document[prop[i]] === 'number' && document[prop[i]] !== 0) {
+        const jsonData = {};
+        jsonData['variableName'] = this.getInstant(prop[i]);
+        jsonData['variableValue'] = document[prop[i]];
+        data.push(jsonData);
+      }
+    }
+    return data;
+  }
+
+  /**
+   * Get names and values for 'String' properties
+   * @param document
+   * @returns {Array}
+   */
+  getPropNamesAndValuesForStrings(document: any) {
+    const prop = Object.keys(document);
+    const numberOfProp = prop.length;
+    const data = [];
+    for (let i = 0; i < numberOfProp; i++) {
+      if (typeof  document[prop[i]] === 'string' && document[prop[i]] !== 'NA') {
         const jsonData = {};
         jsonData['variableName'] = this.getInstant(prop[i]);
         jsonData['variableValue'] = document[prop[i]];

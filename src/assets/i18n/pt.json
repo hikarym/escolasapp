@@ -189,5 +189,17 @@
   "ntProvaPortu": "Nota Prova Brasil - Língua Portuguesa",
   "ntProvaPadroniz": "Nota Prova Brasil - Nota Média Padronizada",
   "ideb": "IDEB",
-  "enem": "ENEM"
+  "enem": "ENEM",
+  "INSEAB": "INSEAB",
+  "descINSEAB": "Média do Indicador de Nível Socioeconômico dos alunos da escola",
+  "INSECL":"INSECL",
+  "descINSECL": "Classificação do Indicador de Nível Socioeconômico em 7 níveis",
+  "ano2011to2013": "Periodo 2011 - 2013",
+  "ano": "Ano",
+  "redacao": "Redação",
+  "linguagens": "Linguagens e Códigos",
+  "matematica": "Matemática",
+  "cienciasHumanas": "Ciências Humanas",
+  "cienciasNatureza": "Ciências da Natureza",
+  "mediaProvaObjetiva": "Prova Objetiva"
 }

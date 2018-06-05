@@ -277,6 +277,40 @@
         </div>
       </div>
 
+      <!-- SEÇÃO: INSEAB -->
+      <div class="section-info" >
+        <div class="box" role="alert" *ngIf="dataForEnemINSEAB && dataForEnemINSEAB.length > 0">
+          <h6 class="alert-heading text-center"><i class="fa fa-th-large fa-fw"></i>{{'INSEAB' | translate}}  <br> ({{'descINSEAB'|translate}})</h6>
+          <div class="section-info-line"  *ngFor="let periodo of dataForEnemINSEAB"   >
+            <div class="section-info-icon-ed"><b>{{periodo.variableName}}:</b></div>
+            <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+            <span class="section-info-text"><span>{{periodo.variableValue}}</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEÇÃO: INSECL -->
+      <div class="box" role="alert" *ngIf="dataForEnemINSECL && dataForEnemINSECL.length > 0">
+        <h6 class="alert-heading text-center"><i class="fa fa-th-large fa-fw"></i>{{'INSECL' | translate}}  <br> ({{'descINSECL'|translate}})</h6>
+        <div class="section-info-line"  *ngFor="let periodo of dataForEnemINSECL"   >
+          <div class="section-info-icon-ed"><b>{{periodo.variableName}}:</b></div>
+          <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+          <span class="section-info-text"><span>{{periodo.variableValue}}</span></span>
+        </div>
+      </div>
+
+      <!-- Graph: Provas ENEM -->
+      <div class="box" role="alert">
+        <h6 class="alert-heading text-center"><i class="fa fa-bookmark fa-fw"></i>{{'enem' | translate}}</h6>
+        <div class="section-info-line">
+          <div class="section-info-icon-ed" ><b>{{'ano' | translate}}:</b></div>
+          <select (change)="onGroupChangeAnoProvaEnemEnsMedio($event.target.value)" class="custom-select">
+            <option *ngFor="let ano of anosProvasEnemEnsMedio">{{ano | translate}}</option>
+          </select>
+        </div>
+        <div #provasEnemEnsMedioGraph> </div>
+      </div>
+
       <!-- Graph: AFD -->
       <div class="box" role="alert">
         <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i>{{'AFD' | translate}}</h6>
