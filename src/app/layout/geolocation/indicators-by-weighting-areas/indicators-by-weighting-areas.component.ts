@@ -599,8 +599,8 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     // let svg = d3.select(this.element.nativeElement).append('svg')
     const svg = d3.select(containerDiv.nativeElement).append('svg')
       .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
-      .style('background-color', '#efefef');
+      .attr('height', height + margin.top + margin.bottom);
+      // .style('background-color', '#efefef');
 
     const tooltip = d3.select('body').append('div').attr('class', 'toolTip');
 

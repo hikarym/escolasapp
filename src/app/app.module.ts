@@ -12,7 +12,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { PageHeaderComponent } from './shared/modules/page-header/page-header.component';
 import {HeaderModule} from './shared/components/header/header.module';
 import {Ng2CompleterModule} from 'ng2-completer';
-import {SchoolDetailsModule} from './shared/components/school-details/school-details.module';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {LeafletMarkerClusterModule} from '@asymmetrik/ngx-leaflet-markercluster';
 import {NotFoundModule} from './not-found/not-found.module';
@@ -55,7 +54,6 @@ export function HttpLoaderFactory (http: HttpClient) {
     FormsModule,
     ReactiveFormsModule,
     HeaderModule,
-    SchoolDetailsModule,
     Ng2CompleterModule,
     NotFoundModule,
     NgbDropdownModule.forRoot(),

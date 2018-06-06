@@ -7,7 +7,6 @@ import { AgmCoreModule } from '@agm/core';
 // import {HeaderModule} from '../../shared/components/header/header.module';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {LeafletMarkerClusterModule} from '@asymmetrik/ngx-leaflet-markercluster';
-import { GraphicsComponent } from './graphics/graphics.component';
 import {ChartsModule as Ng2Charts} from 'ng2-charts';
 import {FormsModule} from '@angular/forms';
 import {TranslateModule} from '@ngx-translate/core';
@@ -35,7 +34,6 @@ import { GraphsComponent } from './educational-indicators/graphs/graphs.componen
   ],
   declarations: [
     GeolocationComponent,
-    GraphicsComponent,
     MapDirective,
     IndicatorsByWeightingAreasComponent,
     EducationalIndicatorsComponent,
