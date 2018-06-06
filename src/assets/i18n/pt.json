@@ -37,6 +37,7 @@
   "gerentes": "Gerentes",
   "militares": "Militares",
 
+  "perfilEducacional": "Perfil Educacional",
   "alfabetizacao": "Alfabetização",
   "realizacao": "Realização",
   "primarioIncompl": "Primário incompleto",
@@ -158,6 +159,8 @@
 
   "ensinoInfantil": "Infantil",
   "ensinoFundamental": "Fundamental",
+  "anosIniciaisCap": "ANOS INICIAIS",
+  "anosFinaisCap": "ANOS FINAIS",
   "ensinoMedio": "Médio",
 
   "AFD": "Adequação Formação Docente",

@@ -102,22 +102,22 @@
               <!-- END ESTRUTURA OCUPACIONAL -->
             </div>
             <div [hidden]="!categories[1].visible">
-              <!-- Alfabetização - literacy -->
+              <!-- Perfil Educacional - Alfabetização - literacy -->
               <div class="box" role="alert" >
-                <h6 class="alert-heading text-center"><i class="fa fa-book fa-fw"></i> {{'alfabetizacao' | translate}}</h6>
+                <h6 class="alert-heading text-center"><i class="fa fa-book fa-fw"></i> {{'perfilEducacional' | translate}} <br> {{'alfabetizacao' | translate}}</h6>
                 <div class="row" >
-                  <div #profileEducationalByAPGraph class="block"></div>
-                  <div #profileEducationalByMetropoleGraph class="block"></div>
+                  <div #profEduAlfabByAPGraph class="block"></div>
+                  <div #profEduAlfabByMetropoleGraph class="block"></div>
                 </div>
                 <div class="row">
-                  <div #profileEducationalByUFGraph class="block"></div>
-                  <div #profileEducationalByBrasilGraph class="block"></div>
+                  <div #profEduAlfabByUFGraph class="block"></div>
+                  <div #profEduAlfabByBrasilGraph class="block"></div>
                 </div>
               </div>
 
-              <!--REALIZAÇÃO -->
+              <!-- Perfil Educacional - REALIZAÇÃO -->
               <div class="box" role="alert" >
-                <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'realizacao' | translate}}</h6>
+                <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'perfilEducacional' | translate}} <br> {{'realizacao' | translate}}</h6>
 
                 <!--tab -->
                 <div>
@@ -141,16 +141,16 @@
                   </ul>
                   <div class="tab-content" id="CatProfileEducationalTabContent">
                     <div class="tab-pane fade show active" id="apCatProfileEducational" role="tabpanel" aria-labelledby="ap-tabCatProfileEducational">
-                      <div #categoriesProfileEducationalByAPGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
+                      <div #profEduRealizacaoByAPGraph></div>
                     </div>
                     <div class="tab-pane fade" id="metropoleCatProfileEducational" role="tabpanel" aria-labelledby="metropole-tabCatProfileEducational">
-                      <div #categoriesProfileEducationalByMetropoleGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
+                      <div #profEduRealizacaoByMetropoleGraph></div>
                     </div>
                     <div class="tab-pane fade" id="ufCatProfileEducational" role="tabpanel" aria-labelledby="uf-tabCatProfileEducational">
-                      <div #categoriesProfileEducationalByUFGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
+                      <div #profEduRealizacaoByUFGraph></div>
                     </div>
                     <div class="tab-pane fade" id="brasilCatProfileEducational" role="tabpanel" aria-labelledby="brasil-tabCatProfileEducational">
-                      <div #categoriesProfileEducationalByBrasilGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
+                      <div #profEduRealizacaoByBrasilGraph></div>
                     </div>
                   </div>
                 </div>
@@ -260,26 +260,6 @@
               </div>
             </div>
           </div>
-
-          <!--<ul *ngFor="let cat of categories">
-
-            <li *ngIf="cat.group ==='cat1' && cat.visible === true"
-                class="text-success">
-              {{ cat.name }} ({{ cat.group }})
-            </li>
-            <li *ngIf="cat.group ==='cat2' && cat.visible === true"
-                class="text-primary">
-              {{ cat.name }} ({{ cat.group }})
-            </li>
-            <li *ngIf="cat.group ==='cat3' && cat.visible === true"
-                class="text-danger">
-              {{ cat.name }} ({{ cat.group }})
-            </li>
-            <li *ngIf="cat.group ==='cat4' && cat.visible === true"
-                class="text-warning">
-              {{ cat.name }} ({{ cat.group }})
-            </li>
-          </ul>-->
 
         </div>
       </div>
