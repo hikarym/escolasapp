@@ -53,6 +53,14 @@
   "pardosIndigenas": "Pardos - Indigenas",
   "pretos": "Pretos",
 
+  "6-10": "Anos 6 - 10",
+  "11-14": "Anos 11 -14",
+  "15-17": "Anos 15 - 17",
+  "abrevFundamental": "Fund.",
+  "abrevMedio": "Médio",
+  "abrevOutro": "Outro",
+  "": "",
+
   "dados-gerais": "Dados gerais",
   "codesc": "Código INEP",
   "nomeesc": "Escola",
