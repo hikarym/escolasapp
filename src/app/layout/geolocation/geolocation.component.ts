@@ -36,9 +36,9 @@ export class GeolocationComponent implements OnInit, OnDestroy {
   });
   selectedSchoolMarkerIcon = L.icon({
     iconUrl: 'assets/images/marcador_school_selected.png',
-    iconSize: [60, 65], // size of the icon
-    iconAnchor: [30, 65], // point of the icon which will correspond to marker's location
-    popupAnchor: [0, -65] // point from which the popup should open relative to the iconAnchor
+    iconSize: [46, 50], // size of the icon [60, 65]
+    iconAnchor: [22, 45], // point of the icon which will correspond to marker's location [30, 65]
+    popupAnchor: [0, -45] // point from which the popup should open relative to the iconAnchor [0, -65]
   });
   neighborhoodRadius = 2000;
   overlays: any;
@@ -119,12 +119,7 @@ export class GeolocationComponent implements OnInit, OnDestroy {
     name: 'Marker',
     enabled: true,
     layer: L.marker([ this.centerLat, this.centerLng ], {
-      icon: L.icon({
-        iconUrl: 'assets/images/marcador_school_selected.png',
-        iconSize: [60, 65], // size of the icon
-        iconAnchor: [30, 65], // point of the icon which will correspond to marker's location
-        popupAnchor: [0, -65] // point from which the popup should open relative to the iconAnchor
-      })
+      icon: this.selectedSchoolMarkerIcon
     })
   };
 
@@ -331,15 +326,17 @@ export class GeolocationComponent implements OnInit, OnDestroy {
       for (let i = 0; i < this.schoolsCoordinates.length; i++) {
         container = $('<div />');
         school_i = this.schoolsCoordinates[i];
-        const latRounded = this.truncDecimalNumber(school_i.lat, 6);
-        const lonRounded = this.truncDecimalNumber(school_i.lon, 6);
-        popup_text = '<span>' + school_i._id + '</span>' +
-          '<br/><b>ESCOLA: </b>' + school_i.detalhes.nomeesc +
+        const latRounded = school_i.lat;
+        const lonRounded = school_i.lon;
+
+        popup_text = '<b>ESCOLA: </b>' + school_i.detalhes.nomeesc +
           '<br/><b>BAIRRO: </b>' + school_i.detalhes.bairro +
-          '<br/><b>ENDEREÇO: </b>' + school_i.detalhes.endereco + ' - ' + school_i.detalhes.numero +
-          '<br/><b>LOC.: </b>' + latRounded + ', ' + lonRounded +
-        '<br/> <b>Click no icone para ver mais informações</b>' +
-        '<br/><span>' + school_i.codap + '</span>';
+          '<br/><b>DISTRITO: </b>' + school_i.detalhes.nomdist +
+          '<br/><b>ENDEREÇO: </b>' + school_i.detalhes.end_esc + ', ' + school_i.detalhes.num_esc +
+          // '<br/><b style="display: none">LOC.: </b>' + latRounded + ', ' + lonRounded +
+          '<br/> <b style="color: #0c5460;">Click no icone para ver mais informações</b>' +
+          '<span style="display: none">' + school_i._id + '</span>' +
+          '<span style="display: none;">' + school_i.codap + '</span>';
           // '<br/><button class="trigger">Say hi</button> ' ;
 
         // popup_text = '<b>_ID:</b> <p id="idschool">' + school_i._id + '</p><button class="trigger">Say hi</button>';
@@ -360,9 +357,9 @@ export class GeolocationComponent implements OnInit, OnDestroy {
           this.zone.run(() => {
             // this.updateSchoolIDSel('5ac3a33d61f5122e7261c263');
             console.log('marker clicked:', e.target._popup._content.children);
-            const id_temp = e.target._popup._content.children[0].innerHTML;
-            const codAp_temp = e.target._popup._content.children[12].innerHTML;
-            console.log('id_escola :', id_temp);
+            const el = e.target._popup._content.children;
+            const id_temp = el[el.length - 2].innerHTML;
+            const codAp_temp = el[el.length - 1].innerHTML;
 
             const dom: any = document.querySelector('body');
 

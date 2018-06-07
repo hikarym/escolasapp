@@ -8,7 +8,7 @@ var Schools = mongoose.model('Schools', new mongoose.Schema(), 'schools');
 router.get('/', function(req, res, next) {
   // var query = School.find({}).select('CODESC COD_ESC_TX NO_ENTIDAD ENDERECO NUMERO BAIRRO location');
   // var query = School.find({}).select('-_id type geometry properties');
-  var query = Schools.find({lat:{$ne:"NA"},lon:{$ne:"NA"}}).select('codesc detalhes.nomeesc detalhes.endereco detalhes.numero detalhes.bairro lat lon codap');
+  var query = Schools.find({lat:{$ne:"NA"},lon:{$ne:"NA"}}).select('codesc detalhes.nomeesc detalhes.endereco detalhes.numero detalhes.bairro detalhes.nomdist detalhes.end_esc detalhes.num_esc lat lon codap');
   query.lean().exec(function (err, products) {
     if (err) return next(err);
     res.json(products);

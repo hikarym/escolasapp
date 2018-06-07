@@ -78,3 +78,8 @@ agm-map {
   border: 1px solid rgba(0,0,0,0)!important;
   background-clip: padding-box;
 }
+
+/* popup school*/
+.hideField {
+  display: none;
+}
