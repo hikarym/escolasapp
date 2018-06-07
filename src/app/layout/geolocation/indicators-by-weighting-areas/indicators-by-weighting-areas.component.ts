@@ -153,7 +153,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
   @ViewChild('agePyramidByBrasilGraph')
   private div_agePyramidByBrasilGraph: ElementRef;
 
-  private margin = {top: 15, right: 20, bottom: 40, left: 20};
+  private margin = {top: 15, right: 20, bottom: 20, left: 20};
   private width = 315;
   private height = 300;
 
@@ -196,19 +196,19 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
             // Estrutura ocupacional
             const dataForOcupAp = this.getPropertiesNamesAndValuesForNumbers(dataSesAp['ocup']);
             this.generateHorizontalBarChart(dataForOcupAp, this.div_occupationalStructureByAPGraph, 50,
-              this.width, this.height, {top: 15, right: 20, bottom: 40, left: 120});
+              this.width, this.height, {top: 15, right: 20, bottom: 20, left: 120});
 
             const dataForOcupRmsp = this.getPropertiesNamesAndValuesForNumbers(dataSesRMSP['ocup']);
             this.generateHorizontalBarChart(dataForOcupRmsp, this.div_occupationalStructureByMetropoleGraph, 50,
-              this.width, this.height, {top: 15, right: 20, bottom: 40, left: 120});
+              this.width, this.height, {top: 15, right: 20, bottom: 20, left: 120});
 
             const dataForOcupBr = this.getPropertiesNamesAndValuesForNumbers(dataSesBr['ocup']);
             this.generateHorizontalBarChart(dataForOcupBr, this.div_occupationalStructureByBrasilGraph, 50,
-              this.width, this.height, {top: 15, right: 20, bottom: 40, left: 120});
+              this.width, this.height, {top: 15, right: 20, bottom: 20, left: 120});
 
             const dataForOcupSP = this.getPropertiesNamesAndValuesForNumbers(dataSesSP['ocup']);
             this.generateHorizontalBarChart(dataForOcupSP, this.div_occupationalStructureByUFGraph, 50,
-              this.width, this.height,  {top: 15, right: 20, bottom: 40, left: 120});
+              this.width, this.height,  {top: 15, right: 20, bottom: 20, left: 120});
 
             // Perfil Educacional - alfabetização
             const panelWidth = 170; // 335
@@ -791,7 +791,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       barHeight        = 20,
       groupHeight      = barHeight * dataGraph.series.length,
       gapBetweenGroups = 20,
-      spaceForLabels   = 50, // 150
+      spaceForLabels   = 60, // 150
       spaceForLegend   = 80; // 150
 
     // Zip the series data together (first values, second values, etc.)
@@ -873,7 +873,8 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
         } else {
           return '';
         }
-      });
+      })
+      .call(this.wrap, spaceForLabels);
 
     chart.append('g')
       .attr('class', 'y axis')
@@ -911,7 +912,65 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
         return dataGraph.series[i].label;
         // d.label;
       });
+
+
   }
+
+  wrap(text, width) {
+    text.each(function() {
+      const text = d3.select(this),
+        words = text.text().split(/\s+/).reverse(),
+        lineHeight = 1.1, // ems
+        y = text.attr('y'),
+        x = text.attr('x'),
+        dy = parseFloat(text.attr('dy')),
+        factor = 7.5;
+
+      let word;
+      let line = [];
+      let lineNumber = 0;
+      let tspan = text.text(null).append('tspan')
+        .attr('x', x).attr('y', y).attr('dy', dy + 'em');
+      while (word = words.pop()) {
+        line.push(word);
+        tspan.text(line.join(' '));
+        const node: SVGTSpanElement = <SVGTSpanElement>tspan.node();
+        if (tspan.text().length * factor > width) {
+          line.pop();
+          tspan.text(line.join(' '));
+          line = [word];
+          tspan = text.append('tspan')
+            .attr('x', x).attr('y', y)
+            .attr('dy', ++lineNumber * lineHeight + dy + 'em')
+            .text(word);
+        }
+      }
+    });
+  }
+
+  /*wrap(text, width) {
+    text.each(function() {
+      const text = d3.select(this),
+        words = text.text().split(/\s+/).reverse(),
+        word,
+        line = [],
+        lineNumber = 0,
+        lineHeight = 1.1, // ems
+        y = text.attr('y'),
+        dy = parseFloat(text.attr('dy')),
+        tspan = text.text(null).append('tspan').attr('x', -100).attr('y', y).attr('dy', dy + 'em');
+      while (word = words.pop()) {
+        line.push(word);
+        tspan.text(line.join(' '));
+        if (tspan.node().getComputedTextLength() > width) {
+          line.pop();
+          tspan.text(line.join(' '));
+          line = [word];
+          tspan = text.append('tspan').attr('x', -100).attr('y', y).attr('dy', `${++lineNumber * lineHeight + dy}em`).text(word);
+        }
+      }
+    });
+  }*/
 
   generatePieGraph(dataGraph: {variableName: string; variableValue: number; }[],
                    containerDiv: ElementRef, panelWidth: number, panelHeight: number) {
@@ -974,8 +1033,6 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       .attr('text-anchor', 'middle')
       .text(function(d) {return d.data.toString(); });
   }
-
-
 
   generateAgePyramid(dataGraph: any[],
                      population: number, homensPopPerc: number, containerDiv: ElementRef) {
