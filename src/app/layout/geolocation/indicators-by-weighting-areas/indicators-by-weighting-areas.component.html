@@ -11,18 +11,11 @@
           <hr style="border-top: 1px solid rgba(255,255,255,.2)">
           <h1 class="section-hero-header-subtitle">{{'rightPanelOptionsLabel' | translate}}:</h1>
           <select (change)="onGraphCategoryChange($event.target.value)" class="custom-select">
-            <option *ngFor="let cat of categories" value="{{cat.id}}">{{ cat.name | translate}} <span class="badge badge-warning badge-pill">{{cat.graphics}}</span></option>
+            <option *ngFor="let cat of categories" value="{{cat.id}}">{{ cat.name | translate}}</option>
+            <!--<option *ngFor="let cat of categories" value="{{cat.id}}">{{ cat.name | translate}} <span class="badge badge-warning badge-pill">{{cat.graphics}}</span></option>-->
           </select>
         </div>
       </div>
-      <!--<div class="section-info">
-        <div class="box box-info" style=" border: 2px solid #516161;" role="alert">
-
-          <div class="section-info-line">
-
-          </div>
-        </div>
-      </div>-->
 
       <!-- section graph: socioeconomic characteristics -->
       <div class="section-info">
@@ -46,19 +39,24 @@
                   <ul class="nav nav-tabs text-center" id="structureOcupationalTab" role="tablist">
                     <li class="nav-item">
                       <a class="nav-link active" id="ap-tabStructureOcupational" data-toggle="tab" href="#apStructureOcupational"
-                         role="tab" aria-controls="apStructureOcupational" aria-selected="true"><i class="fa fa-circle"></i> AP</a>
+                         role="tab" aria-controls="apStructureOcupational" aria-selected="true"><i class="fa fa-circle"></i> <div class="text-center">{{'tabAP' | translate}}</div></a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" id="metropole-tabStructureOcupational" data-toggle="tab" href="#metropoleStructureOcupational"
-                         role="tab" aria-controls="metropoleStructureOcupational" aria-selected="false"><i class="fa fa-building"></i> RMSP</a>
+                         role="tab" aria-controls="metropoleStructureOcupational" aria-selected="false"><i class="fa fa-building"></i>
+                        <div class="text-center">{{'tabRMSP' | translate}}<br/>{{'tabRMSP-Subtitle' | translate}}</div>
+                      </a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" id="uf-tabStructureOcupational" data-toggle="tab" href="#ufStructureOcupational"
-                         role="tab" aria-controls="ufStructureOcupational" aria-selected="false"><i class="fa fa-map-marker"></i> SP</a>
+                         role="tab" aria-controls="ufStructureOcupational" aria-selected="false">
+                        <i class="fa fa-map-marker"></i> <div class="text-center">{{'tabSP' | translate}}  <br/> {{'tabSP-subtitle' | translate}}</div>
+                      </a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" id="brasil-tabStructureOcupational" data-toggle="tab" href="#brasilStructureOcupational"
-                         role="tab" aria-controls="brasilStructureOcupational" aria-selected="false"><i class="fa fa-map"></i> Brasil</a>
+                         role="tab" aria-controls="brasilStructureOcupational" aria-selected="false"><i class="fa fa-map"></i> <div class="text-center">{{'tabBrasil' | translate}}</div>
+                      </a>
                     </li>
                   </ul>
                   <div class="tab-content" id="structureOcupationalTabContent">
@@ -83,7 +81,7 @@
             <div [hidden]="!categories[1].visible">
               <!-- Perfil Educacional - Alfabetização - literacy -->
               <div class="box" role="alert" >
-                <h6 class="alert-heading text-center"><i class="fa fa-book fa-fw"></i> {{'perfilEducacional' | translate}} <br> {{'alfabetizacao' | translate}}</h6>
+                <h6 class="alert-heading text-center"><i class="fa fa-book fa-fw"></i> {{'alfabetizacao' | translate}}</h6>
                 <div class="row" >
                   <div #profEduAlfabByAPGraph class="block"></div>
                   <div #profEduAlfabByMetropoleGraph class="block"></div>
@@ -96,26 +94,34 @@
 
               <!-- Perfil Educacional - REALIZAÇÃO -->
               <div class="box" role="alert" >
-                <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'perfilEducacional' | translate}} <br> {{'realizacao' | translate}}</h6>
+                <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'perfilEducacional' | translate}} </h6>
 
                 <!--tab -->
                 <div>
                   <ul class="nav nav-tabs text-center" id="CatProfileEducationalTab" role="tablist">
                     <li class="nav-item">
                       <a class="nav-link active" id="ap-tabCatProfileEducational" data-toggle="tab" href="#apCatProfileEducational"
-                         role="tab" aria-controls="apCatProfileEducational" aria-selected="true"><i class="fa fa-circle"></i> AP</a>
+                         role="tab" aria-controls="apCatProfileEducational" aria-selected="true">
+                        <i class="fa fa-circle"></i> <div class="text-center">{{'tabAP' | translate}}</div>
+                      </a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" id="metropole-tabCatProfileEducational" data-toggle="tab" href="#metropoleCatProfileEducational"
-                         role="tab" aria-controls="metropoleCatProfileEducational" aria-selected="false"><i class="fa fa-building"></i> RMSP</a>
+                         role="tab" aria-controls="metropoleCatProfileEducational" aria-selected="false">
+                        <i class="fa fa-building"></i><div class="text-center">{{'tabRMSP' | translate}}<br/>{{'tabRMSP-Subtitle' | translate}}</div>
+                      </a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" id="uf-tabCatProfileEducational" data-toggle="tab" href="#ufCatProfileEducational"
-                         role="tab" aria-controls="ufCatProfileEducational" aria-selected="false"><i class="fa fa-map-marker"></i> UF de SP</a>
+                         role="tab" aria-controls="ufCatProfileEducational" aria-selected="false">
+                        <i class="fa fa-map-marker"></i> <div class="text-center">{{'tabSP' | translate}}  <br/> {{'tabSP-subtitle' | translate}}</div>
+                      </a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" id="brasil-tabCatProfileEducational" data-toggle="tab" href="#brasilCatProfileEducational"
-                         role="tab" aria-controls="brasilCatProfileEducational" aria-selected="false"><i class="fa fa-map"></i> Brasil</a>
+                         role="tab" aria-controls="brasilCatProfileEducational" aria-selected="false">
+                        <i class="fa fa-map"></i> <div class="text-center">{{'tabBrasil' | translate}}</div>
+                      </a>
                     </li>
                   </ul>
                   <div class="tab-content" id="CatProfileEducationalTabContent">
@@ -158,30 +164,30 @@
                 <div >
                   <ul class="nav nav-tabs text-center" id="myTab" role="tablist">
                     <li class="nav-item">
-                      <a class="nav-link active" id="ap-tab" data-toggle="tab" href="#ap" role="tab" aria-controls="ap" aria-selected="true"><i class="fa fa-circle"></i> AP</a>
+                      <a class="nav-link active" id="ap-tab" data-toggle="tab" href="#ap" role="tab" aria-controls="ap" aria-selected="true"><i class="fa fa-circle"></i> <div class="text-center">{{'tabAP' | translate}}</div></a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="metropole-tab" data-toggle="tab" href="#metropole" role="tab" aria-controls="metropole" aria-selected="false"><i class="fa fa-building"></i> RMSP</a>
+                      <a class="nav-link" id="metropole-tab" data-toggle="tab" href="#metropole" role="tab" aria-controls="metropole" aria-selected="false"><i class="fa fa-building"></i><div class="text-center">{{'tabRMSP' | translate}}<br/>{{'tabRMSP-Subtitle' | translate}}</div></a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="uf-tab" data-toggle="tab" href="#uf" role="tab" aria-controls="uf" aria-selected="false"><i class="fa fa-map-marker"></i> UF de SP</a>
+                      <a class="nav-link" id="uf-tab" data-toggle="tab" href="#uf" role="tab" aria-controls="uf" aria-selected="false"><i class="fa fa-map-marker"></i> <div class="text-center">{{'tabSP' | translate}}  <br/> {{'tabSP-subtitle' | translate}}</div></a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="brasil-tab" data-toggle="tab" href="#brasil" role="tab" aria-controls="brasil" aria-selected="false"><i class="fa fa-map"></i> Brasil</a>
+                      <a class="nav-link" id="brasil-tab" data-toggle="tab" href="#brasil" role="tab" aria-controls="brasil" aria-selected="false"><i class="fa fa-map"></i> <div class="text-center">{{'tabBrasil' | translate}}</div></a>
                     </li>
                   </ul>
                   <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="ap" role="tabpanel" aria-labelledby="ap-tab">
-                      <div #educationalLevelByAPGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
+                      <div #educationalLevelByAPGraph ></div>
                     </div>
                     <div class="tab-pane fade" id="metropole" role="tabpanel" aria-labelledby="metropole-tab">
-                      <div #educationalLevelByMetropoleGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
+                      <div #educationalLevelByMetropoleGraph ></div>
                     </div>
                     <div class="tab-pane fade" id="uf" role="tabpanel" aria-labelledby="uf-tab">
-                      <div #educationalLevelByUFGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
+                      <div #educationalLevelByUFGraph ></div>
                     </div>
                     <div class="tab-pane fade" id="brasil" role="tabpanel" aria-labelledby="brasil-tab">
-                      <div #educationalLevelByBrasilGraph style="background: rgba(255,255,255, 0.8); margin-top: 5px;"></div>
+                      <div #educationalLevelByBrasilGraph ></div>
                     </div>
                   </div>
                 </div>
@@ -197,16 +203,16 @@
                 <div>
                   <ul class="nav nav-tabs text-center" id="agePyramidTab" role="tablist">
                     <li class="nav-item">
-                      <a class="nav-link active" id="agePyramidByAp-tab" data-toggle="tab" href="#agePyramidByAp" role="tab" aria-controls="agePyramidByAp" aria-selected="true"><i class="fa fa-circle"></i> AP</a>
+                      <a class="nav-link active" id="agePyramidByAp-tab" data-toggle="tab" href="#agePyramidByAp" role="tab" aria-controls="agePyramidByAp" aria-selected="true"><i class="fa fa-circle"></i> <div class="text-center">{{'tabAP' | translate}}</div></a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="agePyramidByMetropole-tab" data-toggle="tab" href="#agePyramidByMetropole" role="tab" aria-controls="agePyramidByMetropole" aria-selected="false"><i class="fa fa-building"></i> RMSP</a>
+                      <a class="nav-link" id="agePyramidByMetropole-tab" data-toggle="tab" href="#agePyramidByMetropole" role="tab" aria-controls="agePyramidByMetropole" aria-selected="false"><i class="fa fa-building"></i><div class="text-center">{{'tabRMSP' | translate}}<br/>{{'tabRMSP-Subtitle' | translate}}</div></a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="agePyramidByUF-tab" data-toggle="tab" href="#agePyramidByUF" role="tab" aria-controls="agePyramidByUF" aria-selected="false"><i class="fa fa-map-marker"></i> UF de SP</a>
+                      <a class="nav-link" id="agePyramidByUF-tab" data-toggle="tab" href="#agePyramidByUF" role="tab" aria-controls="agePyramidByUF" aria-selected="false"><i class="fa fa-map-marker"></i> <div class="text-center">{{'tabSP' | translate}}  <br/> {{'tabSP-subtitle' | translate}}</div></a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="agePyramidByBrasil-tab" data-toggle="tab" href="#agePyramidByBrasil" role="tab" aria-controls="agePyramidByBrasil" aria-selected="false"><i class="fa fa-map"></i> Brasil</a>
+                      <a class="nav-link" id="agePyramidByBrasil-tab" data-toggle="tab" href="#agePyramidByBrasil" role="tab" aria-controls="agePyramidByBrasil" aria-selected="false"><i class="fa fa-map"></i> <div class="text-center">{{'tabBrasil' | translate}}</div></a>
                     </li>
                   </ul>
                   <div class="tab-content" id="agePyramidContent">
