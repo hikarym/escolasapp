@@ -43,5 +43,12 @@
   "Quadra.descoberta": "Uncovered court",
   "Quadra.CobertaDescoberta": "Quadra coberta/descoberta",
   "lat": "Latitude",
-  "lon": "Longitude"
+  "lon": "Longitude",
+
+  "caracSes": "Socioeconomic features",
+  "caracEdu": "Educational features",
+  "caracEduPopulacao": "Population Educational Profile in scholar age",
+  "caracDemo": "Demography features",
+  "ses": "Income Distribution",
+  "ocupacoesElementares": "Elementary Occupations"
 }

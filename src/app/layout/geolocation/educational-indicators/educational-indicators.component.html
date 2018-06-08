@@ -2,22 +2,35 @@
   <div role="region" class="widget-pane-content-holder">
     <div tabindex="-1" class="section-listbox section-listbox-root">
       <div class="section-hero-header">
-        <div class="section-hero-header-description" style="text-align:left;width:100%;padding-bottom: 0px;">
-          <!--<div class="section-hero-header-subtitle"></div>-->
-          <a _ngcontent-c2="" aria-expanded="false" aria-haspopup="true" class="dropdown-toggle_maf"
-             data-toggle="dropdown" href="javascript:void(0)" id="navbarDropdownMenu2Link" style="color: #ffffff;">
-            <div style="color: white;">
-              <h1 class="section-hero-header-title" id="no-entidad">{{NO_ENTIDAD}}</h1>
-              <h1 class="section-hero-header-subtitle" id="cat-name">{{sections[sectionDefaultIndex].name}}</h1>
+        <div class="section-hero-header-description" style="text-align:left;width:100%;padding-bottom: 15px;">
+          <div style="color: white;">
+            <h1 class="section-hero-header-title" id="no-entidad">{{NO_ENTIDAD}}</h1>
+            <h1 class="section-hero-header-subtitle" id="cat-name">{{sections[sectionDefaultIndex].name | translate}}</h1>
+          </div>
+          <hr style="border-top: 1px solid rgba(255,255,255,.2)">
+          <h1 class="section-hero-header-subtitle alert-heading">{{'leftPanelOptionsLabel' | translate}}:</h1>
+          <!--<div class="section-info-line">-->
+            <!--<div class="section-info-icon" ><b>{{'ano' | translate}}:</b></div>-->
+            <select (change)="onSectionChange($event.target.value)" class="custom-select">
+              <option *ngFor="let section of sections" value="{{section.id}}">{{ section.name | translate}}</option>
+            </select>
+          <!--</div>-->
+        </div>
+
+
+
+
+        <!--<div class="section-info">
+          <div class="box box-info" style=" border: 2px solid #516161;" role="alert">
+            <h6 class="alert-heading">{{'leftPanelOptions' | translate}}:</h6>
+            <div class="section-info-line">
+              <select (change)="onSectionChange($event.target.value)" class="custom-select">
+                <option *ngFor="let section of sections" value="{{section.id}}">{{ section.name | translate}}</option>
+              </select>
             </div>
-          </a>
-          <div aria-labelledby="navbarDropdownMenu2Link" style="width: 93%; font-size: 12px;"
-               class="dropdown-menu dropdown-menu-right">
-            <button *ngFor="let section of sections" class="dropdown-item-maf btn-outline-blue" (click)="onSectionChange(section.id)">
-              {{section.name}}
-            </button>
           </div>
         </div>
+        -->
       </div>
       <!-- School's general details -->
       <app-geral-information [hidden]="!sections[0].visible"></app-geral-information>

@@ -25,13 +25,13 @@ export class EducationalIndicatorsComponent implements OnInit, OnDestroy {
   sections: any[] = [
     {
       id: 0,
-      name: 'Informações Gerais',
+      name: 'geralInfo',
       group: 'section1',
       visible: false
     },
     {
       id: 1,
-      name: 'Gráficos dos Níveis de Ensino',
+      name: 'graphByEducationalCat',
       group: 'section2',
       visible: false
     }

@@ -23,9 +23,25 @@
   "settings-map": "Configurações do Mapa",
   "close": "Fechar",
   "apply-changes": "Aplicar mudanças",
+  "leftPanelOptionsLabel": "Opções do painel",
+  "geralInfo": "Informações Gerais",
+  "graphByEducationalCat": "Gráficos por Nível de Ensino",
+  "rightPanelOptionsLabel": "Categorias de gráficos",
+  "caracSes": "Características Socioeconômicas",
+  "caracEdu": "Características Educacionais",
+  "caracEduPopulacao": "Perfil Educacional da Pop. em Idade Escolar",
+  "caracDemo": "Características demográficas",
 
-  "ses": "Características Socioeconômicas",
-  "ocup": "Estrutura Ocupacional",
+  "tabAP": "Vizinhança",
+  "tabRMSP": "RMSP",
+  "tabRMSP-SubTitle": "(Metrópole)",
+  "tabSP": "SP",
+  "tabSP-subtitle": "(Estado)",
+  "tabBrasil": "Brasil",
+
+
+  "ses": "Distribuição de Renda",
+  "ocup": "Estrutura do Emprego",
   "ocupacoesElementares": "Ocupações Elementares",
   "operadoresMaquina": "Operadores de Máquina",
   "manuaisQualificados": "Qualificados",
@@ -39,6 +55,8 @@
 
   "perfilEducacional": "Perfil Educacional",
   "alfabetizacao": "Alfabetização",
+  "alfabetizados": "Alfabetizados",
+  "naoAlfabetizados": "Não Alfabetizados",
   "realizacao": "Realização",
   "primarioIncompl": "Primário incompleto",
   "FundamenIncompl": "Fundamental incompleto",
@@ -53,13 +71,12 @@
   "pardosIndigenas": "Pardos Indigenas",
   "pretos": "Pretos",
 
-  "6-10": "Anos 6-10",
-  "11-14": "Anos 11-14",
-  "15-17": "Anos 15-17",
+  "6-10": "6-10 anos",
+  "11-14": "11-14 anos",
+  "15-17": "15-17 anos",
   "abrevFundamental": "Fund.",
   "abrevMedio": "Médio",
   "abrevOutro": "Outro",
-  "": "",
 
   "dados-gerais": "Dados gerais",
   "codesc": "Código INEP",
@@ -96,7 +113,6 @@
 
   "dependencias": "Dependencias",
   "infraestrutura": "Infraestrutura",
-
 
   "acessibilidade": "Acessibilidade",
   "BanheiroDeficientes": "Banheiro Deficientes",

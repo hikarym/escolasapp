@@ -27,28 +27,28 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
   categories: any[] = [
     {
       id: 0,
-      name: 'Características Socioeconômicas',
+      name: 'caracSes',
       group: 'cat1',
       visible: false,
       graphics: 2
     },
     {
       id: 1,
-      name: 'Perfil Educacional',
+      name: 'caracEdu',
       group: 'cat2',
       visible: false,
       graphics: 2
     },
     {
       id: 2,
-      name: 'Perfil Educacional da Pop. em Idade Escolar',
+      name: 'caracEduPopulacao',
       group: 'cat3',
       visible: false,
       graphics: 3
     },
     {
       id: 3,
-      name: 'Características demográficas',
+      name: 'caracDemo',
       group: 'cat4',
       visible: false,
       graphics: 2
@@ -164,6 +164,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
               private brSpRmspSecInfoService: BrSpRmspSecVariableService,
               private sharedDataService: ShareddataService,
               private translate: TranslateService) {
+    // this.buildDropDownList();
     this.categories[this.categoryDefaultIndex].visible = true;
   }
 
@@ -295,8 +296,8 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
   buildDataForProfileEducationalGraph(data: any) {
     const dataCircle = [
-      { variableName: 'Alfabetizados', variableValue: this.convertToPercentage(data['educacao']['alfabetizacao'])},
-      { variableName: 'Não Alfabetizados', variableValue: this.convertToPercentage(1 - data['educacao']['alfabetizacao'])}
+      { variableName: this.getInstant('alfabetizados'), variableValue: this.convertToPercentage(data['educacao']['alfabetizacao'])},
+      { variableName: this.getInstant('naoAlfabetizados'), variableValue: this.convertToPercentage(1 - data['educacao']['alfabetizacao'])}
     ];
     return dataCircle;
   }
@@ -972,7 +973,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     });
   }*/
 
-  generatePieGraph(dataGraph: {variableName: string; variableValue: number; }[],
+  generatePieGraph(dataGraph: any[],
                    containerDiv: ElementRef, panelWidth: number, panelHeight: number) {
     // Define chart dimensions
     const margin = {top: 20, right: 20, bottom: 30, left: 40};
@@ -987,51 +988,199 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     // Define SVG
     const svg = d3.select(containerDiv.nativeElement)
         .append('svg')
-        .attr('width', width + margin.left + margin.right)
+        .append('g');
+        /*.attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom)
         .style('background-color', '#ffffff'),
       g = svg.append('g').attr('transform', 'translate(' + (width + margin.left + margin.right) / 2 + ','
-        + (height + margin.top + margin.bottom) / 2 + ')');
+        + (height + margin.top + margin.bottom) / 2 + ')');*/
 
-    // Define the slices color
-    // ['#66c2a5', '#fc8d62', '#8da0cb', '#e78ac3', '#a6d854']);
-    const color = d3.scaleOrdinal(['#88A61B', '#F29F05', '#FA6F1E', '#0E3D59', '#D92525']);
+    svg.append('g')
+      .attr('class', 'slices');
+    svg.append('g')
+      .attr('class', 'labelName');
+    svg.append('g')
+      .attr('class', 'labelValue');
+    svg.append('g')
+      .attr('class', 'lines');
 
     const pie = d3.pie()
-      .sort(null);
+      .sort(null)
+      .value(function(d) {
+        console.log('ddd pie:', d);
+        const dataTemp = <any>d;
+        return dataTemp.variableValue;
+      });
 
     const arc = d3.arc()
       .innerRadius(0)
-      .outerRadius(radius);
+      .outerRadius(radius * 0.8);
 
-    const label = d3.arc()
-      .outerRadius(radius - 30)
-      .innerRadius(radius - 30);
+    const outerArc = d3.arc()
+      .innerRadius(radius * 0.9)
+      .outerRadius(radius * 0.9);
 
-    // Join new data
-    const arcs = g.selectAll('.arc')
-      .data(pie(dataGraph.map(d => d.variableValue)))
+    const legendRectSize = radius * 0.05;
+    const legendSpacing = radius * 0.02;
+
+    const div = d3.select('body').append('div').attr('class', 'toolTip');
+
+    svg.attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
+
+    // Define the slices color
+    const colorRange = d3.scaleOrdinal(d3.schemeCategory10);
+    const color = d3.scaleOrdinal(colorRange.range());
+    // const color = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"];
+    console.log(color);
+
+    /* ------- PIE SLICES -------*/
+    const slice = svg.select('.slices').selectAll('path.slice')
+      .data(pie(dataGraph), function(d) {
+        // console.log('d slices pie:', d);
+        const dataTemp = <any>d;
+        return dataTemp.data.variableName;
+      });
+
+    slice.enter()
+      .insert('path')
+      .style('fill', function(d) {
+        const dataTemp = <any>d;
+        // console.log('data color:', dataTemp);
+        return color(dataTemp.data.variableName);
+      })
+      .attr('d', <any>arc)
+      .style('opacity', 0.7)
+      .attr('class', 'slice');
+
+    /*slice
+      .transition().duration(1000)
+      .attr('d', <any>arc);
+      .attrTween('d', function(d) {
+        this._current = this._current || <any>d;
+        const interpolate = d3.interpolate(this._current, d);
+        this._current = interpolate(0);
+        return function(t) {
+          return arc(interpolate(t));
+        };
+      });*/
+
+    slice
+      .on('mousemove', function(d) {
+        div.style('left', d3.event.pageX + 10 + 'px');
+        div.style('top', d3.event.pageY - 25 + 'px');
+        div.style('display', 'inline-block');
+        div.html(((<any>d).data.variableName) + '<br>' + ((<any>d).data.variableValue) + '%');
+      });
+
+    slice
+      .on('mouseout', function(d) {
+        div.style('display', 'none');
+      });
+
+    slice.exit()
+      .remove();
+
+    /*
+    // Center Legend
+    const legend = svg.selectAll('.legend')
+      .data(color.domain())
       .enter()
       .append('g')
-      .attr('class', 'arc');
+      .attr('class', 'legend')
+      .attr('transform', function(d, i) {
+        const height = legendRectSize + legendSpacing;
+        const offset =  height * color.domain().length / 2;
+        const horz = -3 * legendRectSize;
+        const vert = i * height - offset;
+        return 'translate(' + horz + ',' + vert + ')';
+      });
 
-    // console.log(pie(dataGraph.map(d => d.variableValue)));
+    legend.append('rect')
+      .attr('width', legendRectSize)
+      .attr('height', legendRectSize)
+      .style('fill', color)
+      .style('stroke', color);
 
-    // Enter new arcs
-    arcs.append('path')
-      .attr('fill', function(d, i) { return color(i.toString()); })
-      .attr('d', <any>arc)
-      .attr('stroke', 'white')
-      .attr('stroke-width', '2px');
+    legend.append('text')
+      .attr('x', legendRectSize + legendSpacing)
+      .attr('y', legendRectSize - legendSpacing)
+      .text(function(d) { return d; });*/
 
-    // Τransition the labels:
-    const text = arcs.append('text')
-      .attr('transform',
-        function(d) {return 'translate(' + label.centroid(<any>d) + ')';
-        })
+    /* ------- TEXT LABELS -------*/
+    const text = svg.select('.labelName').selectAll('text')
+      .data(pie(dataGraph), function(d) {
+        const dataTemp = <any>d;
+        return dataTemp.data.variableName;
+      });
+
+    text.enter()
+      .append('text')
       .attr('dy', '.35em')
-      .attr('text-anchor', 'middle')
-      .text(function(d) {return d.data.toString(); });
+      .text(function(d) {
+        const dataTemp = <any>d;
+        return (dataTemp.data.variableName + ': ' + dataTemp.data.variableValue + '%');
+      });
+
+    function midAngle(d) {
+      return d.startAngle + (d.endAngle - d.startAngle) / 2;
+    }
+
+    text
+      /*.transition().duration(1000)
+      .attrTween('transform', function(d) {
+        console.log(d);
+        this._current = this._current || d;
+        const interpolate = d3.interpolate(this._current, d);
+        this._current = interpolate(0);
+        return function(t) {
+          const d2 = interpolate(t);
+          const pos = outerArc.centroid(d2);
+          pos[0] = radius * (midAngle(d2) < Math.PI ? 1 : -1);
+          return 'translate(' + pos + ')';
+        };
+      })
+      .styleTween('text-anchor', function(d) {
+        this._current = this._current || d;
+        const interpolate = d3.interpolate(this._current, d);
+        this._current = interpolate(0);
+        return function(t) {
+          const d2 = interpolate(t);
+          return midAngle(d2) < Math.PI ? 'start' : 'end';
+        };
+      })*/
+      .text(function(d) {
+        const dataTemp = <any>d;
+        return (dataTemp.data.label + ': ' + dataTemp.value + '%');
+      });
+
+    text.exit()
+      .remove();
+
+    /* ------- SLICE TO TEXT POLYLINES -------*/
+    const polyline = svg.select('.lines').selectAll('polyline')
+      .data(pie(dataGraph), function(d){
+        return (<any>d).data.variableName;
+      });
+
+    polyline.enter()
+      .append('polyline');
+
+  /*  polyline.transition().duration(1000)
+      .attrTween('points', function(d){
+        this._current = this._current || d;
+        const interpolate = d3.interpolate(this._current, d);
+        this._current = interpolate(0);
+        return function(t) {
+          const d2 = interpolate(t);
+          const pos = outerArc.centroid(d2);
+          pos[0] = radius * 0.95 * (midAngle(d2) < Math.PI ? 1 : -1);
+          return [arc.centroid(d2), outerArc.centroid(d2), pos];
+        };
+      });*/
+
+    polyline.exit()
+      .remove();
+
   }
 
   generateAgePyramid(dataGraph: any[],

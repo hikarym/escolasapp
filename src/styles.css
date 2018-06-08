@@ -292,8 +292,9 @@ body{
   -ms-flex: none;
   flex: none;
   font-size: 13px;
-  margin: 0 .1rem;
+  margin: 0 .1rem .5rem;
   border-radius: .25rem;
+  border: 2px solid rgba(255,255,255,.2);
 }
 
 .section-action {

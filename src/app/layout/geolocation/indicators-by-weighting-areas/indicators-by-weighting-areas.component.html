@@ -2,57 +2,36 @@
   <div role="region" class="widget-pane-content-holder">
     <div tabindex="-1" class="section-listbox section-listbox-root">
       <div class="section-hero-header">
-        <div class="widget-pane-clear" style='display:none'></div>
-        <!--<div class="section-hero-header-description">
-          <div>
-            <h1 class="section-hero-header-title" id="no-entidad">{{PANELNAME}}</h1>
-            <h1 class="section-hero-header-subtitle" id="cat-name">{{CAT_01}}</h1>
-          </div>
-        </div>-->
         <div _ngcontent-c2="" class="section-hero-header-description"
-             style="text-align:left;width:100%;padding-bottom: 0px">
-          <a _ngcontent-c2="" aria-expanded="false" aria-haspopup="true" class="dropdown-toggle_maf"
-             data-toggle="dropdown" href="javascript:void(0)" id="navbarDropdownMenu2Link" style="color: #ffffff;">
-            <div style="color: white;">
-              <h1 class="section-hero-header-title" id="no-entidad">{{PANELNAME}}</h1>
-              <h1 class="section-hero-header-subtitle" id="cat-name">{{categories[categoryDefaultIndex].name}}</h1>
-            </div>
-          </a>
-          <div aria-labelledby="navbarDropdownMenu2Link" style="width: 93%; font-size: 12px;"
-               class="dropdown-menu dropdown-menu-right">
-            <button *ngFor="let cat of categories" class="dropdown-item-maf btn-outline-blue" (click)="onGraphCategoryChange(cat.id)">
-              {{cat.name}} <span class="badge badge-warning badge-pill">{{cat.graphics}}</span>
-            </button>
+             style="text-align:left;width:100%;padding-bottom: 15px">
+          <div style="color: white;">
+            <h1 class="section-hero-header-title" id="no-entidad">{{PANELNAME}}</h1>
+            <h1 class="section-hero-header-subtitle" id="cat-name">{{categories[categoryDefaultIndex].name | translate}}</h1>
+          </div>
+          <hr style="border-top: 1px solid rgba(255,255,255,.2)">
+          <h1 class="section-hero-header-subtitle">{{'rightPanelOptionsLabel' | translate}}:</h1>
+          <select (change)="onGraphCategoryChange($event.target.value)" class="custom-select">
+            <option *ngFor="let cat of categories" value="{{cat.id}}">{{ cat.name | translate}} <span class="badge badge-warning badge-pill">{{cat.graphics}}</span></option>
+          </select>
+        </div>
+      </div>
+      <!--<div class="section-info">
+        <div class="box box-info" style=" border: 2px solid #516161;" role="alert">
+
+          <div class="section-info-line">
+
           </div>
         </div>
-      </div>
-      <div class="section-info">
-        <div class="box box-info" style=" border: 2px solid #516161;" role="alert">
-          <h6 class="alert-heading">Description:</h6>
-          <p>Put a short description about the graphs. This example text is going to run a bit longer so that you can
-            see how spacing within an alert works with this kind of content.</p>
-          <ol>
-            <li>Tabela comparativa de características socioeconômicas entre a AP, Municipio de SP, RMSP, UF de São Paulo
-              e Brasil
-            </li>
-            <li>Estrutura Ocupacional</li>
-            <li>COD.AP: {{CODAP}}</li>
-          </ol>
-          <!--<hr>
-          <p class="mb-0">Another graphs............</p>-->
-
-        </div>
-      </div>
+      </div>-->
 
       <!-- section graph: socioeconomic characteristics -->
-      <div class="section-divider" style="height: 7px"></div>
       <div class="section-info">
         <div>
           <!--<h5>Características Socioeconômicas</h5>-->
           <div class="section-graph">
             <div class="md-list md-whiteframe-z0 bg-white m-b"></div>
             <div [hidden]="!categories[0].visible">
-              <!--tabela Comparativa sobre características socioeconômicas -->
+              <!--Tabela Comparativa sobre características socioeconômicas-->
               <div class="box" role="alert" >
                 <h6 class="alert-heading text-center"><i class="fa fa-users fa-fw"></i> {{'ses' | translate}}</h6>
                 <div #comparativeTableGraph ></div>
