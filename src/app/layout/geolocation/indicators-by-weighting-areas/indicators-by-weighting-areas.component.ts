@@ -8,6 +8,7 @@ import {ApSecVariableService} from '../../../services/ap-sec-variable.service';
 import {BrSpRmspSecVariableService} from '../../../services/br-sp-rmsp-sec-variable.service';
 import * as d3 from 'd3';
 import {TranslateService} from '@ngx-translate/core';
+import {BaseType} from 'd3-selection';
 
 @Component({
   selector: 'app-indicators-by-weighting-areas',
@@ -172,7 +173,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
     const s = this.sharedDataService.getSchoolCodAP().subscribe(
       res => {
-        console.log('Retrieving the selected school cod AP', res);
+        // console.log('Retrieving the selected school cod AP', res);
 
         // Get Weighting Area socioeconomic variables's information
         this.selectedSchoolCodAP = res;
@@ -212,16 +213,18 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
               this.width, this.height,  {top: 15, right: 20, bottom: 20, left: 120});
 
             // Perfil Educacional - alfabetização
-            const panelWidth = 170; // 335
+            const panelWidth = this.width / 2 ; // 335
             const panelHeight = this.height / 2; // 300
             const dataForAlfaAp = this.buildDataForProfileEducationalGraph(this.weightingAreaInfo);
-            this.generatePieGraph(dataForAlfaAp, this.div_profEduAlfabByAPGraph, panelWidth, panelHeight);
+            this.generatePieGraph(dataForAlfaAp, this.div_profEduAlfabByAPGraph, panelWidth, panelHeight, this.getInstant('tabAP'));
             const dataForAlfaApRMSP = this.buildDataForProfileEducationalGraph(this.brSpRmspSecInfo[2]);
-            this.generatePieGraph(dataForAlfaApRMSP, this.div_profEduAlfabByMetropoleGraph, panelWidth, panelHeight);
+            this.generatePieGraph(dataForAlfaApRMSP, this.div_profEduAlfabByMetropoleGraph, panelWidth, panelHeight,
+              this.getInstant('tabRMSP') + this.getInstant('tabRMSP-Subtitle'));
             const dataForAlfaBr = this.buildDataForProfileEducationalGraph(this.brSpRmspSecInfo[1]);
-            this.generatePieGraph(dataForAlfaBr, this.div_profEduAlfabByBrasilGraph, panelWidth, panelHeight);
+            this.generatePieGraph(dataForAlfaBr, this.div_profEduAlfabByBrasilGraph, panelWidth, panelHeight,
+              this.getInstant('tabSP') + this.getInstant('tabSP-subtitle'));
             const dataForAlfaSP = this.buildDataForProfileEducationalGraph(this.brSpRmspSecInfo[0]);
-            this.generatePieGraph(dataForAlfaSP, this.div_profEduAlfabByUFGraph, panelWidth, panelHeight);
+            this.generatePieGraph(dataForAlfaSP, this.div_profEduAlfabByUFGraph, panelWidth, panelHeight, this.getInstant('tabBrasil'));
 
             // Perfil Educacional - Realizacao
             const dataEduAp = this.weightingAreaInfo['educacao'];
@@ -725,7 +728,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
       // Define domain data for X & Y axes from the data array
       const xDomain = dataGraph.map(d => d.variableName);
-      // console.log('xDomain:', xDomain);
+
       const yDomain = [0, d3.max(dataGraph, function (d) {
         return d.variableValue;
       })];
@@ -884,7 +887,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
     // Draw legend
     const legendRectSize = 18,
-      legendSpacing  = 4;
+      legendSpacing = 4;
 
     const legend = chart.selectAll('.legend')
       .data(dataGraph.series)
@@ -974,16 +977,20 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
   }*/
 
   generatePieGraph(dataGraph: any[],
-                   containerDiv: ElementRef, panelWidth: number, panelHeight: number) {
+                   containerDiv: ElementRef, panelWidth: number, panelHeight: number, graphDescription: string) {
     // Define chart dimensions
     const margin = {top: 20, right: 20, bottom: 30, left: 40};
-    const width = panelWidth - margin.left - margin.right;
-    const height = panelHeight - margin.top - margin.bottom;
+    const width = panelWidth;
+    const height = panelHeight;
     const radius = Math.min(width, height) / 2;
-    // console.log('todo el dato', dataGraph);
 
     // Remove all children from HTML
     d3.select(containerDiv.nativeElement).html('');
+
+    const divTitle = d3.select(containerDiv.nativeElement)
+      .append('div')
+      .attr('class', 'svg-title')
+      .text(graphDescription);
 
     // Define SVG
     const svg = d3.select(containerDiv.nativeElement)
@@ -999,89 +1006,101 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       .attr('class', 'slices');
     svg.append('g')
       .attr('class', 'labelName');
-    svg.append('g')
-      .attr('class', 'labelValue');
+    /*svg.append('g')
+      .attr('class', 'labelValue');*/
     svg.append('g')
       .attr('class', 'lines');
 
     const pie = d3.pie()
       .sort(null)
       .value(function(d) {
-        console.log('ddd pie:', d);
-        const dataTemp = <any>d;
-        return dataTemp.variableValue;
+        return (<any>d).variableValue;
       });
 
     const arc = d3.arc()
-      .innerRadius(0)
-      .outerRadius(radius * 0.8);
+      .outerRadius(radius * 0.8)
+      .innerRadius(0);
 
     const outerArc = d3.arc()
       .innerRadius(radius * 0.9)
       .outerRadius(radius * 0.9);
 
-    const legendRectSize = radius * 0.05;
-    const legendSpacing = radius * 0.02;
+    const legendRectSize = radius * 0.25; /*0.05*/
+    const legendSpacing = radius * 0.02; /*0.02*/
 
+    d3.select('#chartPie').html('');
     const div = d3.select('body').append('div').attr('class', 'toolTip');
+    const tooltip = d3.select('#chartPie')
+      .append('div')
+      .attr('class', 'toolTip');
+    tooltip.append('div') // add divs to the tooltip defined above
+      .attr('class', 'label'); // add class 'label' on the selection
+
+    tooltip.append('div') // add divs to the tooltip defined above
+      .attr('class', 'percent'); // add class 'percent' on the selection
 
     svg.attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
 
     // Define the slices color
+    // ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"];
     const colorRange = d3.scaleOrdinal(d3.schemeCategory10);
     const color = d3.scaleOrdinal(colorRange.range());
-    // const color = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"];
-    console.log(color);
 
     /* ------- PIE SLICES -------*/
     const slice = svg.select('.slices').selectAll('path.slice')
       .data(pie(dataGraph), function(d) {
-        // console.log('d slices pie:', d);
-        const dataTemp = <any>d;
-        return dataTemp.data.variableName;
+        return (<any>d).data.variableName;
       });
 
     slice.enter()
       .insert('path')
       .style('fill', function(d) {
-        const dataTemp = <any>d;
-        // console.log('data color:', dataTemp);
-        return color(dataTemp.data.variableName);
+        return color((<any>d).data.variableName);
       })
-      .attr('d', <any>arc)
+      .attr('class', 'slice')
+      .merge(slice)
       .style('opacity', 0.7)
-      .attr('class', 'slice');
-
-    /*slice
       .transition().duration(1000)
-      .attr('d', <any>arc);
-      .attrTween('d', function(d) {
-        this._current = this._current || <any>d;
-        const interpolate = d3.interpolate(this._current, d);
-        this._current = interpolate(0);
+      .attrTween('d', function (d) {
+        (<any>this)._current = (<any>this)._current || <any>d;
+        const interpolater = d3.interpolate((<any>this)._current, d);
+        (<any>this)._current = interpolater(0);
         return function(t) {
-          return arc(interpolate(t));
+          return arc(<any>interpolater(t));
         };
-      });*/
-
-    slice
-      .on('mousemove', function(d) {
-        div.style('left', d3.event.pageX + 10 + 'px');
-        div.style('top', d3.event.pageY - 25 + 'px');
-        div.style('display', 'inline-block');
-        div.html(((<any>d).data.variableName) + '<br>' + ((<any>d).data.variableValue) + '%');
       });
 
+    // when mouse enters div
+    slice
+      .on('mouseover', function(d) {
+        console.log('mouseover');
+        tooltip.select('.label').html((<any>d).data.variableName); // set current label
+        tooltip.select('.percent').html((<any>d).data.variableValue + '%'); // set percent calculated above
+        tooltip.style('display', 'block');
+      });
+
+    // when mouse leaves div
+    slice
+      .on('mousemove', function(d) {
+        tooltip.style('top', (d3.event.layerY + 10) + 'px') // always 10px below the cursor
+          .style('left', (d3.event.layerX + 10) + 'px'); // always 10px to the right of the mouse
+        /*div.style('left', d3.event.pageX + 10 + 'px');
+        div.style('top', d3.event.pageY - 25 + 'px');
+        div.style('display', 'inline-block');
+        div.html(((<any>d).data.variableName) + '<br>' + ((<any>d).data.variableValue) + '%');*/
+      });
+
+    // when mouse moves
     slice
       .on('mouseout', function(d) {
-        div.style('display', 'none');
+        // div.style('display', 'none');
+        tooltip.style('display', 'none'); // hide tooltip for that element
       });
 
     slice.exit()
       .remove();
 
-    /*
-    // Center Legend
+    /*// Center Legend
     const legend = svg.selectAll('.legend')
       .data(color.domain())
       .enter()
@@ -1090,8 +1109,8 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       .attr('transform', function(d, i) {
         const height = legendRectSize + legendSpacing;
         const offset =  height * color.domain().length / 2;
-        const horz = -3 * legendRectSize;
-        const vert = i * height - offset;
+        const horz = -1 * radius; // 2 * legendRectSize;
+        const vert = i * height + radius + 5; // i * height - offset
         return 'translate(' + horz + ',' + vert + ')';
       });
 
@@ -1109,74 +1128,71 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     /* ------- TEXT LABELS -------*/
     const text = svg.select('.labelName').selectAll('text')
       .data(pie(dataGraph), function(d) {
-        const dataTemp = <any>d;
-        return dataTemp.data.variableName;
-      });
-
-    text.enter()
-      .append('text')
-      .attr('dy', '.35em')
-      .text(function(d) {
-        const dataTemp = <any>d;
-        return (dataTemp.data.variableName + ': ' + dataTemp.data.variableValue + '%');
+        return (<any>d).data.variableName;
       });
 
     function midAngle(d) {
       return d.startAngle + (d.endAngle - d.startAngle) / 2;
     }
 
-    text
-      /*.transition().duration(1000)
+    text.enter()
+      .append('text')
+      .attr('dy', '.35em')
+      .text(function(d) {
+        // return ((<any>d).data.variableName + ': ' + (<any>d).data.variableValue + '%');
+        return ((<any>d).data.variableValue + '%');
+      })
+      .merge(text)
+      .transition().duration(1000)
       .attrTween('transform', function(d) {
-        console.log(d);
-        this._current = this._current || d;
-        const interpolate = d3.interpolate(this._current, d);
-        this._current = interpolate(0);
+        (<any>this)._current = (<any>this)._current || d;
+        const interpolater = d3.interpolate((<any>this)._current, d);
+        (<any>this)._current = interpolater(0);
         return function(t) {
-          const d2 = interpolate(t);
-          const pos = outerArc.centroid(d2);
-          pos[0] = radius * (midAngle(d2) < Math.PI ? 1 : -1);
+          const d2 = interpolater(t);
+          const pos = outerArc.centroid(<any>d2);
+          pos[0] = (radius / 3) * (midAngle(d2) < Math.PI ? 1 : -1);
           return 'translate(' + pos + ')';
         };
       })
       .styleTween('text-anchor', function(d) {
-        this._current = this._current || d;
-        const interpolate = d3.interpolate(this._current, d);
-        this._current = interpolate(0);
+        (<any>this)._current = (<any>this)._current || d;
+        const interpolater = d3.interpolate((<any>this)._current, d);
+        (<any>this)._current = interpolater(0);
         return function(t) {
-          const d2 = interpolate(t);
+          const d2 = interpolater(t);
           return midAngle(d2) < Math.PI ? 'start' : 'end';
         };
-      })*/
-      .text(function(d) {
-        const dataTemp = <any>d;
-        return (dataTemp.data.label + ': ' + dataTemp.value + '%');
       });
+      /*.text(function(d) {
+        console.log('this 2:', this);
+        return ((<any>d).data.variableName + ': ' + (<any>d).data.variableValue + '%');
+      });*/
 
     text.exit()
       .remove();
 
     /* ------- SLICE TO TEXT POLYLINES -------*/
     const polyline = svg.select('.lines').selectAll('polyline')
-      .data(pie(dataGraph), function(d){
+      .data(pie(dataGraph), function(d) {
         return (<any>d).data.variableName;
       });
 
     polyline.enter()
-      .append('polyline');
-
-  /*  polyline.transition().duration(1000)
-      .attrTween('points', function(d){
-        this._current = this._current || d;
-        const interpolate = d3.interpolate(this._current, d);
-        this._current = interpolate(0);
+      .append('polyline')
+      .merge(polyline)
+      .transition().duration(1000)
+      .attrTween('points', function(d) {
+        (<any>this)._current = (<any>this)._current || d;
+        const interpolater = d3.interpolate((<any>this)._current, d);
+        (<any>this)._current = interpolater(0);
         return function(t) {
-          const d2 = interpolate(t);
+          const d2: any = interpolater(t);
           const pos = outerArc.centroid(d2);
-          pos[0] = radius * 0.95 * (midAngle(d2) < Math.PI ? 1 : -1);
-          return [arc.centroid(d2), outerArc.centroid(d2), pos];
+          pos[0] = (radius / 3) * 0.95 * (midAngle(d2) < Math.PI ? 1 : -1);
+          return arc.centroid(d2) + ',' + outerArc.centroid(d2) + ',' + pos;
         };
-      });*/
+      });
 
     polyline.exit()
       .remove();

@@ -95,6 +95,14 @@
 
 /*------ Graphs -----*/
 /* pie chart */
+/* basic positioning */
+.legend { list-style: none; }
+.legend li { float: left; margin-right: 10px; }
+.legend span { border: 1px solid #ccc; float: left; width: 30px; height: 16px; margin: 2px; }
+/* your colors */
+.legend .option1 { background: rgba(255, 127, 14, 0.7); }
+.legend .option2 { background: rgba(31, 119, 180, 0.7); }
+
 .arc text {
   font: 10px sans-serif;
   text-anchor: middle;
@@ -122,7 +130,7 @@ polyline{
 
 }
 
-.toolTip {
+/*.toolTip {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   position: absolute;
   display: none;
@@ -136,7 +144,23 @@ polyline{
   font: 12px sans-serif;
   padding: 5px;
   text-align: center;
+}*/
+
+.tooltip {
+  background: #eee;
+  box-shadow: 0 0 5px #999999;
+  color: #333;
+  display: none;
+  font-size: 18px;
+  left: 130px;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  top: 95px;
+  width: 80px;
+  z-index: 10;
 }
+
 text {
   font: 12px sans-serif;
 }
@@ -317,6 +341,13 @@ a:link, a:visited{
 .block {
   width: 150px;
   display: inline-block;
+}
+
+.svg-title {
+  text-align: center;
+  font-weight: 500;
+  margin-top: 15px;
+  margin-bottom: 5px;
 }
 
 /* -----Age pyramid ------ */

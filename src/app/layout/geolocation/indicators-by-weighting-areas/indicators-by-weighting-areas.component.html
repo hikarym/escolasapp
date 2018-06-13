@@ -82,6 +82,15 @@
               <!-- Perfil Educacional - Alfabetização - literacy -->
               <div class="box" role="alert" >
                 <h6 class="alert-heading text-center"><i class="fa fa-book fa-fw"></i> {{'alfabetizacao' | translate}}</h6>
+                <!-- legend of graph colors -->
+                <div class="row" style="margin-bottom: -1.5rem">
+
+                    <ul class='legend'>
+                      <li><span class="option1"></span>{{'naoAlfabetizados' | translate}}</li>
+                      <li><span class="option2"></span>{{'alfabetizados' | translate}}</li>
+                    </ul>
+
+                </div>
                 <div class="row" >
                   <div #profEduAlfabByAPGraph class="block"></div>
                   <div #profEduAlfabByMetropoleGraph class="block"></div>
@@ -90,6 +99,8 @@
                   <div #profEduAlfabByUFGraph class="block"></div>
                   <div #profEduAlfabByBrasilGraph class="block"></div>
                 </div>
+                <div id="chartPie"></div>
+
               </div>
 
               <!-- Perfil Educacional - REALIZAÇÃO -->
