@@ -41,6 +41,9 @@
 
 
   "ses": "Distribuição de Renda",
+  "catPobres": "Taxa de pobreza",
+  "catRendaPerCapita": "Renda Domiciliar per capita",
+  "catGini": "Índice de Gini",
   "ocup": "Estrutura do Emprego",
   "ocupacoesElementares": "Ocupações Elementares",
   "operadoresMaquina": "Operadores de Máquina",

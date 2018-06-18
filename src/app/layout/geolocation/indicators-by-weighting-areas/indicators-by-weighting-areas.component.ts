@@ -280,18 +280,27 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
   buildDataForComparativeTable(dataAp: any, dataRMSP: any, dataSP: any, dataBr: any) {
     // Graph 1: Comparative table. Data for Metropole, UF, and BR
     const dataComparativeTable = [];
-    let jsonData = {};
+    let jsonData = []; // ['nome da categoria', 'AP', 'SP', 'RMSP', 'Brasil']
 
-    jsonData = {model: '%Pobres', ap: dataAp['perc_poor'], metropole: dataSP['perc_poor'],
-      uf: dataRMSP['perc_poor'], br: dataBr['perc_poor']};
+    jsonData = [this.getInstant('catPobres'),
+      (dataAp['perc_poor'] * 100).toFixed(2) + '%',
+      (dataSP['perc_poor'] * 100).toFixed(2) + '%',
+      (dataRMSP['perc_poor'] * 100).toFixed(2) + '%',
+      (dataBr['perc_poor'] * 100).toFixed(2) + '%'];
     dataComparativeTable.push(jsonData);
 
-    jsonData = {model: 'Renda per Capita', ap: dataAp['renda_dom_per_cap_media'], metropole: dataSP['renda_dom_per_cap_media'],
-      uf: dataRMSP['renda_dom_per_cap_media'], br: dataBr['renda_dom_per_cap_media']};
+    jsonData = [this.getInstant('catRendaPerCapita'),
+      'R$ ' + dataAp['renda_dom_per_cap_media'].toFixed(2),
+      'R$ ' + dataSP['renda_dom_per_cap_media'].toFixed(2),
+      'R$' + dataRMSP['renda_dom_per_cap_media'].toFixed(2),
+      'R$' + dataBr['renda_dom_per_cap_media'].toFixed(2)];
     dataComparativeTable.push(jsonData);
 
-    jsonData = {model: 'GINI', ap: dataAp['gini'], metropole: dataSP['gini'],
-      uf: dataRMSP['gini'], br: dataBr['gini']};
+    jsonData = [this.getInstant('catGini'),
+      dataAp['gini'].toFixed(3),
+      dataSP['gini'].toFixed(3),
+      dataRMSP['gini'].toFixed(3),
+      dataBr['gini'].toFixed(3)];
     dataComparativeTable.push(jsonData);
 
     return dataComparativeTable;
@@ -580,9 +589,9 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
    * @param dataGraph
    * @param {ElementRef} containerDiv
    */
-  generateTableGraph(dataGraph: any, containerDiv: ElementRef ) {
-    const bmw_data = [];
-
+  generateTableGraph(dataGraph: any[], containerDiv: ElementRef ) {
+    console.log('tabla:', dataGraph);
+    /*const bmw_data = [];
     dataGraph.forEach(function(d, i) {
       // now we add another data object value, a calculated value.
       d.apPerc = i === 1 ? d.ap.toFixed(2)  : (d.ap * 100).toFixed(2) + '%';
@@ -590,7 +599,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       d.ufPerc = i === 1 ? d.uf.toFixed(2)  : (d.uf * 100).toFixed(2) + '%';
       d.brPerc = i === 1 ? d.br.toFixed(2)  : (d.br * 100).toFixed(2) + '%';
       bmw_data.push([d.model, d.apPerc, d.metropolePerc, d.ufPerc, d.brPerc]);
-    });
+    });*/
 
     // Remove all children from HTML
     d3.select(containerDiv.nativeElement).html('');
@@ -601,7 +610,8 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
     thead
       .selectAll('th')
-      .data(['Cat.', 'AP', 'RMSP', 'UF', 'Br'])
+      .data(['Cat.', this.getInstant('tabAP'), this.getInstant('tabRMSP') + ' ' + this.getInstant('tabRMSP-Subtitle'),
+        this.getInstant('tabSP') + ' ' + this.getInstant('tabSP-subtitle'), this.getInstant('tabBrasil')])
       .enter()
       .append('th')
       .text(function(d) {
@@ -610,7 +620,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
     const rows = tbody
       .selectAll('tr')
-      .data(bmw_data)
+      .data(dataGraph)
       .enter()
       .append('tr');
 
@@ -1164,10 +1174,6 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
           return midAngle(d2) < Math.PI ? 'start' : 'end';
         };
       });
-      /*.text(function(d) {
-        console.log('this 2:', this);
-        return ((<any>d).data.variableName + ': ' + (<any>d).data.variableValue + '%');
-      });*/
 
     text.exit()
       .remove();

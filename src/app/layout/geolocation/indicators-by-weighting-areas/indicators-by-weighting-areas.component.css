@@ -167,7 +167,7 @@ text {
 
 /*table chart*/
 table{
-  font-size: 12px;
+  font-size: 11px;
   text-align: right;
   margin: auto;
   margin-bottom: 5px;
@@ -183,7 +183,7 @@ th{
 }
 td{
   border: 1px solid #dee2e6;
-  padding: 5px;
+  padding: 3px;
 }
 
 tr:first-child th:first-child { border-top-left-radius: 5px; }
