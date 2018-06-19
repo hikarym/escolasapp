@@ -277,8 +277,14 @@ export class GeralInformationComponent implements OnInit, OnDestroy {
 
       this.quadra = this.dependencias.Quadra;
       if (this.quadra) {
-        this.quadra = this.dependencias.Quadra ? this.getFieldValue(this.quadra, 'SIM') : 'NA';
-        nfieldsNA += this.quadra === 'NA' ? 1 : 0;
+        if (typeof this.quadra === 'object') {
+          if (this.getFieldValue(this.quadra, 'SIM') === 'NA') {
+            this.quadra = null;
+            nfieldsNA += 1;
+          } else {
+            this.quadra = 'Sim';
+          }
+        }
       }
 
       nfieldsNA += this.countFieldsNA(this.dependencias, 'NA');
