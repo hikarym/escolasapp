@@ -1418,12 +1418,14 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       .attr('y', function(d) { return yScale(d.group); })
       .attr('width', function(d) { return xScale(d.maleperc); })
       .attr('height', yScale.bandwidth())
+      .on('mouseover', function(d) {
+        tooltip.style('display', 'inline-block');
+        tooltip.html(d.group +  ' anos'  + '<br/>' + d.maleperc + '%');
+      })
       .on('mousemove', function(d) {
         tooltip
           .style('left', d3.event.pageX - 50 + 'px')
-          .style('top', d3.event.pageY - 70 + 'px')
-          .style('display', 'inline-block')
-          .html(d.group + '<br>' + d.maleperc + '%');
+          .style('top', d3.event.pageY - 70 + 'px');
       })
       .on('mouseout', function(d) { tooltip.style('display', 'none'); });
 
@@ -1440,7 +1442,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
           .style('left', d3.event.pageX - 50 + 'px')
           .style('top', d3.event.pageY - 70 + 'px')
           .style('display', 'inline-block')
-          .html(d.group + '<br>' +  d.femaleperc + '%');
+          .html(d.group + ' anos' + '<br/>' +  d.femaleperc + '%');
       })
       .on('mouseout', function(d) { tooltip.style('display', 'none'); });
 
