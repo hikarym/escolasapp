@@ -80,6 +80,7 @@
   "abrevFundamental": "Fundamental",
   "abrevMedio": "Médio",
   "abrevOutro": "Outro",
+  "censusDescription": "Dados dos censos demográficos de 2010",
 
   "dados-gerais": "Dados gerais",
   "codesc": "Código INEP",
@@ -223,6 +224,7 @@
   "sistema9Anos": "Sistema/Régime 9 anos",
   "terceiroAno": "Terceiro Ano",
   "primeiroAno": "Primeiro Ano",
+  "todosAnosTurmas": "Todos os anos e turmas",
   "anosIniciais": "Anos Iniciais",
   "anosFinais": "Anos Finais",
   "AnosIniciais8": "Anos Iniciais - Sistema/Régime 8 anos",

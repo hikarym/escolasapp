@@ -146,7 +146,7 @@ polyline{
   text-align: center;
 }*/
 
-.tooltip {
+/*.tooltip {
   background: #eee;
   box-shadow: 0 0 5px #999999;
   color: #333;
@@ -159,7 +159,7 @@ polyline{
   top: 95px;
   width: 80px;
   z-index: 10;
-}
+}*/
 
 text {
   font: 12px sans-serif;

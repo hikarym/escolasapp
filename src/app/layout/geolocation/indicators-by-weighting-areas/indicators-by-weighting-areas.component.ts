@@ -223,14 +223,18 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
             const panelHeight = this.height / 2; // 300
             const dataForAlfaAp = this.buildDataForProfileEducationalGraph(this.weightingAreaInfo);
             this.generatePieGraph(dataForAlfaAp, this.div_profEduAlfabByAPGraph, panelWidth, panelHeight, this.getInstant('tabAP'));
+
             const dataForAlfaApRMSP = this.buildDataForProfileEducationalGraph(this.brSpRmspSecInfo[2]);
             this.generatePieGraph(dataForAlfaApRMSP, this.div_profEduAlfabByMetropoleGraph, panelWidth, panelHeight,
               this.getInstant('tabRMSP') + this.getInstant('tabRMSP-Subtitle'));
+
+            const dataForAlfaSP = this.buildDataForProfileEducationalGraph(this.brSpRmspSecInfo[0]);
+            this.generatePieGraph(dataForAlfaSP, this.div_profEduAlfabByUFGraph, panelWidth, panelHeight,
+              this.getInstant('tabSP') + this.getInstant('tabSP-subtitle'));
+
             const dataForAlfaBr = this.buildDataForProfileEducationalGraph(this.brSpRmspSecInfo[1]);
             this.generatePieGraph(dataForAlfaBr, this.div_profEduAlfabByBrasilGraph, panelWidth, panelHeight,
-              this.getInstant('tabSP') + this.getInstant('tabSP-subtitle'));
-            const dataForAlfaSP = this.buildDataForProfileEducationalGraph(this.brSpRmspSecInfo[0]);
-            this.generatePieGraph(dataForAlfaSP, this.div_profEduAlfabByUFGraph, panelWidth, panelHeight, this.getInstant('tabBrasil'));
+              this.getInstant('tabBrasil'));
 
             // Perfil Educacional - Realizacao
             const dataEduAp = this.weightingAreaInfo['educacao'];
@@ -1030,13 +1034,13 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
     // Define SVG
     const svg = d3.select(containerDiv.nativeElement)
-        .append('svg')
-        .append('g');
-        /*.attr('width', width + margin.left + margin.right)
-        .attr('height', height + margin.top + margin.bottom)
-        .style('background-color', '#ffffff'),
-      g = svg.append('g').attr('transform', 'translate(' + (width + margin.left + margin.right) / 2 + ','
-        + (height + margin.top + margin.bottom) / 2 + ')');*/
+      .append('svg')
+      .append('g');
+    /*.attr('width', width + margin.left + margin.right)
+    .attr('height', height + margin.top + margin.bottom)
+    .style('background-color', '#ffffff'),
+  g = svg.append('g').attr('transform', 'translate(' + (width + margin.left + margin.right) / 2 + ','
+    + (height + margin.top + margin.bottom) / 2 + ')');*/
 
     svg.append('g')
       .attr('class', 'slices');
@@ -1066,14 +1070,16 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
     d3.select('#chartPie').html('');
     const div = d3.select('body').append('div').attr('class', 'toolTip');
-    const tooltip = d3.select('#chartPie')
+    /*const tooltip = d3.select('#chartPie')
       .append('div')
       .attr('class', 'toolTip');
     tooltip.append('div') // add divs to the tooltip defined above
       .attr('class', 'label'); // add class 'label' on the selection
 
     tooltip.append('div') // add divs to the tooltip defined above
-      .attr('class', 'percent'); // add class 'percent' on the selection
+      .attr('class', 'percent'); // add class 'percent' on the selection*/
+
+    const tooltip = d3.select('body').append('div').attr('class', 'toolTip');
 
     svg.attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
 
@@ -1107,19 +1113,20 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       });
 
     // when mouse enters div
-    slice
+    /*slice
       .on('mouseover', function(d) {
         console.log('mouseover');
         tooltip.select('.label').html((<any>d).data.variableName); // set current label
         tooltip.select('.percent').html((<any>d).data.variableValue + '%'); // set percent calculated above
         tooltip.style('display', 'block');
-      });
+      });*/
 
     // when mouse leaves div
     slice
       .on('mousemove', function(d) {
         tooltip.style('top', (d3.event.layerY + 10) + 'px') // always 10px below the cursor
-          .style('left', (d3.event.layerX + 10) + 'px'); // always 10px to the right of the mouse
+          .style('left', (d3.event.layerX + 10) + 'px') // always 10px to the right of the mouse
+          .style('display', 'inline-block');
         /*div.style('left', d3.event.pageX + 10 + 'px');
         div.style('top', d3.event.pageY - 25 + 'px');
         div.style('display', 'inline-block');
