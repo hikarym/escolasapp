@@ -336,7 +336,7 @@ export class GraphsComponent implements OnInit, OnDestroy {
 
         // INSEAB
         const enemINSEAB = this.schoolSelected[this.indicadores[12]][this.niveis[2]][this.categorias[10]];
-        this.dataForEnemINSEAB = this.getPropertiesNamesAndValuesForNumbers(enemINSEAB);
+        this.dataForEnemINSEAB = this.getPropertiesNamesAndValuesForNumbers(enemINSEAB, 1);
 
         // INSECL
         const enemINSECL = this.schoolSelected[this.indicadores[12]][this.niveis[2]][this.categorias[11]];
@@ -457,7 +457,7 @@ export class GraphsComponent implements OnInit, OnDestroy {
                     divWidth: number = this.width, divHeight: number = this.height, margin = this.margin) {
     const dadosCategoria = this.getDadosDoIndicador(indicador, nivelEnsino, categoria);
     const groupData = dadosCategoria[group];
-    const dataForGraph = this.getPropertiesNamesAndValuesForNumbers(groupData);
+    const dataForGraph = this.getPropertiesNamesAndValuesForNumbers(groupData, 0);
     this.buildVerticalBarChart(dataForGraph, divForGraph, divWidth, divHeight, margin);
   }
 
@@ -484,7 +484,7 @@ export class GraphsComponent implements OnInit, OnDestroy {
    */
   showGraphWithVerticalBar(groupData: any, containerDiv: ElementRef, boxContainer: string,
                            divWidth: number = this.width, divHeight: number = this.height, margin = this.margin) {
-    const dataForGraph = this.getPropertiesNamesAndValuesForNumbers(groupData);
+    const dataForGraph = this.getPropertiesNamesAndValuesForNumbers(groupData, 0);
     const dom: any = document.querySelector(boxContainer);
     if (dataForGraph.length > 0) {
       dom.classList.remove('hide-section');
@@ -665,9 +665,10 @@ export class GraphsComponent implements OnInit, OnDestroy {
   /**
    * Builds a array with documents (variableName and variableValue) properties
    * @param document
+   * @param {number} digitsDecimals. 0, show the number with all decimals. > 0, show the 'n' decimal digits
    * @returns {Array}
    */
-  getPropertiesNamesAndValuesForNumbers(document: any) {
+  getPropertiesNamesAndValuesForNumbers(document: any, digitsDecimals: number) {
     const prop = Object.keys(document);
     const numberOfProp = prop.length;
     const data = [];
@@ -675,7 +676,7 @@ export class GraphsComponent implements OnInit, OnDestroy {
       if (typeof  document[prop[i]] === 'number' && document[prop[i]] !== 0) {
         const jsonData = {};
         jsonData['variableName'] = this.getInstant(prop[i]);
-        jsonData['variableValue'] = document[prop[i]];
+        jsonData['variableValue'] = (digitsDecimals === 0) ? document[prop[i]] : document[prop[i]].toFixed(digitsDecimals);
         data.push(jsonData);
       }
     }
