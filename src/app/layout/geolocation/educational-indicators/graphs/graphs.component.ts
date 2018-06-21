@@ -146,9 +146,11 @@ export class GraphsComponent implements OnInit, OnDestroy {
 
   private groupDefault = 'Grupo1';
   private nivelDefault = 'Nivel1';
-  private margin = {top: 15, right: 20, bottom: 40, left: 20};
-  private width = 297;
-  private height = 250;
+
+  private margin = {top: 15, right: 20, bottom: 33, left: 20};
+  private width = 315;
+  private height = 270;
+  private valuesUnit = '%';
 
   // Indicadores, niveis, categorias
   private indicadores = [
@@ -187,12 +189,13 @@ export class GraphsComponent implements OnInit, OnDestroy {
 
         // horasAula - Infantil
         const dadosHorasAulaNivelInfantil = this.schoolSelected[this.indicadores[2]][this.niveis[0]];
-        this.showGraphWithVerticalBar(dadosHorasAulaNivelInfantil, this.div_horasAulaNivelInfantilGraph, '#box-horasAulaNivelInfantil');
+        this.showGraphWithVerticalBar(dadosHorasAulaNivelInfantil, this.div_horasAulaNivelInfantilGraph,
+          '#box-horasAulaNivelInfantil', ' ' + this.getInstant('horas'));
 
         // alunosPorTurma - Infantil
         const dadosAlunosPorTurmaNivelInfantil = this.schoolSelected[this.indicadores[3]][this.niveis[0]];
         this.showGraphWithVerticalBar(dadosAlunosPorTurmaNivelInfantil, this.div_alunosPorTurmaNivelInfantilGraph,
-          '#box-alunosPorTurmaNivelInfantil');
+          '#box-alunosPorTurmaNivelInfantil', '');
 
         // --- 2. Ensino Fundamental
         // ----- Anos Iniciais -----
@@ -234,22 +237,22 @@ export class GraphsComponent implements OnInit, OnDestroy {
         // horasAula 8a
         const dadosHorasAulaEnsFundAIniciais8 = this.schoolSelected[this.indicadores[2]][this.niveis[1]][this.categorias[2]];
         this.showGraphWithVerticalBar(dadosHorasAulaEnsFundAIniciais8, this.div_horasAulaEnsFundAIniciais8Graph,
-          '#box-horasAulaEnsFundAIniciais8');
+          '#box-horasAulaEnsFundAIniciais8', ' ' + this.getInstant('horas'));
 
         // horasAula 9a
         const dadosHorasAulaEnsFundAIniciais9 = this.schoolSelected[this.indicadores[2]][this.niveis[1]][this.categorias[4]];
         this.showGraphWithVerticalBar(dadosHorasAulaEnsFundAIniciais9, this.div_horasAulaEnsFundAIniciais9Graph,
-          '#box-horasAulaEnsFundAIniciais9');
+          '#box-horasAulaEnsFundAIniciais9', ' ' + this.getInstant('horas'));
 
         // alunosPorTurma 8a
         const dadosAlunosPorTurmaEnsFundAIniciais8 = this.schoolSelected[this.indicadores[3]][this.niveis[1]][this.categorias[2]];
         this.showGraphWithVerticalBar(dadosAlunosPorTurmaEnsFundAIniciais8, this.div_alunosPorTurmaEnsFundAIniciais8Graph,
-          '#box-alunosPorTurmaEnsFundAIniciais8');
+          '#box-alunosPorTurmaEnsFundAIniciais8', ' ' + this.getInstant('alunos'));
 
         // alunosPorTurma 9a
         const dadosAlunosPorTurmaEnsFundAIniciais9 = this.schoolSelected[this.indicadores[3]][this.niveis[1]][this.categorias[4]];
         this.showGraphWithVerticalBar(dadosAlunosPorTurmaEnsFundAIniciais9, this.div_alunosPorTurmaEnsFundAIniciais9Graph,
-          '#box-alunosPorTurmaEnsFundAIniciais9');
+          '#box-alunosPorTurmaEnsFundAIniciais9', ' ' + this.getInstant('alunos'));
 
         // EsforcoDocente
         const dadosEDEnsFundAIniciais = this.getDadosDoIndicador(this.indicadores[4], this.niveis[1], this.categorias[0]);
@@ -296,22 +299,22 @@ export class GraphsComponent implements OnInit, OnDestroy {
         // horasAula ------ falta 8a
         const dadosHorasAulaEnsFundAFinais8 = this.schoolSelected[this.indicadores[2]][this.niveis[1]][this.categorias[3]];
         this.showGraphWithVerticalBar(dadosHorasAulaEnsFundAFinais8, this.div_horasAulaEnsFundAFinais8Graph,
-          '#box-horasAulaEnsFundAFinais8');
+          '#box-horasAulaEnsFundAFinais8', ' ' + this.getInstant('horas'));
 
         // horasAula ------ falta 9a
         const dadosHorasAulaEnsFundAFinais9 = this.schoolSelected[this.indicadores[2]][this.niveis[1]][this.categorias[5]];
         this.showGraphWithVerticalBar(dadosHorasAulaEnsFundAFinais9, this.div_horasAulaEnsFundAFinais9Graph,
-          '#box-horasAulaEnsFundAFinais9');
+          '#box-horasAulaEnsFundAFinais9', ' ' + this.getInstant('horas'));
 
         // alunosPorTurma ------ falta 8a
         const dadosAlunosPorTurmaEnsFundAFinais8 = this.schoolSelected[this.indicadores[3]][this.niveis[1]][this.categorias[3]];
         this.showGraphWithVerticalBar(dadosAlunosPorTurmaEnsFundAFinais8, this.div_alunosPorTurmaEnsFundAFinais8Graph,
-          '#box-alunosPorTurmaEnsFundAFinais8');
+          '#box-alunosPorTurmaEnsFundAFinais8', ' ' + this.getInstant('alunos'));
 
         // alunosPorTurma ------ falta 9a
         const dadosAlunosPorTurmaEnsFundAFinais9 = this.schoolSelected[this.indicadores[3]][this.niveis[1]][this.categorias[5]];
         this.showGraphWithVerticalBar(dadosAlunosPorTurmaEnsFundAFinais9, this.div_alunosPorTurmaEnsFundAFinais9Graph,
-          '#box-alunosPorTurmaEnsFundAFinais9');
+          '#box-alunosPorTurmaEnsFundAFinais9', 'alunos');
 
         // EsforcoDocente
         const dadosEDEnsFundAFinais = this.getDadosDoIndicador(this.indicadores[4], this.niveis[1], this.categorias[1]);
@@ -346,7 +349,7 @@ export class GraphsComponent implements OnInit, OnDestroy {
         const dadosProvasEnemEnsMedio = this.getDadosDoIndicador(this.indicadores[12], this.niveis[2], this.categorias[12]);
         this.anosProvasEnemEnsMedio = Object.keys(dadosProvasEnemEnsMedio);
         this.showGraphByGroups(this.indicadores[12], this.niveis[2], this.categorias[12], this.anosProvasEnemEnsMedio[0],
-          this.div_provasEnemEnsMedioGraph, this.width, 320, {top: 15, right: 20, bottom: 110, left: 20});
+          this.div_provasEnemEnsMedioGraph, this.valuesUnit, this.width, 320,{top: 15, right: 20, bottom: 110, left: 20});
 
         // AFD
         const dadosAFDEnsMedio = this.getDadosDoIndicador(this.indicadores[0], this.niveis[2], '');
@@ -360,21 +363,22 @@ export class GraphsComponent implements OnInit, OnDestroy {
         // horasAula -  por anos
         const dadosHorasAulaPorAnosEnsMedio = this.schoolSelected[this.indicadores[2]][this.niveis[2]][this.categorias[6]];
         this.showGraphWithVerticalBar(dadosHorasAulaPorAnosEnsMedio, this.div_horasAulaPorAnosEnsMedioGraph,
-          '#box-horasAulaPorAnosEnsMedio');
+          '#box-horasAulaPorAnosEnsMedio', ' ' + this.getInstant('horas'));
 
         // horasAula - Terceiro Ano
         const dadosHorasAulaAno3EnsMedio = this.schoolSelected[this.indicadores[2]][this.niveis[2]][this.categorias[7]];
-        this.showGraphWithVerticalBar(dadosHorasAulaAno3EnsMedio, this.div_horasAulaAno3EnsMedioGraph, '#box-horasAulaAno3EnsMedio');
+        this.showGraphWithVerticalBar(dadosHorasAulaAno3EnsMedio, this.div_horasAulaAno3EnsMedioGraph,
+          '#box-horasAulaAno3EnsMedio', ' ' + this.getInstant('horas'));
 
         // alunosPorTurma por anos
         const dadosAlunosPorTurmaPorAnosEnsMedio = this.schoolSelected[this.indicadores[3]][this.niveis[2]][this.categorias[6]];
         this.showGraphWithVerticalBar(dadosAlunosPorTurmaPorAnosEnsMedio, this.div_alunosPorTurmaPorAnosEnsMedioGraph,
-          '#box-alunosPorTurmaPorAnosEnsMedio');
+          '#box-alunosPorTurmaPorAnosEnsMedio', ' ' + this.getInstant('alunos'));
 
         // alunosPorTurma - Terceiro Ano
         const dadosAlunosPorTurmaAno3EnsMedio = this.schoolSelected[this.indicadores[3]][this.niveis[2]][this.categorias[7]];
         this.showGraphWithVerticalBar(dadosAlunosPorTurmaAno3EnsMedio, this.div_alunosPorTurmaAno3EnsMedioGraph,
-          '#box-alunosPorTurmaAno3EnsMedio');
+          '#box-alunosPorTurmaAno3EnsMedio', ' ' + this.getInstant('alunos'));
 
         // EsforcoDocente
         const dadosEDEnsMedio = this.getDadosDoIndicador(this.indicadores[4], this.niveis[2], '');
@@ -445,7 +449,7 @@ export class GraphsComponent implements OnInit, OnDestroy {
   onGroupChangeAnoProvaEnemEnsMedio(anoSelected: string) {
     const ano = 'ano' + anoSelected;
     this.showGraphByGroups(this.indicadores[12], this.niveis[2], this.categorias[12], ano, this.div_provasEnemEnsMedioGraph,
-      this.width, 320, {top: 15, right: 20, bottom: 110, left: 20});
+      this.valuesUnit, this.width, 320, {top: 15, right: 20, bottom: 110, left: 20});
   }
 
   /**
@@ -454,11 +458,12 @@ export class GraphsComponent implements OnInit, OnDestroy {
    * @param {ElementRef} containerDiv
    */
   showGraphByGroups(indicador: string, nivelEnsino: string, categoria: string, group: string, divForGraph: ElementRef,
+                    valuesUnit: string = this.valuesUnit,
                     divWidth: number = this.width, divHeight: number = this.height, margin = this.margin) {
     const dadosCategoria = this.getDadosDoIndicador(indicador, nivelEnsino, categoria);
     const groupData = dadosCategoria[group];
     const dataForGraph = this.getPropertiesNamesAndValuesForNumbers(groupData, 0);
-    this.buildVerticalBarChart(dataForGraph, divForGraph, divWidth, divHeight, margin);
+    this.buildVerticalBarChart(dataForGraph, divForGraph, valuesUnit, divWidth, divHeight, margin);
   }
 
   getDadosDoIndicador(indicador: string, nivelEnsino: string, categoria: string) {
@@ -478,17 +483,18 @@ export class GraphsComponent implements OnInit, OnDestroy {
    * @param groupData
    * @param {ElementRef} containerDiv
    * @param {string} boxContainer
+   * @param {string} valuesUnit
    * @param {number} divWidth
    * @param {number} divHeight
    * @param {{top: number; right: number; bottom: number; left: number}} margin
    */
-  showGraphWithVerticalBar(groupData: any, containerDiv: ElementRef, boxContainer: string,
+  showGraphWithVerticalBar(groupData: any, containerDiv: ElementRef, boxContainer: string, valuesUnit: string = this.valuesUnit,
                            divWidth: number = this.width, divHeight: number = this.height, margin = this.margin) {
     const dataForGraph = this.getPropertiesNamesAndValuesForNumbers(groupData, 0);
     const dom: any = document.querySelector(boxContainer);
     if (dataForGraph.length > 0) {
       dom.classList.remove('hide-section');
-      this.buildVerticalBarChart(dataForGraph, containerDiv, divWidth, divHeight, margin);
+      this.buildVerticalBarChart(dataForGraph, containerDiv, valuesUnit, divWidth, divHeight, margin);
     } else {
       dom.classList.add('hide-section');
     }
@@ -502,7 +508,8 @@ export class GraphsComponent implements OnInit, OnDestroy {
    * @param {number} divHeight
    * @param margin
    */
-  buildVerticalBarChart(dataGraph: any[], containerDiv: ElementRef, divWidth: number, divHeight: number, margin: any) {
+  buildVerticalBarChart(dataGraph: any[], containerDiv: ElementRef, valuesUnit: string,
+                        divWidth: number, divHeight: number, margin: any) {
     // Define chart dimensions
     // const margin = this.margin;
     const width = divWidth - margin.left - margin.right;
@@ -581,7 +588,7 @@ export class GraphsComponent implements OnInit, OnDestroy {
             .style('left', d3.event.pageX - 50 + 'px')
             .style('top', d3.event.pageY - 70 + 'px')
             .style('display', 'inline-block')
-            .html((d.variableName) + '<br>' + (d.variableValue) + '%');
+            .html((d.variableName) + '<br>' + (d.variableValue) + valuesUnit);
         })
         .on('mouseout', function (d) {
           tooltip.style('display', 'none');
