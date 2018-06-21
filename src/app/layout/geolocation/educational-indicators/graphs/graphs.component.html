@@ -66,13 +66,13 @@
     <div class="tab-pane fade" id="pills-fundamental" role="tabpanel" aria-labelledby="pills-fundamental-tab">
       <!--tab -->
       <div>
-        <ul class="nav nav-tabs text-center" id="AFDEnsFundTabControl" role="tablist">
-          <li class="nav-item" style="height: 100%">
-            <a class="nav-link text-capitalize font-weight-bold large active" id="tabEnsFundAIniciais" data-toggle="tab" href="#ensFundAIniciaisPanel"
+        <ul class="nav nav-tabs text-center" style = "font-size: small;margin: 0px 2px;" id="ensFundTabControl" role="tablist">
+          <li class="nav-item" >
+            <a class="nav-link text-capitalize active" id="tabEnsFundAIniciais" data-toggle="tab" href="#ensFundAIniciaisPanel"
                role="tab" aria-controls="ensFundAIniciaisPanel" aria-selected="true">{{'anosIniciaisCap' | translate}}</a>
           </li>
-          <li class="nav-item" style="height: 100%">
-            <a class="nav-link text-capitalize font-weight-bold large" id="tabEnsFundAFinais" data-toggle="tab" href="#ensFundAFinaisPanel"
+          <li class="nav-item" >
+            <a class="nav-link text-capitalize" id="tabEnsFundAFinais" data-toggle="tab" href="#ensFundAFinaisPanel"
                role="tab" aria-controls="ensFundAFinaisPanel" aria-selected="true">{{'anosFinaisCap' | translate}}</a>
           </li>
         </ul>
@@ -251,124 +251,170 @@
           </div>
         </div>
       </div>
-      <!-- end tab -->
     </div>
+    <!-- end tab Ensino Fundamental -->
 
     <!-- Tab content for 'Ensino Médio' -->
     <div class="tab-pane fade" id="pills-medio" role="tabpanel" aria-labelledby="pills-medio-tab">
-      <!-- Taxa de Aprovação -->
-      <div id="box-txAprovEnsMedio" class="box" role="alert" >
-        <h6 class="alert-heading text-center"><i class="fa fa-check-circle fa-fw"></i> {{'txAprov'|translate}}  <br> ({{'terceiroAno'|translate}})</h6>
-        <div #txAprovEnsMedioGraph>
+      <div>
+        <ul class="nav nav-tabs text-center" style="font-size: small;margin: 0px 2px;" id="ensMedioTabControl" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link  active" id="tabEnsMedPerformance" data-toggle="tab" href="#EnsMedPerformancePanel"
+               role="tab" aria-controls="EnsMedPerformancePanel" aria-selected="true">
+              <div class="text-center">{{'ensMedPerformanceLine1' | translate}}<br/>{{'ensMedPerformanceLine2' | translate}}</div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " id="tabEnsMedDocentes" data-toggle="tab" href="#EnsMedDocentesPanel"
+               role="tab" aria-controls="EnsMedDocentesPanel" aria-selected="true">
+              <div class="text-center">{{'ensMedDocentes' | translate}}</div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " id="tabEnsMedAulas" data-toggle="tab" href="#EnsMedAulasPanel"
+               role="tab" aria-controls="EnsMedAulasPanel" aria-selected="true">
+              <div class="text-center">{{'ensMedAulasLine1' | translate}}<br/>{{'ensMedAulasLine2' | translate}}</div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="tabEnsMedNivelSocioec" data-toggle="tab" href="#EnsMedNivelSocioecPanel"
+               role="tab" aria-controls="EnsMedNivelSocioecPanel" aria-selected="true">
+              <div class="text-center">{{'ensMedNivelSocioecLine1' | translate}}<br/>{{'ensMedNivelSocioecLine2' | translate}}</div>
+            </a>
+          </li>
+        </ul>
+        <div class="tab-content" id="ensMedioTabContent">
+          <!-- tab performance -->
+          <div class="tab-pane fade show active" id="EnsMedPerformancePanel" role="tabpanel" aria-labelledby="tabEnsMedPerformance">
+            <!-- Taxa de Aprovação -->
+            <div id="box-txAprovEnsMedio" class="box" role="alert" >
+              <h6 class="alert-heading text-center"><i class="fa fa-check-circle fa-fw"></i> {{'txAprov'|translate}}  <br> ({{'terceiroAno'|translate}})</h6>
+              <div #txAprovEnsMedioGraph>
+              </div>
+            </div>
+
+            <!-- Taxa de Abandono -->
+            <div id="box-txAbandonoEnsMedio" class="box" role="alert" >
+              <h6 class="alert-heading text-center"><i class="fa fa-th-large fa-fw"></i> {{'txAbandono' | translate}} <br> ({{'primeiroAno'|translate}})</h6>
+              <div #txAbandonoEnsMedioGraph>
+              </div>
+            </div>
+
+            <!-- Taxa de Distorção -->
+            <div id="box-txDistorEnsMedio" class="box" role="alert" >
+              <h6 class="alert-heading text-center"><i class="fa fa-th-large fa-fw"></i> {{'txDistor' | translate}} <br> ({{'terceiroAno'|translate}})</h6>
+              <div #txDistorEnsMedioGraph>
+              </div>
+            </div>
+
+            <!-- Graph: Provas ENEM -->
+            <div class="box" role="alert">
+              <h6 class="alert-heading text-center"><i class="fa fa-bookmark fa-fw"></i> {{'enem' | translate}}</h6>
+              <div class="section-info-line">
+                <div class="section-info-icon-ed" ><b>{{'ano' | translate}}:</b></div>
+                <select (change)="onGroupChangeAnoProvaEnemEnsMedio($event.target.value)" class="custom-select">
+                  <option *ngFor="let ano of anosProvasEnemEnsMedio">{{ano | translate}}</option>
+                </select>
+              </div>
+              <div #provasEnemEnsMedioGraph> </div>
+            </div>
+          </div>
+          <!-- end Performance -->
+
+          <!-- tab docentes -->
+          <div class="tab-pane fade show" id="EnsMedDocentesPanel" role="tabpanel" aria-labelledby="tabEnsMedDocentes">
+            <!-- Graph: AFD -->
+            <div class="box" role="alert">
+              <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'AFD' | translate}}</h6>
+              <div class="section-info-line">
+                <div class="section-info-icon-ed" ><b>{{'group' | translate}}:</b></div>
+                <select (change)="onGroupChangeAFDEnsMedio($event.target.value)" class="custom-select">
+                  <option *ngFor="let group of groupsAFDEnsMedio">{{group}}</option>
+                </select>
+              </div>
+              <div #AFDEnsMedioGraph> </div>
+            </div>
+
+            <!-- Graph: DCS  -->
+            <div id="box-DCSEnsMedio" class="box" role="alert" >
+              <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'DCS' | translate}}</h6>
+              <div #DCSEnsMedioGraph>
+              </div>
+            </div>
+
+            <!-- Graph: ED -->
+            <div class="box" role="alert">
+              <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'ED' | translate}}</h6>
+              <div class="section-info-line">
+                <div class="section-info-icon-ed" ><b>{{'nivel' | translate}}:</b></div>
+                <select (change)="onNivelChangeEDEnsMedio($event.target.value)" class="custom-select">
+                  <option *ngFor="let nivel of nivelesEDEnsMedio">{{nivel}}</option>
+                </select>
+              </div>
+              <div #EDEnsMedioGraph> </div>
+            </div>
+
+          </div>
+          <!-- end docentes -->
+
+          <!-- tab Aulas e turmas -->
+          <div class="tab-pane fade show" id="EnsMedAulasPanel" role="tabpanel" aria-labelledby="tabEnsMedAulas">
+            <!-- Graph: Horas por Aula - por Anos-->
+            <div id="box-horasAulaPorAnosEnsMedio" class="box" role="alert" >
+              <h6 class="alert-heading text-center"><i class="fa fa-clock-o fa-fw"></i> {{'horasAula' | translate}} <br> ({{'todosAnosTurmas' | translate}})</h6>
+              <div #horasAulaPorAnosEnsMedioGraph>
+              </div>
+            </div>
+
+            <!-- Graph: Horas por Aula - terceiro Ano-->
+            <div id="box-horasAulaAno3EnsMedio" class="box" role="alert" >
+              <h6 class="alert-heading text-center"><i class="fa fa-clock-o fa-fw"></i> {{'horasAula' | translate}} <br> ({{'terceiroAno'|translate}})</h6>
+              <div #horasAulaAno3EnsMedioGraph>
+              </div>
+            </div>
+
+            <!-- Graph: Alunos por turma - por Anos -->
+            <div id="box-alunosPorTurmaPorAnosEnsMedio" class="box" role="alert" >
+              <h6 class="alert-heading text-center"><i class="fa fa-users fa-fw"></i> {{'alunosPorTurma' | translate}} <br> ({{'todosAnosTurmas' | translate}})</h6>
+              <div #alunosPorTurmaPorAnosEnsMedioGraph>
+              </div>
+            </div>
+
+            <!-- Graph: Alunos por turma - Terceiro Ano -->
+            <div id="box-alunosPorTurmaAno3EnsMedio" class="box" role="alert" >
+              <h6 class="alert-heading text-center"><i class="fa fa-users fa-fw"></i> {{'alunosPorTurma' | translate}} <br> ({{'terceiroAno'|translate}})</h6>
+              <div #alunosPorTurmaAno3EnsMedioGraph>
+              </div>
+            </div>
+          </div>
+          <!--end Aulas e Turmas -->
+
+          <!-- tab Nivel Socioeconomico -->
+          <div class="tab-pane fade show" id="EnsMedNivelSocioecPanel" role="tabpanel" aria-labelledby="tabEnsMedNivelSocioec">
+            <!-- SEÇÃO: INSEAB -->
+            <div class="box" role="alert" *ngIf="dataForEnemINSEAB && dataForEnemINSEAB.length > 0">
+              <h6 class="alert-heading text-center"><i class="fa fa-th-large fa-fw"></i> {{'INSEAB' | translate}}  <br> ({{'descINSEAB'|translate}})</h6>
+              <div class="section-info-line"  *ngFor="let periodo of dataForEnemINSEAB"   >
+                <div class="section-info-icon-ed"><b>{{periodo.variableName}}:</b></div>
+                <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+                <span class="section-info-text"><span>{{periodo.variableValue}}</span></span>
+              </div>
+            </div>
+
+            <!-- SEÇÃO: INSECL -->
+            <div class="box" role="alert" *ngIf="dataForEnemINSECL && dataForEnemINSECL.length > 0">
+              <h6 class="alert-heading text-center"><i class="fa fa-th-large fa-fw"></i> {{'INSECL' | translate}}  <br> ({{'descINSECL'|translate}})</h6>
+              <div class="section-info-line"  *ngFor="let periodo of dataForEnemINSECL"   >
+                <div class="section-info-icon-ed"><b>{{periodo.variableName}}:</b></div>
+                <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+                <span class="section-info-text"><span>{{periodo.variableValue}}</span></span>
+              </div>
+            </div>
+          </div>
+          <!-- end Nivel Socioeconomico -->
         </div>
       </div>
-
-      <!-- Taxa de Abandono -->
-      <div id="box-txAbandonoEnsMedio" class="box" role="alert" >
-        <h6 class="alert-heading text-center"><i class="fa fa-th-large fa-fw"></i> {{'txAbandono' | translate}} <br> ({{'primeiroAno'|translate}})</h6>
-        <div #txAbandonoEnsMedioGraph>
-        </div>
-      </div>
-
-      <!-- Taxa de Distorção -->
-      <div id="box-txDistorEnsMedio" class="box" role="alert" >
-        <h6 class="alert-heading text-center"><i class="fa fa-th-large fa-fw"></i> {{'txDistor' | translate}} <br> ({{'terceiroAno'|translate}})</h6>
-        <div #txDistorEnsMedioGraph>
-        </div>
-      </div>
-
-      <!-- SEÇÃO: INSEAB -->
-      <div class="box" role="alert" *ngIf="dataForEnemINSEAB && dataForEnemINSEAB.length > 0">
-        <h6 class="alert-heading text-center"><i class="fa fa-th-large fa-fw"></i> {{'INSEAB' | translate}}  <br> ({{'descINSEAB'|translate}})</h6>
-        <div class="section-info-line"  *ngFor="let periodo of dataForEnemINSEAB"   >
-          <div class="section-info-icon-ed"><b>{{periodo.variableName}}:</b></div>
-          <span class="section-info-icon section-info-no-icon" style="display:none"></span>
-          <span class="section-info-text"><span>{{periodo.variableValue}}</span></span>
-        </div>
-      </div>
-
-
-      <!-- SEÇÃO: INSECL -->
-      <div class="box" role="alert" *ngIf="dataForEnemINSECL && dataForEnemINSECL.length > 0">
-        <h6 class="alert-heading text-center"><i class="fa fa-th-large fa-fw"></i> {{'INSECL' | translate}}  <br> ({{'descINSECL'|translate}})</h6>
-        <div class="section-info-line"  *ngFor="let periodo of dataForEnemINSECL"   >
-          <div class="section-info-icon-ed"><b>{{periodo.variableName}}:</b></div>
-          <span class="section-info-icon section-info-no-icon" style="display:none"></span>
-          <span class="section-info-text"><span>{{periodo.variableValue}}</span></span>
-        </div>
-      </div>
-
-      <!-- Graph: Provas ENEM -->
-      <div class="box" role="alert">
-        <h6 class="alert-heading text-center"><i class="fa fa-bookmark fa-fw"></i> {{'enem' | translate}}</h6>
-        <div class="section-info-line">
-          <div class="section-info-icon-ed" ><b>{{'ano' | translate}}:</b></div>
-          <select (change)="onGroupChangeAnoProvaEnemEnsMedio($event.target.value)" class="custom-select">
-            <option *ngFor="let ano of anosProvasEnemEnsMedio">{{ano | translate}}</option>
-          </select>
-        </div>
-        <div #provasEnemEnsMedioGraph> </div>
-      </div>
-
-      <!-- Graph: AFD -->
-      <div class="box" role="alert">
-        <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'AFD' | translate}}</h6>
-        <div class="section-info-line">
-          <div class="section-info-icon-ed" ><b>{{'group' | translate}}:</b></div>
-          <select (change)="onGroupChangeAFDEnsMedio($event.target.value)" class="custom-select">
-            <option *ngFor="let group of groupsAFDEnsMedio">{{group}}</option>
-          </select>
-        </div>
-        <div #AFDEnsMedioGraph> </div>
-      </div>
-
-      <!-- Graph: DCS  -->
-      <div id="box-DCSEnsMedio" class="box" role="alert" >
-        <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'DCS' | translate}}</h6>
-        <div #DCSEnsMedioGraph>
-        </div>
-      </div>
-
-      <!-- Graph: Horas por Aula - por Anos-->
-      <div id="box-horasAulaPorAnosEnsMedio" class="box" role="alert" >
-        <h6 class="alert-heading text-center"><i class="fa fa-clock-o fa-fw"></i> {{'horasAula' | translate}} <br> ({{'todosAnosTurmas' | translate}})</h6>
-        <div #horasAulaPorAnosEnsMedioGraph>
-        </div>
-      </div>
-
-      <!-- Graph: Horas por Aula - terceiro Ano-->
-      <div id="box-horasAulaAno3EnsMedio" class="box" role="alert" >
-        <h6 class="alert-heading text-center"><i class="fa fa-clock-o fa-fw"></i> {{'horasAula' | translate}} <br> ({{'terceiroAno'|translate}})</h6>
-        <div #horasAulaAno3EnsMedioGraph>
-        </div>
-      </div>
-
-      <!-- Graph: Alunos por turma - por Anos -->
-      <div id="box-alunosPorTurmaPorAnosEnsMedio" class="box" role="alert" >
-        <h6 class="alert-heading text-center"><i class="fa fa-users fa-fw"></i> {{'alunosPorTurma' | translate}} <br> ({{'todosAnosTurmas' | translate}})</h6>
-        <div #alunosPorTurmaPorAnosEnsMedioGraph>
-        </div>
-      </div>
-
-      <!-- Graph: Alunos por turma - Terceiro Ano -->
-      <div id="box-alunosPorTurmaAno3EnsMedio" class="box" role="alert" >
-        <h6 class="alert-heading text-center"><i class="fa fa-users fa-fw"></i> {{'alunosPorTurma' | translate}} <br> ({{'terceiroAno'|translate}})</h6>
-        <div #alunosPorTurmaAno3EnsMedioGraph>
-        </div>
-      </div>
-
-      <!-- Graph: ED -->
-      <div class="box" role="alert">
-        <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'ED' | translate}}</h6>
-        <div class="section-info-line">
-          <div class="section-info-icon-ed" ><b>{{'nivel' | translate}}:</b></div>
-          <select (change)="onNivelChangeEDEnsMedio($event.target.value)" class="custom-select">
-            <option *ngFor="let nivel of nivelesEDEnsMedio">{{nivel}}</option>
-          </select>
-        </div>
-        <div #EDEnsMedioGraph> </div>
-      </div>
-
     </div>
+    <!-- end tab Ensino Médio -->
   </div>
 </div>

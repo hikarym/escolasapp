@@ -504,9 +504,6 @@ button {
 }
 
 /*tabs*/
-.nav-tabs>li {
-  height:72px;
-}
 .nav-tabs>li>a, .nav-tabs>li>a>div {
   height:100%;
   display:table;
@@ -518,5 +515,5 @@ button {
 
 .nav-link {
   display: block;
-  padding: .5rem .8rem;
+  padding: .5rem .6rem;
 }

@@ -190,6 +190,13 @@
   "anosIniciaisCap": "ANOS INICIAIS",
   "anosFinaisCap": "ANOS FINAIS",
   "ensinoMedio": "Médio",
+  "ensMedPerformanceLine1": "Performance",
+  "ensMedPerformanceLine2": "aprendizado",
+  "ensMedDocentes": "Docentes",
+  "ensMedAulasLine1": "Aulas e",
+  "ensMedAulasLine2":"Turmas",
+  "ensMedNivelSocioecLine1": "Nível",
+  "ensMedNivelSocioecLine2": "Socieconôm.",
 
   "AFD": "Adequação Formação Docente",
   "group": "Grupos",
