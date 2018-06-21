@@ -157,6 +157,9 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
   private margin = {top: 15, right: 20, bottom: 20, left: 20};
   private width = 315;
   private height = 300;
+  // max value for bar scale
+  private maxValueEstruturaEmprego = 60;
+  private maxValuePerfilEducacional = 60;
   // Dimensions for grouped horizontal bar chart
   private chartWidth = 170;
   private barHeight        = 20;
@@ -203,19 +206,19 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
             // Estrutura ocupacional
             const dataForOcupAp = this.getPropertiesNamesAndValuesForNumbers(dataSesAp['ocup']);
-            this.generateHorizontalBarChart(dataForOcupAp, this.div_occupationalStructureByAPGraph, 50,
+            this.generateHorizontalBarChart(dataForOcupAp, this.div_occupationalStructureByAPGraph, this.maxValueEstruturaEmprego,
               this.width, this.height, {top: 15, right: 20, bottom: 20, left: 120});
 
             const dataForOcupRmsp = this.getPropertiesNamesAndValuesForNumbers(dataSesRMSP['ocup']);
-            this.generateHorizontalBarChart(dataForOcupRmsp, this.div_occupationalStructureByMetropoleGraph, 50,
+            this.generateHorizontalBarChart(dataForOcupRmsp, this.div_occupationalStructureByMetropoleGraph, this.maxValueEstruturaEmprego,
               this.width, this.height, {top: 15, right: 20, bottom: 20, left: 120});
 
             const dataForOcupBr = this.getPropertiesNamesAndValuesForNumbers(dataSesBr['ocup']);
-            this.generateHorizontalBarChart(dataForOcupBr, this.div_occupationalStructureByBrasilGraph, 50,
+            this.generateHorizontalBarChart(dataForOcupBr, this.div_occupationalStructureByBrasilGraph, this.maxValueEstruturaEmprego,
               this.width, this.height, {top: 15, right: 20, bottom: 20, left: 120});
 
             const dataForOcupSP = this.getPropertiesNamesAndValuesForNumbers(dataSesSP['ocup']);
-            this.generateHorizontalBarChart(dataForOcupSP, this.div_occupationalStructureByUFGraph, 50,
+            this.generateHorizontalBarChart(dataForOcupSP, this.div_occupationalStructureByUFGraph, this.maxValueEstruturaEmprego,
               this.width, this.height,  {top: 15, right: 20, bottom: 20, left: 120});
 
             // Perfil Educacional - alfabetização
@@ -242,19 +245,19 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
             const dataEduBr = this.brSpRmspSecInfo[1]['educacao'];
             const dataEduSP = this.brSpRmspSecInfo[0]['educacao'];
             const dataForRealizacaoAp = this.getPropertiesNamesAndValuesForNumbers(dataEduAp['realizacao']);
-            this.generateVerticalBarChart(dataForRealizacaoAp, this.div_profEduRealizacaoByAPGraph,
+            this.generateVerticalBarChart(dataForRealizacaoAp, this.div_profEduRealizacaoByAPGraph, this.maxValuePerfilEducacional,
               this.width, this.height, {top: 15, right: 20, bottom: 110, left: 20});
 
             const dataForRealizacaoRMSP = this.getPropertiesNamesAndValuesForNumbers(dataEduRMSP['realizacao']);
-            this.generateVerticalBarChart(dataForRealizacaoRMSP, this.div_profEduRealizacaoByMetropoleGraph,
+            this.generateVerticalBarChart(dataForRealizacaoRMSP, this.div_profEduRealizacaoByMetropoleGraph, this.maxValuePerfilEducacional,
               this.width, this.height, {top: 15, right: 20, bottom: 110, left: 20});
 
             const dataForRealizacaoBr = this.getPropertiesNamesAndValuesForNumbers(dataEduBr['realizacao']);
-            this.generateVerticalBarChart(dataForRealizacaoBr, this.div_profEduRealizacaoByUFGraph,
+            this.generateVerticalBarChart(dataForRealizacaoBr, this.div_profEduRealizacaoByUFGraph, this.maxValuePerfilEducacional,
               this.width, this.height, {top: 15, right: 20, bottom: 110, left: 20});
 
             const dataForRealizacaoSp = this.getPropertiesNamesAndValuesForNumbers(dataEduSP['realizacao']);
-            this.generateVerticalBarChart(dataForRealizacaoSp, this.div_profEduRealizacaoByBrasilGraph,
+            this.generateVerticalBarChart(dataForRealizacaoSp, this.div_profEduRealizacaoByBrasilGraph, this.maxValuePerfilEducacional,
               this.width, this.height, {top: 15, right: 20, bottom: 110, left: 20});
 
             // Alfabetização
@@ -677,6 +680,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     // const margin = {top: 20, right: 20, bottom: 30, left: 80};
     const width = divWidth - margin.left - margin.right;
     const height = divHeight - margin.top - margin.bottom;
+    const barHeight        = 20;
 
     // Remove all children from HTML
     d3.select(containerDiv.nativeElement).html('');
@@ -710,7 +714,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       .attr('class', 'y axis')
       .call(d3.axisLeft(y));
 
-    g.selectAll('.bar')
+    const bar = g.selectAll('.bar')
       .data(dataGraph)
       .enter().append('rect')
       .attr('class', 'bar')
@@ -726,6 +730,13 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
           .html((d.variableName) + '<br>' + (d.variableValue) + '%');
       })
       .on('mouseout', function(d) { tooltip.style('display', 'none'); });
+    // Add text label in bar
+    /*bar.append('text')
+      .attr('x', function(d) { return x(d) + 37; })
+      .attr('y', barHeight / 2)
+      // .attr('fill', 'red')
+      .attr('dy', '.35em')
+      .text(function(d) { return d + '%'; });*/
 
 
   }
@@ -738,7 +749,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
    * @param {number} divHeight
    * @param margin
    */
-  generateVerticalBarChart(dataGraph: any[], containerDiv: ElementRef,
+  generateVerticalBarChart(dataGraph: any[], containerDiv: ElementRef, maxValueInDomainY: number,
                            divWidth: number = this.width, divHeight: number = this.height, margin: any = this.margin) {
     // Define chart dimensions
     // const margin = {top: 15, right: 20, bottom: 100, left: 20};
@@ -766,9 +777,10 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       // Define domain data for X & Y axes from the data array
       const xDomain = dataGraph.map(d => d.variableName);
 
-      const yDomain = [0, d3.max(dataGraph, function (d) {
+      /*const yDomain = [0, d3.max(dataGraph, function (d) {
         return d.variableValue;
-      })];
+      })];*/
+      const yDomain = [0, maxValueInDomainY];
 
       // Set the scale for X & Y
       const x = d3.scaleBand()
