@@ -680,7 +680,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     // const margin = {top: 20, right: 20, bottom: 30, left: 80};
     const width = divWidth - margin.left - margin.right;
     const height = divHeight - margin.top - margin.bottom;
-    const barHeight        = 20;
+    const barHeight        = 24;
 
     // Remove all children from HTML
     d3.select(containerDiv.nativeElement).html('');
@@ -730,14 +730,16 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
           .html((d.variableName) + '<br>' + (d.variableValue) + '%');
       })
       .on('mouseout', function(d) { tooltip.style('display', 'none'); });
-    // Add text label in bar
-    /*bar.append('text')
-      .attr('x', function(d) { return x(d) + 37; })
-      .attr('y', barHeight / 2)
-      // .attr('fill', 'red')
-      .attr('dy', '.35em')
-      .text(function(d) { return d + '%'; });*/
 
+    // Add text label in bar
+    g.selectAll('.barLabel')
+      .data(dataGraph)
+      .enter().append('text')
+      .attr('class', 'barLabel')
+      .attr('y', function(d) { return y(d.variableName); })
+      .attr('x', function(d) { return x(d.variableValue) + 5; })
+      .attr('dy', '1.35em')
+      .text(function(d) { return d.variableValue + '%'; });
 
   }
 
@@ -771,7 +773,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
       // Define chart plot area
       const chart = svg.append('g')
-        .attr('class', 'bar')
+        // .attr('class', 'bar')
         .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
       // Define domain data for X & Y axes from the data array
@@ -835,6 +837,17 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
         .on('mouseout', function (d) {
           tooltip.style('display', 'none');
         });
+
+      // Add text label in bar
+      chart.selectAll('.barLabel')
+        .data(dataGraph)
+        .enter().append('text')
+        .attr('class', 'barLabel')
+        // .style('color', '#212529')
+        .attr('y', function(d) { return y(d.variableValue) - 5; })
+        .attr('x', function(d) { return x(d.variableName); })
+        .attr('dx', '1.6em')
+        .text(function(d) { return d.variableValue + '%';  });
     }
   }
 
