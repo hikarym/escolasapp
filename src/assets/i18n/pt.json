@@ -197,6 +197,10 @@
   "ensMedAulasLine2":"Turmas",
   "ensMedNivelSocioecLine1": "Nível",
   "ensMedNivelSocioecLine2": "Socieconôm.",
+  "naoOfereceEnsinoInfantil": "Esta escola não oferece Ensino Infantil",
+  "ofereceEnsinoInfantil": "Oferece ensino infantil",
+  "naoOfereceEnsinoFundamental": "Esta escola não oferece Ensino Fundamental",
+  "naoOfereceEnsinoMedio": "Esta escola não oferece Ensino Médio",
 
   "AFD": "Adequação Formação Docente",
   "group": "Grupos",

@@ -167,6 +167,10 @@ export class GraphsComponent implements OnInit, OnDestroy {
     'primeiraSerie', 'terceiraSerie',
     'INSEAB', 'INSECL', 'provas'
   ];
+  // flags
+  ofereceEnsInfantil = '';
+  ofereceEnsFundamental = '';
+  ofereceEnsMedio = '';
 
   constructor(private sharedDataService: ShareddataService,
               private translate: TranslateService) {
@@ -176,6 +180,55 @@ export class GraphsComponent implements OnInit, OnDestroy {
     const s = this.sharedDataService.getSchoolInformation().subscribe(
       res => {
         this.schoolSelected = res;
+        // Verify if the school offers 'ensino infantil'
+        const ofereceEnsInfantilRegular = this.schoolSelected['modalidade']['regular']['Infantil'];
+        const ofereceEnsInfantilEspecial = this.schoolSelected['modalidade']['especial']['Infantil'];
+        const domGraficosEnsInfantil: any = document.querySelector('#graficosEnsInfantil');
+
+        if (this.verifyScholarLevelOffering(ofereceEnsInfantilRegular) === 0 &&
+          this.verifyScholarLevelOffering(ofereceEnsInfantilEspecial) === 0) {
+          this.ofereceEnsInfantil = this.getInstant('naoOfereceEnsinoInfantil');
+          domGraficosEnsInfantil.classList.add('hide-section');
+        }  else {
+          domGraficosEnsInfantil.classList.remove('hide-section');
+          this.ofereceEnsInfantil = '';
+        }
+
+        // Verify if the school offers 'ensino Fundamental'
+        const ofereceEnsFundamentalRegular = this.schoolSelected['modalidade']['regular']['Fundamental'];
+        const ofereceEnsFundamentalEja = this.schoolSelected['modalidade']['eja']['Fundamental'];
+        const ofereceEnsFundamentalEspecial = this.schoolSelected['modalidade']['especial']['Fundamental'];
+        const domGraficosEnsFundamental: any = document.querySelector('#graficosEnsFundamental');
+
+        if (this.verifyScholarLevelOffering(ofereceEnsFundamentalRegular) === 0 &&
+          this.verifyScholarLevelOffering(ofereceEnsFundamentalEja) === 0 &&
+          this.verifyScholarLevelOffering(ofereceEnsFundamentalEspecial) === 0 ) {
+          this.ofereceEnsFundamental = this.getInstant('naoOfereceEnsinoFundamental');
+          domGraficosEnsFundamental.classList.add('hide-section');
+        } else {
+          domGraficosEnsFundamental.classList.remove('hide-section');
+          this.ofereceEnsFundamental = '';
+        }
+
+        // Verify if the school offers 'ensino Médio'
+        const ofereceEnsMedioRegular = this.schoolSelected['modalidade']['regular']['Medio'];
+        const ofereceEnsMedioEja = this.schoolSelected['modalidade']['eja']['Medio'];
+        const ofereceEnsMedioProfissional = this.schoolSelected['modalidade']['profissional']['Medio'];
+        const ofereceEnsMedioEspecial = this.schoolSelected['modalidade']['especial']['Medio'];
+        const domGraficosEnsMedio: any = document.querySelector('#graficosEnsMedio');
+
+        if (this.verifyScholarLevelOffering(ofereceEnsMedioRegular) === 0 &&
+          this.verifyScholarLevelOffering(ofereceEnsMedioEja) === 0 &&
+          this.verifyScholarLevelOffering(ofereceEnsMedioProfissional) === 0 &&
+          this.verifyScholarLevelOffering(ofereceEnsMedioEspecial) === 0 ) {
+          this.ofereceEnsMedio = this.getInstant('naoOfereceEnsinoMedio');
+          domGraficosEnsMedio.classList.add('hide-section');
+        } else {
+          domGraficosEnsMedio.classList.remove('hide-section');
+          this.ofereceEnsMedio = '';
+        }
+
+
 
         // --- 1. Ensino Infantil
         // AFD
@@ -349,7 +402,7 @@ export class GraphsComponent implements OnInit, OnDestroy {
         const dadosProvasEnemEnsMedio = this.getDadosDoIndicador(this.indicadores[12], this.niveis[2], this.categorias[12]);
         this.anosProvasEnemEnsMedio = Object.keys(dadosProvasEnemEnsMedio);
         this.showGraphByGroups(this.indicadores[12], this.niveis[2], this.categorias[12], this.anosProvasEnemEnsMedio[0],
-          this.div_provasEnemEnsMedioGraph, this.valuesUnit, this.width, 320,{top: 15, right: 20, bottom: 110, left: 20});
+          this.div_provasEnemEnsMedioGraph, this.valuesUnit, this.width, 320, {top: 15, right: 20, bottom: 110, left: 20});
 
         // AFD
         const dadosAFDEnsMedio = this.getDadosDoIndicador(this.indicadores[0], this.niveis[2], '');
@@ -497,6 +550,15 @@ export class GraphsComponent implements OnInit, OnDestroy {
       this.buildVerticalBarChart(dataForGraph, containerDiv, valuesUnit, divWidth, divHeight, margin);
     } else {
       dom.classList.add('hide-section');
+    }
+  }
+
+  addRemoveClass(boxContainer: string, addClass: boolean) {
+    const dom: any = document.querySelector(boxContainer);
+    if (addClass) {
+      dom.classList.add('hide-section');
+    } else {
+      dom.classList.remove('hide-section');
     }
   }
 
@@ -708,6 +770,44 @@ export class GraphsComponent implements OnInit, OnDestroy {
       }
     }
     return data;
+  }
+
+  /**
+   * Function to verify if a school offers a scholaship level
+   * @param document
+   * @returns {number}
+   */
+  verifyScholarLevelOffering(document: any) {
+    const prop = Object.keys(document);
+    const numberOfProp = prop.length;
+    // sublevels that offer this type of scholarship
+    let sublevels = 0;
+    for (let i = 0; i < numberOfProp; i++) {
+      if (typeof  document[prop[i]] === 'object') {
+        const subnivel = document[prop[i]];
+        sublevels += this.verifyYearsOfScholarLevel(subnivel).length > 0 ? 1 : 0;
+      }
+    }
+    return sublevels;
+  }
+
+  verifyYearsOfScholarLevel(document: any) {
+    const prop = Object.keys(document);
+    const numberOfProp = prop.length;
+    const anos = [];
+    for (let i = 0; i < numberOfProp; i++) {
+      if (typeof document[prop[i]] === 'string' && document[prop[i]] !== 'NA') {
+        if (document[prop[i]].toUpperCase() === 'SIM') {
+          anos.push(prop[i].substring(4)); // For example, remove 'ano' of field 'ano2015'
+        }
+      }
+      if (typeof document[prop[i]] === 'object') {
+        if (this.verifyYearsOfScholarLevel(document[prop[i]]).length > 0) {
+          anos.push(prop[i]); // For example, remove 'ano' of field 'ano2015'
+        }
+      }
+    }
+    return anos;
   }
 
   /**
