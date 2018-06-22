@@ -171,6 +171,8 @@ export class GraphsComponent implements OnInit, OnDestroy {
   ofereceEnsInfantil = '';
   ofereceEnsFundamental = '';
   ofereceEnsMedio = '';
+  ofereceAIniciais = '';
+  ofereceAFinais = '';
 
   constructor(private sharedDataService: ShareddataService,
               private translate: TranslateService) {
@@ -228,6 +230,33 @@ export class GraphsComponent implements OnInit, OnDestroy {
           this.ofereceEnsMedio = '';
         }
 
+        // Verify if the school offers 'ensino Fundamental - Anos iniciais'
+        const ofereceAIniciaisRegular = this.schoolSelected['modalidade']['regular']['Fundamental']['AnosIniciais'];
+        const ofereceAIniciaisEspecial = this.schoolSelected['modalidade']['especial']['Fundamental']['AnosIniciais'];
+        const domGraficosAIniciais: any = document.querySelector('#graficosAIniciais');
+
+        if (this.verifyYearsOfScholarLevel(ofereceAIniciaisRegular).length === 0 &&
+          this.verifyYearsOfScholarLevel(ofereceAIniciaisEspecial).length === 0 ) {
+          this.ofereceAIniciais = this.getInstant('naoOfereceAIniciais');
+          domGraficosAIniciais.classList.add('hide-section');
+        } else {
+          domGraficosAIniciais.classList.remove('hide-section');
+          this.ofereceAIniciais = '';
+        }
+
+        // Verify if the school offers 'ensino Fundamental - Anos finais'
+        const ofereceAFinaisRegular = this.schoolSelected['modalidade']['regular']['Fundamental']['AnosFinais'];
+        const ofereceAFinaisEspecial = this.schoolSelected['modalidade']['especial']['Fundamental']['AnosFinais'];
+        const domGraficosAFinais: any = document.querySelector('#graficosAFinais');
+
+        if (this.verifyYearsOfScholarLevel(ofereceAFinaisRegular).length === 0 &&
+          this.verifyYearsOfScholarLevel(ofereceAFinaisEspecial).length === 0 ) {
+          this.ofereceAFinais = this.getInstant('naoOfereceAFinais');
+          domGraficosAFinais.classList.add('hide-section');
+        } else {
+          domGraficosAFinais.classList.remove('hide-section');
+          this.ofereceAFinais = '';
+        }
 
 
         // --- 1. Ensino Infantil

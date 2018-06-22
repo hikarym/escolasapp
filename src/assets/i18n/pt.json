@@ -201,6 +201,8 @@
   "ofereceEnsinoInfantil": "Oferece ensino infantil",
   "naoOfereceEnsinoFundamental": "Esta escola não oferece Ensino Fundamental",
   "naoOfereceEnsinoMedio": "Esta escola não oferece Ensino Médio",
+  "naoOfereceAIniciais": "Esta escola não oferece a etapa \"Anos Iniciais\" (1º a 5º ano) do Ensino Fundamental",
+  "naoOfereceAFinais": "Esta escola não oferece a etapa \"Anos Finais\" (6º a 9º ano) do Ensino Fundamental",
 
   "AFD": "Adequação Formação Docente",
   "group": "Grupos",

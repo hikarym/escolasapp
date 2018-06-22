@@ -22,11 +22,10 @@
     </a>
   </div>
 
-
   <div class="tab-content" id="pills-tabContent">
     <!-- Tab content for 'Ensino Infantil' -->
     <div class="tab-pane fade show active" id="pills-infantil" role="tabpanel" aria-labelledby="pills-infantil-tab">
-      <div class="text-info text-center mt-4" style="font-size: small" *ngIf="ofereceEnsInfantil !== ''">
+      <div class="text-info text-center mt-4 ml-2 mr-2" style="font-size: small" *ngIf="ofereceEnsInfantil !== ''">
         {{ofereceEnsInfantil}}
       </div>
 
@@ -68,7 +67,7 @@
 
     <!-- Tab content for 'Ensino Fundamental' -->
     <div class="tab-pane fade" id="pills-fundamental" role="tabpanel" aria-labelledby="pills-fundamental-tab">
-      <div class="text-info text-center mt-4" style="font-size: small" *ngIf="ofereceEnsFundamental !== ''">
+      <div class="text-info text-center mt-4 ml-2 mr-2" style="font-size: small" *ngIf="ofereceEnsFundamental !== ''">
         {{ofereceEnsFundamental}}
       </div>
       <!--tab -->
@@ -85,176 +84,184 @@
         </ul>
         <div class="tab-content" id="ensFundTabContent">
           <div class="tab-pane fade show active" id="ensFundAIniciaisPanel" role="tabpanel" aria-labelledby="tabEnsFundAIniciais">
-            <!-- Taxa de Aprovação -->
-            <div id="box-txAprovEnsFundAIniciais" class="box" role="alert" >
-              <h6 class="alert-heading text-center"><i class="fa fa-check-circle fa-fw"></i> {{'txAprov'|translate}} </h6>
-              <div #txAprovEnsFundAIniciaisGraph></div>
+            <div class="text-info text-center mt-4 ml-2 mr-2" style="font-size: small" *ngIf="ofereceAIniciais !== ''">
+              {{ofereceAIniciais}}
             </div>
-
-            <!-- Prova de matemática -->
-            <div id="box-ntProvaMatEnsFundAIniciais" class="box" role="alert" >
-              <h6 class="alert-heading text-center"><i class="fa fa-plus-circle fa-fw"></i> {{'ntProvaMat'|translate}} </h6>
-              <div #ntProvaMatEnsFundAIniciaisGraph></div>
-            </div>
-
-            <!-- Nota Lingua Portuguesa -->
-            <div id="box-ntProvaPortuEnsFundAIniciais" class="box" role="alert" >
-              <h6 class="alert-heading text-center"><i class="fa fa-book fa-fw"></i> {{'ntProvaPortu'|translate}} </h6>
-              <div #ntProvaPortuEnsFundAIniciaisGraph></div>
-            </div>
-
-            <!-- Nota Média Padronizada -->
-            <div id="box-ntProvaPadronizEnsFundAIniciais" class="box" role="alert" >
-              <h6 class="alert-heading text-center"><i class="fa fa-th-large fa-fw"></i> {{'ntProvaPadroniz'|translate}} </h6>
-              <div #ntProvaPadronizEnsFundAIniciaisGraph></div>
-            </div>
-
-            <!-- Nota IDEB -->
-            <div id="box-idebEnsFundAIniciais" class="box" role="alert" >
-              <h6 class="alert-heading text-center"><i class="fa fa-th-large fa-fw"></i> {{'ideb'|translate}} </h6>
-              <div #idebEnsFundAIniciaisGraph></div>
-            </div>
-
-            <!-- Graph: AFD -->
-            <div class="box" role="alert">
-              <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'AFD' | translate}}</h6>
-              <div class="section-info-line">
-                <div class="section-info-icon-ed" ><b>{{'group' | translate}}:</b></div>
-                <select (change)="onGroupChangeAFDEnsFundAIniciais($event.target.value)" class="custom-select">
-                  <option *ngFor="let group of groupsAFDEnsFundAIniciais">{{group}}</option>
-                </select>
+            <div id="graficosAIniciais">
+              <!-- Taxa de Aprovação -->
+              <div id="box-txAprovEnsFundAIniciais" class="box" role="alert" >
+                <h6 class="alert-heading text-center"><i class="fa fa-check-circle fa-fw"></i> {{'txAprov'|translate}} </h6>
+                <div #txAprovEnsFundAIniciaisGraph></div>
               </div>
-              <div #AFDEnsFundAIniciaisGraph></div>
-            </div>
 
-            <!-- Graph: DCS  -->
-            <div id="box-DCSEnsFundAIniciais" class="box" role="alert" >
-              <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'DCS' | translate}}</h6>
-              <div #DCSEnsFundAIniciaisGraph></div>
-            </div>
-
-            <!-- Graph: Horas Aula - Regime 8 anos -->
-            <div id="box-horasAulaEnsFundAIniciais8" class="box" role="alert" >
-              <h6 class="alert-heading text-center"><i class="fa fa-clock-o fa-fw"></i> {{'horasAula' | translate}}  <br> ({{'sistema8Anos'|translate}})</h6>
-              <div #horasAulaEnsFundAIniciais8Graph></div>
-            </div>
-
-            <!-- Graph: Horas Aula - Regime 9 anos -->
-            <div id="box-horasAulaEnsFundAIniciais9" class="box" role="alert" >
-              <h6 class="alert-heading text-center"><i class="fa fa-clock-o fa-fw"></i> {{'horasAula' | translate}}  <br> ({{'sistema9Anos'|translate}})</h6>
-              <div #horasAulaEnsFundAIniciais9Graph></div>
-            </div>
-
-            <!-- Graph: Alunos por turma - Regime 8 anos -->
-            <div id="box-alunosPorTurmaEnsFundAIniciais8" class="box" role="alert" >
-              <h6 class="alert-heading text-center"><i class="fa fa-users fa-fw"></i> {{'alunosPorTurma' | translate}}  <br> ({{'sistema8Anos'|translate}})</h6>
-              <div #alunosPorTurmaEnsFundAIniciais8Graph></div>
-            </div>
-
-            <!-- Graph: Alunos por turma - Regime 9 anos -->
-            <div id="box-alunosPorTurmaEnsFundAIniciais9" class="box" role="alert" >
-              <h6 class="alert-heading text-center"><i class="fa fa-users fa-fw"></i> {{'alunosPorTurma' | translate}}  <br> ({{'sistema9Anos'|translate}})</h6>
-              <div #alunosPorTurmaEnsFundAIniciais9Graph></div>
-            </div>
-
-            <!-- Graph: ED -->
-            <div class="box" role="alert">
-              <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'ED' | translate}}</h6>
-              <div class="section-info-line">
-                <div class="section-info-icon-ed" ><b>{{'nivel' | translate}}:</b></div>
-                <select (change)="onNivelChangeEDEnsFundAIniciais($event.target.value)" class="custom-select">
-                  <option *ngFor="let nivel of nivelesEDEnsFundAIniciais">{{nivel}}</option>
-                </select>
+              <!-- Prova de matemática -->
+              <div id="box-ntProvaMatEnsFundAIniciais" class="box" role="alert" >
+                <h6 class="alert-heading text-center"><i class="fa fa-plus-circle fa-fw"></i> {{'ntProvaMat'|translate}} </h6>
+                <div #ntProvaMatEnsFundAIniciaisGraph></div>
               </div>
-              <div #EDEnsFundAIniciaisGraph> </div>
-            </div>
 
+              <!-- Nota Lingua Portuguesa -->
+              <div id="box-ntProvaPortuEnsFundAIniciais" class="box" role="alert" >
+                <h6 class="alert-heading text-center"><i class="fa fa-book fa-fw"></i> {{'ntProvaPortu'|translate}} </h6>
+                <div #ntProvaPortuEnsFundAIniciaisGraph></div>
+              </div>
+
+              <!-- Nota Média Padronizada -->
+              <div id="box-ntProvaPadronizEnsFundAIniciais" class="box" role="alert" >
+                <h6 class="alert-heading text-center"><i class="fa fa-th-large fa-fw"></i> {{'ntProvaPadroniz'|translate}} </h6>
+                <div #ntProvaPadronizEnsFundAIniciaisGraph></div>
+              </div>
+
+              <!-- Nota IDEB -->
+              <div id="box-idebEnsFundAIniciais" class="box" role="alert" >
+                <h6 class="alert-heading text-center"><i class="fa fa-th-large fa-fw"></i> {{'ideb'|translate}} </h6>
+                <div #idebEnsFundAIniciaisGraph></div>
+              </div>
+
+              <!-- Graph: AFD -->
+              <div class="box" role="alert">
+                <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'AFD' | translate}}</h6>
+                <div class="section-info-line">
+                  <div class="section-info-icon-ed" ><b>{{'group' | translate}}:</b></div>
+                  <select (change)="onGroupChangeAFDEnsFundAIniciais($event.target.value)" class="custom-select">
+                    <option *ngFor="let group of groupsAFDEnsFundAIniciais">{{group}}</option>
+                  </select>
+                </div>
+                <div #AFDEnsFundAIniciaisGraph></div>
+              </div>
+
+              <!-- Graph: DCS  -->
+              <div id="box-DCSEnsFundAIniciais" class="box" role="alert" >
+                <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'DCS' | translate}}</h6>
+                <div #DCSEnsFundAIniciaisGraph></div>
+              </div>
+
+              <!-- Graph: Horas Aula - Regime 8 anos -->
+              <div id="box-horasAulaEnsFundAIniciais8" class="box" role="alert" >
+                <h6 class="alert-heading text-center"><i class="fa fa-clock-o fa-fw"></i> {{'horasAula' | translate}}  <br> ({{'sistema8Anos'|translate}})</h6>
+                <div #horasAulaEnsFundAIniciais8Graph></div>
+              </div>
+
+              <!-- Graph: Horas Aula - Regime 9 anos -->
+              <div id="box-horasAulaEnsFundAIniciais9" class="box" role="alert" >
+                <h6 class="alert-heading text-center"><i class="fa fa-clock-o fa-fw"></i> {{'horasAula' | translate}}  <br> ({{'sistema9Anos'|translate}})</h6>
+                <div #horasAulaEnsFundAIniciais9Graph></div>
+              </div>
+
+              <!-- Graph: Alunos por turma - Regime 8 anos -->
+              <div id="box-alunosPorTurmaEnsFundAIniciais8" class="box" role="alert" >
+                <h6 class="alert-heading text-center"><i class="fa fa-users fa-fw"></i> {{'alunosPorTurma' | translate}}  <br> ({{'sistema8Anos'|translate}})</h6>
+                <div #alunosPorTurmaEnsFundAIniciais8Graph></div>
+              </div>
+
+              <!-- Graph: Alunos por turma - Regime 9 anos -->
+              <div id="box-alunosPorTurmaEnsFundAIniciais9" class="box" role="alert" >
+                <h6 class="alert-heading text-center"><i class="fa fa-users fa-fw"></i> {{'alunosPorTurma' | translate}}  <br> ({{'sistema9Anos'|translate}})</h6>
+                <div #alunosPorTurmaEnsFundAIniciais9Graph></div>
+              </div>
+
+              <!-- Graph: ED -->
+              <div class="box" role="alert">
+                <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'ED' | translate}}</h6>
+                <div class="section-info-line">
+                  <div class="section-info-icon-ed" ><b>{{'nivel' | translate}}:</b></div>
+                  <select (change)="onNivelChangeEDEnsFundAIniciais($event.target.value)" class="custom-select">
+                    <option *ngFor="let nivel of nivelesEDEnsFundAIniciais">{{nivel}}</option>
+                  </select>
+                </div>
+                <div #EDEnsFundAIniciaisGraph> </div>
+              </div>
+            </div>
           </div>
           <div class="tab-pane fade show" id="ensFundAFinaisPanel" role="tabpanel" aria-labelledby="tabEnsFundAFinais">
-            <!-- Taxa de Aprovação -->
-            <div id="box-txAprovEnsFundAFinais" class="box" role="alert" >
-              <h6 class="alert-heading text-center"><i class="fa fa-check-circle fa-fw"></i> {{'txAprov'|translate}}</h6>
-              <div #txAprovEnsFundAFinaisGraph> </div>
+            <div class="text-info text-center mt-4 ml-2 mr-2" style="font-size: small" *ngIf="ofereceAFinais !== ''">
+              {{ofereceAFinais}}
             </div>
-
-            <!-- Prova de matemática -->
-            <div id="box-ntProvaMatEnsFundAFinais" class="box" role="alert" >
-              <h6 class="alert-heading text-center"><i class="fa fa-plus-circle fa-fw"></i> {{'ntProvaMat'|translate}} </h6>
-              <div #ntProvaMatEnsFundAFinaisGraph></div>
-            </div>
-
-            <!-- Nota Lingua Portuguesa -->
-            <div id="box-ntProvaPortuEnsFundAFinais" class="box" role="alert" >
-              <h6 class="alert-heading text-center"><i class="fa fa-book fa-fw"></i> {{'ntProvaPortu'|translate}} </h6>
-              <div #ntProvaPortuEnsFundAFinaisGraph></div>
-            </div>
-
-            <!-- Nota Média Padronizada -->
-            <div id="box-ntProvaPadronizEnsFundAFinais" class="box" role="alert" >
-              <h6 class="alert-heading text-center"><i class="fa fa-th-large fa-fw"></i> {{'ntProvaPadroniz'|translate}} </h6>
-              <div #ntProvaPadronizEnsFundAFinaisGraph></div>
-            </div>
-
-            <!-- Nota IDEB -->
-            <div id="box-idebEnsFundAFinais" class="box" role="alert" >
-              <h6 class="alert-heading text-center"><i class="fa fa-th-large fa-fw"></i> {{'ideb'|translate}} </h6>
-              <div #idebEnsFundAFinaisGraph></div>
-            </div>
-
-            <!-- Graph: AFD -->
-            <div class="box" role="alert">
-              <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'AFD' | translate}}</h6>
-              <div class="section-info-line">
-                <div class="section-info-icon-ed" ><b>{{'group' | translate}}:</b></div>
-                <select (change)="onGroupChangeAFDEnsFundAFinais($event.target.value)" class="custom-select">
-                  <option *ngFor="let group of groupsAFDEnsFundAFinais">{{group}}</option>
-                </select>
+            <div id="graficosAFinais">
+              <!-- Taxa de Aprovação -->
+              <div id="box-txAprovEnsFundAFinais" class="box" role="alert" >
+                <h6 class="alert-heading text-center"><i class="fa fa-check-circle fa-fw"></i> {{'txAprov'|translate}}</h6>
+                <div #txAprovEnsFundAFinaisGraph> </div>
               </div>
-              <div #AFDEnsFundAFinaisGraph> </div>
-            </div>
 
-            <!-- Graph: DCS  -->
-            <div id="box-DCSEnsFundAFinais" class="box" role="alert" >
-              <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'DCS' | translate}}</h6>
-              <div #DCSEnsFundAFinaisGraph></div>
-            </div>
-
-            <!-- Graph: Horas Aula - Regime 8 anos -->
-            <div id="box-horasAulaEnsFundAFinais8" class="box" role="alert" >
-              <h6 class="alert-heading text-center"><i class="fa fa-clock-o fa-fw"></i> {{'horasAula' | translate}} <br> ({{'sistema8Anos'|translate}})</h6>
-              <div #horasAulaEnsFundAFinais8Graph></div>
-            </div>
-
-            <!-- Graph: Horas Aula - Regime 9 anos -->
-            <div id="box-horasAulaEnsFundAFinais9" class="box" role="alert" >
-              <h6 class="alert-heading text-center"><i class="fa fa-clock-o fa-fw"></i> {{'horasAula' | translate}} <br> ({{'sistema9Anos'|translate}})</h6>
-              <div #horasAulaEnsFundAFinais9Graph></div>
-            </div>
-
-            <!-- Graph: Alunos por turma - Regime 8 anos -->
-            <div id="box-alunosPorTurmaEnsFundAFinais8" class="box" role="alert" >
-              <h6 class="alert-heading text-center"><i class="fa fa-users fa-fw"></i> {{'alunosPorTurma' | translate}} <br> ({{'sistema8Anos'|translate}})</h6>
-              <div #alunosPorTurmaEnsFundAFinais8Graph></div>
-            </div>
-
-            <!-- Graph: Alunos por turma - Regime 9 anos -->
-            <div id="box-alunosPorTurmaEnsFundAFinais9" class="box" role="alert" >
-              <h6 class="alert-heading text-center"><i class="fa fa-users fa-fw"></i> {{'alunosPorTurma' | translate}} <br> ({{'sistema9Anos'|translate}})</h6>
-              <div #alunosPorTurmaEnsFundAFinais9Graph></div>
-            </div>
-
-            <!-- Graph: ED -->
-            <div class="box" role="alert">
-              <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'ED' | translate}}</h6>
-              <div class="section-info-line">
-                <div class="section-info-icon-ed" ><b>{{'nivel' | translate}}:</b></div>
-                <select (change)="onNivelChangeEDEnsFundAFinais($event.target.value)" class="custom-select">
-                  <option *ngFor="let nivel of nivelesEDEnsFundAFinais">{{nivel}}</option>
-                </select>
+              <!-- Prova de matemática -->
+              <div id="box-ntProvaMatEnsFundAFinais" class="box" role="alert" >
+                <h6 class="alert-heading text-center"><i class="fa fa-plus-circle fa-fw"></i> {{'ntProvaMat'|translate}} </h6>
+                <div #ntProvaMatEnsFundAFinaisGraph></div>
               </div>
-              <div #EDEnsFundAFinaisGraph> </div>
-            </div>
 
+              <!-- Nota Lingua Portuguesa -->
+              <div id="box-ntProvaPortuEnsFundAFinais" class="box" role="alert" >
+                <h6 class="alert-heading text-center"><i class="fa fa-book fa-fw"></i> {{'ntProvaPortu'|translate}} </h6>
+                <div #ntProvaPortuEnsFundAFinaisGraph></div>
+              </div>
+
+              <!-- Nota Média Padronizada -->
+              <div id="box-ntProvaPadronizEnsFundAFinais" class="box" role="alert" >
+                <h6 class="alert-heading text-center"><i class="fa fa-th-large fa-fw"></i> {{'ntProvaPadroniz'|translate}} </h6>
+                <div #ntProvaPadronizEnsFundAFinaisGraph></div>
+              </div>
+
+              <!-- Nota IDEB -->
+              <div id="box-idebEnsFundAFinais" class="box" role="alert" >
+                <h6 class="alert-heading text-center"><i class="fa fa-th-large fa-fw"></i> {{'ideb'|translate}} </h6>
+                <div #idebEnsFundAFinaisGraph></div>
+              </div>
+
+              <!-- Graph: AFD -->
+              <div class="box" role="alert">
+                <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'AFD' | translate}}</h6>
+                <div class="section-info-line">
+                  <div class="section-info-icon-ed" ><b>{{'group' | translate}}:</b></div>
+                  <select (change)="onGroupChangeAFDEnsFundAFinais($event.target.value)" class="custom-select">
+                    <option *ngFor="let group of groupsAFDEnsFundAFinais">{{group}}</option>
+                  </select>
+                </div>
+                <div #AFDEnsFundAFinaisGraph> </div>
+              </div>
+
+              <!-- Graph: DCS  -->
+              <div id="box-DCSEnsFundAFinais" class="box" role="alert" >
+                <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'DCS' | translate}}</h6>
+                <div #DCSEnsFundAFinaisGraph></div>
+              </div>
+
+              <!-- Graph: Horas Aula - Regime 8 anos -->
+              <div id="box-horasAulaEnsFundAFinais8" class="box" role="alert" >
+                <h6 class="alert-heading text-center"><i class="fa fa-clock-o fa-fw"></i> {{'horasAula' | translate}} <br> ({{'sistema8Anos'|translate}})</h6>
+                <div #horasAulaEnsFundAFinais8Graph></div>
+              </div>
+
+              <!-- Graph: Horas Aula - Regime 9 anos -->
+              <div id="box-horasAulaEnsFundAFinais9" class="box" role="alert" >
+                <h6 class="alert-heading text-center"><i class="fa fa-clock-o fa-fw"></i> {{'horasAula' | translate}} <br> ({{'sistema9Anos'|translate}})</h6>
+                <div #horasAulaEnsFundAFinais9Graph></div>
+              </div>
+
+              <!-- Graph: Alunos por turma - Regime 8 anos -->
+              <div id="box-alunosPorTurmaEnsFundAFinais8" class="box" role="alert" >
+                <h6 class="alert-heading text-center"><i class="fa fa-users fa-fw"></i> {{'alunosPorTurma' | translate}} <br> ({{'sistema8Anos'|translate}})</h6>
+                <div #alunosPorTurmaEnsFundAFinais8Graph></div>
+              </div>
+
+              <!-- Graph: Alunos por turma - Regime 9 anos -->
+              <div id="box-alunosPorTurmaEnsFundAFinais9" class="box" role="alert" >
+                <h6 class="alert-heading text-center"><i class="fa fa-users fa-fw"></i> {{'alunosPorTurma' | translate}} <br> ({{'sistema9Anos'|translate}})</h6>
+                <div #alunosPorTurmaEnsFundAFinais9Graph></div>
+              </div>
+
+              <!-- Graph: ED -->
+              <div class="box" role="alert">
+                <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'ED' | translate}}</h6>
+                <div class="section-info-line">
+                  <div class="section-info-icon-ed" ><b>{{'nivel' | translate}}:</b></div>
+                  <select (change)="onNivelChangeEDEnsFundAFinais($event.target.value)" class="custom-select">
+                    <option *ngFor="let nivel of nivelesEDEnsFundAFinais">{{nivel}}</option>
+                  </select>
+                </div>
+                <div #EDEnsFundAFinaisGraph> </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -263,7 +270,7 @@
 
     <!-- Tab content for 'Ensino Médio' -->
     <div class="tab-pane fade" id="pills-medio" role="tabpanel" aria-labelledby="pills-medio-tab">
-      <div class="text-info text-center mt-4" style="font-size: small" *ngIf="ofereceEnsMedio !== ''">
+      <div class="text-info text-center mt-4 ml-2 mr-2" style="font-size: small" *ngIf="ofereceEnsMedio !== ''">
         {{ofereceEnsMedio}}
       </div>
       <div id="graficosEnsMedio">
