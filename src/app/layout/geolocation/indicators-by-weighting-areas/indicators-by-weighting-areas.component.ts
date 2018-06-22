@@ -199,8 +199,8 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
             // Tabela socieconômica
             const dataSesAp = this.weightingAreaInfo['ses'];
             const dataSesRMSP = this.brSpRmspSecInfo[2]['ses'];
-            const dataSesBr = this.brSpRmspSecInfo[1]['ses'];
-            const dataSesSP = this.brSpRmspSecInfo[0]['ses'];
+            const dataSesBr = this.brSpRmspSecInfo[0]['ses'];
+            const dataSesSP = this.brSpRmspSecInfo[1]['ses'];
             const dataComparativeTable = this.buildDataForComparativeTable(dataSesAp, dataSesRMSP, dataSesSP, dataSesBr);
             this.generateTableGraph(dataComparativeTable, this.div_comparativeTableGraph);
 
@@ -231,19 +231,19 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
             this.generatePieGraph(dataForAlfaApRMSP, this.div_profEduAlfabByMetropoleGraph, panelWidth, panelHeight,
               this.getInstant('tabRMSP') + this.getInstant('tabRMSP-Subtitle'));
 
-            const dataForAlfaSP = this.buildDataForProfileEducationalGraph(this.brSpRmspSecInfo[0]);
-            this.generatePieGraph(dataForAlfaSP, this.div_profEduAlfabByUFGraph, panelWidth, panelHeight,
-              this.getInstant('tabSP') + this.getInstant('tabSP-subtitle'));
-
-            const dataForAlfaBr = this.buildDataForProfileEducationalGraph(this.brSpRmspSecInfo[1]);
+            const dataForAlfaBr = this.buildDataForProfileEducationalGraph(this.brSpRmspSecInfo[0]);
             this.generatePieGraph(dataForAlfaBr, this.div_profEduAlfabByBrasilGraph, panelWidth, panelHeight,
               this.getInstant('tabBrasil'));
+
+            const dataForAlfaSP = this.buildDataForProfileEducationalGraph(this.brSpRmspSecInfo[1]);
+            this.generatePieGraph(dataForAlfaSP, this.div_profEduAlfabByUFGraph, panelWidth, panelHeight,
+              this.getInstant('tabSP') + this.getInstant('tabSP-subtitle'));
 
             // Perfil Educacional - Realizacao
             const dataEduAp = this.weightingAreaInfo['educacao'];
             const dataEduRMSP = this.brSpRmspSecInfo[2]['educacao'];
-            const dataEduBr = this.brSpRmspSecInfo[1]['educacao'];
-            const dataEduSP = this.brSpRmspSecInfo[0]['educacao'];
+            const dataEduBr = this.brSpRmspSecInfo[0]['educacao'];
+            const dataEduSP = this.brSpRmspSecInfo[1]['educacao'];
             const dataForRealizacaoAp = this.getPropertiesNamesAndValuesForNumbers(dataEduAp['realizacao']);
             this.generateVerticalBarChart(dataForRealizacaoAp, this.div_profEduRealizacaoByAPGraph, this.maxValuePerfilEducacional,
               this.width, this.height, {top: 15, right: 20, bottom: 110, left: 20});
@@ -279,19 +279,19 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
               160, 20, 20, 40, 120);
 
             // Nivel frequentado - BRasil
-            const dataForNivelFrequentadoBr =  this.buildDataForEducationalLevelGraph(this.brSpRmspSecInfo[1]);
+            const dataForNivelFrequentadoBr =  this.buildDataForEducationalLevelGraph(this.brSpRmspSecInfo[0]);
             this.generateGroupedHorizontalBarChart(dataForNivelFrequentadoBr, this.div_educationalLevelByBrasilGraph,
               160, 20, 20, 40, 120);
 
             // Nivel frequentado - São Paulo
-            const dataForNivelFrequentadoSp = this.buildDataForEducationalLevelGraph(this.brSpRmspSecInfo[0]);
+            const dataForNivelFrequentadoSp = this.buildDataForEducationalLevelGraph(this.brSpRmspSecInfo[1]);
             this.generateGroupedHorizontalBarChart(dataForNivelFrequentadoSp, this.div_educationalLevelByUFGraph,
               160, 20, 20, 40, 120);
 
             this.buildDataForAgePyramidGraph(this.weightingAreaInfo, this.div_agePyramidByAPGraph);
             this.buildDataForAgePyramidGraph(this.brSpRmspSecInfo[2], this.div_agePyramidByMetropoleGraph);
-            this.buildDataForAgePyramidGraph(this.brSpRmspSecInfo[1], this.div_agePyramidByBrasilGraph);
-            this.buildDataForAgePyramidGraph(this.brSpRmspSecInfo[0], this.div_agePyramidByUFGraph);
+            this.buildDataForAgePyramidGraph(this.brSpRmspSecInfo[0], this.div_agePyramidByBrasilGraph);
+            this.buildDataForAgePyramidGraph(this.brSpRmspSecInfo[1], this.div_agePyramidByUFGraph);
 
             const dataForDistribuicaoRacial = this.buildDataForRacialDistributionGraph(this.weightingAreaInfo, this.brSpRmspSecInfo);
             this.generateGroupedHorizontalBarChart(dataForDistribuicaoRacial, this.div_racialDistributionGraph,
@@ -846,7 +846,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
         // .style('color', '#212529')
         .attr('y', function(d) { return y(d.variableValue) - 5; })
         .attr('x', function(d) { return x(d.variableName); })
-        .attr('dx', '1.6em')
+        .attr('dx', '2.4em')
         .text(function(d) { return d.variableValue + '%';  });
     }
   }

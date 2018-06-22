@@ -237,6 +237,10 @@ a:link, a:visited{
 .bar:hover {
   fill: #0E3D59;
 }
+
+.barLabel {
+  font-size: 10px;
+}
 .axis path,
 .axis line {
   fill: none;
