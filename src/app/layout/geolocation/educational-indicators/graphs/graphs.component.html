@@ -40,6 +40,12 @@
           </div>
           <div #AFDNivelInfantilGraph>
           </div>
+          <!-- Button trigger modal -->
+          <div class="text-center">
+            <button type="button" class="btn btn-link" style="font-size: x-small"  data-toggle="modal" data-target="#AFDModalCenter">
+              <i class="fa fa-info-circle fa-fw"></i> Ver maior informação sobre este indicador
+            </button>
+          </div>
         </div>
 
         <!-- Graph: DCS  -->
@@ -128,6 +134,12 @@
                   </select>
                 </div>
                 <div #AFDEnsFundAIniciaisGraph></div>
+                <!-- Button trigger modal -->
+                <div class="text-center">
+                  <button type="button" class="btn btn-link" style="font-size: x-small"  data-toggle="modal" data-target="#AFDModalCenter">
+                    <i class="fa fa-info-circle fa-fw"></i> Ver maior informação sobre este indicador
+                  </button>
+                </div>
               </div>
 
               <!-- Graph: DCS  -->
@@ -170,6 +182,12 @@
                   </select>
                 </div>
                 <div #EDEnsFundAIniciaisGraph> </div>
+                <!-- Button trigger modal -->
+                <div class="text-center">
+                  <button type="button" class="btn btn-link" style="font-size: x-small"  data-toggle="modal" data-target="#esforcoDocenteModalCenter">
+                    <i class="fa fa-info-circle fa-fw"></i> Ver maior informação sobre este indicador
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -218,6 +236,12 @@
                   </select>
                 </div>
                 <div #AFDEnsFundAFinaisGraph> </div>
+                <!-- Button trigger modal -->
+                <div class="text-center">
+                  <button type="button" class="btn btn-link" style="font-size: x-small"  data-toggle="modal" data-target="#AFDModalCenter">
+                    <i class="fa fa-info-circle fa-fw"></i> Ver maior informação sobre este indicador
+                  </button>
+                </div>
               </div>
 
               <!-- Graph: DCS  -->
@@ -260,6 +284,12 @@
                   </select>
                 </div>
                 <div #EDEnsFundAFinaisGraph> </div>
+                <!-- Button trigger modal -->
+                <div class="text-center">
+                  <button type="button" class="btn btn-link" style="font-size: x-small"  data-toggle="modal" data-target="#esforcoDocenteModalCenter">
+                    <i class="fa fa-info-circle fa-fw"></i> Ver maior informação sobre este indicador
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -350,6 +380,12 @@
                 </select>
               </div>
               <div #AFDEnsMedioGraph> </div>
+              <!-- Button trigger modal -->
+              <div class="text-center">
+                <button type="button" class="btn btn-link" style="font-size: x-small"  data-toggle="modal" data-target="#AFDModalCenter">
+                  <i class="fa fa-info-circle fa-fw"></i> Ver maior informação sobre este indicador
+                </button>
+              </div>
             </div>
 
             <!-- Graph: DCS  -->
@@ -369,6 +405,12 @@
                 </select>
               </div>
               <div #EDEnsMedioGraph> </div>
+              <!-- Button trigger modal -->
+              <div class="text-center">
+                <button type="button" class="btn btn-link" style="font-size: x-small"  data-toggle="modal" data-target="#esforcoDocenteModalCenter">
+                  <i class="fa fa-info-circle fa-fw"></i> Ver maior informação sobre este indicador
+                </button>
+              </div>
             </div>
 
           </div>
@@ -410,21 +452,33 @@
           <div class="tab-pane fade show" id="EnsMedNivelSocioecPanel" role="tabpanel" aria-labelledby="tabEnsMedNivelSocioec">
             <!-- SEÇÃO: INSEAB -->
             <div class="box" role="alert" *ngIf="dataForEnemINSEAB && dataForEnemINSEAB.length > 0">
-              <h6 class="alert-heading text-center"><i class="fa fa-th-large fa-fw"></i> {{'INSEAB' | translate}}  <br> ({{'descINSEAB'|translate}})</h6>
+              <h6 class="alert-heading text-center"><i class="fa fa-th-large fa-fw"></i> {{'INSEAB' | translate}}  <br/> ({{'descINSEAB'|translate}})</h6>
               <div class="section-info-line"  *ngFor="let periodo of dataForEnemINSEAB"   >
                 <div class="section-info-icon-ed"><b>{{periodo.variableName}}:</b></div>
                 <span class="section-info-icon section-info-no-icon" style="display:none"></span>
                 <span class="section-info-text"><span>{{periodo.variableValue}}</span></span>
               </div>
+              <div class="text-center">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-link" style="font-size: x-small"  data-toggle="modal" data-target="#inseabModalCenter">
+                  <i class="fa fa-info-circle fa-fw"></i> Ver maior informação sobre este indicador
+                </button>
+              </div>
             </div>
 
             <!-- SEÇÃO: INSECL -->
             <div class="box" role="alert" *ngIf="dataForEnemINSECL && dataForEnemINSECL.length > 0">
-              <h6 class="alert-heading text-center"><i class="fa fa-th-large fa-fw"></i> {{'INSECL' | translate}}  <br> ({{'descINSECL'|translate}})</h6>
+              <h6 class="alert-heading text-center"><i class="fa fa-th-large fa-fw"></i> {{'INSECL' | translate}}  <br/> ({{'descINSECL'|translate}})</h6>
               <div class="section-info-line"  *ngFor="let periodo of dataForEnemINSECL"   >
                 <div class="section-info-icon-ed"><b>{{periodo.variableName}}:</b></div>
                 <span class="section-info-icon section-info-no-icon" style="display:none"></span>
                 <span class="section-info-text"><span>{{periodo.variableValue}}</span></span>
+              </div>
+              <div class="text-center">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-link" style="font-size: x-small"  data-toggle="modal" data-target="#inseclModalCenter">
+                  <i class="fa fa-info-circle fa-fw"></i> Ver maior informação sobre este indicador
+                </button>
               </div>
             </div>
           </div>
@@ -435,3 +489,96 @@
     <!-- end tab Ensino Médio -->
   </div>
 </div>
+
+<!-- Modals for informations -->
+<!-- INSEAB -->
+<div class="modal fade" id="inseabModalCenter" tabindex="-1" role="dialog" aria-labelledby="inseabModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="inseabModalCenterTitle">{{'inseabTitle'|translate}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{'inseabInfoP1'|translate}}</p>
+        <p>{{'inseabInfoP2'|translate}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!--END INSEAB -->
+
+<!-- INSECL -->
+<div class="modal fade" id="inseclModalCenter" tabindex="-1" role="dialog" aria-labelledby="inseclModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="inseclModalCenterTitle">{{'inseclTitle'|translate}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{'inseclInfoP1'|translate}}</p>
+        <p>{{'inseclInfoP2'|translate}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END INSECL -->
+
+<!-- Esforço Docente -->
+<div class="modal fade" id="esforcoDocenteModalCenter" tabindex="-1" role="dialog" aria-labelledby="esforcoDocenteModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="esforcoDocenteModalCenterTitle">{{'esforcoDocenteTitle'|translate}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{'esforcoDocenteInfoP1'|translate}}</p>
+        <p>{{'esforcoDocenteInfoP2'|translate}}</p>
+        <p>{{'esforcoDocenteInfoP3'|translate}}</p>
+        <ul>
+          <li><b>{{'esforcoDocenteNivel1Name'|translate}}: </b>{{'esforcoDocenteNivel1Info'|translate}}</li>
+          <li><b>{{'esforcoDocenteNivel2Name'|translate}}: </b>{{'esforcoDocenteNivel2Info'|translate}}</li>
+          <li><b>{{'esforcoDocenteNivel3Name'|translate}}: </b>{{'esforcoDocenteNivel3Info'|translate}}</li>
+          <li><b>{{'esforcoDocenteNivel4Name'|translate}}: </b>{{'esforcoDocenteNivel4Info'|translate}}</li>
+          <li><b>{{'esforcoDocenteNivel5Name'|translate}}: </b>{{'esforcoDocenteNivel5Info'|translate}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END Esforço Docente -->
+
+<!--Adequação da formação docente -->
+<div class="modal fade" id="AFDModalCenter" tabindex="-1" role="dialog" aria-labelledby="AFDModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="AFDModalCenterTitle">{{'AFDTitle'|translate}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{'AFDInfoP1'|translate}}</p>
+        <ul>
+          <li><b>{{'AFDGrupo1Name'|translate}}: </b>{{'AFDGrupo1Info'|translate}}</li>
+          <li><b>{{'AFDGrupo2Name'|translate}}: </b>{{'AFDGrupo2Info'|translate}}</li>
+          <li><b>{{'AFDGrupo3Name'|translate}}: </b>{{'AFDGrupo3Info'|translate}}</li>
+          <li><b>{{'AFDGrupo4Name'|translate}}: </b>{{'AFDGrupo4Info'|translate}}</li>
+          <li><b>{{'AFDGrupo5Name'|translate}}: </b>{{'AFDGrupo5Info'|translate}}</li>
+        </ul>
+        <p>{{'AFDInfoP2'|translate}}</p>
+        <p>{{'AFDInfoP3'|translate}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!--END Adequação da formação docente -->
