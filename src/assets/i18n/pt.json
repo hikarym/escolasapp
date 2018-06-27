@@ -315,5 +315,7 @@
   "AFDGrupo5Name": "Grupo 5",
   "AFDGrupo5Info": "Docentes que não possuem curso superior completo.",
   "AFDInfoP2": "Contabiliza-se então, para cada escola, a proporção de professores em cada uma das categorias.",
-  "AFDInfoP3": "É importante destacar que o Grupo 1 é aquele com maior adequação de formação. O grau de adequação decresce à medida em que avançamos na numeração dos grupos. Deste modo, o grupo com menor grau de adequação é o Grupo 5."
+  "AFDInfoP3": "É importante destacar que o Grupo 1 é aquele com maior adequação de formação. O grau de adequação decresce à medida em que avançamos na numeração dos grupos. Deste modo, o grupo com menor grau de adequação é o Grupo 5.",
+
+  "showMoreInformations": "Ver maior informação sobre este indicador"
 }

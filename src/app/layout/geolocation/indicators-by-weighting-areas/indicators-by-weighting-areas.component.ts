@@ -302,9 +302,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
               150, 20, 20, 60, 110);
 
           });
-
         });
-
       });
     this.subscription.add(s);
   }

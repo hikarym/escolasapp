@@ -30,20 +30,14 @@
       </div>
 
       <div id="graficosEnsInfantil">
-        <div class="box" role="alert">
+        <div id="box-AFDNivelInfantil" class="box" role="alert">
           <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'AFD' | translate}}</h6>
-          <div class="section-info-line">
-            <div class="section-info-icon-ed" ><b>{{'group' | translate}}:</b></div>
-            <select (change)="onGroupChangeAFDInfantil($event.target.value)" class="custom-select">
-              <option *ngFor="let group of groupsAFDInfantil">{{group}}</option>
-            </select>
-          </div>
           <div #AFDNivelInfantilGraph>
           </div>
           <!-- Button trigger modal -->
           <div class="text-center">
             <button type="button" class="btn btn-link" style="font-size: x-small"  data-toggle="modal" data-target="#AFDModalCenter">
-              <i class="fa fa-info-circle fa-fw"></i> Ver maior informação sobre este indicador
+              <i class="fa fa-info-circle fa-fw"></i> {{'showMoreInformations'|translate}}
             </button>
           </div>
         </div>
@@ -124,24 +118,6 @@
                 <div #idebEnsFundAIniciaisGraph></div>
               </div>
 
-              <!-- Graph: AFD -->
-              <div class="box" role="alert">
-                <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'AFD' | translate}}</h6>
-                <div class="section-info-line">
-                  <div class="section-info-icon-ed" ><b>{{'group' | translate}}:</b></div>
-                  <select (change)="onGroupChangeAFDEnsFundAIniciais($event.target.value)" class="custom-select">
-                    <option *ngFor="let group of groupsAFDEnsFundAIniciais">{{group}}</option>
-                  </select>
-                </div>
-                <div #AFDEnsFundAIniciaisGraph></div>
-                <!-- Button trigger modal -->
-                <div class="text-center">
-                  <button type="button" class="btn btn-link" style="font-size: x-small"  data-toggle="modal" data-target="#AFDModalCenter">
-                    <i class="fa fa-info-circle fa-fw"></i> Ver maior informação sobre este indicador
-                  </button>
-                </div>
-              </div>
-
               <!-- Graph: DCS  -->
               <div id="box-DCSEnsFundAIniciais" class="box" role="alert" >
                 <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'DCS' | translate}}</h6>
@@ -172,20 +148,26 @@
                 <div #alunosPorTurmaEnsFundAIniciais9Graph></div>
               </div>
 
-              <!-- Graph: ED -->
-              <div class="box" role="alert">
-                <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'ED' | translate}}</h6>
-                <div class="section-info-line">
-                  <div class="section-info-icon-ed" ><b>{{'nivel' | translate}}:</b></div>
-                  <select (change)="onNivelChangeEDEnsFundAIniciais($event.target.value)" class="custom-select">
-                    <option *ngFor="let nivel of nivelesEDEnsFundAIniciais">{{nivel}}</option>
-                  </select>
+              <!-- Graph: AFD -->
+              <div id="box-AFDEnsFundAIniciais" class="box" role="alert">
+                <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'AFD' | translate}}</h6>
+                <div #AFDEnsFundAIniciaisGraph></div>
+                <!-- Button trigger modal -->
+                <div class="text-center">
+                  <button type="button" class="btn btn-link" style="font-size: x-small"  data-toggle="modal" data-target="#AFDModalCenter">
+                    <i class="fa fa-info-circle fa-fw"></i> {{'showMoreInformations'|translate}}
+                  </button>
                 </div>
+              </div>
+
+              <!-- Graph: ED -->
+              <div id="box-EDEnsFundAIniciais" class="box" role="alert">
+                <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'ED' | translate}}</h6>
                 <div #EDEnsFundAIniciaisGraph> </div>
                 <!-- Button trigger modal -->
                 <div class="text-center">
                   <button type="button" class="btn btn-link" style="font-size: x-small"  data-toggle="modal" data-target="#esforcoDocenteModalCenter">
-                    <i class="fa fa-info-circle fa-fw"></i> Ver maior informação sobre este indicador
+                    <i class="fa fa-info-circle fa-fw"></i> {{'showMoreInformations'|translate}}
                   </button>
                 </div>
               </div>
@@ -226,24 +208,6 @@
                 <div #idebEnsFundAFinaisGraph></div>
               </div>
 
-              <!-- Graph: AFD -->
-              <div class="box" role="alert">
-                <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'AFD' | translate}}</h6>
-                <div class="section-info-line">
-                  <div class="section-info-icon-ed" ><b>{{'group' | translate}}:</b></div>
-                  <select (change)="onGroupChangeAFDEnsFundAFinais($event.target.value)" class="custom-select">
-                    <option *ngFor="let group of groupsAFDEnsFundAFinais">{{group}}</option>
-                  </select>
-                </div>
-                <div #AFDEnsFundAFinaisGraph> </div>
-                <!-- Button trigger modal -->
-                <div class="text-center">
-                  <button type="button" class="btn btn-link" style="font-size: x-small"  data-toggle="modal" data-target="#AFDModalCenter">
-                    <i class="fa fa-info-circle fa-fw"></i> Ver maior informação sobre este indicador
-                  </button>
-                </div>
-              </div>
-
               <!-- Graph: DCS  -->
               <div id="box-DCSEnsFundAFinais" class="box" role="alert" >
                 <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'DCS' | translate}}</h6>
@@ -274,20 +238,26 @@
                 <div #alunosPorTurmaEnsFundAFinais9Graph></div>
               </div>
 
-              <!-- Graph: ED -->
-              <div class="box" role="alert">
-                <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'ED' | translate}}</h6>
-                <div class="section-info-line">
-                  <div class="section-info-icon-ed" ><b>{{'nivel' | translate}}:</b></div>
-                  <select (change)="onNivelChangeEDEnsFundAFinais($event.target.value)" class="custom-select">
-                    <option *ngFor="let nivel of nivelesEDEnsFundAFinais">{{nivel}}</option>
-                  </select>
+              <!-- Graph: AFD -->
+              <div id="box-AFDEnsFundAFinais" class="box" role="alert">
+                <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'AFD' | translate}}</h6>
+                <div #AFDEnsFundAFinaisGraph> </div>
+                <!-- Button trigger modal -->
+                <div class="text-center">
+                  <button type="button" class="btn btn-link" style="font-size: x-small"  data-toggle="modal" data-target="#AFDModalCenter">
+                    <i class="fa fa-info-circle fa-fw"></i> {{'showMoreInformations'|translate}}
+                  </button>
                 </div>
+              </div>
+
+              <!-- Graph: ED -->
+              <div id="box-EDEnsFundAFinais" class="box" role="alert">
+                <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'ED' | translate}}</h6>
                 <div #EDEnsFundAFinaisGraph> </div>
                 <!-- Button trigger modal -->
                 <div class="text-center">
                   <button type="button" class="btn btn-link" style="font-size: x-small"  data-toggle="modal" data-target="#esforcoDocenteModalCenter">
-                    <i class="fa fa-info-circle fa-fw"></i> Ver maior informação sobre este indicador
+                    <i class="fa fa-info-circle fa-fw"></i> {{'showMoreInformations'|translate}}
                   </button>
                 </div>
               </div>
@@ -370,24 +340,6 @@
 
           <!-- tab docentes -->
           <div class="tab-pane fade show" id="EnsMedDocentesPanel" role="tabpanel" aria-labelledby="tabEnsMedDocentes">
-            <!-- Graph: AFD -->
-            <div class="box" role="alert">
-              <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'AFD' | translate}}</h6>
-              <div class="section-info-line">
-                <div class="section-info-icon-ed" ><b>{{'group' | translate}}:</b></div>
-                <select (change)="onGroupChangeAFDEnsMedio($event.target.value)" class="custom-select">
-                  <option *ngFor="let group of groupsAFDEnsMedio">{{group}}</option>
-                </select>
-              </div>
-              <div #AFDEnsMedioGraph> </div>
-              <!-- Button trigger modal -->
-              <div class="text-center">
-                <button type="button" class="btn btn-link" style="font-size: x-small"  data-toggle="modal" data-target="#AFDModalCenter">
-                  <i class="fa fa-info-circle fa-fw"></i> Ver maior informação sobre este indicador
-                </button>
-              </div>
-            </div>
-
             <!-- Graph: DCS  -->
             <div id="box-DCSEnsMedio" class="box" role="alert" >
               <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'DCS' | translate}}</h6>
@@ -395,20 +347,26 @@
               </div>
             </div>
 
-            <!-- Graph: ED -->
-            <div class="box" role="alert">
-              <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'ED' | translate}}</h6>
-              <div class="section-info-line">
-                <div class="section-info-icon-ed" ><b>{{'nivel' | translate}}:</b></div>
-                <select (change)="onNivelChangeEDEnsMedio($event.target.value)" class="custom-select">
-                  <option *ngFor="let nivel of nivelesEDEnsMedio">{{nivel}}</option>
-                </select>
+            <!-- Graph: AFD -->
+            <div id="box-AFDEnsMedio" class="box" role="alert">
+              <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'AFD' | translate}}</h6>
+              <div #AFDEnsMedioGraph> </div>
+              <!-- Button trigger modal -->
+              <div class="text-center">
+                <button type="button" class="btn btn-link" style="font-size: x-small"  data-toggle="modal" data-target="#AFDModalCenter">
+                  <i class="fa fa-info-circle fa-fw"></i> {{'showMoreInformations'|translate}}
+                </button>
               </div>
+            </div>
+
+            <!-- Graph: ED -->
+            <div id="box-EDEnsMedio" class="box" role="alert">
+              <h6 class="alert-heading text-center"><i class="fa fa-graduation-cap fa-fw"></i> {{'ED' | translate}}</h6>
               <div #EDEnsMedioGraph> </div>
               <!-- Button trigger modal -->
               <div class="text-center">
                 <button type="button" class="btn btn-link" style="font-size: x-small"  data-toggle="modal" data-target="#esforcoDocenteModalCenter">
-                  <i class="fa fa-info-circle fa-fw"></i> Ver maior informação sobre este indicador
+                  <i class="fa fa-info-circle fa-fw"></i> {{'showMoreInformations'|translate}}
                 </button>
               </div>
             </div>
@@ -461,7 +419,7 @@
               <div class="text-center">
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-link" style="font-size: x-small"  data-toggle="modal" data-target="#inseabModalCenter">
-                  <i class="fa fa-info-circle fa-fw"></i> Ver maior informação sobre este indicador
+                  <i class="fa fa-info-circle fa-fw"></i> {{'showMoreInformations'|translate}}
                 </button>
               </div>
             </div>
@@ -477,7 +435,7 @@
               <div class="text-center">
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-link" style="font-size: x-small"  data-toggle="modal" data-target="#inseclModalCenter">
-                  <i class="fa fa-info-circle fa-fw"></i> Ver maior informação sobre este indicador
+                  <i class="fa fa-info-circle fa-fw"></i> {{'showMoreInformations'|translate}}
                 </button>
               </div>
             </div>

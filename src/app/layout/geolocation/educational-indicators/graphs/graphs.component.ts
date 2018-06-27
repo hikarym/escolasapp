@@ -4,6 +4,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {Subscription} from 'rxjs/Subscription';
 import * as d3 from 'd3';
 import {select} from 'd3-selection';
+import {validate} from 'codelyzer/walkerFactory/walkerFn';
 
 @Component({
   selector: 'app-graphs',
@@ -258,12 +259,11 @@ export class GraphsComponent implements OnInit, OnDestroy {
           this.ofereceAFinais = '';
         }
 
-
         // --- 1. Ensino Infantil
         // AFD
-        const dadosAFDInfantil = this.getDadosDoIndicador(this.indicadores[0], this.niveis[0], '');
-        this.groupsAFDInfantil = Object.keys(dadosAFDInfantil);
-        this.showGraphByGroups(this.indicadores[0], this.niveis[0], '', this.groupDefault, this.div_AFDNivelInfantilGraph);
+        this.showGraphByStackedBar(this.schoolSelected[this.indicadores[0]][this.niveis[0]],
+          this.div_AFDNivelInfantilGraph, '#box-AFDNivelInfantil',
+          this.valuesUnit, 2, this.width, 320, {top: 15, right: 80, bottom: 30, left: 30});
 
         // DCS - cursoSuperior
         const dadosDCSNivelInfantil = this.schoolSelected[this.indicadores[1]]['cursoSuperior'][this.niveis[0]];
@@ -307,10 +307,23 @@ export class GraphsComponent implements OnInit, OnDestroy {
           '#box-idebEnsFundAIniciais');
 
         // AFD
-        const dadosAFDEnsFundAIniciais = this.getDadosDoIndicador(this.indicadores[0], this.niveis[1], this.categorias[0]);
+        this.showGraphByStackedBar(this.schoolSelected[this.indicadores[0]][this.niveis[1]][this.categorias[0]],
+          this.div_AFDEnsFundAIniciaisGraph, '#box-AFDEnsFundAIniciais',
+          this.valuesUnit, 2, this.width, 320, {top: 15, right: 80, bottom: 30, left: 30});
+
+        /*const dadosAFDEnsFundAIniciais = this.getDadosDoIndicador(this.indicadores[0], this.niveis[1], this.categorias[0]);
         this.groupsAFDEnsFundAIniciais = Object.keys(dadosAFDEnsFundAIniciais);
         this.showGraphByGroups(this.indicadores[0], this.niveis[1], this.categorias[0], this.groupDefault,
-          this.div_AFDEnsFundAIniciaisGraph);
+          this.div_AFDEnsFundAIniciaisGraph);*/
+
+        // EsforcoDocente
+        this.showGraphByStackedBar(this.schoolSelected[this.indicadores[4]][this.niveis[1]][this.categorias[0]],
+          this.div_EDEnsFundAIniciaisGraph, '#box-EDEnsFundAIniciais',
+          this.valuesUnit, 2, this.width, 320, {top: 15, right: 80, bottom: 30, left: 30});
+        /*const dadosEDEnsFundAIniciais = this.getDadosDoIndicador(this.indicadores[4], this.niveis[1], this.categorias[0]);
+        this.nivelesEDEnsFundAIniciais = Object.keys(dadosEDEnsFundAIniciais);
+        this.showGraphByGroups(this.indicadores[4], this.niveis[1], this.categorias[0], this.nivelDefault,
+          this.div_EDEnsFundAIniciaisGraph);*/
 
         // DCS - cursoSuperior
         const dadosDCSEnsFundAIniciais = this.schoolSelected[this.indicadores[1]]['cursoSuperior'][this.niveis[1]];
@@ -335,12 +348,6 @@ export class GraphsComponent implements OnInit, OnDestroy {
         const dadosAlunosPorTurmaEnsFundAIniciais9 = this.schoolSelected[this.indicadores[3]][this.niveis[1]][this.categorias[4]];
         this.showGraphWithVerticalBar(dadosAlunosPorTurmaEnsFundAIniciais9, this.div_alunosPorTurmaEnsFundAIniciais9Graph,
           '#box-alunosPorTurmaEnsFundAIniciais9', ' ' + this.getInstant('alunos'));
-
-        // EsforcoDocente
-        const dadosEDEnsFundAIniciais = this.getDadosDoIndicador(this.indicadores[4], this.niveis[1], this.categorias[0]);
-        this.nivelesEDEnsFundAIniciais = Object.keys(dadosEDEnsFundAIniciais);
-        this.showGraphByGroups(this.indicadores[4], this.niveis[1], this.categorias[0], this.nivelDefault,
-          this.div_EDEnsFundAIniciaisGraph);
 
         // ----- Anos Finais -----
         // Taxa de aprovação
@@ -368,15 +375,26 @@ export class GraphsComponent implements OnInit, OnDestroy {
         this.showGraphWithVerticalBar(dadosIDEBEnsFundAFinais, this.div_idebEnsFundAFinaisGraph,
           '#box-idebEnsFundAFinais');
 
-        // AFD
-        const dadosAFDEnsFundAFinais = this.getDadosDoIndicador(this.indicadores[0], this.niveis[1], this.categorias[1]);
-        this.groupsAFDEnsFundAFinais = Object.keys(dadosAFDEnsFundAFinais);
-        this.showGraphByGroups(this.indicadores[0], this.niveis[1], this.categorias[1], this.groupDefault, this.div_AFDEnsFundAFinaisGraph);
-
         // DCS - cursoSuperior
         const dadosDCSEnsFundAFinais = this.schoolSelected[this.indicadores[1]]['cursoSuperior'][this.niveis[1]];
         this.showGraphWithVerticalBar(dadosDCSEnsFundAFinais, this.div_DCSEnsFundAFinaisGraph,
           '#box-DCSEnsFundAFinais');
+
+        // AFD
+        this.showGraphByStackedBar(this.schoolSelected[this.indicadores[0]][this.niveis[1]][this.categorias[1]],
+          this.div_AFDEnsFundAFinaisGraph, '#box-AFDEnsFundAFinais',
+          this.valuesUnit, 2, this.width, 320, {top: 15, right: 80, bottom: 30, left: 30});
+
+        /*const dadosAFDEnsFundAFinais = this.getDadosDoIndicador(this.indicadores[0], this.niveis[1], this.categorias[1]);
+        this.groupsAFDEnsFundAFinais = Object.keys(dadosAFDEnsFundAFinais);
+        this.showGraphByGroups(this.indicadores[0], this.niveis[1], this.categorias[1], this.groupDefault, this.div_AFDEnsFundAFinaisGraph);*/
+        this.showGraphByStackedBar(this.schoolSelected[this.indicadores[4]][this.niveis[1]][this.categorias[1]],
+          this.div_EDEnsFundAFinaisGraph, '#box-EDEnsFundAFinais',
+          this.valuesUnit, 2, this.width, 320, {top: 15, right: 80, bottom: 30, left: 30});
+        /*// EsforcoDocente
+        const dadosEDEnsFundAFinais = this.getDadosDoIndicador(this.indicadores[4], this.niveis[1], this.categorias[1]);
+        this.nivelesEDEnsFundAFinais = Object.keys(dadosEDEnsFundAFinais);
+        this.showGraphByGroups(this.indicadores[4], this.niveis[1], this.categorias[1], this.nivelDefault, this.div_EDEnsFundAFinaisGraph); */
 
         // horasAula ------ falta 8a
         const dadosHorasAulaEnsFundAFinais8 = this.schoolSelected[this.indicadores[2]][this.niveis[1]][this.categorias[3]];
@@ -397,11 +415,6 @@ export class GraphsComponent implements OnInit, OnDestroy {
         const dadosAlunosPorTurmaEnsFundAFinais9 = this.schoolSelected[this.indicadores[3]][this.niveis[1]][this.categorias[5]];
         this.showGraphWithVerticalBar(dadosAlunosPorTurmaEnsFundAFinais9, this.div_alunosPorTurmaEnsFundAFinais9Graph,
           '#box-alunosPorTurmaEnsFundAFinais9', 'alunos');
-
-        // EsforcoDocente
-        const dadosEDEnsFundAFinais = this.getDadosDoIndicador(this.indicadores[4], this.niveis[1], this.categorias[1]);
-        this.nivelesEDEnsFundAFinais = Object.keys(dadosEDEnsFundAFinais);
-        this.showGraphByGroups(this.indicadores[4], this.niveis[1], this.categorias[1], this.nivelDefault, this.div_EDEnsFundAFinaisGraph);
 
         // --- 3. Ensino Medio
         // Taxa de aprovação
@@ -434,9 +447,20 @@ export class GraphsComponent implements OnInit, OnDestroy {
           this.div_provasEnemEnsMedioGraph, this.valuesUnit, this.width, 320, {top: 15, right: 20, bottom: 110, left: 20});
 
         // AFD
-        const dadosAFDEnsMedio = this.getDadosDoIndicador(this.indicadores[0], this.niveis[2], '');
+        this.showGraphByStackedBar(this.schoolSelected[this.indicadores[0]][this.niveis[2]],
+          this.div_AFDEnsMedioGraph, '#box-AFDEnsMedio',
+          this.valuesUnit, 2, this.width, 320, {top: 15, right: 80, bottom: 30, left: 30});
+        /*const dadosAFDEnsMedio = this.getDadosDoIndicador(this.indicadores[0], this.niveis[2], '');
         this.groupsAFDEnsMedio = Object.keys(dadosAFDEnsMedio);
-        this.showGraphByGroups(this.indicadores[0], this.niveis[2], '', this.groupDefault, this.div_AFDEnsMedioGraph);
+        this.showGraphByGroups(this.indicadores[0], this.niveis[2], '', this.groupDefault, this.div_AFDEnsMedioGraph);*/
+
+        // EsforcoDocente
+        this.showGraphByStackedBar(this.schoolSelected[this.indicadores[4]][this.niveis[2]],
+          this.div_EDEnsMedioGraph, '#box-EDEnsMedio',
+          this.valuesUnit, 2, this.width, 320, {top: 15, right: 80, bottom: 30, left: 30});
+        /*const dadosEDEnsMedio = this.getDadosDoIndicador(this.indicadores[4], this.niveis[2], '');
+        this.nivelesEDEnsMedio = Object.keys(dadosEDEnsMedio);
+        this.showGraphByGroups(this.indicadores[4], this.niveis[2], '', this.nivelDefault, this.div_EDEnsMedioGraph);*/
 
         // DCS - cursoSuperior
         const dadosDCSEnsMedio = this.schoolSelected[this.indicadores[1]]['cursoSuperior'][this.niveis[2]];
@@ -462,66 +486,8 @@ export class GraphsComponent implements OnInit, OnDestroy {
         this.showGraphWithVerticalBar(dadosAlunosPorTurmaAno3EnsMedio, this.div_alunosPorTurmaAno3EnsMedioGraph,
           '#box-alunosPorTurmaAno3EnsMedio', ' ' + this.getInstant('alunos'));
 
-        // EsforcoDocente
-        const dadosEDEnsMedio = this.getDadosDoIndicador(this.indicadores[4], this.niveis[2], '');
-        this.nivelesEDEnsMedio = Object.keys(dadosEDEnsMedio);
-        this.showGraphByGroups(this.indicadores[4], this.niveis[2], '', this.nivelDefault, this.div_EDEnsMedioGraph);
-
       });
     this.subscription.add(s);
-  }
-
-  /**
-   * Function to show school's information (..of the group chosen) - Nivel Infantil
-   */
-  onGroupChangeAFDInfantil(groupValueSelected: string) {
-    this.showGraphByGroups(this.indicadores[0], this.niveis[0], '', groupValueSelected, this.div_AFDNivelInfantilGraph);
-  }
-
-  /**
-   * Function to show school's information (..of the group chosen) - Nivel Fundamental, anos iniciais
-   */
-  onGroupChangeAFDEnsFundAIniciais(groupValueSelected: string) {
-    this.showGraphByGroups(this.indicadores[0], this.niveis[1], this.categorias[0], groupValueSelected, this.div_AFDEnsFundAIniciaisGraph);
-  }
-
-  /**
-   * Function to show school's information (..of the group chosen) - Nivel Fundamental, anos finais
-   */
-  onGroupChangeAFDEnsFundAFinais(groupValueSelected: string) {
-    this.showGraphByGroups(this.indicadores[0], this.niveis[1], this.categorias[1], groupValueSelected, this.div_AFDEnsFundAFinaisGraph);
-  }
-
-  /**
-   * Function to show the 'AFD' indicator (..of the group chosen) - Nivel Médio
-   * @param {string} groupValueSelected
-   */
-  onGroupChangeAFDEnsMedio(groupValueSelected: string) {
-    this.showGraphByGroups(this.indicadores[0], this.niveis[2], '', groupValueSelected, this.div_AFDEnsMedioGraph);
-  }
-
-  /**
-   * Function to show the 'esforço docente' indicator (..of the level chosen) - Nivel Fundamental, anos iniciais
-   * @param {string} groupValueSelected
-   */
-  onNivelChangeEDEnsFundAIniciais(nivelValueSelected: string) {
-    this.showGraphByGroups(this.indicadores[4], this.niveis[1], this.categorias[0], nivelValueSelected, this.div_EDEnsFundAIniciaisGraph);
-  }
-
-  /**
-   * Function to show the 'esforço docente' indicator (..of the level chosen) - Nivel Fundamental, anos finais
-   * @param {string} groupValueSelected
-   */
-  onNivelChangeEDEnsFundAFinais(nivelValueSelected: string) {
-    this.showGraphByGroups(this.indicadores[4], this.niveis[1], this.categorias[1], nivelValueSelected, this.div_EDEnsFundAFinaisGraph);
-  }
-
-  /**
-   * Function to show the 'esforço docente' indicator (..of the level chosen) - Nivel Médio
-   * @param {string} groupValueSelected
-   */
-  onNivelChangeEDEnsMedio(nivelValueSelected: string) {
-    this.showGraphByGroups(this.indicadores[4], this.niveis[2], '', nivelValueSelected, this.div_EDEnsMedioGraph);
   }
 
   /**
@@ -687,7 +653,44 @@ export class GraphsComponent implements OnInit, OnDestroy {
     }
   }
 
-  buildMultiplelineChart(dataGraph: any[], containerDiv: ElementRef, divWidth: number, divHeight: number, margin: any) {
+  showGraphByStackedBar(dataGraph: any[], divForGraph: ElementRef, boxContainer: string,
+                        valuesUnit: string = this.valuesUnit, digitsDecimals: number,
+                        divWidth: number = this.width, divHeight: number = this.height, margin = this.margin) {
+
+    const years = Object.keys(dataGraph);
+    const numberOfYears = years.length;
+    // verify if the values are different of "NA"
+
+    const dataForGraph = [];
+    for (let i = 0; i < numberOfYears; i++) {
+      const groupsByYear = dataGraph[years[i]];
+      const groups = Object.keys(groupsByYear);
+      const numberOfGroups = groups.length;
+      const jsonData = {};
+      jsonData['ano'] = this.getInstant(years[i]);
+      for (let j = 0; j < numberOfGroups; j++) {
+        if (typeof  groupsByYear[groups[j]] === 'number') {
+          jsonData[this.getInstant(groups[j])] = (digitsDecimals === 0) ? groupsByYear[groups[j]] :
+            groupsByYear[groups[j]].toFixed(digitsDecimals);
+        }
+      }
+      if (Object.keys(jsonData).length > 1) {
+        dataForGraph.push(jsonData);
+      }
+    }
+
+    // console.log('data stack:', dataForGraph);
+
+    const dom: any = document.querySelector(boxContainer);
+    if (dataForGraph.length > 0) {
+      dom.classList.remove('hide-section');
+      this.buildStackedBarChart(dataForGraph, divForGraph, valuesUnit, digitsDecimals, divWidth, divHeight, margin);
+    } else {
+      dom.classList.add('hide-section');
+    }
+  }
+
+  buildMultiplelineChart(dataGraph: any[], containerDiv: ElementRef, valuesUnit: string, divWidth: number, divHeight: number, margin: any) {
     const width = divWidth - margin.left - margin.right,
       height = divHeight - margin.top - margin.bottom;
 
@@ -731,6 +734,134 @@ export class GraphsComponent implements OnInit, OnDestroy {
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');*/
 
 
+  }
+
+  buildStackedBarChart(dataGraph: any[], containerDiv: ElementRef, valuesUnit: string, digitsDecimals: number,
+                       divWidth: number, divHeight: number, margin: any) {
+    // Define chart dimensions
+    // const margin = this.margin;
+    const width = divWidth - margin.left - margin.right;
+    const height = divHeight - margin.top - margin.bottom;
+    // Remove all children from HTML
+    d3.select(containerDiv.nativeElement).html('');
+    if (dataGraph.length > 0) {
+
+      // Define chart dimensions
+      // let svg = d3.select(this.element.nativeElement).append('svg')
+      const svg = d3.select(containerDiv.nativeElement).append('svg')
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom);
+      const g = svg.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+      // Prep the tooltip bits, initial display is hidden
+      const tooltip = svg.append('g')
+        .attr('class', 'toolTip')
+        .style('display', 'none');
+
+      tooltip.append('rect')
+        .attr('width', 60)
+        .attr('height', 20)
+        .attr('fill', 'white')
+        .style('opacity', 1);
+
+      tooltip.append('text')
+        .attr('x', 30)
+        .attr('dy', '1.2em')
+        .style('text-anchor', 'middle')
+        .attr('font-size', '12px')
+        .attr('font-weight', 'bold');
+
+      const x = d3.scaleBand()
+        .rangeRound([0, width])
+        .paddingInner(0.05)
+        .align(0.1);
+
+      const y = d3.scaleLinear()
+        .rangeRound([height, 0]);
+
+      /*const colorRange = d3.scaleOrdinal(d3.schemeCategory10);
+      const color = d3.scaleOrdinal(colorRange.range());*/
+      // const color = d3.scaleOrdinal(['#1f77b4', '#aec7e8', '#ff7f0e', '#ffbb78', '#2ca02c', '#98df8a', '#d62728']);
+      const color = d3.scaleOrdinal(['#F29F05', '#E7DD7B', '#1f77b4', '#aec7e8', '#88A61B', '#98df8a', '#d62728']);
+
+      const keys = d3.keys(dataGraph[0]).filter(function (key) { return key !== 'ano'; });
+      color.domain(keys);
+
+      dataGraph.forEach(function(d) {
+        let y0 = 0;
+        d.groups = color.domain().map(function(name) { return {name: name, y0: y0, y1: y0 += +d[name]}; });
+        d.total = d.groups[d.groups.length - 1].y1;
+      });
+
+      // data.sort(function(a, b) { return b.total - a.total; });
+      x.domain(dataGraph.map(function(d) { return d.ano; }));
+      y.domain([0, d3.max(dataGraph, function(d) { return d.total; })]).nice();
+
+      g.append('g')
+        .selectAll('g')
+        .data(d3.stack().keys(keys)(dataGraph))
+        .enter().append('g')
+        .attr('fill', function(d) { return color(d.key); })
+        .selectAll('rect')
+        .data(function(d) {return d; })
+        .enter().append('rect')
+          .attr('x', function(d) { return x((<any>d).data.ano); })
+          .attr('y', function(d) { return y(d[1]); })
+          .attr('height', function(d) { return y(d[0]) - y(d[1]); })
+          .attr('width', x.bandwidth())
+        .on('mouseover', function() {
+          tooltip.style('display', null);
+        })
+        .on('mouseout', function() { tooltip.style('display', 'none'); })
+        .on('mousemove', function(d) {
+          // console.log(d);
+          const xPosition = d3.mouse(<any>this)[0] - 5;
+          const yPosition = d3.mouse(<any>this)[1] - 5;
+          tooltip
+            .style('display', 'inline-block')
+            .attr('transform', 'translate(' + xPosition + ',' + yPosition + ')');
+          tooltip.select('text').text((d[1] - d[0]).toFixed(digitsDecimals) + valuesUnit);
+        });
+
+      g.append('g')
+        .attr('class', 'axis')
+        .attr('transform', 'translate(0,' + height + ')')
+        .call(d3.axisBottom(x));
+
+      g.append('g')
+        .attr('class', 'axis')
+        .call(d3.axisLeft(y).ticks(null, 's'))
+        .append('text')
+        .attr('x', 2)
+        .attr('y', y(y.ticks().pop()) + 0.5)
+        .attr('dy', '0.32em')
+        .attr('fill', '#000')
+        .attr('font-weight', 'bold')
+        .attr('text-anchor', 'start')
+        .text(valuesUnit);
+
+      const legend = g.append('g')
+        .attr('font-family', 'sans-serif')
+        .attr('font-size', 9)
+        .attr('text-anchor', 'end')
+        .selectAll('g')
+        .data(keys.slice().reverse())
+        .enter().append('g')
+        .attr('transform', function(d, i) { return 'translate(75,' + i * 20 + ')'; });
+
+      legend.append('rect')
+        .attr('x', width - 19)
+        .attr('width', 19)
+        .attr('height', 19)
+        .attr('fill', color);
+
+      legend.append('text')
+        .attr('x', width - 24)
+        .attr('y', 9.5)
+        .attr('dy', '0.32em')
+        .text(function(d) { return d; });
+
+    }
   }
 
   /**

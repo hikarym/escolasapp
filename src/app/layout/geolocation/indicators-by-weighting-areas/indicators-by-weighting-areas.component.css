@@ -162,7 +162,7 @@ polyline{
 }*/
 
 text {
-  font: 12px sans-serif;
+  font: 11px sans-serif;
 }
 
 /*table chart*/
@@ -267,13 +267,13 @@ a:link, a:visited{
 }
 .barchart .legend {
   fill: black;
-  font: 14px sans-serif;
+  font: 11px sans-serif;
   text-anchor: start;
-  font-size: 12px;
+  /*font-size: 12px;*/
 }
 .barchart text {
   fill: black;
-  font: 10px sans-serif;
+  font: 11px sans-serif;
   text-anchor: end; /*end*/
 }
 .barchart .label {
