@@ -13,13 +13,11 @@ import {validate} from 'codelyzer/walkerFactory/walkerFn';
 })
 export class GraphsComponent implements OnInit, OnDestroy {
 
-  ano2011to2013 = 'NA';
   schoolSelected: any;
   private subscription = new Subscription();
 
   @ViewChild('AFDNivelInfantilGraph')
   private div_AFDNivelInfantilGraph: ElementRef;
-  groupsAFDInfantil: any;
 
   @ViewChild('DCSNivelInfantilGraph')
   private div_DCSNivelInfantilGraph: ElementRef;
@@ -47,7 +45,6 @@ export class GraphsComponent implements OnInit, OnDestroy {
 
   @ViewChild('AFDEnsFundAIniciaisGraph')
   private div_AFDEnsFundAIniciaisGraph: ElementRef;
-  groupsAFDEnsFundAIniciais: any;
 
   @ViewChild('DCSEnsFundAIniciaisGraph')
   private div_DCSEnsFundAIniciaisGraph: ElementRef;
@@ -66,7 +63,6 @@ export class GraphsComponent implements OnInit, OnDestroy {
 
   @ViewChild('EDEnsFundAIniciaisGraph')
   private div_EDEnsFundAIniciaisGraph: ElementRef;
-  nivelesEDEnsFundAIniciais: any;
 
   @ViewChild('txAprovEnsFundAFinaisGraph')
   private div_txAprovEnsFundAFinaisGraph: ElementRef;
@@ -85,7 +81,6 @@ export class GraphsComponent implements OnInit, OnDestroy {
 
   @ViewChild('AFDEnsFundAFinaisGraph')
   private div_AFDEnsFundAFinaisGraph: ElementRef;
-  groupsAFDEnsFundAFinais: any;
 
   @ViewChild('DCSEnsFundAFinaisGraph')
   private div_DCSEnsFundAFinaisGraph: ElementRef;
@@ -104,7 +99,6 @@ export class GraphsComponent implements OnInit, OnDestroy {
 
   @ViewChild('EDEnsFundAFinaisGraph')
   private div_EDEnsFundAFinaisGraph: ElementRef;
-  nivelesEDEnsFundAFinais: any;
 
   @ViewChild('txAprovEnsMedioGraph')
   private div_txAprovEnsMedioGraph: ElementRef;
@@ -124,7 +118,6 @@ export class GraphsComponent implements OnInit, OnDestroy {
 
   @ViewChild('AFDEnsMedioGraph')
   private div_AFDEnsMedioGraph: ElementRef;
-  groupsAFDEnsMedio: any;
 
   @ViewChild('DCSEnsMedioGraph')
   private div_DCSEnsMedioGraph: ElementRef;
@@ -143,10 +136,6 @@ export class GraphsComponent implements OnInit, OnDestroy {
 
   @ViewChild('EDEnsMedioGraph')
   private div_EDEnsMedioGraph: ElementRef;
-  nivelesEDEnsMedio: any;
-
-  private groupDefault = 'Grupo1';
-  private nivelDefault = 'Nivel1';
 
   private margin = {top: 30, right: 45, bottom: 33, left: 40};
   private width = 315;
@@ -385,12 +374,12 @@ export class GraphsComponent implements OnInit, OnDestroy {
         // horasAula 8a
         const dadosHorasAulaEnsFundAFinais8 = this.schoolSelected[this.indicadores[2]][this.niveis[1]][this.categorias[3]];
         this.showGraphWithLineChart(dadosHorasAulaEnsFundAFinais8, this.div_horasAulaEnsFundAFinais8Graph,
-          '#box-horasAulaEnsFundAFinais8', ' ' + this.getInstant('horas'));
+          '#box-horasAulaEnsFundAFinais8',  ' h', this.getInstant('horas'));
 
         // horasAula 9a
         const dadosHorasAulaEnsFundAFinais9 = this.schoolSelected[this.indicadores[2]][this.niveis[1]][this.categorias[5]];
         this.showGraphWithLineChart(dadosHorasAulaEnsFundAFinais9, this.div_horasAulaEnsFundAFinais9Graph,
-          '#box-horasAulaEnsFundAFinais9', ' ' + this.getInstant('horas'));
+          '#box-horasAulaEnsFundAFinais9',  ' h', this.getInstant('horas'));
 
         // alunosPorTurma 8a
         const dadosAlunosPorTurmaEnsFundAFinais8 = this.schoolSelected[this.indicadores[3]][this.niveis[1]][this.categorias[3]];
@@ -537,16 +526,25 @@ export class GraphsComponent implements OnInit, OnDestroy {
     }
   }
 
-
-
+  /**
+   * Shows graph using Stacked bar chart
+   * @param {any[]} dataGraph
+   * @param {ElementRef} divForGraph
+   * @param {string} boxContainer
+   * @param {string} valuesUnit
+   * @param {number} digitsDecimals
+   * @param {number} divWidth
+   * @param {number} divHeight
+   * @param {{top: number; right: number; bottom: number; left: number}} margin
+   */
   showGraphByStackedBar(dataGraph: any[], divForGraph: ElementRef, boxContainer: string,
                         valuesUnit: string = this.valuesUnit, digitsDecimals: number,
                         divWidth: number = this.width, divHeight: number = this.height, margin = this.margin) {
 
     const years = Object.keys(dataGraph);
     const numberOfYears = years.length;
-    // verify if the values are different of "NA"
 
+    // verify if the values are different of "NA"
     const dataForGraph = [];
     for (let i = 0; i < numberOfYears; i++) {
       const groupsByYear = dataGraph[years[i]];
@@ -565,8 +563,6 @@ export class GraphsComponent implements OnInit, OnDestroy {
       }
     }
 
-    // console.log('data stack:', dataForGraph);
-
     const dom: any = document.querySelector(boxContainer);
     if (dataForGraph.length > 0) {
       dom.classList.remove('hide-section');
@@ -576,6 +572,17 @@ export class GraphsComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Shows graph using Line chart
+   * @param groupData
+   * @param {ElementRef} containerDiv
+   * @param {string} boxContainer
+   * @param {string} valuesUnit
+   * @param {string} typeOfValueUnit
+   * @param {number} divWidth
+   * @param {number} divHeight
+   * @param {{top: number; right: number; bottom: number; left: number}} margin
+   */
   showGraphWithLineChart(groupData: any, containerDiv: ElementRef, boxContainer: string,
                          valuesUnit: string = this.valuesUnit, typeOfValueUnit: string = this.typeOfValueUnit,
                          divWidth: number = this.width, divHeight: number = this.height, margin = this.margin) {
@@ -589,6 +596,16 @@ export class GraphsComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Build a line chart using D3
+   * @param {any[]} dataGraph
+   * @param {ElementRef} containerDiv
+   * @param {string} valuesUnit
+   * @param {string} typeOfValueUnit
+   * @param {number} divWidth
+   * @param {number} divHeight
+   * @param margin
+   */
   buildLineChart(dataGraph: any[], containerDiv: ElementRef, valuesUnit: string, typeOfValueUnit: string,
                  divWidth: number, divHeight: number, margin: any) {
     const width = divWidth - margin.left - margin.right,
@@ -600,11 +617,13 @@ export class GraphsComponent implements OnInit, OnDestroy {
       const parseYear = d3.timeParse('%Y');
       const bisectDate = d3.bisector(function(d) { return (<any>d).variableName; }).left;
 
+      // define scales
       const x = d3.scaleTime().range([0, width]);
       const y = d3.scaleLinear().range([height, 0]);
 
+      // define line generator
       const line = d3.line()
-        // .curve(d3.curveBasis)
+      // .curve(d3.curveBasis)
         .x(function (d) { return x((<any>d).variableName); })
         .y(function (d) { return y((<any>d).variableValue); });
 
@@ -615,20 +634,29 @@ export class GraphsComponent implements OnInit, OnDestroy {
       const g = svg.append('g')
         .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
+      // parse data
       dataGraph.forEach(function(d) {
         d.variableName = parseYear(d.variableName);
         d.variableValue = +d.variableValue;
       });
 
+      // define x axis
       x.domain(d3.extent(dataGraph, function(d) { return d.variableName; }));
       y.domain([d3.min(dataGraph, function(d) { return d.variableValue; }),
         d3.max(dataGraph, function(d) { return d.variableValue; }) ]);
 
+      // append x axis
       g.append('g')
         .attr('class', 'axis axis--x')
         .attr('transform', 'translate(0,' + height + ')')
-        .call(d3.axisBottom(x));
+        .call(d3.axisBottom(x))
+        .selectAll('text')
+        .style('text-anchor', 'end')
+        .attr('dx', '-.8em')
+        .attr('dy', '.15em')
+        .attr('transform', 'rotate(-65)');
 
+      // append y axis
       g.append('g')
         .attr('class', 'axis axis--y')
         .call(d3.axisLeft(y).ticks(6).tickFormat(function(d) { return (d) + valuesUnit; }))
@@ -786,6 +814,16 @@ export class GraphsComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Build a stacked bar chart using D3
+   * @param {any[]} dataGraph
+   * @param {ElementRef} containerDiv
+   * @param {string} valuesUnit
+   * @param {number} digitsDecimals
+   * @param {number} divWidth
+   * @param {number} divHeight
+   * @param margin
+   */
   buildStackedBarChart(dataGraph: any[], containerDiv: ElementRef, valuesUnit: string, digitsDecimals: number,
                        divWidth: number, divHeight: number, margin: any) {
     // Define chart dimensions
