@@ -233,8 +233,6 @@
   "DCS": "Percentual de Funções Docentes com curso superior",
   "horasAula": "Média de Horas-Aula Diária",
   "alunosPorTurma": "Média de Alunos por Turma",
-  "horas": "horas",
-  "alunos": "alunos",
   "sistema8Anos": "Sistema/Régime 8 anos",
   "sistema9Anos": "Sistema/Régime 9 anos",
   "terceiroAno": "Terceiro Ano",
@@ -318,5 +316,7 @@
   "AFDInfoP3": "É importante destacar que o Grupo 1 é aquele com maior adequação de formação. O grau de adequação decresce à medida em que avançamos na numeração dos grupos. Deste modo, o grupo com menor grau de adequação é o Grupo 5.",
 
   "showMoreInformations": "Ver maior informação sobre este indicador",
-  "percentage": "Porcentagem"
+  "percentage": "Porcentagem",
+  "horas": "Horas",
+  "alunos": "Alunos"
 }

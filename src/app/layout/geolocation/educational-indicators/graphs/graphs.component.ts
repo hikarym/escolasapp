@@ -152,6 +152,7 @@ export class GraphsComponent implements OnInit, OnDestroy {
   private width = 315;
   private height = 270;
   private valuesUnit = '%';
+  private typeOfValueUnit = (this.getInstant('percentage'));
 
   // Indicadores, niveis, categorias
   private indicadores = [
@@ -271,40 +272,40 @@ export class GraphsComponent implements OnInit, OnDestroy {
 
         // horasAula - Infantil
         const dadosHorasAulaNivelInfantil = this.schoolSelected[this.indicadores[2]][this.niveis[0]];
-        this.showGraphWithVerticalBar(dadosHorasAulaNivelInfantil, this.div_horasAulaNivelInfantilGraph,
-          '#box-horasAulaNivelInfantil', ' ' + this.getInstant('horas'));
+        this.showGraphWithLineChart(dadosHorasAulaNivelInfantil, this.div_horasAulaNivelInfantilGraph,
+          '#box-horasAulaNivelInfantil', ' h', this.getInstant('horas'));
 
         // alunosPorTurma - Infantil
         const dadosAlunosPorTurmaNivelInfantil = this.schoolSelected[this.indicadores[3]][this.niveis[0]];
-        this.showGraphWithVerticalBar(dadosAlunosPorTurmaNivelInfantil, this.div_alunosPorTurmaNivelInfantilGraph,
-          '#box-alunosPorTurmaNivelInfantil', '');
+        this.showGraphWithLineChart(dadosAlunosPorTurmaNivelInfantil, this.div_alunosPorTurmaNivelInfantilGraph,
+          '#box-alunosPorTurmaNivelInfantil', '', this.getInstant('alunos'));
 
         // --- 2. Ensino Fundamental
         // ----- Anos Iniciais -----
         // Taxa de aprovação
         const dadosTxAprovEnsFundAIniciais = this.schoolSelected[this.indicadores[5]][this.niveis[1]][this.categorias[0]];
-        this.showGraphWithVerticalBar(dadosTxAprovEnsFundAIniciais, this.div_txAprovEnsFundAIniciaisGraph,
+        this.showGraphWithLineChart(dadosTxAprovEnsFundAIniciais, this.div_txAprovEnsFundAIniciaisGraph,
           '#box-txAprovEnsFundAIniciais');
 
         // Nota Matematica
         const dadosNtProvaMatEnsFundAIniciais = this.schoolSelected[this.indicadores[8]][this.niveis[1]][this.categorias[0]];
-        this.showGraphWithVerticalBar(dadosNtProvaMatEnsFundAIniciais, this.div_ntProvaMatEnsFundAIniciaisGraph,
-          '#box-ntProvaMatEnsFundAIniciais');
+        this.showGraphWithLineChart(dadosNtProvaMatEnsFundAIniciais, this.div_ntProvaMatEnsFundAIniciaisGraph,
+          '#box-ntProvaMatEnsFundAIniciais', '', '');
 
         // Nota Lingua Portuguesa
         const dadosNtProvaPortuEnsFundAIniciais = this.schoolSelected[this.indicadores[9]][this.niveis[1]][this.categorias[0]];
-        this.showGraphWithVerticalBar(dadosNtProvaPortuEnsFundAIniciais, this.div_ntProvaPortuEnsFundAIniciaisGraph,
-          '#box-ntProvaPortuEnsFundAIniciais');
+        this.showGraphWithLineChart(dadosNtProvaPortuEnsFundAIniciais, this.div_ntProvaPortuEnsFundAIniciaisGraph,
+          '#box-ntProvaPortuEnsFundAIniciais', '', '');
 
         // Nota Média Padronizada
         const dadosNtProvaPadronizEnsFundAIniciais = this.schoolSelected[this.indicadores[10]][this.niveis[1]][this.categorias[0]];
-        this.showGraphWithVerticalBar(dadosNtProvaPadronizEnsFundAIniciais, this.div_ntProvaPadronizEnsFundAIniciaisGraph,
-          '#box-ntProvaPadronizEnsFundAIniciais');
+        this.showGraphWithLineChart(dadosNtProvaPadronizEnsFundAIniciais, this.div_ntProvaPadronizEnsFundAIniciaisGraph,
+          '#box-ntProvaPadronizEnsFundAIniciais', '', '');
 
         // Nota IDEB
         const dadosIDEBEnsFundAIniciais = this.schoolSelected[this.indicadores[11]][this.niveis[1]][this.categorias[0]];
-        this.showGraphWithVerticalBar(dadosIDEBEnsFundAIniciais, this.div_idebEnsFundAIniciaisGraph,
-          '#box-idebEnsFundAIniciais');
+        this.showGraphWithLineChart(dadosIDEBEnsFundAIniciais, this.div_idebEnsFundAIniciaisGraph,
+          '#box-idebEnsFundAIniciais', '', '');
 
         // AFD
         this.showGraphByStackedBar(this.schoolSelected[this.indicadores[0]][this.niveis[1]][this.categorias[0]],
@@ -318,57 +319,57 @@ export class GraphsComponent implements OnInit, OnDestroy {
 
         // DCS - cursoSuperior
         const dadosDCSEnsFundAIniciais = this.schoolSelected[this.indicadores[1]]['cursoSuperior'][this.niveis[1]];
-        this.showGraphWithVerticalBar(dadosDCSEnsFundAIniciais, this.div_DCSEnsFundAIniciaisGraph, '#box-DCSEnsFundAIniciais');
+        this.showGraphWithLineChart(dadosDCSEnsFundAIniciais, this.div_DCSEnsFundAIniciaisGraph, '#box-DCSEnsFundAIniciais');
 
         // horasAula 8a
         const dadosHorasAulaEnsFundAIniciais8 = this.schoolSelected[this.indicadores[2]][this.niveis[1]][this.categorias[2]];
-        this.showGraphWithVerticalBar(dadosHorasAulaEnsFundAIniciais8, this.div_horasAulaEnsFundAIniciais8Graph,
-          '#box-horasAulaEnsFundAIniciais8', ' ' + this.getInstant('horas'));
+        this.showGraphWithLineChart(dadosHorasAulaEnsFundAIniciais8, this.div_horasAulaEnsFundAIniciais8Graph,
+          '#box-horasAulaEnsFundAIniciais8',  ' h', this.getInstant('horas'));
 
         // horasAula 9a
         const dadosHorasAulaEnsFundAIniciais9 = this.schoolSelected[this.indicadores[2]][this.niveis[1]][this.categorias[4]];
-        this.showGraphWithVerticalBar(dadosHorasAulaEnsFundAIniciais9, this.div_horasAulaEnsFundAIniciais9Graph,
-          '#box-horasAulaEnsFundAIniciais9', ' ' + this.getInstant('horas'));
+        this.showGraphWithLineChart(dadosHorasAulaEnsFundAIniciais9, this.div_horasAulaEnsFundAIniciais9Graph,
+          '#box-horasAulaEnsFundAIniciais9', ' h', this.getInstant('horas'));
 
         // alunosPorTurma 8a
         const dadosAlunosPorTurmaEnsFundAIniciais8 = this.schoolSelected[this.indicadores[3]][this.niveis[1]][this.categorias[2]];
-        this.showGraphWithVerticalBar(dadosAlunosPorTurmaEnsFundAIniciais8, this.div_alunosPorTurmaEnsFundAIniciais8Graph,
-          '#box-alunosPorTurmaEnsFundAIniciais8', ' ' + this.getInstant('alunos'));
+        this.showGraphWithLineChart(dadosAlunosPorTurmaEnsFundAIniciais8, this.div_alunosPorTurmaEnsFundAIniciais8Graph,
+          '#box-alunosPorTurmaEnsFundAIniciais8', '', this.getInstant('alunos'));
 
         // alunosPorTurma 9a
         const dadosAlunosPorTurmaEnsFundAIniciais9 = this.schoolSelected[this.indicadores[3]][this.niveis[1]][this.categorias[4]];
-        this.showGraphWithVerticalBar(dadosAlunosPorTurmaEnsFundAIniciais9, this.div_alunosPorTurmaEnsFundAIniciais9Graph,
-          '#box-alunosPorTurmaEnsFundAIniciais9', ' ' + this.getInstant('alunos'));
+        this.showGraphWithLineChart(dadosAlunosPorTurmaEnsFundAIniciais9, this.div_alunosPorTurmaEnsFundAIniciais9Graph,
+          '#box-alunosPorTurmaEnsFundAIniciais9', '', this.getInstant('alunos'));
 
         // ----- Anos Finais -----
         // Taxa de aprovação
         const dadosTxAprovEnsFundAFinais = this.schoolSelected[this.indicadores[5]][this.niveis[1]][this.categorias[1]];
-        this.showGraphWithVerticalBar(dadosTxAprovEnsFundAFinais, this.div_txAprovEnsFundAFinaisGraph,
+        this.showGraphWithLineChart(dadosTxAprovEnsFundAFinais, this.div_txAprovEnsFundAFinaisGraph,
           '#box-txAprovEnsFundAFinais');
 
         // Nota Matematica
         const dadosNtProvaMatEnsFundAFinais = this.schoolSelected[this.indicadores[8]][this.niveis[1]][this.categorias[1]];
-        this.showGraphWithVerticalBar(dadosNtProvaMatEnsFundAFinais, this.div_ntProvaMatEnsFundAFinaisGraph,
-          '#box-ntProvaMatEnsFundAFinais');
+        this.showGraphWithLineChart(dadosNtProvaMatEnsFundAFinais, this.div_ntProvaMatEnsFundAFinaisGraph,
+          '#box-ntProvaMatEnsFundAFinais', '', '');
 
         // Nota Lingua Portuguesa
         const dadosNtProvaPortuEnsFundAFinais = this.schoolSelected[this.indicadores[9]][this.niveis[1]][this.categorias[1]];
-        this.showGraphWithVerticalBar(dadosNtProvaPortuEnsFundAFinais, this.div_ntProvaPortuEnsFundAFinaisGraph,
-          '#box-ntProvaPortuEnsFundAFinais');
+        this.showGraphWithLineChart(dadosNtProvaPortuEnsFundAFinais, this.div_ntProvaPortuEnsFundAFinaisGraph,
+          '#box-ntProvaPortuEnsFundAFinais', '', '');
 
         // Nota Média Padronizada
         const dadosNtProvaPadronizEnsFundAFinais = this.schoolSelected[this.indicadores[10]][this.niveis[1]][this.categorias[1]];
-        this.showGraphWithVerticalBar(dadosNtProvaPadronizEnsFundAFinais, this.div_ntProvaPadronizEnsFundAFinaisGraph,
-          '#box-ntProvaPadronizEnsFundAFinais');
+        this.showGraphWithLineChart(dadosNtProvaPadronizEnsFundAFinais, this.div_ntProvaPadronizEnsFundAFinaisGraph,
+          '#box-ntProvaPadronizEnsFundAFinais', '', '');
 
         // Nota IDEB
         const dadosIDEBEnsFundAFinais = this.schoolSelected[this.indicadores[11]][this.niveis[1]][this.categorias[1]];
-        this.showGraphWithVerticalBar(dadosIDEBEnsFundAFinais, this.div_idebEnsFundAFinaisGraph,
-          '#box-idebEnsFundAFinais');
+        this.showGraphWithLineChart(dadosIDEBEnsFundAFinais, this.div_idebEnsFundAFinaisGraph,
+          '#box-idebEnsFundAFinais', '', '');
 
         // DCS - cursoSuperior
         const dadosDCSEnsFundAFinais = this.schoolSelected[this.indicadores[1]]['cursoSuperior'][this.niveis[1]];
-        this.showGraphWithVerticalBar(dadosDCSEnsFundAFinais, this.div_DCSEnsFundAFinaisGraph,
+        this.showGraphWithLineChart(dadosDCSEnsFundAFinais, this.div_DCSEnsFundAFinaisGraph,
           '#box-DCSEnsFundAFinais');
 
         // AFD
@@ -381,40 +382,40 @@ export class GraphsComponent implements OnInit, OnDestroy {
           this.div_EDEnsFundAFinaisGraph, '#box-EDEnsFundAFinais',
           this.valuesUnit, 2, this.width, 320, {top: 15, right: 80, bottom: 30, left: 30});
 
-        // horasAula ------ falta 8a
+        // horasAula 8a
         const dadosHorasAulaEnsFundAFinais8 = this.schoolSelected[this.indicadores[2]][this.niveis[1]][this.categorias[3]];
-        this.showGraphWithVerticalBar(dadosHorasAulaEnsFundAFinais8, this.div_horasAulaEnsFundAFinais8Graph,
+        this.showGraphWithLineChart(dadosHorasAulaEnsFundAFinais8, this.div_horasAulaEnsFundAFinais8Graph,
           '#box-horasAulaEnsFundAFinais8', ' ' + this.getInstant('horas'));
 
-        // horasAula ------ falta 9a
+        // horasAula 9a
         const dadosHorasAulaEnsFundAFinais9 = this.schoolSelected[this.indicadores[2]][this.niveis[1]][this.categorias[5]];
-        this.showGraphWithVerticalBar(dadosHorasAulaEnsFundAFinais9, this.div_horasAulaEnsFundAFinais9Graph,
+        this.showGraphWithLineChart(dadosHorasAulaEnsFundAFinais9, this.div_horasAulaEnsFundAFinais9Graph,
           '#box-horasAulaEnsFundAFinais9', ' ' + this.getInstant('horas'));
 
-        // alunosPorTurma ------ falta 8a
+        // alunosPorTurma 8a
         const dadosAlunosPorTurmaEnsFundAFinais8 = this.schoolSelected[this.indicadores[3]][this.niveis[1]][this.categorias[3]];
-        this.showGraphWithVerticalBar(dadosAlunosPorTurmaEnsFundAFinais8, this.div_alunosPorTurmaEnsFundAFinais8Graph,
-          '#box-alunosPorTurmaEnsFundAFinais8', ' ' + this.getInstant('alunos'));
+        this.showGraphWithLineChart(dadosAlunosPorTurmaEnsFundAFinais8, this.div_alunosPorTurmaEnsFundAFinais8Graph,
+          '#box-alunosPorTurmaEnsFundAFinais8',  '', this.getInstant('alunos'));
 
         // alunosPorTurma ------ falta 9a
         const dadosAlunosPorTurmaEnsFundAFinais9 = this.schoolSelected[this.indicadores[3]][this.niveis[1]][this.categorias[5]];
-        this.showGraphWithVerticalBar(dadosAlunosPorTurmaEnsFundAFinais9, this.div_alunosPorTurmaEnsFundAFinais9Graph,
-          '#box-alunosPorTurmaEnsFundAFinais9', 'alunos');
+        this.showGraphWithLineChart(dadosAlunosPorTurmaEnsFundAFinais9, this.div_alunosPorTurmaEnsFundAFinais9Graph,
+          '#box-alunosPorTurmaEnsFundAFinais9',  '', this.getInstant('alunos'));
 
         // --- 3. Ensino Medio
         // Taxa de aprovação
         const dadosTxAprovEnsMedio = this.schoolSelected[this.indicadores[5]][this.niveis[2]][this.categorias[9]];
-        this.showGraphWithVerticalBar(dadosTxAprovEnsMedio, this.div_txAprovEnsMedioGraph,
+        this.showGraphWithLineChart(dadosTxAprovEnsMedio, this.div_txAprovEnsMedioGraph,
           '#box-txAprovEnsMedio');
 
         // Taxa de Abandono
         const dadosTxAbandonoEnsMedio = this.schoolSelected[this.indicadores[6]][this.niveis[2]][this.categorias[8]];
-        this.showGraphWithVerticalBar(dadosTxAbandonoEnsMedio, this.div_txAbandonoEnsMedioGraph,
+        this.showGraphWithLineChart(dadosTxAbandonoEnsMedio, this.div_txAbandonoEnsMedioGraph,
           '#box-txAbandonoEnsMedio');
 
         // Taxa de Distorção
         const dadosTxDistorEnsMedio = this.schoolSelected[this.indicadores[7]][this.niveis[2]][this.categorias[9]];
-        this.showGraphWithVerticalBar(dadosTxDistorEnsMedio, this.div_txDistorEnsMedioGraph,
+        this.showGraphWithLineChart(dadosTxDistorEnsMedio, this.div_txDistorEnsMedioGraph,
           '#box-txDistorEnsMedio');
 
         // INSEAB
@@ -443,27 +444,27 @@ export class GraphsComponent implements OnInit, OnDestroy {
 
         // DCS - cursoSuperior
         const dadosDCSEnsMedio = this.schoolSelected[this.indicadores[1]]['cursoSuperior'][this.niveis[2]];
-        this.showGraphWithVerticalBar(dadosDCSEnsMedio, this.div_DCSEnsMedioGraph, '#box-DCSEnsMedio');
+        this.showGraphWithLineChart(dadosDCSEnsMedio, this.div_DCSEnsMedioGraph, '#box-DCSEnsMedio');
 
         // horasAula -  por anos
         const dadosHorasAulaPorAnosEnsMedio = this.schoolSelected[this.indicadores[2]][this.niveis[2]][this.categorias[6]];
-        this.showGraphWithVerticalBar(dadosHorasAulaPorAnosEnsMedio, this.div_horasAulaPorAnosEnsMedioGraph,
-          '#box-horasAulaPorAnosEnsMedio', ' ' + this.getInstant('horas'));
+        this.showGraphWithLineChart(dadosHorasAulaPorAnosEnsMedio, this.div_horasAulaPorAnosEnsMedioGraph,
+          '#box-horasAulaPorAnosEnsMedio',  ' h', this.getInstant('horas'));
 
         // horasAula - Terceiro Ano
         const dadosHorasAulaAno3EnsMedio = this.schoolSelected[this.indicadores[2]][this.niveis[2]][this.categorias[7]];
-        this.showGraphWithVerticalBar(dadosHorasAulaAno3EnsMedio, this.div_horasAulaAno3EnsMedioGraph,
-          '#box-horasAulaAno3EnsMedio', ' ' + this.getInstant('horas'));
+        this.showGraphWithLineChart(dadosHorasAulaAno3EnsMedio, this.div_horasAulaAno3EnsMedioGraph,
+          '#box-horasAulaAno3EnsMedio', ' h', this.getInstant('horas'));
 
         // alunosPorTurma por anos
         const dadosAlunosPorTurmaPorAnosEnsMedio = this.schoolSelected[this.indicadores[3]][this.niveis[2]][this.categorias[6]];
-        this.showGraphWithVerticalBar(dadosAlunosPorTurmaPorAnosEnsMedio, this.div_alunosPorTurmaPorAnosEnsMedioGraph,
-          '#box-alunosPorTurmaPorAnosEnsMedio', ' ' + this.getInstant('alunos'));
+        this.showGraphWithLineChart(dadosAlunosPorTurmaPorAnosEnsMedio, this.div_alunosPorTurmaPorAnosEnsMedioGraph,
+          '#box-alunosPorTurmaPorAnosEnsMedio', '', this.getInstant('alunos'));
 
         // alunosPorTurma - Terceiro Ano
         const dadosAlunosPorTurmaAno3EnsMedio = this.schoolSelected[this.indicadores[3]][this.niveis[2]][this.categorias[7]];
-        this.showGraphWithVerticalBar(dadosAlunosPorTurmaAno3EnsMedio, this.div_alunosPorTurmaAno3EnsMedioGraph,
-          '#box-alunosPorTurmaAno3EnsMedio', ' ' + this.getInstant('alunos'));
+        this.showGraphWithLineChart(dadosAlunosPorTurmaAno3EnsMedio, this.div_alunosPorTurmaAno3EnsMedioGraph,
+          '#box-alunosPorTurmaAno3EnsMedio', ' h', this.getInstant('alunos'));
 
       });
     this.subscription.add(s);
@@ -575,19 +576,21 @@ export class GraphsComponent implements OnInit, OnDestroy {
     }
   }
 
-  showGraphWithLineChart(groupData: any, containerDiv: ElementRef, boxContainer: string, valuesUnit: string = this.valuesUnit,
+  showGraphWithLineChart(groupData: any, containerDiv: ElementRef, boxContainer: string,
+                         valuesUnit: string = this.valuesUnit, typeOfValueUnit: string = this.typeOfValueUnit,
                          divWidth: number = this.width, divHeight: number = this.height, margin = this.margin) {
     const dataForGraph = this.getPropertiesNamesAndValuesForNumbers(groupData, 0);
     const dom: any = document.querySelector(boxContainer);
     if (dataForGraph.length > 0) {
       dom.classList.remove('hide-section');
-      this.buildLineChart(dataForGraph, containerDiv, valuesUnit, divWidth, divHeight, margin);
+      this.buildLineChart(dataForGraph, containerDiv, valuesUnit, typeOfValueUnit, divWidth, divHeight, margin);
     } else {
       dom.classList.add('hide-section');
     }
   }
 
-  buildLineChart(dataGraph: any[], containerDiv: ElementRef, valuesUnit: string, divWidth: number, divHeight: number, margin: any) {
+  buildLineChart(dataGraph: any[], containerDiv: ElementRef, valuesUnit: string, typeOfValueUnit: string,
+                 divWidth: number, divHeight: number, margin: any) {
     const width = divWidth - margin.left - margin.right,
       height = divHeight - margin.top - margin.bottom;
     // Remove all children from HTML
@@ -628,7 +631,7 @@ export class GraphsComponent implements OnInit, OnDestroy {
 
       g.append('g')
         .attr('class', 'axis axis--y')
-        .call(d3.axisLeft(y).ticks(6).tickFormat(function(d) { return (d) + '%'; }))
+        .call(d3.axisLeft(y).ticks(6).tickFormat(function(d) { return (d) + valuesUnit; }))
         .append('text')
         .attr('class', 'axis-title')
         .attr('transform', 'rotate(-90)')
@@ -636,7 +639,7 @@ export class GraphsComponent implements OnInit, OnDestroy {
         .attr('dy', '.71em')
         .style('text-anchor', 'end')
         .attr('fill', '#5D6971')
-        .text('Porcentagem (%) ');
+        .text( typeOfValueUnit);
 
       g.append('path')
         .datum(dataGraph)
@@ -680,57 +683,11 @@ export class GraphsComponent implements OnInit, OnDestroy {
           // d = Number(d0.variableName) > Number(d1.variableName) ? d1 : d0;
 
           focus.attr('transform', 'translate(' + x(d.variableName) + ',' + y(d.variableValue) + ')');
-          focus.select('text').text(function() { return d.variableValue + '%'; });
+          focus.select('text').text(function() { return d.variableValue + valuesUnit; });
           focus.select('.x-hover-line').attr('y2', height - y(d.variableValue));
           focus.select('.y-hover-line').attr('x2', width + width);
         });
     }
-  }
-
-  buildMultiplelineChart(dataGraph: any[], containerDiv: ElementRef, valuesUnit: string, divWidth: number, divHeight: number, margin: any) {
-    const width = divWidth - margin.left - margin.right,
-      height = divHeight - margin.top - margin.bottom;
-
-    // Define domain data for X & Y axes from the data array
-    const xDomain = dataGraph.map(d => d.variableName);
-    // console.log('xDomain:', xDomain);
-    const yDomain = [0, d3.max(dataGraph, function (d) {
-      return d.variableValue;
-    })];
-
-    // Set the scale for X & Y
-    const x = d3.scaleBand()
-      .domain(xDomain)
-      .rangeRound([0, width])
-      .padding(0.2);
-
-    const y = d3.scaleLinear()
-      .domain(yDomain)
-      .range([height, 0]);
-
-    const color = d3.scaleOrdinal(d3.schemeCategory10);
-
-    const xAxis = d3.axisBottom(x);
-    const yAxis = d3.axisLeft(y);
-
-    /*const line = d3.line()
-      .curve(d3.curveBasis)
-      .x(function(d) {
-        return x(d.variableName);
-      })
-      .y(function(d) {
-        return y(d.variableValue);
-      });
-
-    // Define chart dimensions
-    // let svg = d3.select(this.element.nativeElement).append('svg')
-    const svg = d3.select(containerDiv.nativeElement).append('svg')
-      .attr('width', width + this.margin.left + this.margin.right)
-      .attr('height', height + this.margin.top + this.margin.bottom)
-      .append('g')
-      .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');*/
-
-
   }
 
   /**
