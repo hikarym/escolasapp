@@ -148,7 +148,7 @@ export class GraphsComponent implements OnInit, OnDestroy {
   private groupDefault = 'Grupo1';
   private nivelDefault = 'Nivel1';
 
-  private margin = {top: 15, right: 20, bottom: 33, left: 20};
+  private margin = {top: 30, right: 45, bottom: 33, left: 40};
   private width = 315;
   private height = 270;
   private valuesUnit = '%';
@@ -267,7 +267,7 @@ export class GraphsComponent implements OnInit, OnDestroy {
 
         // DCS - cursoSuperior
         const dadosDCSNivelInfantil = this.schoolSelected[this.indicadores[1]]['cursoSuperior'][this.niveis[0]];
-        this.showGraphWithVerticalBar(dadosDCSNivelInfantil, this.div_DCSNivelInfantilGraph, '#box-DCSNivelInfantil');
+        this.showGraphWithLineChart(dadosDCSNivelInfantil, this.div_DCSNivelInfantilGraph, '#box-DCSNivelInfantil');
 
         // horasAula - Infantil
         const dadosHorasAulaNivelInfantil = this.schoolSelected[this.indicadores[2]][this.niveis[0]];
@@ -311,19 +311,10 @@ export class GraphsComponent implements OnInit, OnDestroy {
           this.div_AFDEnsFundAIniciaisGraph, '#box-AFDEnsFundAIniciais',
           this.valuesUnit, 2, this.width, 320, {top: 15, right: 80, bottom: 30, left: 30});
 
-        /*const dadosAFDEnsFundAIniciais = this.getDadosDoIndicador(this.indicadores[0], this.niveis[1], this.categorias[0]);
-        this.groupsAFDEnsFundAIniciais = Object.keys(dadosAFDEnsFundAIniciais);
-        this.showGraphByGroups(this.indicadores[0], this.niveis[1], this.categorias[0], this.groupDefault,
-          this.div_AFDEnsFundAIniciaisGraph);*/
-
         // EsforcoDocente
         this.showGraphByStackedBar(this.schoolSelected[this.indicadores[4]][this.niveis[1]][this.categorias[0]],
           this.div_EDEnsFundAIniciaisGraph, '#box-EDEnsFundAIniciais',
           this.valuesUnit, 2, this.width, 320, {top: 15, right: 80, bottom: 30, left: 30});
-        /*const dadosEDEnsFundAIniciais = this.getDadosDoIndicador(this.indicadores[4], this.niveis[1], this.categorias[0]);
-        this.nivelesEDEnsFundAIniciais = Object.keys(dadosEDEnsFundAIniciais);
-        this.showGraphByGroups(this.indicadores[4], this.niveis[1], this.categorias[0], this.nivelDefault,
-          this.div_EDEnsFundAIniciaisGraph);*/
 
         // DCS - cursoSuperior
         const dadosDCSEnsFundAIniciais = this.schoolSelected[this.indicadores[1]]['cursoSuperior'][this.niveis[1]];
@@ -385,16 +376,10 @@ export class GraphsComponent implements OnInit, OnDestroy {
           this.div_AFDEnsFundAFinaisGraph, '#box-AFDEnsFundAFinais',
           this.valuesUnit, 2, this.width, 320, {top: 15, right: 80, bottom: 30, left: 30});
 
-        /*const dadosAFDEnsFundAFinais = this.getDadosDoIndicador(this.indicadores[0], this.niveis[1], this.categorias[1]);
-        this.groupsAFDEnsFundAFinais = Object.keys(dadosAFDEnsFundAFinais);
-        this.showGraphByGroups(this.indicadores[0], this.niveis[1], this.categorias[1], this.groupDefault, this.div_AFDEnsFundAFinaisGraph);*/
+        // EsforcoDocente
         this.showGraphByStackedBar(this.schoolSelected[this.indicadores[4]][this.niveis[1]][this.categorias[1]],
           this.div_EDEnsFundAFinaisGraph, '#box-EDEnsFundAFinais',
           this.valuesUnit, 2, this.width, 320, {top: 15, right: 80, bottom: 30, left: 30});
-        /*// EsforcoDocente
-        const dadosEDEnsFundAFinais = this.getDadosDoIndicador(this.indicadores[4], this.niveis[1], this.categorias[1]);
-        this.nivelesEDEnsFundAFinais = Object.keys(dadosEDEnsFundAFinais);
-        this.showGraphByGroups(this.indicadores[4], this.niveis[1], this.categorias[1], this.nivelDefault, this.div_EDEnsFundAFinaisGraph); */
 
         // horasAula ------ falta 8a
         const dadosHorasAulaEnsFundAFinais8 = this.schoolSelected[this.indicadores[2]][this.niveis[1]][this.categorias[3]];
@@ -450,17 +435,11 @@ export class GraphsComponent implements OnInit, OnDestroy {
         this.showGraphByStackedBar(this.schoolSelected[this.indicadores[0]][this.niveis[2]],
           this.div_AFDEnsMedioGraph, '#box-AFDEnsMedio',
           this.valuesUnit, 2, this.width, 320, {top: 15, right: 80, bottom: 30, left: 30});
-        /*const dadosAFDEnsMedio = this.getDadosDoIndicador(this.indicadores[0], this.niveis[2], '');
-        this.groupsAFDEnsMedio = Object.keys(dadosAFDEnsMedio);
-        this.showGraphByGroups(this.indicadores[0], this.niveis[2], '', this.groupDefault, this.div_AFDEnsMedioGraph);*/
 
         // EsforcoDocente
         this.showGraphByStackedBar(this.schoolSelected[this.indicadores[4]][this.niveis[2]],
           this.div_EDEnsMedioGraph, '#box-EDEnsMedio',
           this.valuesUnit, 2, this.width, 320, {top: 15, right: 80, bottom: 30, left: 30});
-        /*const dadosEDEnsMedio = this.getDadosDoIndicador(this.indicadores[4], this.niveis[2], '');
-        this.nivelesEDEnsMedio = Object.keys(dadosEDEnsMedio);
-        this.showGraphByGroups(this.indicadores[4], this.niveis[2], '', this.nivelDefault, this.div_EDEnsMedioGraph);*/
 
         // DCS - cursoSuperior
         const dadosDCSEnsMedio = this.schoolSelected[this.indicadores[1]]['cursoSuperior'][this.niveis[2]];
@@ -555,6 +534,203 @@ export class GraphsComponent implements OnInit, OnDestroy {
     } else {
       dom.classList.remove('hide-section');
     }
+  }
+
+
+
+  showGraphByStackedBar(dataGraph: any[], divForGraph: ElementRef, boxContainer: string,
+                        valuesUnit: string = this.valuesUnit, digitsDecimals: number,
+                        divWidth: number = this.width, divHeight: number = this.height, margin = this.margin) {
+
+    const years = Object.keys(dataGraph);
+    const numberOfYears = years.length;
+    // verify if the values are different of "NA"
+
+    const dataForGraph = [];
+    for (let i = 0; i < numberOfYears; i++) {
+      const groupsByYear = dataGraph[years[i]];
+      const groups = Object.keys(groupsByYear);
+      const numberOfGroups = groups.length;
+      const jsonData = {};
+      jsonData['ano'] = this.getInstant(years[i]);
+      for (let j = 0; j < numberOfGroups; j++) {
+        if (typeof  groupsByYear[groups[j]] === 'number') {
+          jsonData[this.getInstant(groups[j])] = (digitsDecimals === 0) ? groupsByYear[groups[j]] :
+            groupsByYear[groups[j]].toFixed(digitsDecimals);
+        }
+      }
+      if (Object.keys(jsonData).length > 1) {
+        dataForGraph.push(jsonData);
+      }
+    }
+
+    // console.log('data stack:', dataForGraph);
+
+    const dom: any = document.querySelector(boxContainer);
+    if (dataForGraph.length > 0) {
+      dom.classList.remove('hide-section');
+      this.buildStackedBarChart(dataForGraph, divForGraph, valuesUnit, digitsDecimals, divWidth, divHeight, margin);
+    } else {
+      dom.classList.add('hide-section');
+    }
+  }
+
+  showGraphWithLineChart(groupData: any, containerDiv: ElementRef, boxContainer: string, valuesUnit: string = this.valuesUnit,
+                         divWidth: number = this.width, divHeight: number = this.height, margin = this.margin) {
+    const dataForGraph = this.getPropertiesNamesAndValuesForNumbers(groupData, 0);
+    const dom: any = document.querySelector(boxContainer);
+    if (dataForGraph.length > 0) {
+      dom.classList.remove('hide-section');
+      this.buildLineChart(dataForGraph, containerDiv, valuesUnit, divWidth, divHeight, margin);
+    } else {
+      dom.classList.add('hide-section');
+    }
+  }
+
+  buildLineChart(dataGraph: any[], containerDiv: ElementRef, valuesUnit: string, divWidth: number, divHeight: number, margin: any) {
+    const width = divWidth - margin.left - margin.right,
+      height = divHeight - margin.top - margin.bottom;
+    // Remove all children from HTML
+    d3.select(containerDiv.nativeElement).html('');
+    if (dataGraph.length > 0) {
+      // define time format
+      const parseYear = d3.timeParse('%Y');
+      const bisectDate = d3.bisector(function(d) { return (<any>d).variableName; }).left;
+
+      const x = d3.scaleTime().range([0, width]);
+      const y = d3.scaleLinear().range([height, 0]);
+
+      const line = d3.line()
+        // .curve(d3.curveBasis)
+        .x(function (d) { return x((<any>d).variableName); })
+        .y(function (d) { return y((<any>d).variableValue); });
+
+      // Define chart dimensions
+      const svg = d3.select(containerDiv.nativeElement).append('svg')
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom);
+      const g = svg.append('g')
+        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+      dataGraph.forEach(function(d) {
+        d.variableName = parseYear(d.variableName);
+        d.variableValue = +d.variableValue;
+      });
+
+      x.domain(d3.extent(dataGraph, function(d) { return d.variableName; }));
+      y.domain([d3.min(dataGraph, function(d) { return d.variableValue; }),
+        d3.max(dataGraph, function(d) { return d.variableValue; }) ]);
+
+      g.append('g')
+        .attr('class', 'axis axis--x')
+        .attr('transform', 'translate(0,' + height + ')')
+        .call(d3.axisBottom(x));
+
+      g.append('g')
+        .attr('class', 'axis axis--y')
+        .call(d3.axisLeft(y).ticks(6).tickFormat(function(d) { return (d) + '%'; }))
+        .append('text')
+        .attr('class', 'axis-title')
+        .attr('transform', 'rotate(-90)')
+        .attr('y', 6)
+        .attr('dy', '.71em')
+        .style('text-anchor', 'end')
+        .attr('fill', '#5D6971')
+        .text('Porcentagem (%) ');
+
+      g.append('path')
+        .datum(dataGraph)
+        .attr('class', 'line')
+        .attr('d', line);
+
+      const focus = g.append('g')
+        .attr('class', 'focus')
+        .style('display', 'none');
+
+      focus.append('line')
+        .attr('class', 'x-hover-line hover-line')
+        .attr('y1', 0)
+        .attr('y2', height);
+
+      focus.append('line')
+        .attr('class', 'y-hover-line hover-line')
+        .attr('x1', 0)
+        .attr('x2', width);
+
+      focus.append('circle')
+        .attr('r', 7.5);
+
+      focus.append('text')
+        .attr('x', 7)
+        .attr('dy', '-1.21em');
+
+      svg.append('rect')
+        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+        .attr('class', 'overlay')
+        .attr('width', width)
+        .attr('height', height)
+        .on('mouseover', function() { focus.style('display', null); })
+        .on('mouseout', function() { focus.style('display', 'none'); })
+        .on('mousemove', function(data) {
+          const x0 = x.invert(d3.mouse(<any>this)[0]),
+            i = bisectDate(dataGraph, x0, 1),
+            d0 = dataGraph[i - 1],
+            d1 = dataGraph[i],
+            d = Number(x0) -  Number(<any>d0.variableName) > Number(<any>d1.variableName) - Number(x0) ? d1 : d0;
+          // d = Number(d0.variableName) > Number(d1.variableName) ? d1 : d0;
+
+          focus.attr('transform', 'translate(' + x(d.variableName) + ',' + y(d.variableValue) + ')');
+          focus.select('text').text(function() { return d.variableValue + '%'; });
+          focus.select('.x-hover-line').attr('y2', height - y(d.variableValue));
+          focus.select('.y-hover-line').attr('x2', width + width);
+        });
+    }
+  }
+
+  buildMultiplelineChart(dataGraph: any[], containerDiv: ElementRef, valuesUnit: string, divWidth: number, divHeight: number, margin: any) {
+    const width = divWidth - margin.left - margin.right,
+      height = divHeight - margin.top - margin.bottom;
+
+    // Define domain data for X & Y axes from the data array
+    const xDomain = dataGraph.map(d => d.variableName);
+    // console.log('xDomain:', xDomain);
+    const yDomain = [0, d3.max(dataGraph, function (d) {
+      return d.variableValue;
+    })];
+
+    // Set the scale for X & Y
+    const x = d3.scaleBand()
+      .domain(xDomain)
+      .rangeRound([0, width])
+      .padding(0.2);
+
+    const y = d3.scaleLinear()
+      .domain(yDomain)
+      .range([height, 0]);
+
+    const color = d3.scaleOrdinal(d3.schemeCategory10);
+
+    const xAxis = d3.axisBottom(x);
+    const yAxis = d3.axisLeft(y);
+
+    /*const line = d3.line()
+      .curve(d3.curveBasis)
+      .x(function(d) {
+        return x(d.variableName);
+      })
+      .y(function(d) {
+        return y(d.variableValue);
+      });
+
+    // Define chart dimensions
+    // let svg = d3.select(this.element.nativeElement).append('svg')
+    const svg = d3.select(containerDiv.nativeElement).append('svg')
+      .attr('width', width + this.margin.left + this.margin.right)
+      .attr('height', height + this.margin.top + this.margin.bottom)
+      .append('g')
+      .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');*/
+
+
   }
 
   /**
@@ -653,89 +829,6 @@ export class GraphsComponent implements OnInit, OnDestroy {
     }
   }
 
-  showGraphByStackedBar(dataGraph: any[], divForGraph: ElementRef, boxContainer: string,
-                        valuesUnit: string = this.valuesUnit, digitsDecimals: number,
-                        divWidth: number = this.width, divHeight: number = this.height, margin = this.margin) {
-
-    const years = Object.keys(dataGraph);
-    const numberOfYears = years.length;
-    // verify if the values are different of "NA"
-
-    const dataForGraph = [];
-    for (let i = 0; i < numberOfYears; i++) {
-      const groupsByYear = dataGraph[years[i]];
-      const groups = Object.keys(groupsByYear);
-      const numberOfGroups = groups.length;
-      const jsonData = {};
-      jsonData['ano'] = this.getInstant(years[i]);
-      for (let j = 0; j < numberOfGroups; j++) {
-        if (typeof  groupsByYear[groups[j]] === 'number') {
-          jsonData[this.getInstant(groups[j])] = (digitsDecimals === 0) ? groupsByYear[groups[j]] :
-            groupsByYear[groups[j]].toFixed(digitsDecimals);
-        }
-      }
-      if (Object.keys(jsonData).length > 1) {
-        dataForGraph.push(jsonData);
-      }
-    }
-
-    // console.log('data stack:', dataForGraph);
-
-    const dom: any = document.querySelector(boxContainer);
-    if (dataForGraph.length > 0) {
-      dom.classList.remove('hide-section');
-      this.buildStackedBarChart(dataForGraph, divForGraph, valuesUnit, digitsDecimals, divWidth, divHeight, margin);
-    } else {
-      dom.classList.add('hide-section');
-    }
-  }
-
-  buildMultiplelineChart(dataGraph: any[], containerDiv: ElementRef, valuesUnit: string, divWidth: number, divHeight: number, margin: any) {
-    const width = divWidth - margin.left - margin.right,
-      height = divHeight - margin.top - margin.bottom;
-
-    // Define domain data for X & Y axes from the data array
-    const xDomain = dataGraph.map(d => d.variableName);
-    // console.log('xDomain:', xDomain);
-    const yDomain = [0, d3.max(dataGraph, function (d) {
-      return d.variableValue;
-    })];
-
-    // Set the scale for X & Y
-    const x = d3.scaleBand()
-      .domain(xDomain)
-      .rangeRound([0, width])
-      .padding(0.2);
-
-    const y = d3.scaleLinear()
-      .domain(yDomain)
-      .range([height, 0]);
-
-    const color = d3.scaleOrdinal(d3.schemeCategory10);
-
-    const xAxis = d3.axisBottom(x);
-    const yAxis = d3.axisLeft(y);
-
-    /*const line = d3.line()
-      .curve(d3.curveBasis)
-      .x(function(d) {
-        return x(d.variableName);
-      })
-      .y(function(d) {
-        return y(d.variableValue);
-      });
-
-    // Define chart dimensions
-    // let svg = d3.select(this.element.nativeElement).append('svg')
-    const svg = d3.select(containerDiv.nativeElement).append('svg')
-      .attr('width', width + this.margin.left + this.margin.right)
-      .attr('height', height + this.margin.top + this.margin.bottom)
-      .append('g')
-      .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');*/
-
-
-  }
-
   buildStackedBarChart(dataGraph: any[], containerDiv: ElementRef, valuesUnit: string, digitsDecimals: number,
                        divWidth: number, divHeight: number, margin: any) {
     // Define chart dimensions
@@ -805,10 +898,10 @@ export class GraphsComponent implements OnInit, OnDestroy {
         .selectAll('rect')
         .data(function(d) {return d; })
         .enter().append('rect')
-          .attr('x', function(d) { return x((<any>d).data.ano); })
-          .attr('y', function(d) { return y(d[1]); })
-          .attr('height', function(d) { return y(d[0]) - y(d[1]); })
-          .attr('width', x.bandwidth())
+        .attr('x', function(d) { return x((<any>d).data.ano); })
+        .attr('y', function(d) { return y(d[1]); })
+        .attr('height', function(d) { return y(d[0]) - y(d[1]); })
+        .attr('width', x.bandwidth())
         .on('mouseover', function() {
           tooltip.style('display', null);
         })

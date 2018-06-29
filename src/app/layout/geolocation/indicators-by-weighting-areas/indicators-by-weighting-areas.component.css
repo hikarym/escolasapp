@@ -254,6 +254,30 @@ a:link, a:visited{
 .x path {
   display: none;
 }
+
+.line {
+  fill: none;
+  stroke: #6F257F;
+  stroke-width: 3px;
+}
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+.focus circle {
+  fill: #F1F3F3;
+  stroke: #6F257F;
+  stroke-width: 4px;
+}
+
+.hover-line {
+  stroke: #6F257F;
+  stroke-width: 2px;
+  stroke-dasharray: 3,3;
+}
+
 .toolTip {
   position: absolute;
   display: none;
