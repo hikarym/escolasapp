@@ -606,6 +606,7 @@ export class GraphsComponent implements OnInit, OnDestroy {
    * @param {number} divHeight
    * @param margin
    */
+
   buildLineChart(dataGraph: any[], containerDiv: ElementRef, valuesUnit: string, typeOfValueUnit: string,
                  divWidth: number, divHeight: number, margin: any) {
     const width = divWidth - margin.left - margin.right,
@@ -642,8 +643,9 @@ export class GraphsComponent implements OnInit, OnDestroy {
 
       // define x axis
       x.domain(d3.extent(dataGraph, function(d) { return d.variableName; }));
-      y.domain([d3.min(dataGraph, function(d) { return d.variableValue; }),
-        d3.max(dataGraph, function(d) { return d.variableValue; }) ]);
+      /*y.domain([d3.min(dataGraph, function(d) { return d.variableValue; }),
+        d3.max(dataGraph, function(d) { return d.variableValue; }) ]);*/
+      y.domain([0, d3.max(dataGraph, function(d) { return d.variableValue; }) ]);
 
       // append x axis
       g.append('g')
@@ -681,12 +683,12 @@ export class GraphsComponent implements OnInit, OnDestroy {
       focus.append('line')
         .attr('class', 'x-hover-line hover-line')
         .attr('y1', 0)
-        .attr('y2', height);
+        .attr('y2',  height);
 
       focus.append('line')
         .attr('class', 'y-hover-line hover-line')
-        .attr('x1', 0)
-        .attr('x2', width);
+        .attr('x1', -1 * width)
+        .attr('x2', 0); // width
 
       focus.append('circle')
         .attr('r', 7.5);
@@ -709,11 +711,11 @@ export class GraphsComponent implements OnInit, OnDestroy {
             d1 = dataGraph[i],
             d = Number(x0) -  Number(<any>d0.variableName) > Number(<any>d1.variableName) - Number(x0) ? d1 : d0;
           // d = Number(d0.variableName) > Number(d1.variableName) ? d1 : d0;
-
           focus.attr('transform', 'translate(' + x(d.variableName) + ',' + y(d.variableValue) + ')');
           focus.select('text').text(function() { return d.variableValue + valuesUnit; });
           focus.select('.x-hover-line').attr('y2', height - y(d.variableValue));
-          focus.select('.y-hover-line').attr('x2', width + width);
+          focus.select('.y-hover-line').attr('x1', -1 * x(d.variableName));
+          focus.select('.y-hover-line').attr('x2', 0); // width + width
         });
     }
   }
