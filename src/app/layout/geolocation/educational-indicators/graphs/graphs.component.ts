@@ -643,6 +643,7 @@ export class GraphsComponent implements OnInit, OnDestroy {
 
       // define x axis
       x.domain(d3.extent(dataGraph, function(d) { return d.variableName; }));
+
       /*y.domain([d3.min(dataGraph, function(d) { return d.variableValue; }),
         d3.max(dataGraph, function(d) { return d.variableValue; }) ]);*/
       y.domain([0, d3.max(dataGraph, function(d) { return d.variableValue; }) ]);
@@ -651,7 +652,7 @@ export class GraphsComponent implements OnInit, OnDestroy {
       g.append('g')
         .attr('class', 'axis axis--x')
         .attr('transform', 'translate(0,' + height + ')')
-        .call(d3.axisBottom(x))
+        .call(d3.axisBottom(x).ticks(6))
         .selectAll('text')
         .style('text-anchor', 'end')
         .attr('dx', '-.8em')
