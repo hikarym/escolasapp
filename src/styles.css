@@ -22,6 +22,11 @@ body{
   margin:0;
 }
 
+.position-right-bottom {
+  right:10px;
+  bottom: 25px;
+}
+
 .header .navbar {
   background: #323c3c !important; /*#222*/
 }
@@ -220,7 +225,6 @@ body{
 
 @media (min-width: 576px) {
   .modal-dialog {
-    max-width: 500px;
     margin: 58px auto;
   }
 }

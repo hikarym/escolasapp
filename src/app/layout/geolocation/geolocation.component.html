@@ -11,8 +11,8 @@
   <!-- Geolocation of a school -->
   <div class="map-container">
     <!-- Display/hide settings button trigger Modal-->
-    <button type="button" class="btn btn-outline-dark btn-map" style="right:10px; bottom: 25px;"
-            data-toggle="modal" data-target="#exampleModal" >
+    <button type="button" class="btn btn-outline-dark btn-map position-right-bottom"
+            data-toggle="modal" data-target=".bd-settings-modal-sm" >
       <i id="toggle-settings-icon" class="fa fa-2x fa-sliders fa-fw"></i>
     </button>
     <!-- End Display/hide button -->
@@ -45,10 +45,10 @@
 </div>
 
 <!-- MODAL: SETTINGS -->
-<div class="modal fade" id="exampleModal" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade bd-settings-modal-sm" tabindex="-1"  role="dialog" aria-labelledby="settingsModalLabel"
      aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content ">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">{{'settings-map' | translate}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -99,10 +99,10 @@
         </form>
       </div>
       <!-- end modal body -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+      <div class="modal-footer flex-md-column">
+        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">
           <i  class="fa fa-fw fa-close"></i> {{'close' | translate}}
-        </button>
+        </button>-->
         <button type="button" class="btn btn-primary" (click)="onApply()">
           <i  class="fa fa-fw fa-check"></i>{{'apply-changes' | translate}}
         </button>
