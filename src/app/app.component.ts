@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import {googleAnalytics} from '../assets/script';
+import {NavigationStart, Router} from '@angular/router';
+import 'rxjs/add/operator/filter';
 
 
 @Component({
@@ -12,7 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class AppComponent {
 
   private defaultLang = 'pt';
-  constructor (private translate: TranslateService) {
+  constructor (private translate: TranslateService, private router: Router) {
     this.translate.addLangs(['pt', 'en']);
     this.translate.setDefaultLang(this.defaultLang);
     // this.translate.getTranslation(this.defaultLang).subscribe(() => {});
@@ -20,6 +23,14 @@ export class AppComponent {
     // this.translate.use(browserLang.match(/pt|en/) ? browserLang : 'pt');
     // the lang to use, if the lang isn't available, it will use the current loader to get them
     this.translate.use(this.defaultLang);
+
+    // Google Analytics
+    this.router.events.filter(event => event instanceof NavigationStart).subscribe(event => {
+      const url = event['url'];
+      if (url !== null && url !== undefined && url !== '' && url.indexOf('null') < 0) {
+        googleAnalytics(url);
+      }
+    });
   }
 }
 
