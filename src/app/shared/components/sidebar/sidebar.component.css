@@ -9,7 +9,7 @@
   border: none;
   border-radius: 0;
   overflow-y: auto;
-  background-color: #222222;
+  background-color: #323c3c;/*#222222; */
   bottom: 0;
   overflow-x: hidden;
   padding-bottom: 40px;
@@ -20,7 +20,7 @@
   transition: all 0.2s ease-in-out;
 }
 .sidebar .list-group a.list-group-item {
-  background: #222;
+  background: #323c3c; /*#222;*/
   border: 0;
   border-radius: 0;
   color: #999;
@@ -30,11 +30,11 @@
   margin-right: 10px;
 }
 .sidebar .list-group a:hover {
-  background: #151515;
+  background: #232a2a; /*#151515;*/
   color: #fff;
 }
 .sidebar .list-group a.router-link-active {
-  background: #151515;
+  background: #232a2a; /*#151515;*/
   color: #fff;
 }
 .sidebar .sidebar-dropdown *:focus {

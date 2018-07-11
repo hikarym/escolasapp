@@ -231,11 +231,9 @@ export class GeolocationComponent implements OnInit, OnDestroy {
         this.center = L.latLng([latRounded, lonRounded]);
         this.schoolSelectedFlag = true;
         this.weightingAreaInfoSelectedFlag = true;
-        console.log('update center in ngOnInit:', this.center);
         this.drawIconForSchoolSelected(latRounded, lonRounded);
 
         // this.drawSchoolNeighborhoodArea(this.neighborhoodRadius, latRounded, lonRounded);
-        console.log('Desenhar o ap:', this.LOCATION.CODAP);
         // this.drawWeightingAreaPolygon(this.LOCATION.CODAP);
         const codAp = this.LOCATION.CODAP;
         this.weigthingAreaService.getWeightingArea(codAp).then((res1) => {
@@ -347,7 +345,6 @@ export class GeolocationComponent implements OnInit, OnDestroy {
         // data.push(marker.bindPopup($('<a href="#" class="speciallink">TestLink</a>').click(function() {alert('test'); })[0]));
         marker.bindPopup(container[0]);
         marker.on('mouseover', function (e) {
-          console.log('pasando el mouse');
           this.openPopup();
         });
 
