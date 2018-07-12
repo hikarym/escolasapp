@@ -1,5 +1,8 @@
 <div class="section-info">
-  <div class="box box-info" role="alert" style=" border: 2px solid #516161;">
+  <div class="box box-warning text-center text-uppercase" role="alert" *ngIf="!schoolWasGeolocated">
+    {{'schoolNotGeolocated'|translate}}
+  </div>
+  <div class="box box-info" role="alert">
     <h6 class="alert-heading"><i class="fa fa-graduation-cap fa-fw"></i>{{'dados-gerais' | translate}}</h6>
     <!--<p>Put a short description about the graphs. This example text is going to run a bit longer so that you can
       see how spacing within an alert works with this kind of content.</p>-->

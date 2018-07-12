@@ -194,114 +194,117 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
         this.weightingAreaSecInfoService.showWeightingAreaInfoByCodAP(this.selectedSchoolCodAP).then((res1) => {
           this.weightingAreaInfo = res1[0];
-          this.CODAP = this.weightingAreaInfo.codap;
-          this.OCUP = this.weightingAreaInfo.ses.ocup;
+          console.log('ap info:', this.weightingAreaInfo);
+          if (this.weightingAreaInfo) {
+            this.CODAP = this.weightingAreaInfo.codap;
+            this.OCUP = this.weightingAreaInfo.ses.ocup;
 
-          // Get all the information about BR-SP-RMSP socioeconomic variables
-          this.brSpRmspSecInfoService.getBrSpRmspSecInfo().then((res2) => {
-            this.brSpRmspSecInfo = res2;
+            // Get all the information about BR-SP-RMSP socioeconomic variables
+            this.brSpRmspSecInfoService.getBrSpRmspSecInfo().then((res2) => {
+              this.brSpRmspSecInfo = res2;
 
-            // AP, RMSP, SP, Brasil
-            const dataAp = this.weightingAreaInfo;
-            const dataRMSP = this.brSpRmspSecInfo[this.rmspIndex];
-            const dataSp = this.brSpRmspSecInfo[this.spIndex];
-            const dataBr = this.brSpRmspSecInfo[this.brIndex];
+              // AP, RMSP, SP, Brasil
+              const dataAp = this.weightingAreaInfo;
+              const dataRMSP = this.brSpRmspSecInfo[this.rmspIndex];
+              const dataSp = this.brSpRmspSecInfo[this.spIndex];
+              const dataBr = this.brSpRmspSecInfo[this.brIndex];
 
-            // Tabela socieconômica
-            const dataComparativeTable = this.buildDataForComparativeTable(dataAp['ses'], dataRMSP['ses'], dataSp['ses'], dataBr['ses']);
-            this.generateTableGraph(dataComparativeTable, this.div_comparativeTableGraph);
+              // Tabela socieconômica
+              const dataComparativeTable = this.buildDataForComparativeTable(dataAp['ses'], dataRMSP['ses'], dataSp['ses'], dataBr['ses']);
+              this.generateTableGraph(dataComparativeTable, this.div_comparativeTableGraph);
 
-            // Estrutura ocupacional
-            const dataForOcupAp = this.getPropertiesNamesAndValuesForNumbers(dataAp['ses']['ocup']);
-            this.generateHorizontalBarChart(dataForOcupAp, this.div_occupationalStructureByAPGraph, this.maxValueEstruturaEmprego,
-              this.width, this.height, {top: 15, right: 20, bottom: 20, left: 120});
+              // Estrutura ocupacional
+              const dataForOcupAp = this.getPropertiesNamesAndValuesForNumbers(dataAp['ses']['ocup']);
+              this.generateHorizontalBarChart(dataForOcupAp, this.div_occupationalStructureByAPGraph, this.maxValueEstruturaEmprego,
+                this.width, this.height, {top: 15, right: 20, bottom: 20, left: 120});
 
-            const dataForOcupRmsp = this.getPropertiesNamesAndValuesForNumbers(dataRMSP['ses']['ocup']);
-            this.generateHorizontalBarChart(dataForOcupRmsp, this.div_occupationalStructureByMetropoleGraph, this.maxValueEstruturaEmprego,
-              this.width, this.height, {top: 15, right: 20, bottom: 20, left: 120});
+              const dataForOcupRmsp = this.getPropertiesNamesAndValuesForNumbers(dataRMSP['ses']['ocup']);
+              this.generateHorizontalBarChart(dataForOcupRmsp, this.div_occupationalStructureByMetropoleGraph, this.maxValueEstruturaEmprego,
+                this.width, this.height, {top: 15, right: 20, bottom: 20, left: 120});
 
-            const dataForOcupBr = this.getPropertiesNamesAndValuesForNumbers(dataBr['ses']['ocup']);
-            this.generateHorizontalBarChart(dataForOcupBr, this.div_occupationalStructureByBrasilGraph, this.maxValueEstruturaEmprego,
-              this.width, this.height, {top: 15, right: 20, bottom: 20, left: 120});
+              const dataForOcupBr = this.getPropertiesNamesAndValuesForNumbers(dataBr['ses']['ocup']);
+              this.generateHorizontalBarChart(dataForOcupBr, this.div_occupationalStructureByBrasilGraph, this.maxValueEstruturaEmprego,
+                this.width, this.height, {top: 15, right: 20, bottom: 20, left: 120});
 
-            const dataForOcupSP = this.getPropertiesNamesAndValuesForNumbers(dataSp['ses']['ocup']);
-            this.generateHorizontalBarChart(dataForOcupSP, this.div_occupationalStructureByUFGraph, this.maxValueEstruturaEmprego,
-              this.width, this.height,  {top: 15, right: 20, bottom: 20, left: 120});
+              const dataForOcupSP = this.getPropertiesNamesAndValuesForNumbers(dataSp['ses']['ocup']);
+              this.generateHorizontalBarChart(dataForOcupSP, this.div_occupationalStructureByUFGraph, this.maxValueEstruturaEmprego,
+                this.width, this.height, {top: 15, right: 20, bottom: 20, left: 120});
 
-            // Perfil Educacional - alfabetização
-            const panelWidth = this.width / 2 ; // 335
-            const panelHeight = this.height / 2; // 300
-            const dataForAlfaAp = this.buildDataForProfileEducationalGraph(dataAp);
-            this.generatePieGraph(dataForAlfaAp, this.div_profEduAlfabByAPGraph, panelWidth, panelHeight, this.getInstant('tabAP'));
+              // Perfil Educacional - alfabetização
+              const panelWidth = this.width / 2; // 335
+              const panelHeight = this.height / 2; // 300
+              const dataForAlfaAp = this.buildDataForProfileEducationalGraph(dataAp);
+              this.generatePieGraph(dataForAlfaAp, this.div_profEduAlfabByAPGraph, panelWidth, panelHeight, this.getInstant('tabAP'));
 
-            const dataForAlfaApRMSP = this.buildDataForProfileEducationalGraph(dataRMSP);
-            this.generatePieGraph(dataForAlfaApRMSP, this.div_profEduAlfabByMetropoleGraph, panelWidth, panelHeight,
-              this.getInstant('tabRMSP') + this.getInstant('tabRMSP-Subtitle'));
+              const dataForAlfaApRMSP = this.buildDataForProfileEducationalGraph(dataRMSP);
+              this.generatePieGraph(dataForAlfaApRMSP, this.div_profEduAlfabByMetropoleGraph, panelWidth, panelHeight,
+                this.getInstant('tabRMSP') + this.getInstant('tabRMSP-Subtitle'));
 
-            const dataForAlfaBr = this.buildDataForProfileEducationalGraph(dataBr);
-            this.generatePieGraph(dataForAlfaBr, this.div_profEduAlfabByBrasilGraph, panelWidth, panelHeight,
-              this.getInstant('tabBrasil'));
+              const dataForAlfaBr = this.buildDataForProfileEducationalGraph(dataBr);
+              this.generatePieGraph(dataForAlfaBr, this.div_profEduAlfabByBrasilGraph, panelWidth, panelHeight,
+                this.getInstant('tabBrasil'));
 
-            const dataForAlfaSP = this.buildDataForProfileEducationalGraph(dataSp);
-            this.generatePieGraph(dataForAlfaSP, this.div_profEduAlfabByUFGraph, panelWidth, panelHeight,
-              this.getInstant('tabSP') + this.getInstant('tabSP-subtitle'));
+              const dataForAlfaSP = this.buildDataForProfileEducationalGraph(dataSp);
+              this.generatePieGraph(dataForAlfaSP, this.div_profEduAlfabByUFGraph, panelWidth, panelHeight,
+                this.getInstant('tabSP') + this.getInstant('tabSP-subtitle'));
 
-            // Perfil Educacional - Realizacao
-            const dataForRealizacaoAp = this.getPropertiesNamesAndValuesForNumbers(dataAp['educacao']['realizacao']);
-            this.generateVerticalBarChart(dataForRealizacaoAp, this.div_profEduRealizacaoByAPGraph, this.maxValuePerfilEducacional,
-              this.width, this.height, {top: 15, right: 20, bottom: 110, left: 20});
+              // Perfil Educacional - Realizacao
+              const dataForRealizacaoAp = this.getPropertiesNamesAndValuesForNumbers(dataAp['educacao']['realizacao']);
+              this.generateVerticalBarChart(dataForRealizacaoAp, this.div_profEduRealizacaoByAPGraph, this.maxValuePerfilEducacional,
+                this.width, this.height, {top: 15, right: 20, bottom: 110, left: 20});
 
-            const dataForRealizacaoRMSP = this.getPropertiesNamesAndValuesForNumbers(dataRMSP['educacao']['realizacao']);
-            this.generateVerticalBarChart(dataForRealizacaoRMSP, this.div_profEduRealizacaoByMetropoleGraph, this.maxValuePerfilEducacional,
-              this.width, this.height, {top: 15, right: 20, bottom: 110, left: 20});
+              const dataForRealizacaoRMSP = this.getPropertiesNamesAndValuesForNumbers(dataRMSP['educacao']['realizacao']);
+              this.generateVerticalBarChart(dataForRealizacaoRMSP, this.div_profEduRealizacaoByMetropoleGraph, this.maxValuePerfilEducacional,
+                this.width, this.height, {top: 15, right: 20, bottom: 110, left: 20});
 
-            const dataForRealizacaoBr = this.getPropertiesNamesAndValuesForNumbers(dataBr['educacao']['realizacao']);
-            this.generateVerticalBarChart(dataForRealizacaoBr, this.div_profEduRealizacaoByUFGraph, this.maxValuePerfilEducacional,
-              this.width, this.height, {top: 15, right: 20, bottom: 110, left: 20});
+              const dataForRealizacaoBr = this.getPropertiesNamesAndValuesForNumbers(dataBr['educacao']['realizacao']);
+              this.generateVerticalBarChart(dataForRealizacaoBr, this.div_profEduRealizacaoByUFGraph, this.maxValuePerfilEducacional,
+                this.width, this.height, {top: 15, right: 20, bottom: 110, left: 20});
 
-            const dataForRealizacaoSp = this.getPropertiesNamesAndValuesForNumbers(dataSp['educacao']['realizacao']);
-            this.generateVerticalBarChart(dataForRealizacaoSp, this.div_profEduRealizacaoByBrasilGraph, this.maxValuePerfilEducacional,
-              this.width, this.height, {top: 15, right: 20, bottom: 110, left: 20});
+              const dataForRealizacaoSp = this.getPropertiesNamesAndValuesForNumbers(dataSp['educacao']['realizacao']);
+              this.generateVerticalBarChart(dataForRealizacaoSp, this.div_profEduRealizacaoByBrasilGraph, this.maxValuePerfilEducacional,
+                this.width, this.height, {top: 15, right: 20, bottom: 110, left: 20});
 
-            // Alfabetização
-            const dataForAlfa = this.buildDataForLiteracyGraph(dataAp, dataRMSP, dataSp, dataBr);
-            this.generateGroupedHorizontalBarChart(dataForAlfa, this.div_literacyGraph);
+              // Alfabetização
+              const dataForAlfa = this.buildDataForLiteracyGraph(dataAp, dataRMSP, dataSp, dataBr);
+              this.generateGroupedHorizontalBarChart(dataForAlfa, this.div_literacyGraph);
 
-            // Frequência à escola
-            const dataForFrequenciaEscola = this.buildDataForScholarFrequencyGraph(dataAp, dataRMSP, dataSp, dataBr);
-            this.generateGroupedHorizontalBarChart(dataForFrequenciaEscola, this.div_scholarFrequencyGraph);
+              // Frequência à escola
+              const dataForFrequenciaEscola = this.buildDataForScholarFrequencyGraph(dataAp, dataRMSP, dataSp, dataBr);
+              this.generateGroupedHorizontalBarChart(dataForFrequenciaEscola, this.div_scholarFrequencyGraph);
 
-            // Nivel frequentado - AP
-            const dataForNivelFrequentadoAp = this.buildDataForEducationalLevelGraph(dataAp);
-            this.generateGroupedHorizontalBarChart(dataForNivelFrequentadoAp, this.div_educationalLevelByAPGraph,
-              160, 20, 20, 40, 120);
+              // Nivel frequentado - AP
+              const dataForNivelFrequentadoAp = this.buildDataForEducationalLevelGraph(dataAp);
+              this.generateGroupedHorizontalBarChart(dataForNivelFrequentadoAp, this.div_educationalLevelByAPGraph,
+                160, 20, 20, 40, 120);
 
-            // Nivel frequentado - RMSP
-            const dataForNivelFrequentadoRMSP = this.buildDataForEducationalLevelGraph(dataRMSP);
-            this.generateGroupedHorizontalBarChart(dataForNivelFrequentadoRMSP, this.div_educationalLevelByMetropoleGraph,
-              160, 20, 20, 40, 120);
+              // Nivel frequentado - RMSP
+              const dataForNivelFrequentadoRMSP = this.buildDataForEducationalLevelGraph(dataRMSP);
+              this.generateGroupedHorizontalBarChart(dataForNivelFrequentadoRMSP, this.div_educationalLevelByMetropoleGraph,
+                160, 20, 20, 40, 120);
 
-            // Nivel frequentado - BRasil
-            const dataForNivelFrequentadoBr =  this.buildDataForEducationalLevelGraph(dataBr);
-            this.generateGroupedHorizontalBarChart(dataForNivelFrequentadoBr, this.div_educationalLevelByBrasilGraph,
-              160, 20, 20, 40, 120);
+              // Nivel frequentado - BRasil
+              const dataForNivelFrequentadoBr = this.buildDataForEducationalLevelGraph(dataBr);
+              this.generateGroupedHorizontalBarChart(dataForNivelFrequentadoBr, this.div_educationalLevelByBrasilGraph,
+                160, 20, 20, 40, 120);
 
-            // Nivel frequentado - São Paulo
-            const dataForNivelFrequentadoSp = this.buildDataForEducationalLevelGraph(dataSp);
-            this.generateGroupedHorizontalBarChart(dataForNivelFrequentadoSp, this.div_educationalLevelByUFGraph,
-              160, 20, 20, 40, 120);
+              // Nivel frequentado - São Paulo
+              const dataForNivelFrequentadoSp = this.buildDataForEducationalLevelGraph(dataSp);
+              this.generateGroupedHorizontalBarChart(dataForNivelFrequentadoSp, this.div_educationalLevelByUFGraph,
+                160, 20, 20, 40, 120);
 
-            // Age pyramid
-            this.buildAgePyramidGraph(dataAp, this.div_agePyramidByAPGraph);
-            this.buildAgePyramidGraph(dataRMSP, this.div_agePyramidByMetropoleGraph);
-            this.buildAgePyramidGraph(dataBr, this.div_agePyramidByBrasilGraph);
-            this.buildAgePyramidGraph(dataSp, this.div_agePyramidByUFGraph);
+              // Age pyramid
+              this.buildAgePyramidGraph(dataAp, this.div_agePyramidByAPGraph);
+              this.buildAgePyramidGraph(dataRMSP, this.div_agePyramidByMetropoleGraph);
+              this.buildAgePyramidGraph(dataBr, this.div_agePyramidByBrasilGraph);
+              this.buildAgePyramidGraph(dataSp, this.div_agePyramidByUFGraph);
 
-            const dataForDistribuicaoRacial = this.buildDataForRacialDistributionGraph(dataAp, dataRMSP, dataSp, dataBr);
-            this.generateGroupedHorizontalBarChart(dataForDistribuicaoRacial, this.div_racialDistributionGraph,
-              150, 20, 20, 60, 110);
+              const dataForDistribuicaoRacial = this.buildDataForRacialDistributionGraph(dataAp, dataRMSP, dataSp, dataBr);
+              this.generateGroupedHorizontalBarChart(dataForDistribuicaoRacial, this.div_racialDistributionGraph,
+                150, 20, 20, 60, 110);
 
-          });
+            });
+          }
         });
       });
     this.subscription.add(s);
@@ -776,7 +779,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
       // Define chart plot area
       const chart = svg.append('g')
-        // .attr('class', 'bar')
+      // .attr('class', 'bar')
         .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
       // Define domain data for X & Y axes from the data array

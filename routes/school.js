@@ -72,16 +72,18 @@ router.get('/search/:name', function(req, res, next) {
   Schools.aggregate([
     {
       $match: {
-        "detalhes.nomeesc": {$regex: new RegExp(req.params.name,'ig')},
-        lat: {$ne:"NA"},
-        lon: {$ne:"NA"}
+        "detalhes.nomeesc": {$regex: new RegExp(req.params.name,'ig')}
+        /*lat: {$ne:"NA"},
+        lon: {$ne:"NA"}*/
       }
     },
     {
       $project: {
         nomeesc_bairro: { $concat: [ "$detalhes.nomeesc", " - ", "$detalhes.bairro" ] },
         "detalhes.nomeesc":1,
-        codap: 1
+        codap: 1,
+        lon: 1,
+        lat: 1
       }
     }], function (err, result) {
       if (err) return next(err);

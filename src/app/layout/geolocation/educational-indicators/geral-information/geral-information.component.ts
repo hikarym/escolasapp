@@ -23,6 +23,7 @@ export class GeralInformationComponent implements OnInit, OnDestroy {
   num_esc = 'NA';
   tipdep = 'NA';
   localiza = 'NA';
+  schoolWasGeolocated = false;
 
   detalhesAnuais: any;
   mantenedora = 'NA';
@@ -95,6 +96,7 @@ export class GeralInformationComponent implements OnInit, OnDestroy {
     this.num_esc = this.schoolSelected.detalhes.num_esc;
     this.tipdep = this.schoolSelected.detalhes.tipdep;
     this.localiza = this.schoolSelected.detalhes.localiza;
+    this.schoolWasGeolocated = typeof this.schoolSelected.lon === 'string' ? false : true;
     // Annual Information
     const yearSelFieldName = 'ano' + this.yearSelValue;
     this.loadAnnualDetails(yearSelFieldName);

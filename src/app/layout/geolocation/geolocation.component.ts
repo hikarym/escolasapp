@@ -224,23 +224,26 @@ export class GeolocationComponent implements OnInit, OnDestroy {
     const s = this.sharedDataService.getSchoolLoc().subscribe(
       res => {
         this.LOCATION = res;
-        console.log(this.LOCATION);
-        this.zoom = this.zoom_school_selected;
-        const latRounded = this.truncDecimalNumber(this.LOCATION.LAT, 6);
-        const lonRounded = this.truncDecimalNumber(this.LOCATION.LON, 6);
-        this.center = L.latLng([latRounded, lonRounded]);
-        this.schoolSelectedFlag = true;
-        this.weightingAreaInfoSelectedFlag = true;
-        this.drawIconForSchoolSelected(latRounded, lonRounded);
+        if ( typeof this.LOCATION.LON !== 'string') {
 
-        // this.drawSchoolNeighborhoodArea(this.neighborhoodRadius, latRounded, lonRounded);
-        // this.drawWeightingAreaPolygon(this.LOCATION.CODAP);
-        const codAp = this.LOCATION.CODAP;
-        this.weigthingAreaService.getWeightingArea(codAp).then((res1) => {
-          this.weightingAreaOfSchool = res1;
-          this.weightingArea.layer = L.geoJSON(this.weightingAreaOfSchool, {style: this.weightingAreaStyle});
-          this.onApply();
-        });
+          console.log(this.LOCATION);
+          this.zoom = this.zoom_school_selected;
+          const latRounded = this.truncDecimalNumber(this.LOCATION.LAT, 6);
+          const lonRounded = this.truncDecimalNumber(this.LOCATION.LON, 6);
+          this.center = L.latLng([latRounded, lonRounded]);
+          this.schoolSelectedFlag = true;
+          this.weightingAreaInfoSelectedFlag = true;
+          this.drawIconForSchoolSelected(latRounded, lonRounded);
+
+          // this.drawSchoolNeighborhoodArea(this.neighborhoodRadius, latRounded, lonRounded);
+          // this.drawWeightingAreaPolygon(this.LOCATION.CODAP);
+          const codAp = this.LOCATION.CODAP;
+          this.weigthingAreaService.getWeightingArea(codAp).then((res1) => {
+            this.weightingAreaOfSchool = res1;
+            this.weightingArea.layer = L.geoJSON(this.weightingAreaOfSchool, {style: this.weightingAreaStyle});
+            this.onApply();
+          });
+        }
       });
     this.subscription.add(s);
 

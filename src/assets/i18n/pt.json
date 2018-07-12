@@ -318,5 +318,7 @@
   "showMoreInformations": "Ver maior informação sobre este indicador",
   "percentage": "Porcentagem",
   "horas": "Horas",
-  "alunos": "Alunos"
+  "alunos": "Alunos",
+
+  "schoolNotGeolocated": "A escola não foi geolocalizada!"
 }

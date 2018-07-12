@@ -430,7 +430,14 @@ body{
 .box-info {
   color: #0c5460;
   background-color: #ECF1F9;
+  border: 2px solid #516161;
   /*border-color: rgba(65,120,186,0.2);*/ /*#bee5eb;*/
+}
+
+.box-warning {
+  color: #721c24;
+  background-color: #f8d7da;
+  border: 2px solid #721c24;
 }
 
 .dropdown-item-maf {
