@@ -7,7 +7,6 @@
   width: 360px; /*408*/
   margin-left: -360px; /*408*/
   border: none;
-  border-radius: 0;
   overflow-y: auto;
   background-color: rgba(255,255,255,1);/* #ffffff;*/
   font-size: 11px;
@@ -87,7 +86,7 @@
 }
 @media screen and (max-width: 992px) {
   .sidebar-school-details {
-    top: 54px;
+    top: 57px;
     left: 0px;
   }
 }

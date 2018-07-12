@@ -23,7 +23,11 @@ body{
 }
 
 .position-right-bottom {
-  right:10px;
+  right: 10px;
+  bottom: 96px; /*25*/
+}
+
+.position-bottom {
   bottom: 25px;
 }
 
@@ -72,6 +76,18 @@ body{
     left: 320px !important;
   }
 }
+
+/* responsive CSS for sidebar panel*/
+.push-left .sidebar {
+  left: 320px!important;
+}
+
+@media screen and (max-width: 992px) {
+  .push-left .sidebar {
+    left: 320px !important;
+  }
+}
+
 
 /* rtl CSS*/
 .rtl .sidebar {
@@ -520,4 +536,29 @@ button {
 .nav-link {
   display: block;
   padding: .5rem .6rem;
+}
+
+/*legend*/
+.small-cluster{
+
+}
+
+.medium-cluster {
+
+}
+
+.large-cluster {
+
+}
+
+.school-marker {
+  background-image: url("assets/images/marcador_school_default.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.selected-school-marker {
+  background: url("assets/images/marcador_school_selected.png");
+  background-repeat: no-repeat;
+  background-size: contain;
 }

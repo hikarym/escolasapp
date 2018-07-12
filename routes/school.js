@@ -72,7 +72,9 @@ router.get('/search/:name', function(req, res, next) {
   Schools.aggregate([
     {
       $match: {
-        "detalhes.nomeesc": { $regex: new RegExp(req.params.name,'ig') }
+        "detalhes.nomeesc": {$regex: new RegExp(req.params.name,'ig')},
+        lat: {$ne:"NA"},
+        lon: {$ne:"NA"}
       }
     },
     {

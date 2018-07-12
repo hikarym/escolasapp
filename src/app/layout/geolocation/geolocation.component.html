@@ -17,6 +17,12 @@
     </button>
     <!-- End Display/hide button -->
 
+    <!-- panel for informations -->
+    <!--<div class="alert alert-dark position-middle-bottom" role="alert">
+      this panel
+    </div>-->
+    <!-- -->
+
     <div id="mymap" leaflet style="height: 100%;"
          [leafletOptions]="options"
          [leafletZoom] = "zoom"
@@ -29,6 +35,30 @@
          (leafletMapReady) = "mapReady($event)">
 
     </div>
+
+  </div>
+  <div class="alert alert-dark mb-0 text-center"  style="font-size: 10px" role="alert">
+    <div class="school-marker d-inline-block align-middle"
+         style="width: 45px; height: 45px;"></div>
+    <span> Escola não agrupada</span>
+
+    <div class="selected-school-marker d-inline-block align-middle"
+         style="width: 45px; height: 45px;"></div>
+    <span> Escola selecionada</span>
+
+    <div class=" marker-cluster marker-cluster-small d-inline-block align-middle"
+         tabindex="0" style="width: 40px; height: 40px; opacity: 1;">
+      <div><span></span></div>
+    </div>
+    <span> Grupo de até 9 escolas</span>
+
+    <div class=" marker-cluster marker-cluster-medium d-inline-block align-middle"
+         style="width: 40px; height: 40px; opacity: 1;"><div><span></span></div></div>
+    <span> Grupo de até 99 escolas</span>
+
+    <div class="marker-cluster marker-cluster-large d-inline-block align-middle"
+         style="width: 40px; height: 40px; opacity: 1;"><div><span></span></div></div>
+    <span> Grupo maior a 99 escolas</span>
 
   </div>
   <!-- End - Geolocation panel-->
