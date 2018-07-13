@@ -458,6 +458,7 @@ export class GeolocationComponent implements OnInit, OnDestroy {
   }
 
   toggleSchoolDetails() {
+
     const dom: any = document.querySelector('body');
     dom.classList.toggle('push-right-school-details');
     const togglebutton: any = document.getElementById('toggle-school-details-icon');
@@ -469,9 +470,11 @@ export class GeolocationComponent implements OnInit, OnDestroy {
       togglebutton.classList.add('fa-chevron-right');
       togglebutton.classList.remove('fa-chevron-left');
     }
+    this.recenter();
   }
 
   toggleIndicatiorsByWeightingAreas() {
+
     const dom: any = document.querySelector('body');
     dom.classList.toggle('push-left-indicators-by-weighting-areas');
     const togglebutton: any = document.getElementById('toggle-weighting-area-icon');
@@ -483,6 +486,7 @@ export class GeolocationComponent implements OnInit, OnDestroy {
       togglebutton.classList.add('fa-chevron-left');
       togglebutton.classList.remove('fa-chevron-right');
     }
+    this.recenter();
   }
 
   toggleWeigthingArea() {

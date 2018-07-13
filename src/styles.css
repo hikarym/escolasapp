@@ -24,7 +24,12 @@ body{
 
 .position-right-bottom {
   right: 10px;
-  bottom: 96px; /*25*/
+  bottom: 66px; /*mb 41*/
+}
+
+.position-right-bottom-b2 {
+  right: 10px;
+  bottom: 120px; /*25*/
 }
 
 .position-bottom {
@@ -228,6 +233,14 @@ body{
 /* colors*/
 .bg-darkgreen {
   background-color: #323c3c;
+}
+
+.bg-yellow {
+  background-color: #efc100;
+}
+
+.bg-offwhite {
+  background-color: #f7f7f7;
 }
 
 /* Modal */
@@ -545,19 +558,7 @@ button {
   padding: .5rem .6rem;
 }
 
-/*legend*/
-.small-cluster{
-
-}
-
-.medium-cluster {
-
-}
-
-.large-cluster {
-
-}
-
+/*icons*/
 .school-marker {
   background-image: url("assets/images/marcador_school_default.png");
   background-repeat: no-repeat;
@@ -568,4 +569,67 @@ button {
   background: url("assets/images/marcador_school_selected.png");
   background-repeat: no-repeat;
   background-size: contain;
+}
+
+.school-geolocated-icon {
+  background-image: url("assets/images/target-black-24.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.school-notGeolocated-icon {
+  background-image: url("assets/images/target-red-24.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+/*callaout bootstrap*/
+.bd-callout {
+  padding: 1.25rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid #eee;
+  border-left-width: .25rem;
+  border-radius: .25rem
+}
+
+.bd-callout h4, .bd-callout h5 {
+  margin-top: 0;
+  margin-bottom: .25rem
+}
+
+.bd-callout p:last-child {
+  margin-bottom: 0
+}
+
+.bd-callout code {
+  border-radius: .25rem
+}
+
+.bd-callout+.bd-callout {
+  margin-top: -.25rem
+}
+
+.bd-callout-info {
+  border-left-color: #5bc0de
+}
+
+.bd-callout-info h4, .bd-callout-info h5 {
+  color: #5bc0de
+}
+
+.bd-callout-warning {
+  border-left-color: #f0ad4e
+}
+
+.bd-callout-warning h4, .bd-callout-warning h5 {
+  color: #f0ad4e
+}
+
+.bd-callout-danger {
+  border-left-color: #d9534f
+}
+
+.bd-callout-danger h4, .bd-callout-danger h5 {
+  color: #d9534f
 }

@@ -16,7 +16,7 @@
   "weighting-area-button-title" : "Mostrar/ocultar a área de ponderação",
   "textSearching": "Por favor aguarde, procurando...",
   "textNoResults": "Nenhúm resultado encontrado",
-  "placeholderSearchingInput": "Digite o nome da escola que está procurando",
+  "placeholderSearchingInput": "Digite o nome da escola que está procurando ou clique no icone (preto) no mapa",
   "geolocation-icon": "Geolocalização",
   "graphics-icon": "Indicadores educacionais",
   "socioeconomic-icon": "Indicadores socioeconômicos",
@@ -320,5 +320,6 @@
   "horas": "Horas",
   "alunos": "Alunos",
 
-  "schoolNotGeolocated": "A escola não foi geolocalizada!"
+  "schoolNotGeolocated": "A escola não foi geolocalizada!",
+  "legend": "Como usar o sistema?"
 }

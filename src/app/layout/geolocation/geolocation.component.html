@@ -10,12 +10,21 @@
 
   <!-- Geolocation of a school -->
   <div class="map-container">
+
+    <!-- -->
+    <button type="button" class="btn btn-outline-danger btn-map position-right-bottom-b2"
+            data-toggle="modal" data-target="#legendModal" >
+      <i class="fa fa-2x fa-info-circle fa-fw"></i>
+    </button>
+    <!-- -->
+
     <!-- Display/hide settings button trigger Modal-->
     <button type="button" class="btn btn-outline-dark btn-map position-right-bottom"
             data-toggle="modal" data-target=".bd-settings-modal-sm" >
       <i id="toggle-settings-icon" class="fa fa-2x fa-sliders fa-fw"></i>
     </button>
     <!-- End Display/hide button -->
+
 
     <!-- panel for informations -->
     <!--<div class="alert alert-dark position-middle-bottom" role="alert">
@@ -37,8 +46,13 @@
     </div>
 
   </div>
-  <div class="alert alert-dark mb-0 text-center"  style="font-size: 10px" role="alert">
+  <div class="p-2 bg-offwhite text-dark text-center"  style="font-size: 12px" >
+    Desenvolvido pelo <a href="http://web.fflch.usp.br/centrodametropole/" target="_blank">Centro de Estudos da Metrópole</a>
+    <!--Clique no icone
     <div class="school-marker d-inline-block align-middle"
+         style="width: 30px; height: 30px;"></div>
+    <span> para ver as informações educaciones e socioeconômicas da escola</span>-->
+    <!--<div class="school-marker d-inline-block align-middle"
          style="width: 45px; height: 45px;"></div>
     <span> Escola não agrupada</span>
 
@@ -58,7 +72,7 @@
 
     <div class="marker-cluster marker-cluster-large d-inline-block align-middle"
          style="width: 40px; height: 40px; opacity: 1;"><div><span></span></div></div>
-    <span> Grupo maior a 99 escolas</span>
+    <span> Grupo maior a 99 escolas</span>-->
 
   </div>
   <!-- End - Geolocation panel-->
@@ -141,5 +155,86 @@
   </div>
 </div>
 <!-- END MODAL: SETTINGS -->
+<!-- Modal: legend -->
+
+<div class="modal fade" id="legendModal" tabindex="-1" role="dialog" aria-labelledby="legendModalTitle" aria-hidden="true">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="legendModalTitle">{{'legend'|translate}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="font-size: 10px">
+
+        <div class="bd-callout bd-callout-danger mt-0">
+          <h5 id="specific-markup-required-for-dismiss-on-next-click"> Para ver informações da escola</h5>
+          Clique no icone
+          <div class="school-marker d-inline-block align-middle" style="width: 30px; height: 30px;"></div>
+          para ver as <b>informações educaciones</b> e <b>socioeconômicas</b> de uma escola
+          ou coloque o <b>nome da escola que procura na caixa de búsqueda</b>.
+
+        </div>
+
+        <div class="bd-callout bd-callout-info mb-0" >
+          <h5> Significado dos icones </h5>
+          <div>
+            Situação da escola:
+            <div class="text-center">
+              <div class="school-geolocated-icon  d-inline-block align-middle"
+                   style="width: 24px; height: 24px;"></div>
+              <span> Escola geolocalizada</span>
+
+              <div class="school-notGeolocated-icon  d-inline-block align-middle"
+                   style="width: 24px; height: 24px;"></div>
+              <span> Escola não geolocalizada</span>
+            </div>
+          </div>
+          <hr>
+          <div>
+            Icone da escola:
+            <div class="text-center">
+              <div class="school-marker d-inline-block align-middle"
+                   style="width: 40px; height: 40px;"></div>
+              <span> Escola não agrupada</span>
+
+              <div class="selected-school-marker d-inline-block align-middle"
+                   style="width: 45px; height: 45px;"></div>
+              <span> Escola selecionada</span>
+            </div>
+          </div>
+          <hr>
+          <div>
+            Grupos/clusters de escolas:
+            <ul>
+              <li>
+                <div class=" marker-cluster marker-cluster-small d-inline-block align-middle"
+                     tabindex="0" style="width: 40px; height: 40px; opacity: 1;">
+                  <div><span></span></div>
+                </div>
+                <span> Grupo de até 9 escolas</span>
+              </li>
+              <li>
+                <div class=" marker-cluster marker-cluster-medium d-inline-block align-middle"
+                     style="width: 40px; height: 40px; opacity: 1;"><div><span></span></div></div>
+                <span> Grupo de até 99 escolas</span>
+              </li>
+              <li>
+                <div class="marker-cluster marker-cluster-large d-inline-block align-middle"
+                     style="width: 40px; height: 40px; opacity: 1;"><div><span></span></div></div>
+                <span> Grupo maior a 99 escolas</span>
+              </li>
+            </ul>
+
+          </div>
+
+        </div>
 
 
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal: legend -->
