@@ -243,7 +243,10 @@ export class GeolocationComponent implements OnInit, OnDestroy {
             this.weightingArea.layer = L.geoJSON(this.weightingAreaOfSchool, {style: this.weightingAreaStyle});
             this.onApply();
           });
+        } else {
+          this.cleanMap();
         }
+
       });
     this.subscription.add(s);
 
@@ -251,6 +254,34 @@ export class GeolocationComponent implements OnInit, OnDestroy {
     if (this.center.lat === -23.552133) {
       this.getSchoolsList();
     }
+  }
+
+  cleanMap() {
+    // hide the icon layer
+    this.marker.layer = L.marker([ this.centerLat, this.centerLng ], {
+      icon: this.schoolMarkerIcon,
+      zIndexOffset: 0
+    });
+
+    // Initialize the weighting area polygon
+    this.weightingArea.layer = L.geoJSON(
+      ({
+        type: 'MultiPolygon',
+        coordinates: [[[
+          [ 0, 0 ],
+          [ 0, 0 ],
+          [ 0, 0 ],
+          [ 0, 0 ]
+        ]]]
+      }) as any,
+      { style: () => { return {
+        fillColor: 'red',
+        weight: 1,
+        opacity: 1,
+        color: 'red',  // Outline color
+        fillOpacity: 0.2 }; } });
+    this.onApply();
+
   }
 
   recenter() {
