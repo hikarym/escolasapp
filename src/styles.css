@@ -430,7 +430,7 @@ body{
 .box {
   position: relative;
   padding: .75rem .6rem;
-  margin: .2rem .2rem 1rem;
+  margin: .0rem .2rem .4rem;
   /*border: 1px solid transparent; maf1*/
   border: 1px solid #ffc107;
   border-radius: .25rem;

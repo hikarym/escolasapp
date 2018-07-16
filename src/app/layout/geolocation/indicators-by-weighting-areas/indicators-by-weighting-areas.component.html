@@ -19,6 +19,11 @@
 
       <!-- section graph: socioeconomic characteristics -->
       <div class="section-info">
+        <!-- -->
+        <div class="box box-warning text-center text-uppercase" role="alert" *ngIf="!weightingAreaInfo">
+          {{'schoolWithoutSocioeconomicInfo'|translate}}
+        </div>
+        <!-- -->
         <div>
           <!--<h5>Características Socioeconômicas</h5>-->
           <div class="section-graph">

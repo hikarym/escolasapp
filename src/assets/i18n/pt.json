@@ -321,6 +321,7 @@
   "alunos": "Alunos",
 
   "schoolNotGeolocated": "A escola não foi geolocalizada!",
+  "schoolWithoutSocioeconomicInfo": "A escola não tem informações sobre a vizinhança/Área de ponderação!",
   "legend": "Como usar o sistema?",
   "helpTitle": "Como usar o sistema",
   "settingsTitle": "Configurações do sistema"

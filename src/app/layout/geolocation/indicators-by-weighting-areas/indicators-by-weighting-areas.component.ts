@@ -219,8 +219,8 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
                 this.width, this.height, {top: 15, right: 20, bottom: 20, left: 120});
 
               const dataForOcupRmsp = this.getPropertiesNamesAndValuesForNumbers(dataRMSP['ses']['ocup']);
-              this.generateHorizontalBarChart(dataForOcupRmsp, this.div_occupationalStructureByMetropoleGraph, this.maxValueEstruturaEmprego,
-                this.width, this.height, {top: 15, right: 20, bottom: 20, left: 120});
+              this.generateHorizontalBarChart(dataForOcupRmsp, this.div_occupationalStructureByMetropoleGraph,
+                this.maxValueEstruturaEmprego, this.width, this.height, {top: 15, right: 20, bottom: 20, left: 120});
 
               const dataForOcupBr = this.getPropertiesNamesAndValuesForNumbers(dataBr['ses']['ocup']);
               this.generateHorizontalBarChart(dataForOcupBr, this.div_occupationalStructureByBrasilGraph, this.maxValueEstruturaEmprego,
@@ -254,8 +254,8 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
                 this.width, this.height, {top: 15, right: 20, bottom: 110, left: 20});
 
               const dataForRealizacaoRMSP = this.getPropertiesNamesAndValuesForNumbers(dataRMSP['educacao']['realizacao']);
-              this.generateVerticalBarChart(dataForRealizacaoRMSP, this.div_profEduRealizacaoByMetropoleGraph, this.maxValuePerfilEducacional,
-                this.width, this.height, {top: 15, right: 20, bottom: 110, left: 20});
+              this.generateVerticalBarChart(dataForRealizacaoRMSP, this.div_profEduRealizacaoByMetropoleGraph,
+                this.maxValuePerfilEducacional, this.width, this.height, {top: 15, right: 20, bottom: 110, left: 20});
 
               const dataForRealizacaoBr = this.getPropertiesNamesAndValuesForNumbers(dataBr['educacao']['realizacao']);
               this.generateVerticalBarChart(dataForRealizacaoBr, this.div_profEduRealizacaoByUFGraph, this.maxValuePerfilEducacional,
