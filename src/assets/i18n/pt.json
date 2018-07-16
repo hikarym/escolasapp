@@ -321,5 +321,7 @@
   "alunos": "Alunos",
 
   "schoolNotGeolocated": "A escola não foi geolocalizada!",
-  "legend": "Como usar o sistema?"
+  "legend": "Como usar o sistema?",
+  "helpTitle": "Como usar o sistema",
+  "settingsTitle": "Configurações do sistema"
 }

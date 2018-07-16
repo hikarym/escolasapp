@@ -583,6 +583,18 @@ button {
   background-size: contain;
 }
 
+.weightingArea-icon {
+  background-image: url("assets/images/ap.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.searching-icon {
+  background-image: url("assets/images/searching.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
 /*callaout bootstrap*/
 .bd-callout {
   padding: 1.25rem;
@@ -632,4 +644,22 @@ button {
 
 .bd-callout-danger h4, .bd-callout-danger h5 {
   color: #d9534f
+}
+
+/*btn link*/
+.btn-link-bluelight {
+  font-weight: 400;
+  color: #5bc0de;
+  background-color: transparent;
+}
+
+.btn-link-bluelight:hover {
+  font-weight: 400;
+  color: #279bbe;
+  background-color: transparent;
+}
+
+.btn-link-bluelight.focus, .btn-link-bluelight:focus {
+  outline: 0;
+  box-shadow: none;
 }

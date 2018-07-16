@@ -23,8 +23,18 @@
                    [textNoResults]="'textNoResults' | translate"
                    [placeholder]="'placeholderSearchingInput' | translate"
                    (selected)="onSchoolSelected($event)"
-                   >
+    >
     </ng2-completer>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav">
+        <li class="dropdown nav-item">
+          <button type="button" class="btn btn-link-bluelight pt-0 pb-0"  data-toggle="modal" data-target="#legendModal"
+                  title="{{'helpTitle'|translate}}">
+            <i class="fa fa-2x fa-question-circle-o fa-fw"></i>
+          </button>
+        </li>
+      </ul>
+    </div>
 
     <!--<div class="collapse navbar-collapse">
       <ul class="navbar-nav">
@@ -42,3 +52,98 @@
     </div>-->
   </nav>
 </div>
+
+<!-- Modal: legend -->
+<div class="modal fade" id="legendModal" tabindex="-1" role="dialog" aria-labelledby="legendModalTitle" aria-hidden="true">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="legendModalTitle">{{'legend'|translate}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="font-size: 10px">
+
+        <div class="bd-callout bd-callout-danger mt-0">
+          <h5 id="specific-markup-required-for-dismiss-on-next-click"> Para ver informações da escola</h5>
+          Clique no icone
+          <div class="school-marker d-inline-block align-middle" style="width: 30px; height: 30px;"></div>
+          para ver as <b>informações educaciones</b> e <b>socioeconômicas</b> de uma escola
+          ou coloque o <b>nome da escola que procura na caixa de búsqueda</b>.
+
+        </div>
+
+        <div class="bd-callout bd-callout-info mb-0" >
+          <h5> Significado dos icones e poligonos </h5>
+          <div>
+            <p>Icones para indicar se uma escola foi geolocalizada:</p>
+            <div class="text-center">
+              <div class="searching-icon d-inline-block align-middle"
+                   style="width: 420px; height: 91px;"></div>
+            </div>
+            <div class="text-center">
+              <div class="school-geolocated-icon  d-inline-block align-middle"
+                   style="width: 24px; height: 24px;"></div>
+              <span> Escola geolocalizada</span>
+
+              <div class="school-notGeolocated-icon  d-inline-block align-middle"
+                   style="width: 24px; height: 24px;"></div>
+              <span> Escola não geolocalizada</span>
+            </div>
+            <!--<p>As escolas filtradas usando o a caixa de búsqueda.
+              As escolas não geolocalizadas não tem informações socioeconômicas.</p>-->
+          </div>
+          <hr>
+          <div>
+            <p>Vizinhança/Área de ponderação: <span class="text-danger" > _________ </span></p>
+            <div class="text-center">
+              <div class="weightingArea-icon  d-inline-block align-middle"
+                   style="width: 420px; height: 133px;"></div>
+            </div>
+          </div>
+          <hr>
+          <div class="d-inline-block align-top">
+            <p>Grupos/clusters de escolas:</p>
+            <ul class="mb-0">
+              <li class="mb-1">
+                <div class=" marker-cluster marker-cluster-small d-inline-block align-middle"
+                     tabindex="0" style="width: 40px; height: 40px; opacity: 1;">
+                  <div><span></span></div>
+                </div>
+                <span> Grupo de até 9 escolas</span>
+              </li>
+              <li class="mb-1">
+                <div class=" marker-cluster marker-cluster-medium d-inline-block align-middle"
+                     style="width: 40px; height: 40px; opacity: 1;"><div><span></span></div></div>
+                <span> Grupo de até 99 escolas</span>
+              </li>
+              <li class="mb-1">
+                <div class="marker-cluster marker-cluster-large d-inline-block align-middle"
+                     style="width: 40px; height: 40px; opacity: 1;"><div><span></span></div></div>
+                <span> Grupo maior a 99 escolas</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class=" d-inline-block align-top">
+            <p>Tipos de Icones:</p>
+            <ul class="mb-0">
+              <li class="mb-1">
+                <div class="school-marker d-inline-block align-middle"
+                     style="width: 40px; height: 40px;"></div>
+                <span> Escola não agrupada</span>
+              </li>
+              <li class="mb-1">
+                <div class="selected-school-marker d-inline-block align-middle"
+                     style="width: 45px; height: 45px;"></div>
+                <span> Escola selecionada</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal: legend -->
