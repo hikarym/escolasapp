@@ -13,8 +13,6 @@ import {ShareddataService} from '../services/shareddata.service';
 import {SchoolService} from '../services/school.service';
 import {WeightingAreaService} from '../services/weighting-area.service';
 import { AboutProjectComponent } from './about-project/about-project.component';
-import { EducationalVariablesComponent } from './educational-variables/educational-variables.component';
-
 
 @NgModule({
   imports: [
@@ -28,8 +26,7 @@ import { EducationalVariablesComponent } from './educational-variables/education
   declarations: [
     LayoutComponent,
     SidebarComponent,
-    AboutProjectComponent,
-    EducationalVariablesComponent
+    AboutProjectComponent
   ],
 
   providers: [SchoolService, WeightingAreaService, ShareddataService]

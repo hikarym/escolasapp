@@ -4,6 +4,7 @@ import {CompleterData, CompleterItem, CompleterService} from 'ng2-completer';
 import {ShareddataService} from '../../../services/shareddata.service';
 import {Http} from '@angular/http';
 import {CustomData} from '../../../custom.data';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
