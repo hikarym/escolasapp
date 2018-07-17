@@ -50,8 +50,6 @@ export class EducationalIndicatorsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const s = this.sharedDataService.getSchoolID().subscribe(
       res => {
-        console.log('cosa', this.sharedDataService);
-        console.log('res', res);
         this.schoolSelectedID = res;
         this.getSchoolDetailedInformation(this.schoolSelectedID);
       });
@@ -64,7 +62,6 @@ export class EducationalIndicatorsComponent implements OnInit, OnDestroy {
     // this.schoolObject = schoolID;
     this.schoolService.showEscola(schoolID).then((res) => {
       this.schoolSelected = res;
-      console.log(this.schoolSelected);
       this.CODESC = this.schoolSelected.codesc;
       this.NO_ENTIDAD = this.schoolSelected.detalhes.nomeesc;
 

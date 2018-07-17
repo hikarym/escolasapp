@@ -1,12 +1,9 @@
 import {Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {NavigationEnd, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
-import {SchoolService} from '../../../services/school.service';
 import {CompleterData, CompleterItem, CompleterService} from 'ng2-completer';
 import {ShareddataService} from '../../../services/shareddata.service';
 import {Http} from '@angular/http';
 import {CustomData} from '../../../custom.data';
-import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-header',
@@ -21,33 +18,16 @@ export class HeaderComponent implements OnInit {
   @Output() onSchoolSel = new EventEmitter<string>();
   @Output() onSelectedSchoolCodAP = new EventEmitter<string>();
   brand: string;
-  translateSubscription: Subscription;
 
   constructor(private translate: TranslateService,
               public router: Router,
-              private completerService: CompleterService,
-              private schoolService: SchoolService,
               private sharedDataService: ShareddataService,
               private http: Http) {
-    /*this.router.events.subscribe((val) => {
-      if (val instanceof NavigationEnd && window.innerWidth <= 992) {
-        this.toggleSidebar();
-      }
-    });*/
-    // The way that we can check which events are the ones we need, ideally NavigationEnd
-    /*this.router.events.subscribe((val) => {
-      if (val instanceof NavigationEnd) {
-        console.log('val header:' + val);
-      }
-    });*/
-
     this.schoolListFiltered = new CustomData(http);
-    // this.schoolListFiltered = completerService.remote( this.URL_ROOT + 'school/search?text=', 'NO_ENTIDAD','NO_ENTIDAD_BAIRRO');
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    console.log('Width: ' + event.target.innerWidth);
     this.changeBrandName(event.target.innerWidth, 768);
   }
 
@@ -56,7 +36,6 @@ export class HeaderComponent implements OnInit {
   }
 
   onSchoolSelected(item: CompleterItem) {
-    console.log('onSchoolSelected', item);
     this.toggleSchoolDetails();
     this.toggleIndicatiorsByWeightingAreas();
     if (item !== null) {
@@ -64,27 +43,20 @@ export class HeaderComponent implements OnInit {
       // send school ID to school-details component via observable subject
       this.sharedDataService.sendSchoolID(this.selectedSchoolID);
       this.onSchoolSel.emit(this.selectedSchoolID);
-      // Get the complete information about the selected school
-      // this.getSchoolDetailedInformation(this.selectedSchoolID);
-      // center the map in the selected school location
-
       // send codAP
       this.selectedSchoolCodAP = item ? item.originalObject.codap : '';
       this.sharedDataService.sendSchoolCodAP(this.selectedSchoolCodAP);
-      // this.onSelectedSchoolCodAP.emit(this.selectedSchoolID);
     }
   }
 
   toggleSchoolDetails() {
     const dom: any = document.querySelector('body');
     dom.classList.toggle('push-right-school-details');
-    console.log('procurando a informaçao detalhada da escola escolhida');
   }
 
   toggleIndicatiorsByWeightingAreas() {
     const dom: any = document.querySelector('body');
     dom.classList.toggle('push-left-indicators-by-weighting-areas');
-    console.log('procurando a informação dos indicadores por AP');
   }
 
   toggleSidebar() {

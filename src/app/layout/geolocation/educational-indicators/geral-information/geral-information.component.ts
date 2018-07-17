@@ -84,7 +84,6 @@ export class GeralInformationComponent implements OnInit, OnDestroy {
   getSchoolDetailedInformation(schoolInformation: any) {
     // this.router.navigate([this.URL_ROOT + 'school/school-details/' + schoolID]);
     this.schoolSelected = schoolInformation;
-    console.log(this.schoolSelected);
 
     // Geral Data
     this.codesc = this.schoolSelected.codesc;

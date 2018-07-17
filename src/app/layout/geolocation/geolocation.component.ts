@@ -10,8 +10,6 @@ import {Router} from '@angular/router';
 import 'rxjs/add/operator/filter';
 import {WeightingAreaService} from '../../services/weighting-area.service';
 import {LayersModel} from './layers.model';
-import {LeafletDirective} from '@asymmetrik/ngx-leaflet';
-import {marker, popup} from 'leaflet';
 
 @Component({
   selector: 'app-geolocation',
@@ -189,11 +187,6 @@ export class GeolocationComponent implements OnInit, OnDestroy {
     this.layers = [baseLayer.layer];
   }
 
-  /*@HostListener('window:resize', ['$event'])
-  onResize(event) {
-    this.resize();
-  }*/
-
   resize() {
     window.dispatchEvent(new Event('resize'));
   }
@@ -234,8 +227,6 @@ export class GeolocationComponent implements OnInit, OnDestroy {
       res => {
         this.LOCATION = res;
         if ( typeof this.LOCATION.LON !== 'string') {
-
-          console.log(this.LOCATION);
           this.zoom = this.zoom_school_selected;
           const latRounded = this.truncDecimalNumber(this.LOCATION.LAT, 6);
           const lonRounded = this.truncDecimalNumber(this.LOCATION.LON, 6);
@@ -428,7 +419,7 @@ export class GeolocationComponent implements OnInit, OnDestroy {
 
       }
       this.markerClusterData = data;
-      console.log('getschoollist: ', this.center);
+      // console.log('getschoollist: ', this.center);
 
     }, (err) => {
       console.log(err);
@@ -474,6 +465,8 @@ export class GeolocationComponent implements OnInit, OnDestroy {
       togglebutton.classList.add('fa-chevron-right');
       togglebutton.classList.remove('fa-chevron-left');
     }
+    // resize the screen
+    this.resize();
     this.recenter();
   }
 
@@ -482,7 +475,6 @@ export class GeolocationComponent implements OnInit, OnDestroy {
     const dom: any = document.querySelector('body');
     dom.classList.toggle('push-left-indicators-by-weighting-areas');
     const togglebutton: any = document.getElementById('toggle-weighting-area-icon');
-    console.log('procurando a informação dos indicadores por AP');
     if (dom.classList.contains('push-left-indicators-by-weighting-areas')) {
       togglebutton.classList.add('fa-chevron-right');
       togglebutton.classList.remove('fa-chevron-left');
@@ -490,27 +482,14 @@ export class GeolocationComponent implements OnInit, OnDestroy {
       togglebutton.classList.add('fa-chevron-left');
       togglebutton.classList.remove('fa-chevron-right');
     }
+    // resize the screen
+    this.resize();
     this.recenter();
   }
 
-  toggleWeigthingArea() {
-    console.log(this.overlays.length);
-    console.log(this.overlays[1]);
-    // this.overlays[1].visible = false;
-  }
-
-  toggleSettings() {
-    alert('Mostrar janela de settings');
-  }
-
-
-
-    // unsubscribe to ensure no memory leaks
+  // unsubscribe to ensure no memory leaks
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
-  onTabSelected() {
-
-  }
 }

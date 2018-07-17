@@ -9,7 +9,6 @@ import { SidebarComponent} from '../shared';
 
 import { HttpModule} from '@angular/http';
 import {HeaderModule} from '../shared/components/header/header.module';
-// import {SchoolDetailsModule} from '../shared/components/school-details/school-details.module';
 import {ShareddataService} from '../services/shareddata.service';
 import {SchoolService} from '../services/school.service';
 import {WeightingAreaService} from '../services/weighting-area.service';
@@ -25,7 +24,6 @@ import { EducationalVariablesComponent } from './educational-variables/education
     TranslateModule,
     HttpModule,
     HeaderModule
-    // SchoolDetailsModule
   ],
   declarations: [
     LayoutComponent,

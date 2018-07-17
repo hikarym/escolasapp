@@ -194,7 +194,6 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
         this.weightingAreaSecInfoService.showWeightingAreaInfoByCodAP(this.selectedSchoolCodAP).then((res1) => {
           this.weightingAreaInfo = res1[0];
-          console.log('ap info:', this.weightingAreaInfo);
           if (this.weightingAreaInfo) {
             this.CODAP = this.weightingAreaInfo.codap;
             this.OCUP = this.weightingAreaInfo.ses.ocup;
