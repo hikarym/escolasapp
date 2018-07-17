@@ -17,7 +17,6 @@ import {LeafletMarkerClusterModule} from '@asymmetrik/ngx-leaflet-markercluster'
 import {NotFoundModule} from './not-found/not-found.module';
 import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
 import {MatSlideToggleModule, MatIconModule, MatTabsModule, MatTabGroup} from '@angular/material';
-import {SharedPipesModule} from './shared/pipes/shared-pipes.module';
 import {ApSecVariableService} from './services/ap-sec-variable.service';
 import {BrSpRmspSecVariableService} from './services/br-sp-rmsp-sec-variable.service';
 import {WeightingAreaService} from './services/weighting-area.service';

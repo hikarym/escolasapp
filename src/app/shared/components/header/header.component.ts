@@ -1,10 +1,10 @@
-import {Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, HostListener, OnInit, Output} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {CompleterData, CompleterItem, CompleterService} from 'ng2-completer';
+import {CompleterData, CompleterItem} from 'ng2-completer';
 import {ShareddataService} from '../../../services/shareddata.service';
 import {Http} from '@angular/http';
 import {CustomData} from '../../../custom.data';
-import {Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-header',
@@ -12,6 +12,7 @@ import {Router} from '@angular/router';
   styleUrls: [ './header.component.css' ]
 })
 export class HeaderComponent implements OnInit {
+
   searchField: string;
   schoolListFiltered: CompleterData;
   selectedSchoolID = '';
@@ -21,7 +22,6 @@ export class HeaderComponent implements OnInit {
   brand: string;
 
   constructor(private translate: TranslateService,
-              public router: Router,
               private sharedDataService: ShareddataService,
               private http: Http) {
     this.schoolListFiltered = new CustomData(http);
