@@ -1,8 +1,7 @@
 ///<reference path="../../../../node_modules/@types/leaflet/index.d.ts"/>
-import {Component, OnInit, OnDestroy, EventEmitter, Output, NgZone} from '@angular/core';
+import {Component, OnInit, OnDestroy, EventEmitter, Output, NgZone, HostListener} from '@angular/core';
 import {SchoolService} from '../../services/school.service';
 import {routerTransition} from '../../router.animations';
-import {AgmMap} from '@agm/core';
 import * as L from 'leaflet';
 import 'leaflet.markercluster';
 import {ShareddataService} from '../../services/shareddata.service';
@@ -21,6 +20,7 @@ import {marker, popup} from 'leaflet';
   animations: [routerTransition()]
 })
 export class GeolocationComponent implements OnInit, OnDestroy {
+
   // Send information of selected school
   @Output() onSchoolSel = new EventEmitter<any>();
   // Constants
@@ -189,6 +189,15 @@ export class GeolocationComponent implements OnInit, OnDestroy {
     this.layers = [baseLayer.layer];
   }
 
+  /*@HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.resize();
+  }*/
+
+  resize() {
+    window.dispatchEvent(new Event('resize'));
+  }
+
   onApply() {
     // Get the active base layer
     const baseLayer = this.model.baseLayers.find((l) => l.id === this.model.baseLayer);
@@ -233,8 +242,11 @@ export class GeolocationComponent implements OnInit, OnDestroy {
           this.center = L.latLng([latRounded, lonRounded]);
           this.schoolSelectedFlag = true;
           this.weightingAreaInfoSelectedFlag = true;
+          // resize the screen
+          this.resize();
+          // draw the selected school icon
           this.drawIconForSchoolSelected(latRounded, lonRounded);
-
+          // Draw the weighting area polygon
           // this.drawSchoolNeighborhoodArea(this.neighborhoodRadius, latRounded, lonRounded);
           // this.drawWeightingAreaPolygon(this.LOCATION.CODAP);
           const codAp = this.LOCATION.CODAP;
@@ -344,12 +356,10 @@ export class GeolocationComponent implements OnInit, OnDestroy {
       this.schoolsCoordinates = res;
       this.featureCollection.features = this.schoolsCoordinates;
       const data: any[] = [];
-      console.log(this.schoolsCoordinates.length);
       let popup_text = '';
       let container = $('<div />');
       let marker;
       let school_i;
-
 
       container.on('click', '.speciallink', function () {
         alert('test');
@@ -387,7 +397,6 @@ export class GeolocationComponent implements OnInit, OnDestroy {
 
           this.zone.run(() => {
             // this.updateSchoolIDSel('5ac3a33d61f5122e7261c263');
-            console.log('marker clicked:', e.target._popup._content.children);
             const el = e.target._popup._content.children;
             const id_temp = el[el.length - 2].innerHTML;
             const codAp_temp = el[el.length - 1].innerHTML;
@@ -395,22 +404,19 @@ export class GeolocationComponent implements OnInit, OnDestroy {
             const dom: any = document.querySelector('body');
 
             if (!$('.push-right-school-details')[0]) {
-              console.log($('.push-right-school-details')[0]);
-
               dom.classList.toggle('push-right-school-details');
-              console.log('procurando a informaçao detalhada da escola escolhida');
             }
             if (!$('.push-left-indicators-by-weighting-areas')[0]) {
-              console.log($('.push-left-indicators-by-weighting-areas')[0]);
-
               dom.classList.toggle('push-left-indicators-by-weighting-areas');
-              console.log('procurando a informaçao detalhada da AP da escola escolhida');
             }
             // update the school ID in the shareservice
             this.updateSchoolIDSel(id_temp);
 
             // update the school codAp in the shareservice
             this.updateSelectedSchoolCodAP(codAp_temp);
+
+            // center
+            this.resize();
           });
 
         });
@@ -432,14 +438,12 @@ export class GeolocationComponent implements OnInit, OnDestroy {
   updateSchoolIDSel(selectedSchoolID) {
     // send school ID to school-details component via observable subject
     this.sharedDataService.sendSchoolID(selectedSchoolID);
-    console.log('sending school id', selectedSchoolID);
-    this.onSchoolSel.emit(selectedSchoolID);
+    // this.onSchoolSel.emit(selectedSchoolID);
   }
 
   updateSelectedSchoolCodAP(selectedSchoolCodAP) {
     // send school ID to school-details component via observable subject
     this.sharedDataService.sendSchoolCodAP(selectedSchoolCodAP);
-    console.log('sending school codAp', selectedSchoolCodAP);
     // this.onSchoolSel.emit(selectedSchoolCodAP);
   }
 
@@ -499,7 +503,9 @@ export class GeolocationComponent implements OnInit, OnDestroy {
     alert('Mostrar janela de settings');
   }
 
-  // unsubscribe to ensure no memory leaks
+
+
+    // unsubscribe to ensure no memory leaks
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
