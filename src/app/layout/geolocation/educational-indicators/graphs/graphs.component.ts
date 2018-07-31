@@ -307,7 +307,7 @@ export class GraphsComponent implements OnInit, OnDestroy {
           this.valuesUnit, 2, this.width, 320, {top: 15, right: 80, bottom: 30, left: 30});
 
         // DCS - cursoSuperior
-        const dadosDCSEnsFundAIniciais = this.schoolSelected[this.indicadores[1]]['cursoSuperior'][this.niveis[1]];
+        const dadosDCSEnsFundAIniciais = this.schoolSelected[this.indicadores[1]]['cursoSuperior'][this.niveis[1]][this.categorias[0]];
         this.showGraphWithLineChart(dadosDCSEnsFundAIniciais, this.div_DCSEnsFundAIniciaisGraph, '#box-DCSEnsFundAIniciais');
 
         // horasAula 8a
@@ -357,7 +357,7 @@ export class GraphsComponent implements OnInit, OnDestroy {
           '#box-idebEnsFundAFinais', '', '');
 
         // DCS - cursoSuperior
-        const dadosDCSEnsFundAFinais = this.schoolSelected[this.indicadores[1]]['cursoSuperior'][this.niveis[1]];
+        const dadosDCSEnsFundAFinais = this.schoolSelected[this.indicadores[1]]['cursoSuperior'][this.niveis[1]][this.categorias[1]];
         this.showGraphWithLineChart(dadosDCSEnsFundAFinais, this.div_DCSEnsFundAFinaisGraph,
           '#box-DCSEnsFundAFinais');
 
