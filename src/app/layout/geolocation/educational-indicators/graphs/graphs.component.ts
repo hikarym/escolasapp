@@ -419,7 +419,7 @@ export class GraphsComponent implements OnInit, OnDestroy {
         const dadosProvasEnemEnsMedio = this.getDadosDoIndicador(this.indicadores[12], this.niveis[2], this.categorias[12]);
         this.anosProvasEnemEnsMedio = Object.keys(dadosProvasEnemEnsMedio);
         this.showGraphByGroups(this.indicadores[12], this.niveis[2], this.categorias[12], this.anosProvasEnemEnsMedio[0],
-          this.div_provasEnemEnsMedioGraph, this.valuesUnit, this.width, 320, {top: 15, right: 20, bottom: 110, left: 20});
+          this.div_provasEnemEnsMedioGraph, '', this.width, 320, {top: 15, right: 20, bottom: 110, left: 20});
 
         // AFD
         this.showGraphByStackedBar(this.schoolSelected[this.indicadores[0]][this.niveis[2]],
