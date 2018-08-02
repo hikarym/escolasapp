@@ -75,4 +75,16 @@
   display: none;
 }
 
+/* ** */
+.toolTip {
+  position: absolute;
+  display: none;
+  min-width: 80px;
+  height: auto;
+  background: none repeat scroll 0 0 #ffffff;
+  border: 1px solid #0E3D59;
+  padding: 14px;
+  font-size: small;
+  text-align: center;
+}
 

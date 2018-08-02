@@ -833,6 +833,7 @@ export class GraphsComponent implements OnInit, OnDestroy {
     // const margin = this.margin;
     const width = divWidth - margin.left - margin.right;
     const height = divHeight - margin.top - margin.bottom;
+
     // Remove all children from HTML
     d3.select(containerDiv.nativeElement).html('');
     if (dataGraph.length > 0) {
@@ -844,8 +845,10 @@ export class GraphsComponent implements OnInit, OnDestroy {
         .attr('height', height + margin.top + margin.bottom);
       const g = svg.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
+      const tooltip = d3.select('body').append('div').attr('class', 'toolTip');
+
       // Prep the tooltip bits, initial display is hidden
-      const tooltip = svg.append('g')
+      /*const tooltip = svg.append('g')
         .attr('class', 'toolTip')
         .style('display', 'none');
 
@@ -858,9 +861,9 @@ export class GraphsComponent implements OnInit, OnDestroy {
       tooltip.append('text')
         .attr('x', 30)
         .attr('dy', '1.2em')
-        .style('text-anchor', 'middle')
+        .style('text-anchor', 'middle');
         .attr('font-size', '12px')
-        .attr('font-weight', 'bold');
+        .attr('font-weight', 'bold');*/
 
       const x = d3.scaleBand()
         .rangeRound([0, width])
@@ -909,9 +912,14 @@ export class GraphsComponent implements OnInit, OnDestroy {
           const xPosition = d3.mouse(<any>this)[0] - 5;
           const yPosition = d3.mouse(<any>this)[1] - 5;
           tooltip
+            .style('left', d3.event.pageX - 50 + 'px')
+            .style('top', d3.event.pageY - 70 + 'px')
+            .style('display', 'inline-block')
+            .html((d[1] - d[0]).toFixed(digitsDecimals) + valuesUnit);
+          /*tooltip
             .style('display', 'inline-block')
             .attr('transform', 'translate(' + xPosition + ',' + yPosition + ')');
-          tooltip.select('text').text((d[1] - d[0]).toFixed(digitsDecimals) + valuesUnit);
+          tooltip.select('text').text((d[1] - d[0]).toFixed(digitsDecimals) + valuesUnit);*/
         });
 
       g.append('g')
