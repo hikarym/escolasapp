@@ -117,7 +117,8 @@ export class GeolocationComponent implements OnInit, OnDestroy {
     name: 'Marker',
     enabled: true,
     layer: L.marker([ this.centerLat, this.centerLng ], {
-      icon: this.selectedSchoolMarkerIcon
+      icon: this.selectedSchoolMarkerIcon,
+      opacity: 0
     })
   };
 
@@ -263,7 +264,8 @@ export class GeolocationComponent implements OnInit, OnDestroy {
     // hide the icon layer
     this.marker.layer = L.marker([ this.centerLat, this.centerLng ], {
       icon: this.schoolMarkerIcon,
-      zIndexOffset: 0
+      zIndexOffset: 0,
+      opacity: 0
     });
 
     // Initialize the weighting area polygon
@@ -298,7 +300,8 @@ export class GeolocationComponent implements OnInit, OnDestroy {
 
   drawIconForSchoolSelected(schoolLat: number, schoolLng: number) {
     this.marker.layer = L.marker([ schoolLat, schoolLng ], {
-      icon: this.selectedSchoolMarkerIcon
+      icon: this.selectedSchoolMarkerIcon,
+      opacity: 1
     });
   }
 
