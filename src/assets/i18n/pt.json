@@ -299,6 +299,8 @@
   "esforcoDocenteNivel4Info": "Docentes que tem entre 50 e 400 alunos e atua em dois turnos, em uma ou duas escolas e em duas etapas.",
   "esforcoDocenteNivel5Name": "Nível 5",
   "esforcoDocenteNivel5Info": "Docente que tem mais de 300 alunos e atua nos três turnos, em duas ou três escolas e em duas etapas ou três etapas.",
+  "esforcoDocenteNivel6Name": "Nível 6",
+  "esforcoDocenteNivel6Info": "Docente que tem mais de 400 alunos e atua nos três turnos, em duas ou três escolas e em duas etapas ou três etapas.",
 
   "AFDTitle": "Adequação da formação docente",
   "AFDInfoP1": "O indicador de adequação da formação docente baseia se no exame da titulação e formação dos professores e sua compatibilidade com as disciplinas que leciona, conforme os parâmetros legais definidos para a profissão. Deste modo, cada professor é classificado em um dos seguintes grupos:",
