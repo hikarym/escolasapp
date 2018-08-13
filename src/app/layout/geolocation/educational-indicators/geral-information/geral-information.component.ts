@@ -132,8 +132,13 @@ export class GeralInformationComponent implements OnInit, OnDestroy {
       const prop = Object.keys(this.detalhesAnuais);
       const numberOfProp = prop.length;
 
-      this.mantenedora = this.detalhesAnuais.mantenedora ? this.getFieldValue(this.detalhesAnuais.mantenedora, 'SIM') : 'NA';
-      nfieldsNA += this.mantenedora === 'NA' ? 1 : 0;
+      if (this.detalhesAnuais.mantenedora) {
+        this.mantenedora = this.getFieldValue(this.detalhesAnuais.mantenedora, 'SIM');
+        nfieldsNA += this.mantenedora === 'NA' ? 1 : 0;
+      } else {
+        this.mantenedora = 'NA';
+      }
+
 
       nfieldsNA += this.countFieldsNA(this.detalhesAnuais, 'NA');
       if (nfieldsNA === numberOfProp) {
