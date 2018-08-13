@@ -59,6 +59,29 @@
     </select>
   </div>
 </div>-->
+<!-- SEÇÃO: Estatísticas Educacionais -->
+<div class="section-info" *ngIf="regularidadeDocente || complexidadeGestao">
+  <div class="box" role="alert">
+    <h6 class="alert-heading box-title"><i class="fa fa-line-chart fa-fw"></i>{{'estatisticasEducacionais'|translate}}:</h6>
+
+    <div class="section-info-line"  *ngIf="regularidadeDocente && regularidadeDocente != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'regularidadeDocente' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text section-info-text-width ">{{regularidadeDocente}}</span>
+      <button type="button" class="btn"  data-toggle="modal" data-target="#regularidadeDocenteModal">
+        <i class="fa fa-info-circle fa-fw text-primary"></i>
+      </button>
+    </div>
+    <div class="section-info-line" *ngIf="complexidadeGestao && complexidadeGestao != 'NA'">
+      <div class="section-info-icon-ed"><b>{{'complexidadeGestao' | translate}}:</b></div>
+      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
+      <span class="section-info-text section-info-text-width ">{{complexidadeGestao}}</span>
+      <button type="button" class="btn"  data-toggle="modal" data-target="#complexidadeGestaoModal">
+        <i class="fa fa-info-circle fa-fw text-primary"></i>
+      </button>
+    </div>
+  </div>
+</div>
 
 <!-- SEÇÃO: Outras informações -->
 <div class="section-info" *ngIf="detalhesAnuais">
@@ -313,3 +336,49 @@
     </div>
   </div>
 </div>
+
+<!-- Regularidade Docente -->
+<div class="modal fade" id="regularidadeDocenteModal" tabindex="-1" role="dialog" aria-labelledby="regularidadeDocenteModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="regularidadeDocenteModalTitle">{{'regularidadeDocente'|translate}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{'regularidadeDocenteInfoP1'|translate}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END Regularidade Docente -->
+
+<!-- Complexidade da Gestão Docente -->
+<div class="modal fade" id="complexidadeGestaoModal" tabindex="-1" role="dialog" aria-labelledby="complexidadeGestaoModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="complexidadeGestaoModalTitle">{{'complexidadeGestaoTitle'|translate}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{'complexidadeGestaoInfoP1'|translate}}</p>
+        <ul>
+          <li><b>{{'complexidadeGestaoNivel1Name'|translate}}: </b>{{'complexidadeGestaoNivel1Info'|translate}}</li>
+          <li><b>{{'complexidadeGestaoNivel2Name'|translate}}: </b>{{'complexidadeGestaoNivel2Info'|translate}}</li>
+          <li><b>{{'complexidadeGestaoNivel3Name'|translate}}: </b>{{'complexidadeGestaoNivel3Info'|translate}}</li>
+          <li><b>{{'complexidadeGestaoNivel4Name'|translate}}: </b>{{'complexidadeGestaoNivel4Info'|translate}}</li>
+          <li><b>{{'complexidadeGestaoNivel5Name'|translate}}: </b>{{'complexidadeGestaoNivel5Info'|translate}}</li>
+          <li><b>{{'complexidadeGestaoNivel6Name'|translate}}: </b>{{'complexidadeGestaoNivel6Info'|translate}}</li>
+        </ul>
+        <p>{{'complexidadeGestaoInfoP2'|translate}}</p>
+        <p>{{'complexidadeGestaoInfoP3'|translate}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END Regularidade Docente -->

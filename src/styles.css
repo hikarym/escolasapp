@@ -531,6 +531,13 @@ button {
   text-align: left;
 }
 
+.section-info-text-width {
+  margin-right: 10px; /*24px*/
+  -webkit-flex: 0 0 100px; /*0 0 24px*/
+  -ms-flex: 0 0 100px; /*0 0 24px*/
+  flex: 0 0 100px; /*0 0 24px*/
+}
+
 .section-info-secondary-text-newline {
   padding: 0 24px 6px 50px;
   position: relative;

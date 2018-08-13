@@ -182,7 +182,7 @@ export class GraphsComponent implements OnInit, OnDestroy {
           this.verifyScholarLevelOffering(ofereceEnsInfantilEspecial) === 0) {
           this.ofereceEnsInfantil = this.getInstant('naoOfereceEnsinoInfantil');
           domGraficosEnsInfantil.classList.add('hide-section');
-        }  else {
+        } else {
           domGraficosEnsInfantil.classList.remove('hide-section');
           this.ofereceEnsInfantil = '';
         }

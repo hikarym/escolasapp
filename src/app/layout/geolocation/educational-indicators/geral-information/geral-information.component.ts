@@ -25,6 +25,8 @@ export class GeralInformationComponent implements OnInit, OnDestroy {
   localiza = 'NA';
   schoolWasGeolocated = false;
 
+  regularidadeDocente = null;
+  complexidadeGestao = null;
   detalhesAnuais: any;
   mantenedora = 'NA';
   alimentacao = 'NA';
@@ -98,6 +100,7 @@ export class GeralInformationComponent implements OnInit, OnDestroy {
     this.schoolWasGeolocated = typeof this.schoolSelected.lon === 'string' ? false : true;
     // Annual Information
     const yearSelFieldName = 'ano' + this.yearSelValue;
+    this.loadEducationalStatistics(yearSelFieldName);
     this.loadAnnualDetails(yearSelFieldName);
     this.loadAcessibilidadeInfo(yearSelFieldName);
     this.loadAlimentacaoInfo(yearSelFieldName);
@@ -113,12 +116,27 @@ export class GeralInformationComponent implements OnInit, OnDestroy {
     this.yearSelValue = yearValueSelected;
     const yearSelFieldName = 'ano' + yearValueSelected;
 
+    this.loadEducationalStatistics(yearSelFieldName);
     this.loadAnnualDetails(yearSelFieldName);
     this.loadAcessibilidadeInfo(yearSelFieldName);
     this.loadAlimentacaoInfo(yearSelFieldName);
     this.loadSaneamentoInfo(yearSelFieldName);
     this.loadEquipamentosInfo(yearSelFieldName);
     this.loadDependenciasInfo(yearSelFieldName);
+  }
+
+  /**
+   * Function to load Educational Statistics
+   */
+  loadEducationalStatistics(yearFieldName: string) {
+    this.regularidadeDocente = null;
+    this.complexidadeGestao = null;
+    if (this.schoolSelected.regularidadeDocente[yearFieldName]) {
+      this.regularidadeDocente = this.schoolSelected.regularidadeDocente[yearFieldName];
+    }
+    if (this.schoolSelected.complexidadeGestao[yearFieldName]) {
+      this.complexidadeGestao = this.schoolSelected.complexidadeGestao[yearFieldName];
+    }
   }
 
   /**
@@ -135,10 +153,7 @@ export class GeralInformationComponent implements OnInit, OnDestroy {
       if (this.detalhesAnuais.mantenedora) {
         this.mantenedora = this.getFieldValue(this.detalhesAnuais.mantenedora, 'SIM');
         nfieldsNA += this.mantenedora === 'NA' ? 1 : 0;
-      } else {
-        this.mantenedora = 'NA';
       }
-
 
       nfieldsNA += this.countFieldsNA(this.detalhesAnuais, 'NA');
       if (nfieldsNA === numberOfProp) {
