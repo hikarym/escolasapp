@@ -155,8 +155,8 @@ export class GeolocationComponent implements OnInit, OnDestroy {
   // ------------------------------
   // Form model object
   model = new LayersModel(
-    [ this.LAYER_GSM, this.LAYER_OSM, this.LAYER_MBOX ],
-    this.LAYER_GSM.id,
+    [ this.LAYER_OSM, this.LAYER_GSM, this.LAYER_MBOX ],
+    this.LAYER_OSM.id,
     [ this.weightingArea, this.marker]
   );
 
