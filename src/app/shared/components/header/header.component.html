@@ -1,7 +1,7 @@
 <!-- class="pos-f-t header"-->
 <div class="fixed-top header">
   <!-- navbar-toggleable-md : to display the menu icon-->
-  <nav class="navbar navbar-expand-md navbar-dark navbar-toggleable-md">
+  <nav class="navbar navbar-expand-md navbar-dark navbar-toggleable-md" style="padding: .16rem .3rem">
     <button class="navbar-toggler cursor-hand"
             type="button" title="Menu" (click)="toggleSidebar()">
       <span class="navbar-toggler-icon "></span>
@@ -9,7 +9,7 @@
     <a class="navbar-brand ml-3" href="#">
       <!--<img  src="/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">-->
       <!--<i class="material-icons md-36 d-inline-block align-top" style="width: 36px; height: 36px" alt="">school</i>-->
-      <i class="fa fa-graduation-cap md-30 d-inline-block align-top"  alt=""></i>
+      <i class="fa fa-graduation-cap md-33 d-inline-block align-top"  alt=""></i>
       {{brand}}
     </a>
 
@@ -28,10 +28,15 @@
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav">
         <li class="dropdown nav-item">
-          <button type="button" class="btn btn-link-bluelight pt-0 pb-0"  data-toggle="modal" data-target="#legendModal"
+          <button type="button" class="btn btn-link-light pt-0 pb-0"  data-toggle="modal" data-target="#legendModal"
                   title="{{'helpTitle'|translate}}">
-            <i class="fa fa-2x fa-question-circle-o fa-fw"></i>
+            <i class="fa md-33 fa-question-circle-o fa-fw mt-2"></i>
           </button>
+        </li>
+        <li>
+          <a href="http://web.fflch.usp.br/centrodametropole/">
+            <img src="assets/images/logo-big-letters.png">
+          </a>
         </li>
       </ul>
     </div>

@@ -224,6 +224,7 @@ body{
 
 /* icons */
 .fa.md-30 { font-size: 30px; }
+.fa.md-33 { font-size: 33px; }
 
 /* separator */
 .separator {
@@ -657,6 +658,12 @@ button {
 .btn-link-bluelight {
   font-weight: 400;
   color: #5bc0de;
+  background-color: transparent;
+}
+
+.btn-link-light {
+  font-weight: 400;
+  color: #ffffff;
   background-color: transparent;
 }
 
