@@ -387,6 +387,7 @@ export class GeolocationComponent implements OnInit, OnDestroy {
         });
 
         marker.on('click', (e) => {
+          this.schoolSelectedFlag = true;
           this.weightingAreaInfoSelectedFlag = true;
 
           this.zone.run(() => {
