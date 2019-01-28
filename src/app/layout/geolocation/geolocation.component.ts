@@ -400,6 +400,7 @@ export class GeolocationComponent implements OnInit, OnDestroy {
 
             if (!$('.push-right-school-details')[0]) {
               dom.classList.toggle('push-right-school-details');
+
             }
             if (!$('.push-left-indicators-by-weighting-areas')[0]) {
               dom.classList.toggle('push-left-indicators-by-weighting-areas');
@@ -460,14 +461,17 @@ export class GeolocationComponent implements OnInit, OnDestroy {
 
     const dom: any = document.querySelector('body');
     dom.classList.toggle('push-right-school-details');
-    const togglebutton: any = document.getElementById('toggle-school-details-icon');
+    const togglebutton_icon: any = document.getElementById('toggle-school-details-icon');
+    const togglebutton: any = document.getElementById('btn-schooldetails');
     if (dom.classList.contains('push-right-school-details')) {
-      togglebutton.classList.add('fa-chevron-left');
-      togglebutton.classList.remove('fa-chevron-right');
+      togglebutton.classList.add('btn-toggle-left');
+      togglebutton_icon.classList.add('fa-chevron-left');
+      togglebutton_icon.classList.remove('fa-chevron-right');
     } else {
       // this.toggleSchoolDetailsIcon = 'chevron_left';
-      togglebutton.classList.add('fa-chevron-right');
-      togglebutton.classList.remove('fa-chevron-left');
+      togglebutton.classList.remove('btn-toggle-left');
+      togglebutton_icon.classList.add('fa-chevron-right');
+      togglebutton_icon.classList.remove('fa-chevron-left');
     }
     // resize the screen
     this.resize();
