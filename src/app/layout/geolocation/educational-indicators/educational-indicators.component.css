@@ -1,6 +1,7 @@
 .sidebar-school-details {
   border-radius: 0;
   position: fixed;
+  transform: translate3d(0px,0px,0px);
   z-index: 500;
   top: 57px;
   left: 0px; /*408px to display it*/
