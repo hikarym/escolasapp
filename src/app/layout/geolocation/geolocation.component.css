@@ -21,9 +21,9 @@ agm-map {
   background-color: #ffffff;
   padding-bottom: 2px;
   margin: 2px 0px 0px;
-  height: calc(100vh - 94px); /*header 60, footer 34*/
-  height: -moz-calc(100vh - 94px);
-  height: -webkit-calc(100vh - 94px);
+  height: calc(100vh - 38px); /*header 60, footer 34*/
+  height: -moz-calc(100vh - 38px);
+  height: -webkit-calc(100vh - 38px);
   overflow-x: hidden;
   overflow-y: hidden;
   top: 0px;
@@ -36,8 +36,8 @@ agm-map {
 
 .btn-toggle-schooldetails {
   border: 1px solid rgba(0,0,0,.7);
-  left: 0px;
-  top: 60px;/*1px*/
+  left: 1px;
+  top: 56px;/*1px*/
   width: auto;
   height: 55px;
   padding: 0px;
@@ -45,10 +45,6 @@ agm-map {
   z-index: 401;
   background: rgba(255,255,255,0.9);
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
-}
-
-.btn-toggle-left {
-  left: 360px;
 }
 
 @media screen and (max-width: 575px) {
@@ -60,7 +56,7 @@ agm-map {
 .btn-toggle-indicatiors-by-weighting-areas {
   border: 1px solid rgba(0,0,0,.7);
   right: 1px;
-  top: 1px;
+  top: 56px;
   width: auto;
   height: 55px;
   padding: 0px;

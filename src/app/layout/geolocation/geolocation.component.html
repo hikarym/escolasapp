@@ -2,28 +2,11 @@
   <!-- Educational's Indicators Details -->
   <app-educational-indicators></app-educational-indicators>
   <!-- End - Educational's Indicators Details -->
-  <!-- button to display/hide the school details -->
-  <button type="button"  class="btn btn-toggle-schooldetails btn-toggle-left" id="btn-schooldetails" *ngIf="schoolSelectedFlag"
-          (click)="toggleSchoolDetails()">
-    <i id="toggle-school-details-icon" class="fa fa-fw fa-chevron-left"></i>
-  </button>
 
   <!-- Geolocation of a school -->
   <div class="map-container">
 
-    <!-- -->
-    <button type="button" class="btn btn-outline-dark btn-map position-right-bottom-b2"
-            data-toggle="modal" data-target="#legendModal" title="{{'helpTitle'|translate}}">
-      <i class="fa fa-2x fa-question-circle-o fa-fw"></i>
-    </button>
-    <!-- -->
 
-    <!-- Display/hide settings button trigger Modal-->
-    <button type="button" class="btn btn-outline-dark btn-map position-right-bottom"
-            data-toggle="modal" data-target=".bd-settings-modal-sm" title="{{'settingsTitle'|translate}}">
-      <i id="toggle-settings-icon" class="fa fa-2x fa-sliders fa-fw"></i>
-    </button>
-    <!-- End Display/hide button -->
 
 
     <!-- panel for informations -->
@@ -42,7 +25,30 @@
          [leafletMarkerClusterOptions] = "markerClusterOptions"
          (leafletMarkerClusterReady) = "markerClusterReady($event)"
          (leafletMapReady) = "mapReady($event)">
+      <!-- button to display/hide the school details -->
+      <button type="button"  class="btn btn-toggle-schooldetails" *ngIf="schoolSelectedFlag"
+              (click)="toggleSchoolDetails()">
+        <i id="toggle-school-details-icon" class="fa fa-fw fa-chevron-left"></i>
+      </button>
+      <!-- -->
+      <button type="button" class="btn btn-outline-dark btn-map position-right-bottom-b2"
+              data-toggle="modal" data-target="#legendModal" title="{{'helpTitle'|translate}}">
+        <i class="fa fa-2x fa-question-circle-o fa-fw"></i>
+      </button>
+      <!-- -->
 
+      <!-- Display/hide settings button trigger Modal-->
+      <button type="button" class="btn btn-outline-dark btn-map position-right-bottom"
+              data-toggle="modal" data-target=".bd-settings-modal-sm" title="{{'settingsTitle'|translate}}">
+        <i id="toggle-settings-icon" class="fa fa-2x fa-sliders fa-fw"></i>
+      </button>
+      <!-- End Display/hide button -->
+
+      <!-- button to display/hide the weighting areas information -->
+      <button type="button"  class="btn btn-toggle-indicatiors-by-weighting-areas " *ngIf="weightingAreaInfoSelectedFlag"
+              (click)="toggleIndicatiorsByWeightingAreas()">
+        <i id="toggle-weighting-area-icon" class="fa fa-fw fa-chevron-right"></i>
+      </button>
     </div>
 
   </div>
@@ -80,11 +86,7 @@
   <!-- *ngIf="schoolSelectedFlag" -->
   <app-indicators-by-weighting-areas></app-indicators-by-weighting-areas>
   <!-- end Weighting Area's information Details -->
-  <!-- button to display/hide the weighting areas information -->
-  <button type="button"  class="btn btn-toggle-indicatiors-by-weighting-areas " *ngIf="weightingAreaInfoSelectedFlag"
-          (click)="toggleIndicatiorsByWeightingAreas()">
-    <i id="toggle-weighting-area-icon" class="fa fa-fw fa-chevron-right"></i>
-  </button>
+
 
 </div>
 

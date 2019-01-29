@@ -1,5 +1,5 @@
 .main-container {
-  margin-top: 56px;
+  margin-top: 0px; /*56px*/
   margin-left: 0px; /*320px - menu*/
   padding: 1px 0px;/*2px*/
   -ms-overflow-x: hidden;

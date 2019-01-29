@@ -462,14 +462,11 @@ export class GeolocationComponent implements OnInit, OnDestroy {
     const dom: any = document.querySelector('body');
     dom.classList.toggle('push-right-school-details');
     const togglebutton_icon: any = document.getElementById('toggle-school-details-icon');
-    const togglebutton: any = document.getElementById('btn-schooldetails');
     if (dom.classList.contains('push-right-school-details')) {
-      togglebutton.classList.add('btn-toggle-left');
       togglebutton_icon.classList.add('fa-chevron-left');
       togglebutton_icon.classList.remove('fa-chevron-right');
     } else {
       // this.toggleSchoolDetailsIcon = 'chevron_left';
-      togglebutton.classList.remove('btn-toggle-left');
       togglebutton_icon.classList.add('fa-chevron-right');
       togglebutton_icon.classList.remove('fa-chevron-left');
     }
