@@ -131,7 +131,6 @@ export class GeolocationComponent implements OnInit, OnDestroy {
   };
   options = {zoomControl: false, fullscreenControl: true};
   zoom = 14;
-  // zoomOptions= L.control.zoom({position: 'topright'});
   zoomOptions = {
     position: 'topright'
   };
@@ -162,27 +161,11 @@ export class GeolocationComponent implements OnInit, OnDestroy {
 
   // Values to bind to Leaflet Directive
   layers: L.Layer[];
-  /*layersControl = {
-    baseLayers: {
-      'Google Street Maps': this.LAYER_GSM.layer,
-      'Open Street Maps': this.LAYER_OSM.layer
-    },
-    overlays: {
-      'Vizinhança': this.neighborhood.layer,
-      'Área de Ponderação': this.weightingArea.layer,
-      'Icone da escola selecionada': this.marker.layer
-    }
-  };*/
 
   constructor(private schoolService: SchoolService,
               private weigthingAreaService: WeightingAreaService,
               private sharedDataService: ShareddataService,
               private router: Router, private zone: NgZone) {
-    /*const s = sharedDataService.getSchoolID().subscribe(
-      schoolID => {
-        this.selectionSchooolID = schoolID;
-      });
-    this.subscription.add(s);*/
     // Get the active base layer
     const baseLayer = this.model.baseLayers.find((l) => l.id === this.model.baseLayer);
     this.layers = [baseLayer.layer];
@@ -239,8 +222,6 @@ export class GeolocationComponent implements OnInit, OnDestroy {
           // draw the selected school icon
           this.drawIconForSchoolSelected(latRounded, lonRounded);
           // Draw the weighting area polygon
-          // this.drawSchoolNeighborhoodArea(this.neighborhoodRadius, latRounded, lonRounded);
-          // this.drawWeightingAreaPolygon(this.LOCATION.CODAP);
           const codAp = this.LOCATION.CODAP;
           this.weigthingAreaService.getWeightingArea(codAp).then((res1) => {
             this.weightingAreaOfSchool = res1;
@@ -424,7 +405,6 @@ export class GeolocationComponent implements OnInit, OnDestroy {
 
       }
       this.markerClusterData = data;
-      // console.log('getschoollist: ', this.center);
 
     }, (err) => {
       console.log(err);
@@ -434,23 +414,15 @@ export class GeolocationComponent implements OnInit, OnDestroy {
   updateSchoolIDSel(selectedSchoolID) {
     // send school ID to school-details component via observable subject
     this.sharedDataService.sendSchoolID(selectedSchoolID);
-    // this.onSchoolSel.emit(selectedSchoolID);
   }
 
   updateSelectedSchoolCodAP(selectedSchoolCodAP) {
     // send school ID to school-details component via observable subject
     this.sharedDataService.sendSchoolCodAP(selectedSchoolCodAP);
-    // this.onSchoolSel.emit(selectedSchoolCodAP);
   }
 
   markerClusterReady(group: L.MarkerClusterGroup) {
     this.markerClusterGroup = group;
-
-    /* // open the panel clicking on the buttom into popup
-      $('#mymap').on('click', '.trigger', function(a) {
-      const dom: any = document.querySelector('body');
-      dom.classList.toggle('push-left-indicators-by-weighting-areas');
-    });*/
   }
 
   mapReady(map: L.Map) {
@@ -466,7 +438,6 @@ export class GeolocationComponent implements OnInit, OnDestroy {
       togglebutton_icon.classList.add('fa-chevron-left');
       togglebutton_icon.classList.remove('fa-chevron-right');
     } else {
-      // this.toggleSchoolDetailsIcon = 'chevron_left';
       togglebutton_icon.classList.add('fa-chevron-right');
       togglebutton_icon.classList.remove('fa-chevron-left');
     }

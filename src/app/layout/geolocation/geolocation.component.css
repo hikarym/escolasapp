@@ -3,20 +3,6 @@ agm-map {
   width: 100%;
 }
 
-/*.container-dimensions {
-  height: 100%;
-}*/
-/*.map-container {
-  background-color: #151515;
-  height:100%;
-  margin: -7px;
-}*/
-/*.map-container {
-  background-color: #ffffff;
-  margin: 0px -15px -62px;
-  padding-bottom: 62px;
-  height: 100vh;
-}*/
 .map-container {
   background-color: #ffffff;
   padding-bottom: 2px;
