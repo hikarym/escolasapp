@@ -9,12 +9,3 @@ import {routerTransition} from '../router.animations';
 })
 
 export class NotFoundComponent { }
-
-/*export class NotFoundComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-}*/

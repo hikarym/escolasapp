@@ -9,7 +9,6 @@ export class WeightingAreaService {
 
   getWeightingArea(codAp) {
     return new Promise((resolve, reject) => {
-      // this.http.get('/weightingarea/search?text=' + codAp)
       this.http.get('/weightingarea/search/' + codAp)
         .map(res => res.json())
         .subscribe(res => {
