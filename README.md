@@ -1,27 +1,84 @@
 # Escolasapp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.3.
+This platform has been specially designed so that the public can obtain information on the performance and operating conditions of public and private schools in the São Paulo Metropolitan Region. In addition, users will also be able to obtain socioeconomic information about their neighborhoods, the São Paulo Metropolitan Region, the State of São Paulo and Brazil.
 
-## Development server
+## Architecture
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+This project was developed using different tools.
+
+For the database was used MongoDB 3.4.9.
+
+For the backend were used:
+- Mongoose 5.0.13
+- Express 4.15 
+- NodeJS 7.10
+
+For the frontend were used: 
+- Leaflet.markerCluster 1.2
+- Angular 5.2.9
+- Bootstrap 4.0
+- D3 5.0
+- Leaflet 1.3
+- Font-Awesome 4.7 
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.4
+
+
+## System Requirements
+
+It is necessary to have the following technologies installed globally:
+
+- Node 7.10
+- NPM 4.2.0
+- MongoDB 3.4.9
+- AngularCli 1.7.4
+
+After that, install NPM dependencies
+
+```
+$ cd escolasapp 
+$ npm i
+```
+
+## Database settings
+
+It's necessary create the database in MongoDB 
+
+## Backend
+First step, create into escolasapp directory a new file config/dbconfig.js file and put the code:
+
+```
+module.exports = {
+  url: 'mongodb://localhost:27017/<name_of_the_database>'  
+}
+```  
+
+
+## Run frontend
+
+**NOTE:** AngularCli generates a development project.
+and it has two modes, a development and production modes
+
+To build and run the frontend in **development mode**, do:
+```
+$ ng build
+$ npm start
+```
+ 
+To put this project in **production mode** and run the project in this mode, do:
+```{r,engine='console', code_block_nmae}
+$ ng build --prod
+$ npm start
+``` 
+
+## Deployment
+
+To see the SPA application access: [http://localhost:3002/](http://localhost:3002/).
+
 
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
 
 ## Further help
 
