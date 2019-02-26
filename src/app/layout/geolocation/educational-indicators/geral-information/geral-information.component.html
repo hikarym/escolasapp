@@ -4,8 +4,6 @@
   </div>
   <div class="box box-info" role="alert">
     <h6 class="alert-heading"><i class="fa fa-graduation-cap fa-fw"></i>{{'dados-gerais' | translate}}</h6>
-    <!--<p>Put a short description about the graphs. This example text is going to run a bit longer so that you can
-      see how spacing within an alert works with this kind of content.</p>-->
     <div class="section-info-line">
       <div class="section-info-icon-ed"><b>{{'codesc' | translate}}:</b></div>
       <span class="section-info-icon section-info-no-icon" style="display:none"></span>
@@ -50,15 +48,6 @@
   </div>
 </div>
 
-<!-- FILTER:  BY YEAR -->
-<!--<div class="section-info">
-  <div class="section-info-line" style="margin-left: 25px;">
-    <div class="section-info-icon-ed" ><b>{{'ano' | translate}}:</b></div>
-    <select (change)="onYearChange($event.target.value)" class="custom-select">
-      <option *ngFor="let ano of anos">{{ano.name}}</option>
-    </select>
-  </div>
-</div>-->
 <!-- SEÇÃO: Estatísticas Educacionais -->
 <div class="section-info" *ngIf="regularidadeDocente || complexidadeGestao">
   <div class="box" role="alert">
@@ -284,11 +273,6 @@
       <span class="section-info-icon section-info-no-icon" style="display:none"></span>
       <span class="section-info-text"><span>{{dependencias.salaLeitura}}</span></span>
     </div>
-    <!--<div class="section-info-line"  *ngIf="dependencias.BibliotecaSalaLeitura && dependencias.BibliotecaSalaLeitura != 'NA'">
-      <div class="section-info-icon-ed"><b>{{'dependencias.BibliotecaSalaLeitura' | translate}}:</b></div>
-      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
-      <span class="section-info-text"><span>{{dependencias.BibliotecaSalaLeitura}}</span></span>
-    </div>-->
     <div class="section-info-line"  *ngIf="dependencias.BanheiroFora && dependencias.BanheiroFora != 'NA'">
       <div class="section-info-icon-ed"><b>{{'dependencias.BanheiroFora' | translate}}:</b></div>
       <span class="section-info-icon section-info-no-icon" style="display:none"></span>
@@ -324,11 +308,6 @@
       <span class="section-info-icon section-info-no-icon" style="display:none"></span>
       <span class="section-info-text"><span>{{dependencias.numeroSalas}}</span></span>
     </div>
-    <!--<div class="section-info-line"  *ngIf="dependencias.numeroSalasUsadasComoSalas && dependencias.numeroSalasUsadasComoSalas != 'NA'">
-      <div class="section-info-icon-ed"><b>{{'dependencias.numeroSalasUsadasComoSalas' | translate}}:</b></div>
-      <span class="section-info-icon section-info-no-icon" style="display:none"></span>
-      <span class="section-info-text"><span>{{dependencias.numeroSalasUsadasComoSalas}}</span></span>
-    </div>-->
     <div class="section-info-line"  *ngIf="dependencias.EspacoBrasilAlfabetizado && dependencias.EspacoBrasilAlfabetizado != 'NA'">
       <div class="section-info-icon-ed"><b>{{'dependencias.EspacoBrasilAlfabetizado' | translate}}:</b></div>
       <span class="section-info-icon section-info-no-icon" style="display:none"></span>

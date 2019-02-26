@@ -18,9 +18,6 @@ export class AppComponent {
   constructor (private translate: TranslateService, private router: Router) {
     this.translate.addLangs(['pt', 'en']);
     this.translate.setDefaultLang(this.defaultLang);
-    // this.translate.getTranslation(this.defaultLang).subscribe(() => {});
-    // const browserLang = this.translate.getBrowserLang();
-    // this.translate.use(browserLang.match(/pt|en/) ? browserLang : 'pt');
     // the lang to use, if the lang isn't available, it will use the current loader to get them
     this.translate.use(this.defaultLang);
 
