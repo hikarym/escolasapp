@@ -8,7 +8,6 @@ import {ApSecVariableService} from '../../../services/ap-sec-variable.service';
 import {BrSpRmspSecVariableService} from '../../../services/br-sp-rmsp-sec-variable.service';
 import * as d3 from 'd3';
 import {TranslateService} from '@ngx-translate/core';
-import {BaseType} from 'd3-selection';
 
 @Component({
   selector: 'app-indicators-by-weighting-areas',
@@ -187,8 +186,6 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
     const s = this.sharedDataService.getSchoolCodAP().subscribe(
       res => {
-        // console.log('Retrieving the selected school cod AP', res);
-
         // Get Weighting Area socioeconomic variables's information
         this.selectedSchoolCodAP = res;
 
@@ -541,7 +538,6 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       jsonData['maleperc'] = this.convertToPercentage(homemObject[homemProperties[i]]);
       jsonData['femaleperc'] = this.convertToPercentage(mulherObject[homemProperties[i]]);
       jsonData['order'] = Number( boundaries[0]);
-      // agePyramidData.push(jsonData);
       agePyramidData = this.insertIntoArrayOrdered(agePyramidData, jsonData);
 
       homensPercentagem += homemObject[homemProperties[i]];
@@ -626,16 +622,6 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
    * @param {ElementRef} containerDiv
    */
   generateTableGraph(dataGraph: any[], containerDiv: ElementRef ) {
-    /*const bmw_data = [];
-    dataGraph.forEach(function(d, i) {
-      // now we add another data object value, a calculated value.
-      d.apPerc = i === 1 ? d.ap.toFixed(2)  : (d.ap * 100).toFixed(2) + '%';
-      d.metropolePerc = i === 1 ? d.metropole.toFixed(2)  : (d.metropole * 100).toFixed(2) + '%';
-      d.ufPerc = i === 1 ? d.uf.toFixed(2)  : (d.uf * 100).toFixed(2) + '%';
-      d.brPerc = i === 1 ? d.br.toFixed(2)  : (d.br * 100).toFixed(2) + '%';
-      bmw_data.push([d.model, d.apPerc, d.metropolePerc, d.ufPerc, d.brPerc]);
-    });*/
-
     // Remove all children from HTML
     d3.select(containerDiv.nativeElement).html('');
 
@@ -682,7 +668,6 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
   generateHorizontalBarChart(dataGraph: any[], containerDiv: ElementRef, maxValueInDomainX: number,
                              divWidth: number = this.width, divHeight: number = this.height, margin: any = this.margin) {
     // Define chart dimensions
-    // const margin = {top: 20, right: 20, bottom: 30, left: 80};
     const width = divWidth - margin.left - margin.right;
     const height = divHeight - margin.top - margin.bottom;
     const barHeight        = 24;
@@ -704,15 +689,12 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
     // To order according to variable value
-    // dataGraph.sort(function(a, b) { return a.variableValue - b.variableValue; });
-    // const maxValue = d3.max(dataGraph, function(d) {return d.variableValue; } );
     x.domain([0, maxValueInDomainX]);
     y.domain(dataGraph.map(d => d.variableName )).padding(0.1);
 
     g.append('g')
       .attr('class', 'x axis')
       .attr('transform', 'translate(0,' + height + ')')
-      // .call(d3.axisBottom(x).ticks(5).tickFormat(function(d) { return parseInt(d / 1000); }).tickSizeInner([-height]));
       .call(d3.axisBottom(x).ticks(5));
 
     g.append('g')
@@ -768,11 +750,9 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     if (dataGraph.length > 0) {
 
       // Define chart dimensions
-      // let svg = d3.select(this.element.nativeElement).append('svg')
       const svg = d3.select(containerDiv.nativeElement).append('svg')
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom);
-      // .style('background-color', '#efefef');
 
       const tooltip = d3.select('body').append('div').attr('class', 'toolTip');
 
@@ -783,10 +763,6 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
       // Define domain data for X & Y axes from the data array
       const xDomain = dataGraph.map(d => d.variableName);
-
-      /*const yDomain = [0, d3.max(dataGraph, function (d) {
-        return d.variableValue;
-      })];*/
       const yDomain = [0, maxValueInDomainY];
 
       // Set the scale for X & Y
@@ -861,11 +837,6 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
                                     gapBetweenGroups: number = this.gapBetweenGroups,
                                     spaceForLabels: number = this.spaceForLabels, spaceForLegend: number = this.spaceForLegend) {
     // Define chart dimensions
-    /*const chartWidth       = 180,
-      barHeight        = 20,
-      gapBetweenGroups = 20,
-      spaceForLabels   = 60, // 150
-      spaceForLegend   = 80, // 150*/
     const groupHeight      = barHeight * dataGraph.series.length;
 
     // Zip the series data together (first values, second values, etc.)
@@ -982,9 +953,7 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
       .attr('x', legendRectSize + legendSpacing)
       .attr('y', legendRectSize - legendSpacing)
       .text(function (d, i) {
-        // console.log('d group bar: ', dataGraph.series[i].label);
         return dataGraph.series[i].label;
-        // d.label;
       });
 
 
@@ -1022,30 +991,6 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     });
   }
 
-  /*wrap(text, width) {
-    text.each(function() {
-      const text = d3.select(this),
-        words = text.text().split(/\s+/).reverse(),
-        word,
-        line = [],
-        lineNumber = 0,
-        lineHeight = 1.1, // ems
-        y = text.attr('y'),
-        dy = parseFloat(text.attr('dy')),
-        tspan = text.text(null).append('tspan').attr('x', -100).attr('y', y).attr('dy', dy + 'em');
-      while (word = words.pop()) {
-        line.push(word);
-        tspan.text(line.join(' '));
-        if (tspan.node().getComputedTextLength() > width) {
-          line.pop();
-          tspan.text(line.join(' '));
-          line = [word];
-          tspan = text.append('tspan').attr('x', -100).attr('y', y).attr('dy', `${++lineNumber * lineHeight + dy}em`).text(word);
-        }
-      }
-    });
-  }*/
-
   generatePieGraph(dataGraph: any[],
                    containerDiv: ElementRef, panelWidth: number, panelHeight: number, graphDescription: string) {
     // Define chart dimensions
@@ -1066,18 +1011,11 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
     const svg = d3.select(containerDiv.nativeElement)
       .append('svg')
       .append('g');
-    /*.attr('width', width + margin.left + margin.right)
-    .attr('height', height + margin.top + margin.bottom)
-    .style('background-color', '#ffffff'),
-  g = svg.append('g').attr('transform', 'translate(' + (width + margin.left + margin.right) / 2 + ','
-    + (height + margin.top + margin.bottom) / 2 + ')');*/
 
     svg.append('g')
       .attr('class', 'slices');
     svg.append('g')
       .attr('class', 'labelName');
-    /*svg.append('g')
-      .attr('class', 'labelValue');*/
     svg.append('g')
       .attr('class', 'lines');
 
@@ -1100,21 +1038,12 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
     d3.select('#chartPie').html('');
     const div = d3.select('body').append('div').attr('class', 'toolTip');
-    /*const tooltip = d3.select('#chartPie')
-      .append('div')
-      .attr('class', 'toolTip');
-    tooltip.append('div') // add divs to the tooltip defined above
-      .attr('class', 'label'); // add class 'label' on the selection
-
-    tooltip.append('div') // add divs to the tooltip defined above
-      .attr('class', 'percent'); // add class 'percent' on the selection*/
 
     const tooltip = d3.select('body').append('div').attr('class', 'toolTip');
 
     svg.attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
 
     // Define the slices color
-    // ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"];
     const colorRange = d3.scaleOrdinal(d3.schemeCategory10);
     const color = d3.scaleOrdinal(colorRange.range());
 
@@ -1142,25 +1071,12 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
         };
       });
 
-    // when mouse enters div
-    /*slice
-      .on('mouseover', function(d) {
-        console.log('mouseover');
-        tooltip.select('.label').html((<any>d).data.variableName); // set current label
-        tooltip.select('.percent').html((<any>d).data.variableValue + '%'); // set percent calculated above
-        tooltip.style('display', 'block');
-      });*/
-
     // when mouse leaves div
     slice
       .on('mousemove', function(d) {
         tooltip.style('top', (d3.event.layerY + 10) + 'px') // always 10px below the cursor
           .style('left', (d3.event.layerX + 10) + 'px') // always 10px to the right of the mouse
           .style('display', 'inline-block');
-        /*div.style('left', d3.event.pageX + 10 + 'px');
-        div.style('top', d3.event.pageY - 25 + 'px');
-        div.style('display', 'inline-block');
-        div.html(((<any>d).data.variableName) + '<br>' + ((<any>d).data.variableValue) + '%');*/
       });
 
     // when mouse moves
@@ -1172,31 +1088,6 @@ export class IndicatorsByWeightingAreasComponent implements OnInit, OnDestroy, A
 
     slice.exit()
       .remove();
-
-    /*// Center Legend
-    const legend = svg.selectAll('.legend')
-      .data(color.domain())
-      .enter()
-      .append('g')
-      .attr('class', 'legend')
-      .attr('transform', function(d, i) {
-        const height = legendRectSize + legendSpacing;
-        const offset =  height * color.domain().length / 2;
-        const horz = -1 * radius; // 2 * legendRectSize;
-        const vert = i * height + radius + 5; // i * height - offset
-        return 'translate(' + horz + ',' + vert + ')';
-      });
-
-    legend.append('rect')
-      .attr('width', legendRectSize)
-      .attr('height', legendRectSize)
-      .style('fill', color)
-      .style('stroke', color);
-
-    legend.append('text')
-      .attr('x', legendRectSize + legendSpacing)
-      .attr('y', legendRectSize - legendSpacing)
-      .text(function(d) { return d; });*/
 
     /* ------- TEXT LABELS -------*/
     const text = svg.select('.labelName').selectAll('text')

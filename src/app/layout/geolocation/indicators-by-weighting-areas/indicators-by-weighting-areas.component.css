@@ -131,37 +131,6 @@ polyline{
 
 }
 
-/*.toolTip {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  position: absolute;
-  display: none;
-  width: auto;
-  height: auto;
-  background: none repeat scroll 0 0 white;
-  border: 0 none;
-  border-radius: 8px 8px 8px 8px;
-  box-shadow: -3px 3px 15px #888888;
-  color: black;
-  font: 12px sans-serif;
-  padding: 5px;
-  text-align: center;
-}*/
-
-/*.tooltip {
-  background: #eee;
-  box-shadow: 0 0 5px #999999;
-  color: #333;
-  display: none;
-  font-size: 18px;
-  left: 130px;
-  padding: 10px;
-  position: absolute;
-  text-align: center;
-  top: 95px;
-  width: 80px;
-  z-index: 10;
-}*/
-
 text {
   font: 11px sans-serif;
 }
@@ -191,10 +160,7 @@ tr:first-child th:first-child { border-top-left-radius: 5px; }
 tr:first-child th:last-child { border-top-right-radius: 5px; }
 tr:last-child td:first-child { border-bottom-left-radius: 5px; }
 tr:last-child td:last-child { border-bottom-right-radius: 5px; }
-/*p{
-  margin: auto;
-  margin-bottom: 50px;
-}*/
+
 .main{
   margin: auto;
   width: 70%;

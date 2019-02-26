@@ -12,7 +12,6 @@
           <h1 class="section-hero-header-subtitle">{{'rightPanelOptionsLabel' | translate}}:</h1>
           <select (change)="onGraphCategoryChange($event.target.value)" class="custom-select">
             <option *ngFor="let cat of categories" value="{{cat.id}}">{{ cat.name | translate}}</option>
-            <!--<option *ngFor="let cat of categories" value="{{cat.id}}">{{ cat.name | translate}} <span class="badge badge-warning badge-pill">{{cat.graphics}}</span></option>-->
           </select>
         </div>
       </div>
@@ -25,7 +24,6 @@
         </div>
         <!-- -->
         <div *ngIf="weightingAreaInfo">
-          <!--<h5>Características Socioeconômicas</h5>-->
           <div class="section-graph">
             <div class="md-list md-whiteframe-z0 bg-white m-b"></div>
             <div [hidden]="!categories[0].visible">
@@ -257,10 +255,6 @@
                   </ul>
                   <div class="tab-content" id="agePyramidContent">
                     <div class="tab-pane fade show active" id="agePyramidByAp" role="tabpanel" aria-labelledby="agePyramidByAp-tab">
-                      <!--<div class="row" >
-                        <div #profileEducationalByAPGraph class="block"></div>
-                        <div #profileEducationalByMetropoleGraph class="block"></div>
-                      </div>-->
                       <div #agePyramidByAPGraph></div>
                     </div>
                     <div class="tab-pane fade" id="agePyramidByMetropole" role="tabpanel" aria-labelledby="agePyramidByMetropole-tab">
