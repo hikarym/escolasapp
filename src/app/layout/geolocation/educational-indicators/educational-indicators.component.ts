@@ -58,8 +58,6 @@ export class EducationalIndicatorsComponent implements OnInit, OnDestroy {
 
   // Invoked from layout.component.ts or from geolocation.component.ts
   getSchoolDetailedInformation(schoolID: string) {
-    // this.router.navigate([this.URL_ROOT + 'school/school-details/' + schoolID]);
-    // this.schoolObject = schoolID;
     this.schoolService.showEscola(schoolID).then((res) => {
       this.schoolSelected = res;
       this.CODESC = this.schoolSelected.codesc;

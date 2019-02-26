@@ -9,25 +9,11 @@
           </div>
           <hr style="border-top: 1px solid rgba(255,255,255,.2)">
           <h1 class="section-hero-header-subtitle alert-heading">{{'leftPanelOptionsLabel' | translate}}:</h1>
-          <!--<div class="section-info-line">-->
-            <!--<div class="section-info-icon" ><b>{{'ano' | translate}}:</b></div>-->
             <select (change)="onSectionChange($event.target.value)" class="custom-select">
               <option *ngFor="let section of sections" value="{{section.id}}">{{ section.name | translate}}</option>
             </select>
-          <!--</div>-->
         </div>
 
-        <!--<div class="section-info">
-          <div class="box box-info" style=" border: 2px solid #516161;" role="alert">
-            <h6 class="alert-heading">{{'leftPanelOptions' | translate}}:</h6>
-            <div class="section-info-line">
-              <select (change)="onSectionChange($event.target.value)" class="custom-select">
-                <option *ngFor="let section of sections" value="{{section.id}}">{{ section.name | translate}}</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        -->
       </div>
       <!-- School's general details -->
       <app-geral-information [hidden]="!sections[0].visible"></app-geral-information>
