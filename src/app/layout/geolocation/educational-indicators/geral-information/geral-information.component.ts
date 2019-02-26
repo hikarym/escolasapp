@@ -4,7 +4,6 @@ import {ShareddataService} from '../../../../services/shareddata.service';
 import {MatIconRegistry} from '@angular/material';
 import {Subscription} from 'rxjs/Subscription';
 import {TranslateService} from '@ngx-translate/core';
-import {iteratorToArray} from '@angular/animations/browser/src/util';
 
 @Component({
   selector: 'app-geral-information',
@@ -69,7 +68,6 @@ export class GeralInformationComponent implements OnInit, OnDestroy {
               private sharedDataService: ShareddataService,
               iconRegistry: MatIconRegistry,
               private translate: TranslateService) {
-    // this.subscription = this.sharedDataService.getSchoolID().subscribe(message => {this.message = message; } );
     iconRegistry.registerFontClassAlias('fontawesome', 'fa');
   }
 
@@ -84,7 +82,6 @@ export class GeralInformationComponent implements OnInit, OnDestroy {
 
   // Invoked from layout.component.ts or from geolocation.component.ts
   getSchoolDetailedInformation(schoolInformation: any) {
-    // this.router.navigate([this.URL_ROOT + 'school/school-details/' + schoolID]);
     this.schoolSelected = schoolInformation;
 
     // Geral Data
@@ -320,7 +317,6 @@ export class GeralInformationComponent implements OnInit, OnDestroy {
    */
   getInstant(key) {
     return this.translate.instant(key);
-    // return this.translate.get(key).subscribe(data => data)
   }
 
   /**
