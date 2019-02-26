@@ -3,8 +3,6 @@ import {ShareddataService} from '../../../../services/shareddata.service';
 import {TranslateService} from '@ngx-translate/core';
 import {Subscription} from 'rxjs/Subscription';
 import * as d3 from 'd3';
-import {select} from 'd3-selection';
-import {validate} from 'codelyzer/walkerFactory/walkerFn';
 
 @Component({
   selector: 'app-graphs',
@@ -644,8 +642,6 @@ export class GraphsComponent implements OnInit, OnDestroy {
       // define x axis
       x.domain(d3.extent(dataGraph, function(d) { return d.variableName; }));
 
-      /*y.domain([d3.min(dataGraph, function(d) { return d.variableValue; }),
-        d3.max(dataGraph, function(d) { return d.variableValue; }) ]);*/
       y.domain([0, d3.max(dataGraph, function(d) { return d.variableValue; }) ]);
 
       // append x axis
@@ -732,7 +728,6 @@ export class GraphsComponent implements OnInit, OnDestroy {
   buildVerticalBarChart(dataGraph: any[], containerDiv: ElementRef, valuesUnit: string,
                         divWidth: number, divHeight: number, margin: any) {
     // Define chart dimensions
-    // const margin = this.margin;
     const width = divWidth - margin.left - margin.right;
     const height = divHeight - margin.top - margin.bottom;
 
@@ -741,7 +736,6 @@ export class GraphsComponent implements OnInit, OnDestroy {
     if (dataGraph.length > 0) {
 
       // Define chart dimensions
-      // let svg = d3.select(this.element.nativeElement).append('svg')
       const svg = d3.select(containerDiv.nativeElement).append('svg')
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom);
@@ -830,7 +824,6 @@ export class GraphsComponent implements OnInit, OnDestroy {
   buildStackedBarChart(dataGraph: any[], containerDiv: ElementRef, valuesUnit: string, digitsDecimals: number,
                        divWidth: number, divHeight: number, margin: any) {
     // Define chart dimensions
-    // const margin = this.margin;
     const width = divWidth - margin.left - margin.right;
     const height = divHeight - margin.top - margin.bottom;
 
@@ -839,31 +832,12 @@ export class GraphsComponent implements OnInit, OnDestroy {
     if (dataGraph.length > 0) {
 
       // Define chart dimensions
-      // let svg = d3.select(this.element.nativeElement).append('svg')
       const svg = d3.select(containerDiv.nativeElement).append('svg')
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom);
       const g = svg.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
       const tooltip = d3.select('body').append('div').attr('class', 'toolTip');
-
-      // Prep the tooltip bits, initial display is hidden
-      /*const tooltip = svg.append('g')
-        .attr('class', 'toolTip')
-        .style('display', 'none');
-
-      tooltip.append('rect')
-        .attr('width', 60)
-        .attr('height', 20)
-        .attr('fill', 'white')
-        .style('opacity', 1);
-
-      tooltip.append('text')
-        .attr('x', 30)
-        .attr('dy', '1.2em')
-        .style('text-anchor', 'middle');
-        .attr('font-size', '12px')
-        .attr('font-weight', 'bold');*/
 
       const x = d3.scaleBand()
         .rangeRound([0, width])
@@ -873,9 +847,6 @@ export class GraphsComponent implements OnInit, OnDestroy {
       const y = d3.scaleLinear()
         .rangeRound([height, 0]);
 
-      /*const colorRange = d3.scaleOrdinal(d3.schemeCategory10);
-      const color = d3.scaleOrdinal(colorRange.range());*/
-      // const color = d3.scaleOrdinal(['#1f77b4', '#aec7e8', '#ff7f0e', '#ffbb78', '#2ca02c', '#98df8a', '#d62728']);
       const color = d3.scaleOrdinal(['#F29F05', '#E7DD7B', '#1f77b4', '#aec7e8', '#88A61B', '#98df8a', '#d62728']);
 
       const keys = d3.keys(dataGraph[0]).filter(function (key) { return key !== 'ano'; });
@@ -887,7 +858,6 @@ export class GraphsComponent implements OnInit, OnDestroy {
         d.total = d.groups[d.groups.length - 1].y1;
       });
 
-      // data.sort(function(a, b) { return b.total - a.total; });
       x.domain(dataGraph.map(function(d) { return d.ano; }));
       y.domain([0, d3.max(dataGraph, function(d) { return d.total; })]).nice();
 
@@ -916,10 +886,6 @@ export class GraphsComponent implements OnInit, OnDestroy {
             .style('top', d3.event.pageY - 70 + 'px')
             .style('display', 'inline-block')
             .html((d[1] - d[0]).toFixed(digitsDecimals) + valuesUnit);
-          /*tooltip
-            .style('display', 'inline-block')
-            .attr('transform', 'translate(' + xPosition + ',' + yPosition + ')');
-          tooltip.select('text').text((d[1] - d[0]).toFixed(digitsDecimals) + valuesUnit);*/
         });
 
       g.append('g')
@@ -1076,7 +1042,6 @@ export class GraphsComponent implements OnInit, OnDestroy {
    */
   getInstant(key) {
     return this.translate.instant(key);
-    // return this.translate.get(key).subscribe(data => data)
   }
 
   /**
