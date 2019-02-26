@@ -9,7 +9,6 @@ import { AppRoutingModule} from './app-routing.module';
 import { AgmCoreModule} from '@agm/core';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { PageHeaderComponent } from './shared/modules/page-header/page-header.component';
 import {HeaderModule} from './shared/components/header/header.module';
 import {Ng2CompleterModule} from 'ng2-completer';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
@@ -30,8 +29,7 @@ export function HttpLoaderFactory (http: HttpClient) {
 
 @NgModule({
   declarations: [
-    AppComponent,
-    PageHeaderComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
